@@ -9,11 +9,17 @@ const GuildMemberAddAutorole = require('./events/NewGuildMember');
 const { autoChannel } = require('./utils/channelManagement.js');
 
 /**
- * 
- * @param {Bot} bot 
- * @returns 
+ * Initialise le module ChannelManager pour un bot.
+ * Ce module gère automatiquement la création et la suppression de salons de match
+ * en se basant sur une tâche planifiée (cron).
+ * @param {import('../../Class/Bot')} bot - L'instance du bot pour laquelle initialiser le module.
+ * @returns {object} Un objet contenant les classes de commandes et d'événements exportées par ce module.
  */
 module.exports = (bot) => {
+	/**
+	 * Une fois le bot prêt, ce gestionnaire configure et lance la tâche planifiée
+	 * pour la gestion automatique des salons.
+	 */
 	bot.on('ready', async () => {
 		const guildId = bot.home;
 		const guild = bot.guilds.cache.get(guildId);

@@ -1,6 +1,11 @@
 const strapi = require('./index.js');
 const fs = require('fs');
 
+/**
+ * Explore un dossier, lit tous les fichiers JSON et retourne leur contenu.
+ * @param {string} path - Le chemin du dossier à explorer.
+ * @returns {object} Un objet où les clés sont les noms de fichiers et les valeurs sont les contenus JSON parsés.
+ */
 const exploreJson = (path) => {
     let datas = {};
     let fileNames = [];
@@ -23,6 +28,12 @@ const exploreJson = (path) => {
     return datas;
 };
 
+/**
+ * Lit les données de plusieurs collections à partir d'un chemin de base.
+ * Chaque sous-dossier est traité comme une collection.
+ * @param {string} path - Le chemin de base contenant les dossiers des collections.
+ * @returns {{datas: object, collectionNames: Array<string>}} Un objet contenant les données et les noms des collections.
+ */
 const getDataFromPath = (path) => {
     let collectionNames = fs.readdirSync(path);
     let datas = {};
@@ -34,6 +45,11 @@ const getDataFromPath = (path) => {
     return { datas, collectionNames };
 };
 
+/**
+ * Script principal pour migrer les données depuis des fichiers JSON locaux vers Strapi.
+ * Récupère les données, les compare à un exemple de Strapi et les envoie.
+ * @param {string} path - Le chemin de base contenant les données à migrer.
+ */
 const start = async (path) => {
     // Recuperer les donnée brut
     let { datas, collectionNames } = getDataFromPath(path);
@@ -80,6 +96,10 @@ const start = async (path) => {
 // start("./Class/DataBase/.archives/");
 
 
+/**
+ * Sauvegarde les configurations de bots depuis une source de données vers Strapi.
+ * (La source de données semble être une autre base de données ou un cache)
+ */
 const saveBotsConfigsOnStrapi = async () => {
     const Datas = require('../DataBase');
 

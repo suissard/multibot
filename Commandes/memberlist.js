@@ -20,6 +20,13 @@ module.exports = class MemberList extends Command {
         },
     ];
 
+    /**
+     * Exécute la commande pour lister les membres ayant un rôle spécifique.
+     * Récupère les membres, formate la liste et la renvoie dans un embed.
+     * @param {object} args - Les arguments de la commande.
+     * @param {string} args.role - L'ID du rôle dont les membres doivent être listés.
+     * @returns {Promise<import('discord.js').EmbedBuilder|string>} Un embed contenant la liste des membres, ou un message si personne n'a le rôle.
+     */
     async methode(args = {}) {
         await this.guild.members.fetch();
         let role = this.guild.roles.cache.get(args.role);

@@ -1,13 +1,18 @@
 const RolesSegmentsId = require('./RolesSegmentsId.js');
 
 /**
- *
- * @param {String} ALL Id de role discord donnée a tous
- * @param {String} captain Id de role discord donnée a tout les capitaines
- * @param {RolesSegmentsId} competitions Roles spécifique par challenge, role et segments
- *
+ * Structure les IDs de rôles pour les différentes compétitions.
+ * Contient les rôles globaux (pour tous, capitaine, caster) et les rôles spécifiques
+ * à chaque compétition, organisés par segment.
+ * @class
  */
 module.exports = class ChallengesRolesId {
+	/**
+	 * @param {string} ALL - L'ID du rôle Discord donné à tous les participants.
+	 * @param {string} captain - L'ID du rôle Discord donné à tous les capitaines.
+	 * @param {string} caster - L'ID du rôle Discord donné à tous les casters.
+	 * @param {object} competitions - Un objet où les clés sont les ID de challenge et les valeurs sont les configurations de rôles pour ce challenge.
+	 */
 	constructor(ALL, captain, caster, competitions) {
 		this.ALL = ALL;
 		this.captain = captain;
@@ -23,10 +28,10 @@ module.exports = class ChallengesRolesId {
 		this.competitions = competitions;
 	}
 	/**
-	 * Recuperer tout les id fournit par le json de roles de compétition de facon recursive
-	 * @param {Object} object Object provenant initialement des config : bot.modules.AutoRole.roleIds.competition[challengeID]
-	 * @param {Array} target Array a remplir avec les id de tout les role associé a la compétition
-	 * @returns
+	 * Récupère de manière récursive tous les ID de rôle contenus dans l'objet.
+	 * @param {object} [object=this] - L'objet à parcourir.
+	 * @param {Array<string>} [target=[]] - Le tableau pour accumuler les IDs.
+	 * @returns {Array<string>} Un tableau plat de tous les ID de rôle.
 	 */
 	getAllIds(object = this, target = []) {
 		for (let entrie in object) {

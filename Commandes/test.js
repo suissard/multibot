@@ -63,6 +63,13 @@ module.exports = class Message extends Commande {
     ];
     static test = [];
 
+    /**
+     * Exécute la commande de test.
+     * Cette commande est conçue pour tester la réception de différents types d'arguments.
+     * Elle retourne les arguments reçus sous forme de chaîne JSON.
+     * @param {object} args - Les arguments de la commande.
+     * @returns {Promise<string>} Une chaîne de caractères contenant "test OK" et les arguments en format JSON.
+     */
     async methode(args = {}) {
 
         return 'test OK\n```json\n' + JSON.stringify(args);

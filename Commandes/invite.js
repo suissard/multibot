@@ -14,6 +14,12 @@ module.exports = class Message extends Commande {
     static arguments = [];
     static test = [];
 
+    /**
+     * Exécute la commande d'invitation.
+     * Génère un lien d'invitation pour le bot, accompagné d'un message amusant aléatoire.
+     * @param {object} args - Les arguments de la commande (non utilisés ici).
+     * @returns {string} Une chaîne contenant un message et le lien d'invitation du bot.
+     */
     async methode(args = {}) {
         //Réponses ludiques pour inciter a l'utilisation de la commande
         const answers = [

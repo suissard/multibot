@@ -28,6 +28,14 @@ module.exports = class Message extends Commande {
     ];
     static test = [];
 
+    /**
+     * Exécute la commande de test pour d'autres commandes.
+     * Peut tester une seule commande ou une liste de commandes.
+     * @param {object} args - Les arguments de la commande.
+     * @param {string} [args.nom_de_commande] - Le nom de la commande unique à tester.
+     * @param {string} [args.noms_des_commandes] - Une chaîne contenant les noms de plusieurs commandes à tester, séparés par des espaces.
+     * @returns {Promise<string>} Un message de confirmation ou d'erreur.
+     */
     async methode(args = {}) {
         if (args.nom_de_commande) {
             if (this.checkCommand(args.nom_de_commande)) await this.launchTestProcess(args.nom_de_commande);
@@ -47,12 +55,22 @@ module.exports = class Message extends Commande {
 
     }
 
+    /**
+     * Vérifie si une commande existe et si elle a un protocole de test défini.
+     * @param {string} commandName - Le nom de la commande à vérifier.
+     * @returns {boolean} `true` si la commande est testable, sinon `false`.
+     */
     checkCommand(commandName) {
         let command = BOTS.Commands.__commands.get(commandName);
         if (!command) return false;
         return command.test.length ? true : false;
     }
 
+    /**
+     * Lance le processus de test pour une commande spécifiée.
+     * @param {string} commandName - Le nom de la commande à tester.
+     * @returns {Promise<any>} Le résultat du processus de test de la commande.
+     */
     launchTestProcess(commandName) {
         let bot = this.bot;
         let Command = BOTS.Commands.__commands.get(commandName);

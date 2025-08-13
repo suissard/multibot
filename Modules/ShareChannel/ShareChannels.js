@@ -6,15 +6,20 @@ const DATAS = require('../../Class/DataBase');
 const ShareMessage = require('./ShareMessage.js');
 
 /**
- * Systeme de channels partagés
- * @param {Object} data Données de creation de channel
- * * date.game : jeu du salon
- * * date.categorie : categorie du salon
- * * date.pattern : pattern permettant de valider un message a partager
- * * date.channels : channels faisant parti du systeme
- * * date.messages : messages ayant été partagé
+ * Représente un groupe de salons partagés.
+ * Gère la configuration (jeu, catégorie, pattern), la liste des salons,
+ * et la logique de partage des messages entre eux.
+ * @class
  */
 class ShareChannels {
+    /**
+     * @param {object} data - Les données de configuration pour le groupe de salons partagés.
+     * @param {string} data.id - L'identifiant unique du groupe (ex: "overwatch-scrim").
+     * @param {string} data.game - Le jeu associé.
+     * @param {string} data.categorie - La catégorie du partage.
+     * @param {string} data.pattern - L'expression régulière pour valider les messages à partager.
+     * @param {Array<string>} [data.channels=[]] - Une liste d'IDs de salons à inclure initialement.
+     */
     constructor(data) {
         if (data.game) this.game = data.game;
         //jeu du salon
@@ -70,8 +75,10 @@ class ShareChannels {
     }
 
     /**
-     * Parametre la collection de message au moment de l'instanciation
-     * @returns {Map} collection des messages
+     * Initialise la collection de messages partagés.
+     * (Note: Cette fonction semble boguée ou inachevée, elle itère sur `this._messages`
+     * qui est déjà une Map et tente de la reconstruire).
+     * @returns {Promise<Map<string, ShareMessage>>} La collection de messages initialisée.
      */
     async setMessages() {
         let messages = new Map();
@@ -110,6 +117,10 @@ class ShareChannels {
         return channel;
     }
 
+    /**
+     * Enregistre un nouveau salon dans la base de données.
+     * @param {import('discord.js').TextChannel} channel - Le salon à enregistrer.
+     */
     saveNewChannel(channel) {
         let [game, categorie] = this.id.split('-');
         let data = {
@@ -137,9 +148,9 @@ class ShareChannels {
     }
 
     /**
-     * Parametre la collection de channel au moment de l'instanciation
-     * @param {Array} channels
-     * @returns {Array} tableaux des channels
+     * Initialise la liste des salons pour ce groupe de partage.
+     * @param {Array<string>} channels - Une liste d'IDs de salons.
+     * @returns {Promise<Array<import('discord.js').TextChannel>>} La liste des objets Channel initialisés.
      */
     async setChannels(channels) {
         let i = channels.length;

@@ -11,6 +11,11 @@ module.exports = class Dev extends Commande {
     static howTo = 'PREFIXCMD';
     static test = [];
 
+    /**
+     * Exécute du code JavaScript fourni en argument.
+     * Commande réservée au développeur du bot.
+     * @warning L'utilisation de `eval` est extrêmement dangereuse et peut exposer le système à des vulnérabilités.
+     */
     methode() {
         try {
             let result = eval(this.args.join(' '));

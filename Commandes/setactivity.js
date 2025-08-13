@@ -27,6 +27,13 @@ module.exports = class Message extends Commande {
     ];
     static test = [];
 
+    /**
+     * Exécute la commande pour changer l'activité du bot.
+     * @param {object} args - Les arguments de la commande.
+     * @param {string} args.status - Le texte de l'activité à afficher.
+     * @param {string} [args.type] - Le type d'activité (non implémenté actuellement).
+     * @returns {Promise<string>} Un message de confirmation.
+     */
     async methode(args = {}) {
         this.bot.user.setActivity(args.status);
         // TODO permettre d'autres activités

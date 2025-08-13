@@ -25,11 +25,11 @@ const { isMatchStartedSoon } = require('../../../utils/dateUtils');
 const Bot = require('../../../Class/Bot');
 
 /**
- * Creer tout les channels associé a un match
- * @param {*} bot
- * @param {*} match
- * @param {*} guild
- * @returns {[Discord.GuildChannel]} channels
+ * Crée tous les salons (vocaux et textuels) associés à un match spécifique.
+ * @param {Bot} bot - L'instance du bot.
+ * @param {object} match - L'objet match contenant les détails de la rencontre.
+ * @param {import('discord.js').Guild} guild - La guilde où créer les salons.
+ * @returns {Promise<Array<import('discord.js').GuildChannel>>} Une promesse qui se résout avec un tableau des salons créés.
  */
 const createMatchChannels = async (bot, match, guild) => {
 	const division = getMatchDivisionName(match);
@@ -91,10 +91,11 @@ const createMatchChannels = async (bot, match, guild) => {
 };
 
 /**
- * Cherche une categorie contenant moins de 40 channel ou en creer une nouvelle
- * @param {Discord.Guild} guild
- * @param {String} divisionName
- * @returns
+ * Trouve une catégorie existante pour une division qui n'est pas pleine (moins de 50 salons),
+ * ou en crée une nouvelle si nécessaire.
+ * @param {import('discord.js').Guild} guild - La guilde où chercher ou créer la catégorie.
+ * @param {string} divisionName - Le nom de la division, utilisé pour nommer la catégorie.
+ * @returns {Promise<import('discord.js').CategoryChannel>} La catégorie trouvée ou créée.
  */
 const findOrCreateCategory = async (guild, divisionName) => {
 	const categories = guild.channels.cache.filter(
@@ -111,11 +112,11 @@ const findOrCreateCategory = async (guild, divisionName) => {
 };
 
 /**
- * Trouve des gradins dans une catégorie ou en crée
- * @param {Discord.GuildCategory} category
- * @param {String} divisionName
- * @param {Bot} bot
- * @returns
+ * Trouve ou crée le salon vocal "Gradins" dans une catégorie donnée et configure ses permissions.
+ * @param {import('discord.js').CategoryChannel} category - La catégorie où chercher ou créer le salon.
+ * @param {string} divisionName - Le nom de la division, utilisé pour les permissions.
+ * @param {Bot} bot - L'instance du bot.
+ * @returns {Promise<import('discord.js').VoiceChannel>} Le salon vocal "Gradins".
  */
 const findOrCreateGradins = async (category, divisionName, bot) => {
 	const gradinsName = getGradinsName(divisionName);
@@ -169,6 +170,16 @@ const findOrCreateGradins = async (category, divisionName, bot) => {
 	return channel;
 };
 
+/**
+ * Crée les salons vocaux privés pour chaque équipe d'un match.
+ * @param {Bot} bot - L'instance du bot.
+ * @param {import('discord.js').Guild} guild - La guilde.
+ * @param {Array<object>} teams - Un tableau des deux équipes du match.
+ * @param {import('discord.js').CategoryChannel} category - La catégorie où créer les salons.
+ * @param {string} hoursMinutes - L'heure du match au format HH-MM.
+ * @param {Array<import('discord.js').GuildMember>} matchDiscordUsers - Un tableau (muté par la fonction) pour collecter tous les membres du match.
+ * @returns {Promise<Array<import('discord.js').VoiceChannel>>} Un tableau des salons vocaux d'équipe créés.
+ */
 const createTeamChannels = async (bot, guild, teams, category, hoursMinutes, matchDiscordUsers) => {
 	const channels = [];
 	for (const team of teams) {
@@ -192,6 +203,16 @@ const createTeamChannels = async (bot, guild, teams, category, hoursMinutes, mat
 	return channels;
 };
 
+/**
+ * Crée les salons vocaux pour les casters d'un match.
+ * @param {Bot} bot - L'instance du bot.
+ * @param {import('discord.js').Guild} guild - La guilde.
+ * @param {Array<object>} casters - Un tableau des casters du match.
+ * @param {import('discord.js').CategoryChannel} category - La catégorie où créer les salons.
+ * @param {string} textChannelName - Le nom du salon textuel du match.
+ * @param {Array<import('discord.js').GuildMember>} matchDiscordUsers - Un tableau (muté par la fonction) pour collecter les casters.
+ * @returns {Promise<Array<import('discord.js').VoiceChannel>>} Un tableau des salons vocaux de caster créés.
+ */
 const createCasterChannels = async (
 	bot,
 	guild,
@@ -250,6 +271,18 @@ const createCasterChannels = async (
 	return channels;
 };
 
+/**
+ * Crée le salon textuel commun pour un match.
+ * @param {Bot} bot - L'instance du bot.
+ * @param {import('discord.js').Guild} guild - La guilde.
+ * @param {import('discord.js').CategoryChannel} category - La catégorie où créer le salon.
+ * @param {string} textChannelName - Le nom du salon à créer.
+ * @param {object} match - L'objet match.
+ * @param {Array<object>} teams - Les équipes du match.
+ * @param {Array<object>} casters - Les casters du match.
+ * @param {Array<import('discord.js').GuildMember>} matchDiscordUsers - La liste de tous les participants pour définir les permissions.
+ * @returns {Promise<Array<import('discord.js').TextChannel>>} Un tableau contenant le salon textuel créé.
+ */
 const createTextChannel = async (
 	bot,
 	guild,
@@ -275,6 +308,13 @@ const createTextChannel = async (
 	return [channel];
 };
 
+/**
+ * Fonction principale du module : gère l'ensemble du cycle de vie des salons de match.
+ * Récupère les matchs à venir et passés récents, crée les salons nécessaires,
+ * et nettoie les anciens salons et les catégories vides.
+ * @param {Bot} bot - L'instance du bot.
+ * @param {import('discord.js').Guild} guild - La guilde à gérer.
+ */
 const autoChannel = async (bot, guild) => {
 	console.log(`[${bot.name}] CHANNELMANAGER : Start`);
 	let exceptionName = [];

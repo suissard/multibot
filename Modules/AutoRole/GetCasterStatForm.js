@@ -32,6 +32,12 @@ class GetCasterStatFormCommand extends Command {
 		},
 	];
 
+	/**
+	 * Génère une URL pré-remplie pour le formulaire de statistiques de caster.
+	 * @param {object} match - L'objet contenant les données du match, provenant de l'API Olympe.
+	 * @param {number} [castNbr=1] - Le numéro du caster (1 ou 2) pour lequel générer le formulaire.
+	 * @returns {string} L'URL personnalisée et pré-remplie du formulaire.
+	 */
 	getCasterStatUrlForm(match, castNbr = 1) {
 		//Personnaliser l'url
 		let formURL = this.bot.modules.MatchNotifier.casterStatFormUrl;
@@ -58,6 +64,16 @@ class GetCasterStatFormCommand extends Command {
 		return formURL;
 	}
 
+	/**
+	 * Exécute la commande pour envoyer un formulaire de statistiques de caster.
+	 * Récupère les données du match, génère une URL de formulaire pré-remplie et l'envoie
+	 * en message privé à l'utilisateur concerné.
+	 * @param {object} args - Les arguments de la commande.
+	 * @param {string} args.matchid - L'ID du match pour lequel déclarer les statistiques.
+	 * @param {string} [args.user] - L'ID de l'utilisateur à qui envoyer le formulaire.
+	 * @param {string} [args.castnbr] - Le numéro du caster (1 ou 2).
+	 * @returns {Promise<string>} Un message de confirmation ou d'erreur.
+	 */
 	async methode(args = {}) {
 		const discordUser = this.bot.users.cache.get(args.user) || this.user;
 		const match = await this.bot.olympe.api.matchs.get(args.matchid).catch();

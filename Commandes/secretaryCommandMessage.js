@@ -25,6 +25,15 @@ module.exports = class SecretaryCommandMessage extends Command {
         }
     ];
 
+    /**
+     * Exécute la commande pour répondre à un utilisateur via un salon de secrétariat.
+     * Extrait l'ID de l'utilisateur depuis le nom du salon, puis envoie la réponse
+     * à la fois en message privé à l'utilisateur et dans le salon actuel.
+     * @param {object} args - Les arguments de la commande.
+     * @param {import('discord.js').CommandInteraction} args.interaction - L'objet d'interaction original, pour récupérer les pièces jointes.
+     * @param {string} [args.texte] - Le texte de la réponse.
+     * @returns {Promise<string>} Un message de confirmation ou d'erreur.
+     */
     async methode(args = {}) {
         let passing = false;
         for (let i in this.bot.modules.Secretary.secretary) {

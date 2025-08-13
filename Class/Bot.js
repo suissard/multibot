@@ -163,11 +163,13 @@ module.exports = class Bot extends Discord.Client {
 	}
 
 	/**
-	 * Verifie les acces a des element de discord
-	 * @param {String} guildId
-	 * @param {String} channelId
-	 * @param {String} messageId
-	 * @returns
+	 * Vérifie l'accès à des éléments Discord (serveur, salon, message) et les retourne si trouvés.
+	 * Au moins un `guildId` ou `channelId` doit être fourni.
+	 * @param {string} [guildId] - L'ID du serveur Discord à vérifier.
+	 * @param {string} [channelId] - L'ID du salon Discord à vérifier.
+	 * @param {string} [messageId] - L'ID du message Discord à vérifier.
+	 * @returns {Promise<false|{guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}>} Un objet contenant les éléments trouvés, ou `false` si un élément requis n'est pas accessible.
+	 * @throws {Error} Si ni `guildId` ni `channelId` ne sont fournis.
 	 */
 	async checkAccess(guildId, channelId, messageId) {
 		if (!guildId && !channelId)

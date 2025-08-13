@@ -30,6 +30,14 @@ class SalonCommand extends Command {
         },
     ];
 
+    /**
+     * Exécute la commande pour envoyer un message promotionnel à un groupe de partage.
+     * Le message est envoyé sous forme d'embed et peut contenir une image.
+     * @param {object} args - Les arguments de la commande.
+     * @param {string} args.texte - Le texte du message promotionnel.
+     * @param {string} [args.imageurl] - L'URL d'une image à inclure dans l'embed.
+     * @returns {Promise<string>} Un message de confirmation ou d'erreur.
+     */
     async methode(args = {}) {
         try {
             let texte = args.texte.replace(/%%/g, '\n '); //pour repérer les souhaits de sauts de ligne

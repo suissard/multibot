@@ -8,6 +8,12 @@ class ShareEventDelete extends Event {
     static id = 'shareEventDelete';
     static listener = 'messageDelete';
 
+    /**
+     * Gère l'événement `messageDelete` pour les salons partagés.
+     * Si un message partagé est supprimé, cette fonction supprime toutes les
+     * copies du message dans les autres salons.
+     * @param {import('discord.js').Message} message - Le message qui a été supprimé.
+     */
     handleEvent(message) {
         try {
             if (message.author?.bot) return;

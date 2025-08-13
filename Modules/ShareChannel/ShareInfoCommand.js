@@ -16,6 +16,11 @@ class SalonCommand extends Command {
     static howTo = '';
     static test = [];
 
+    /**
+     * Exécute la commande pour obtenir des informations sur le groupe de partage du salon actuel.
+     * @param {object} args - Les arguments de la commande (non utilisés ici).
+     * @returns {string} Une chaîne contenant les informations du groupe, ou un message si le salon n'est pas partagé.
+     */
     methode(args = {}) {
         try {
             let shareChannel = BOTS.ShareChannels.get('all').get(this.channel.id);

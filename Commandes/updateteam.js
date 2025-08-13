@@ -55,6 +55,19 @@ module.exports = class UpdateTeam extends Command {
         },
     ];
 
+    /**
+     * Exécute la commande pour mettre à jour les informations d'une équipe.
+     * Permet de changer le nom de l'équipe, le capitaine, le BattleTag et le classement (elo).
+     * @param {object} args - Les arguments de la commande.
+     * @param {string} args.teamname - Le nom actuel de l'équipe à modifier.
+     * @param {string} [args.newteamname] - Le nouveau nom pour l'équipe.
+     * @param {string} [args.newcap] - L'ID du nouveau capitaine.
+     * @param {string} [args.newbtag] - Le nouveau BattleTag du capitaine.
+     * @param {number} [args.newrank] - Le nouveau classement (elo) de l'équipe.
+     * @returns {Promise<string>} Un message de confirmation ou d'erreur.
+     * @todo La logique de mise à jour des données en base (`saveUpdateTeamData`) semble contenir des erreurs
+     * et utilise des arguments non définis.
+     */
     async methode(args = {}) {
         await this.guild.roles.fetch();
         await this.guild.members.fetch();

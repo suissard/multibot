@@ -12,10 +12,21 @@ const getGradinsName = (divisionName) => {
 	return `Gradins : ${divisionName}`;
 };
 
+/**
+ * Extrait les noms des deux équipes d'un objet match.
+ * @param {object} match - L'objet match.
+ * @returns {Array<string>} Un tableau contenant les noms des deux équipes.
+ */
 const getTeamNamesFromMatch = (match) => {
 	return [match.team1.name, match.team2.name];
 };
 
+/**
+ * Récupère les objets équipe complets à partir d'un objet match en utilisant leurs noms.
+ * @param {Bot} bot - L'instance du bot.
+ * @param {object} match - L'objet match.
+ * @returns {Promise<Array<object>>} Une promesse qui se résout avec un tableau des deux objets équipe.
+ */
 const getTeamsFromMatch = async (bot, match) => {
 	// Nécessite de refaire une call pour obtenir els members
 	const team1 = await getTeamByName(bot, match.team1.name);
@@ -23,6 +34,11 @@ const getTeamsFromMatch = async (bot, match) => {
 	return [team1, team2];
 };
 
+/**
+ * Extrait les IDs Discord de tous les membres d'une équipe.
+ * @param {object} team - L'objet équipe.
+ * @returns {Array<string>} Un tableau des IDs Discord des membres.
+ */
 const getUsersDiscordIdFromTeam = (team) => {
 	// const membersDiscordIds = team.lineup?.members
 	const membersDiscordIds = team.members.concat(team.membersLent.map(m=>m.member))
@@ -38,10 +54,21 @@ const getUsersDiscordIdFromTeam = (team) => {
 	return [...(membersDiscordIds || [])];
 };
 
+/**
+ * Récupère l'ID Discord d'un objet utilisateur Olympe.
+ * @param {object} user - L'objet utilisateur Olympe.
+ * @returns {string|undefined} L'ID Discord de l'utilisateur, ou undefined s'il n'est pas trouvé.
+ */
 const getDiscordId = (user) => {
 	return user.thirdparties?.discord?.discordID;
 };
 
+/**
+ * Vérifie si un match commence dans une période de temps donnée.
+ * @param {number} timestamp - Le timestamp Unix du début du match.
+ * @param {number} hoursToRetrieve - Le nombre d'heures dans le futur à vérifier.
+ * @returns {boolean} `true` si le match commence bientôt, sinon `false`.
+ */
 const isMatchStartedSoon = (timestamp, hoursToRetrieve) => {
 	if (
 		!timestamp ||
@@ -60,6 +87,12 @@ const isMatchStartedSoon = (timestamp, hoursToRetrieve) => {
 	return givenDate > now && givenDate < nextHours;
 };
 
+/**
+ * Vérifie si un match est terminé depuis plus longtemps que la durée maximale autorisée.
+ * @param {number} timestamp - Le timestamp Unix du début du match.
+ * @param {number} maximumMatchDuration - La durée maximale d'un match en heures pour le considérer comme "passé".
+ * @returns {boolean} `true` si le match est considéré comme terminé, sinon `false`.
+ */
 const isMatchAlreadyPlayed = (timestamp, maximumMatchDuration) => {
 	if (
 		!timestamp ||
@@ -77,6 +110,11 @@ const isMatchAlreadyPlayed = (timestamp, maximumMatchDuration) => {
 	return givenDate < previousHours;
 };
 
+/**
+ * Formate un timestamp en une chaîne "HHhMM".
+ * @param {number} timestamp - Le timestamp Unix à formater.
+ * @returns {string} L'heure formatée.
+ */
 const getHoursMinutesOfMatch = (timestamp) => {
 	const date = new Date(timestamp * 1000);
 	const hours = date.getHours();
@@ -99,6 +137,12 @@ const generateMatchTextChannelName = (teamNames, hoursMinutes) => {
 	return getTextChannelName(textChannelName);
 };
 
+/**
+ * Génère un nom pour un salon vocal d'équipe.
+ * @param {string} teamName - Le nom de l'équipe.
+ * @param {string} hoursMinutes - L'heure du match au format "HHhMM".
+ * @returns {string} Le nom généré pour le salon vocal.
+ */
 const generateVoiceChannelName = (teamName, hoursMinutes) => {
 	return teamName + ' - ' + hoursMinutes;
 };
@@ -185,6 +229,11 @@ const washEmptyCategory = async (bot, guild) => {
 		}
 	}
 };
+/**
+ * Extrait les IDs de tous les casters d'un objet match.
+ * @param {object} match - L'objet match.
+ * @returns {Array<string>} Un tableau des IDs des casters.
+ */
 const getCastersId = (match) => {
 	return match.casters.map((caster) => caster.id);
 };

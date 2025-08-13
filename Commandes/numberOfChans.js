@@ -12,6 +12,11 @@ module.exports = class Done extends Command {
     static test = [];
     static arguments = [];
 
+    /**
+     * Exécute la commande pour obtenir le nombre de salons sur le serveur.
+     * @param {object} args - Les arguments de la commande (non utilisés ici).
+     * @returns {string} Un message indiquant le nombre de salons.
+     */
     methode(args = {}) {
         return `Le nombre de channel de ce server est: ${this.guild.channels.cache.size}/500`;
     }

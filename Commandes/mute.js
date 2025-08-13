@@ -29,6 +29,16 @@ module.exports =
         ];
 
 
+        /**
+         * Exécute la commande pour rendre un utilisateur muet sur le serveur.
+         * Applique un rôle "mute" à l'utilisateur, ce qui restreint son accès aux salons,
+         * et lui donne accès à un salon spécial pour communiquer avec les modérateurs.
+         * Crée le rôle et le salon s'ils n'existent pas.
+         * @param {object} args - Les arguments de la commande.
+         * @param {string} args.user - L'ID de l'utilisateur à rendre muet.
+         * @param {string} [args.raison] - La raison pour laquelle l'utilisateur est rendu muet.
+         * @returns {Promise<string>} Un message de confirmation ou un message indiquant que l'utilisateur est déjà muet.
+         */
         async methode(args = {}) {
             await this.guild.members.fetch();
             let userMute = await this.guild.members.cache.get(args.user);

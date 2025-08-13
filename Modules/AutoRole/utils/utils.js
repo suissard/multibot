@@ -605,7 +605,19 @@ const processCasterUsers = async (bot, guild) => {
 	return team;
 };
 
+/**
+ * Récupère les informations de l'équipe des "Owners". (Non implémenté)
+ * @param {Bot} bot - L'instance du bot.
+ * @param {import('discord.js').Guild} guild - La guilde concernée.
+ * @returns {Promise<void>}
+ */
 const getOwnerTeam = async (bot, guild) => {};
+/**
+ * Traite les utilisateurs "Owners" pour leur attribuer les rôles et le nom. (Non implémenté)
+ * @param {Bot} bot - L'instance du bot.
+ * @param {string} guildId - L'ID de la guilde concernée.
+ * @returns {Promise<void>}
+ */
 const processOwnerUsers = async (bot, guildId) => {};
 
 module.exports = {

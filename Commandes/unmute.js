@@ -24,6 +24,13 @@ module.exports =
         ];
 
 
+        /**
+         * Exécute la commande pour enlever le statut muet d'un utilisateur.
+         * Supprime le rôle "mute" de l'utilisateur et restaure ses permissions sur tous les salons.
+         * @param {object} args - Les arguments de la commande.
+         * @param {string} args.user - L'ID de l'utilisateur à démuter.
+         * @returns {Promise<string>} Un message de confirmation ou un message indiquant que l'utilisateur n'était pas muet.
+         */
         async methode(args = {}) {
             let channelMute = this.guild.channels.cache.find((chan) => {
                 if (chan.name == 'tu-as-été-mute') return chan;

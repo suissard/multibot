@@ -13,6 +13,12 @@ module.exports =
         static howTo = 'PREFIXCMD';
         static test = [];
 
+        /**
+         * Exécute la commande pour valider une autre commande en attente.
+         * @todo La logique de cette commande est incomplète. Elle récupère une commande
+         * depuis `this.bot.validableCommands` mais n'effectue aucune action avec.
+         * Le système de commandes validables semble être une fonctionnalité non standard ou inachevée.
+         */
         methode() {
             //Chaque commande à valider a un id
             let cmdId = this.args[0];

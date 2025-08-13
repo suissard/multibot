@@ -1,3 +1,11 @@
+/**
+ * Initialise le module ShareChannel pour un bot.
+ * Ce module semble gérer le partage de messages entre différents salons,
+ * potentiellement sur différents serveurs, en se basant sur des configurations.
+ * Il exporte les différentes classes de commandes et d'événements qui composent le module.
+ * @param {import('../../Class/Bot')} bot - L'instance du bot.
+ * @returns {object} Un objet contenant les classes du module.
+ */
 module.exports = (bot) => {
     const LoadShareChannels = require('./LoadShareChannelsBotsReady.js');
     const ShareEvent = require('./ShareEvent.js');

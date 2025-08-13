@@ -41,6 +41,11 @@ class GetCastRewardFormCommand extends Command {
         },
     ];
 
+    /**
+     * Génère une URL personnalisée pour le formulaire de récompense de cast.
+     * @param {import('discord.js').User} discordUser - L'utilisateur Discord pour lequel générer l'URL.
+     * @returns {string} L'URL personnalisée du formulaire Google.
+     */
     getCastRewardUrlForm(discordUser) {
         //Personnaliser l'url
         const baseUrl =
@@ -48,6 +53,14 @@ class GetCastRewardFormCommand extends Command {
         return `${baseUrl}?usp=pp_url&entry.728176607=${encodeURIComponent(discordUser.id)}`;
     }
 
+    /**
+     * Exécute la commande pour envoyer un formulaire de récompense de cast.
+     * Cible l'utilisateur mentionné ou l'auteur de la commande, génère une URL de formulaire
+     * personnalisée et l'envoie en message privé.
+     * @param {object} args - Les arguments de la commande.
+     * @param {string} [args.user] - L'ID de l'utilisateur à qui envoyer le formulaire.
+     * @returns {Promise<string>} Un message de confirmation.
+     */
     async methode(args = {}) {
         const discordUser = this.bot.users.cache.get(args.user) || this.user;
 

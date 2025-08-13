@@ -1,3 +1,10 @@
+/**
+ * Vérifie si un match commence dans une période de temps donnée.
+ * @param {number} timestamp - Le timestamp Unix du début du match.
+ * @param {number} maxHoursToRetrieveMatchs - Le nombre d'heures dans le futur à vérifier.
+ * @returns {boolean} `true` si le match commence bientôt, sinon `false`.
+ * @todo Cette fonction est un duplicata de celle dans `Modules/ChannelManager/utils/utils.js`.
+ */
 const isMatchStartedSoon = (timestamp, maxHoursToRetrieveMatchs) => {
 	if (!timestamp || typeof timestamp !== 'number') {
 		console.error('Invalid timestamp provided.');

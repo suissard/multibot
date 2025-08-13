@@ -20,6 +20,14 @@ module.exports = class Done extends Command {
 		},
 	];
 
+	/**
+	 * Exécute la commande pour (re)créer manuellement une commande slash.
+	 * Cherche une commande par son nom dans le CommandManager et appelle sa méthode `createSlashCommand`
+	 * pour l'enregistrer ou la mettre à jour auprès de l'API Discord.
+	 * @param {object} args - Les arguments de la commande.
+	 * @param {string} args.commandename - Le nom de la commande slash à créer.
+	 * @returns {Promise<string>} Un message de confirmation ou d'erreur.
+	 */
 	async methode(args = {}) {
 		try {
 			let bot = this.bot;

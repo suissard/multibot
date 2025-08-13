@@ -22,6 +22,13 @@ module.exports =
         ];
 
 
+        /**
+         * Exécute la commande pour redémarrer le bot.
+         * La commande ne peut être exécutée que par le propriétaire du bot.
+         * @param {object} args - Les arguments de la commande.
+         * @param {string} [args.raison] - La raison du redémarrage, qui sera incluse dans la réponse.
+         * @returns {string} Un message de confirmation ou un message d'erreur si l'utilisateur n'est pas le propriétaire.
+         */
         methode(args = {}) {
             let result = 'Redémarrage efféctué avec succès !';
             if (this.bot.ownerId == this.user.id) {

@@ -12,6 +12,11 @@ module.exports = class Piece extends Command {
     static test = [];
 	static arguments = [];
 
+	/**
+	 * Exécute la commande pour simuler un lancer de pièce.
+	 * @param {object} args - Les arguments de la commande (non utilisés ici).
+	 * @returns {string} Le résultat du lancer : 'Pile' ou 'Face'.
+	 */
 	methode(args = {}) {
 		return Math.random() < 0.5 ? 'Pile' : 'Face';
 	}

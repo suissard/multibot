@@ -164,6 +164,12 @@ const removeUserFromChannel = async (channel, user) => {
 	}
 };
 
+/**
+ * Trouve une catégorie par son nom.
+ * @param {import('discord.js').Guild} guild - La guilde où chercher.
+ * @param {string} name - Le nom de la catégorie à trouver.
+ * @returns {import('discord.js').CategoryChannel|undefined} La catégorie trouvée, ou undefined.
+ */
 const getCategoryWithName = (guild, name) => {
 	return guild.channels.cache.find(
 		(c) => c.name.includes(name) && c.type === ChannelType.GuildCategory
@@ -184,14 +190,32 @@ const checkIfChannelExists = (guild, name, category, channelType) => {
 	);
 };
 
+/**
+ * Trouve un salon par son nom et son type.
+ * @param {import('discord.js').Guild} guild - La guilde où chercher.
+ * @param {string} name - Le nom du salon.
+ * @param {import('discord.js').ChannelType} channelType - Le type de salon.
+ * @returns {import('discord.js').GuildChannel|undefined} Le salon trouvé, ou undefined.
+ */
 const getChannelByNameAndType = (guild, name, channelType) => {
 	return guild.channels.cache.find((c) => c.name === name && c.type === channelType);
 };
 
+/**
+ * Récupère l'URL du site web de l'organisation depuis la configuration du bot.
+ * @param {Bot} bot - L'instance du bot.
+ * @returns {string} L'URL du site web.
+ */
 const getWebsiteUrl = (bot) => {
 	return `https://${bot.modules.AutoRole.organization}`;
 };
 
+/**
+ * Crée une mention Discord pour un utilisateur Olympe, en vérifiant sa présence sur le serveur.
+ * @param {object} user - L'objet utilisateur Olympe.
+ * @param {import('discord.js').Guild} guild - La guilde où vérifier la présence.
+ * @returns {string} La chaîne de mention.
+ */
 const getOlympeMention = (user, guild) => {
 	const userIsPresent = guild.members.cache.get(user.thirdparties?.discord?.discordID);
 	return `<@${
@@ -271,6 +295,16 @@ const mentionUsersInChannel = (textChannel, timestamp, teams, casters = null, ma
 	textChannel?.send({ content: message, embeds: embeds }).catch(console.error);
 };
 
+/**
+ * Envoie une notification de match dans un salon spécifique.
+ * @param {Bot} bot - L'instance du bot.
+ * @param {Array<object>} teams - Les deux équipes du match.
+ * @param {string} division - Le nom de la division.
+ * @param {number} timestamp - Le timestamp du match.
+ * @param {Array<object>} casters - Les casters du match.
+ * @param {import('discord.js').TextChannel} channel - Le salon où envoyer la notification.
+ * @param {string} roleId - L'ID du rôle à mentionner.
+ */
 const notifyMatch = async (bot, teams, division, timestamp, casters, channel, roleId) => {
 	let embeds = [];
 	let message = bot.modules.MatchNotifier.notifMessage
@@ -320,6 +354,11 @@ const notifyMatch = async (bot, teams, division, timestamp, casters, channel, ro
 		);
 };
 
+/**
+ * Retourne un emoji correspondant à un rôle en jeu (dps, heal, tank).
+ * @param {string} role - Le nom du rôle.
+ * @returns {string} L'emoji correspondant, ou une chaîne vide.
+ */
 const getRoleEmoji = (role) => {
 	if (!role) return '';
 	if (role.includes('dps')) {

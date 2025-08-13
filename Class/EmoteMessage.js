@@ -3,19 +3,27 @@ const Discord = require('discord.js');
 
 module.exports =
 	/**
-	 * Object de team
+	 * Représente un message sur Discord qui attribue des rôles en fonction des réactions des utilisateurs.
+	 * Étend StrapiObject pour interagir avec une base de données Strapi.
 	 */
 	class EmoteMessage extends StrapiObject {
+		/**
+		 * @param {string|number} id - L'ID de l'objet Strapi.
+		 * @param {string} type - Le type de l'objet Strapi.
+		 * @param {object} data - Les données de l'objet.
+		 * @param {import('suissard-strapi-client').StrapiCollection} collection - La collection Strapi à laquelle cet objet appartient.
+		 * @param {import('./BotManager')} bots - Le gestionnaire de bots pour accéder aux instances de bot.
+		 */
 		constructor(id, type, data, collection, bots) {
 			super(id, type, data, collection);
 			this.bots = bots;
 		}
 
 		/**
-		 * XEKKO cette fonction est crucial et devrait etre déclenché par le manager au niveau de .add. Il va egalement falloir la réécrire et la tester car je n'y ai rien fait depuis un moment
-		 * Fonction qui verifie qu'un bot a acces a la guild/channel/message & roles qui sont renseigné, dans le cas contraire, renvoie une erreur
-		 * Va egalement charger els emote au format emote et en emettre une sur le message
-		 * @returns
+		 * Initialise le message à réaction.
+		 * Vérifie que le bot a accès au serveur, au salon et au message, et que les rôles sont accessibles.
+		 * Ajoute les réactions initiales au message.
+		 * @returns {Promise<boolean>} `true` si l'initialisation réussit, sinon `false`.
 		 */
 		async set() {
 			try {
@@ -56,6 +64,11 @@ module.exports =
 			}
 		}
 
+		/**
+		 * Vérifie que les rôles configurés pour les réactions sont accessibles par le bot sur le serveur.
+		 * @param {import('./Bot')} bot - L'instance du bot qui gère ce message.
+		 * @param {Discord.Message} message - Le message Discord concerné.
+		 */
 		checkRolesAccess(bot, message) {
 			// Verifier les roles
 			for (let emote in this.emotes) {
@@ -89,7 +102,9 @@ module.exports =
 		}
 
 		/**
-		 * Verifie que le message correspond a l'objet
+		 * Vérifie si un message donné correspond à ce message à réaction (même salon et même serveur).
+		 * @param {Discord.Message} message - Le message à vérifier.
+		 * @returns {this|false} L'instance de EmoteMessage si elle correspond, sinon `false`.
 		 */
 		check(message) {
 			if (message.channel.id == this.channel.id && message.guild.id == this.guild.id)
@@ -98,7 +113,11 @@ module.exports =
 		}
 
 		/**
-		 * L'ajout d'une emote ajoute un role qui lui correspondant
+		 * Gère l'ajout d'une réaction sur le message.
+		 * Attribue le rôle correspondant à l'utilisateur si configuré.
+		 * @param {Discord.MessageReaction} reaction - La réaction ajoutée.
+		 * @param {Discord.User} user - L'utilisateur qui a réagi.
+		 * @returns {Promise<boolean>} `true` si le rôle a été géré, `false` sinon.
 		 */
 		async handleMessageReactionAdd(reaction, user) {
 			let message = reaction.message;
@@ -152,7 +171,11 @@ module.exports =
 		}
 
 		/**
-		 * donner le role correspondant a une emote
+		 * Gère la suppression d'une réaction sur le message.
+		 * Retire le rôle correspondant à l'utilisateur si configuré.
+		 * @param {Discord.MessageReaction} reaction - La réaction retirée.
+		 * @param {Discord.User} user - L'utilisateur dont la réaction a été retirée.
+		 * @returns {Promise<boolean>} `true` si le rôle a été géré, `false` sinon.
 		 */
 		async handleMessageReactionRemove(reaction, user) {
 			let message = reaction.message;
@@ -207,6 +230,12 @@ module.exports =
 			}
 		}
 
+		/**
+		 * Décode les URI des clés et des valeurs d'un objet provenant de la base de données.
+		 * Utile pour les données qui ont été encodées pour le stockage.
+		 * @param {object} [value=this] - L'objet à décoder.
+		 * @returns {object} L'objet avec les clés et valeurs décodées.
+		 */
 		changeFromDB(value) {
 			let decodeURIObject = function (obj, target = {}) {
 				for (let i in obj) {
@@ -222,6 +251,11 @@ module.exports =
 			return decodeURIObject(value || this);
 		}
 
+		/**
+		 * Encode les URI des clés et des valeurs d'un objet pour le stockage en base de données.
+		 * @param {object} [value=this] - L'objet à encoder.
+		 * @returns {object} L'objet avec les clés et valeurs encodées.
+		 */
 		changeToDB(value) {
 			let encodeURIObject = function (obj, target = {}) {
 				for (let i in obj) {

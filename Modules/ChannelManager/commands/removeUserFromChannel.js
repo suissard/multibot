@@ -37,6 +37,16 @@ class RemoveUserFromChannel extends Commande {
 		},
 	];
 
+	/**
+	 * Exécute la commande pour retirer un ou plusieurs utilisateurs d'un salon.
+	 * @param {object} args - Les arguments de la commande.
+	 * @param {string} args.channel - Le nom du salon.
+	 * @param {string} args.user1 - L'ID du premier utilisateur à retirer.
+	 * @param {string} [args.user2] - L'ID du deuxième utilisateur à retirer.
+	 * @param {string} [args.user3] - L'ID du troisième utilisateur à retirer.
+	 * @returns {string} Un message de confirmation ou d'erreur.
+	 * @todo Le `module.exports` est commenté, rendant cette commande inactive. La recherche de salon se fait par nom (`channel.name`) et non par ID, ce qui peut être ambigu.
+	 */
 	methode(args) {
 		const channelName = args.channel;
 		const channel = this.guild.channels.cache.find(

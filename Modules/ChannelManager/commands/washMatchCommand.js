@@ -14,6 +14,11 @@ class WashMatchCommand extends Commande {
 	static test = [];
 	static arguments = [];
 
+	/**
+	 * Exécute la commande pour déclencher manuellement le nettoyage des anciens salons de match.
+	 * @param {object} args - Les arguments de la commande (non utilisés ici).
+	 * @returns {Promise<string>} Un message indiquant que le processus est en cours.
+	 */
 	async methode(args = {}) {
 		const exceptionName = []
 		washOldChannels(this.guild, exceptionName, true).then(() => {
