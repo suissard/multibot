@@ -6,33 +6,35 @@ layout: default
 
 # Liste des Commandes
 
-Voici la liste de toutes les commandes disponibles dans le bot.
+Voici la liste de toutes les commandes disponibles dans le bot. Les descriptions ici sont synchronisées avec le code source.
 
-| Commande | Description | Utilisation |
-|---|---|---|
-| `/dev` | Execute le code javascript indiqué dans le message | `/dev` |
-| `/done` | Clos un ticket | `/done` |
-| `/event` | event | `/event` |
-| `/help` | Permet d'obtenir le détail des commandes | Va renvoyer la liste des commandes avec leur définition. Cette liste peut etre filtré avec des mot clef :<br>▫ invisible : pour voir les commandes n'apparaissant pas traditionnellement<br>▫ devboss : pour voir les commandes réservés aux developpeurs |
-| `/invite` | Récupérer un lien d'invitation pour faire venir le Getibot dans ton discord | N/A |
-| `/listteamsavailables` | Répond pong | `/listteamsavailables` |
-| `/megarole` | Supprime un rôle à tout les utilisateurs du serveur | `/megarole` |
-| `/memberlist` | Renvoie la liste des utilisateurs qui ont le rôle mentiionné | `/memberlist` |
-| `/message` | Envoie un direct message aux membres mentionnés ou ayant un role mentionné | Apres `/message`, indique les roles ou membres à contacter en les mentionnant, puis place un ":", Tout ce qui seras écrit apres seras le message envoyé, avec Ton nom en entete et "serveur geekinting" en signature |
-| `/mute` | mute | `/mute` |
-| `/numberofchans` | Donne le nombre de channel du serveur | `/numberofchans` |
-| `/piece` | Lance une piece pour récolter pile ou face | `/piece` |
-| `/ping` | Répond pong | `/ping` |
-| `/privacypolicy` | Fournit la politique de confidentialité du bot | `/privacypolicy` |
-| `/restart` | redemarre le bot | `/restart` |
-| `/respond` | Répond au message du secretary | `/respond` |
-| `/serverinfo` | Donne des infos sur le serveur | N/A |
-| `/createslashcommands` | Donne le nombre de channel du serveur | `/createslashcommands` |
-| `/setactivity` | change le status du bot | N/A |
-| `/setteam` | setteam | `/setteam` |
-| `/test` | Test une commande ou serie de commandes | N/A |
-| `/testCommand` | Test une commande ou serie de commandes | N/A |
-| `/undone` | Rouvre un ticket | `/undone` |
-| `/unmute` | unmute | `/unmute` |
-| `/updateteam` | Met à jour une équipe | `/updateteam` |
-| `/valid` | Permet de valider une commande | `/valid` |
+| Commande | Description |
+|---|---|
+| `/dev` | Execute le code javascript indiqué dans le message |
+| `/done` | Clos un ticket |
+| `/event` | Gère les événements, incluant l'affichage d'infos, la gestion des équipes et le nettoyage. |
+| `/help` | Permet d'obtenir le détail des commandes |
+| `/invite` | Récupérer un lien d'invitation pour faire venir le Getibot dans ton discord |
+| `/listteamsavailables` | Renvoie la liste des teams disponibles pour un challenge donné |
+| `/megarole` | Ajoute ou supprime en masse un ou plusieurs rôles à tous les membres du serveur. |
+| `/memberlist` | Renvoie la liste des utilisateurs qui ont le rôle mentionné |
+| `/message` | Envoie un direct message aux membres mentionnés ou ayant un role mentionné |
+| `/mute` | Rend un utilisateur muet, restreignant son accès aux salons. |
+| `/numberofchans` | Donne le nombre de channel du serveur |
+| `/piece` | Lance une piece pour récolter pile ou face |
+| `/ping` | Répond pong pour vérifier que le bot est en ligne |
+| `/privacypolicy` | Fournit la politique de confidentialité du bot |
+| `/restart` | Redémarre le bot. |
+| `/respond` | Répond au message du secretary |
+| `/serverinfo` | Donne des infos sur le serveur |
+| `/createslashcommands` | (Dev) Force la création ou mise à jour des commandes slash sur Discord. |
+| `/setactivity` | Change le status du bot |
+| `/setteam` | Crée une nouvelle équipe avec un rôle et un salon dédiés. |
+| `/test` | (Dev) Test une commande ou serie de commandes |
+| `/testCommand` | (Dev) Test une commande ou serie de commandes |
+| `/undone` | Rouvre un ticket |
+| `/unmute` | Annule le statut muet d'un utilisateur, restaurant son accès aux salons. |
+| `/updateteam` | Met à jour une équipe |
+| `/valid` | Permet de valider une commande |
+
+*Note: La colonne "Utilisation" a été retirée pour le moment car elle était largement obsolète et redondante avec la description des arguments de chaque commande.*
