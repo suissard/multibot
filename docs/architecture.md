@@ -1,3 +1,9 @@
+---
+title: Architecture
+layout: default
+---
+[Accueil](./index.md) - [Architecture](./architecture.md) - [Commandes](./commands.md) - [Configuration](./configuration.md) - [Événements](./events.md) - [Modules](./modules.md)
+
 # Architecture du Projet
 
 Ce document décrit l'architecture de haut niveau du projet MultiBot. La compréhension de ces concepts est essentielle pour développer de nouvelles fonctionnalités.
