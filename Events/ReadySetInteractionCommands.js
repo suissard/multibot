@@ -6,6 +6,13 @@ module.exports = class ReadySetInteractionCommands extends Event {
 	static id = 'setInteractionCommands';
 	static listener = 'ready';
 
+	/**
+	 * Gère l'événement 'ready' pour enregistrer les commandes slash "en développement".
+	 * Pour chaque commande marquée comme étant en développement dans la configuration du bot,
+	 * cette fonction appelle la méthode pour créer ou mettre à jour la commande slash
+	 * auprès de l'API Discord.
+	 * @todo Le système pourrait être amélioré pour gérer automatiquement toutes les commandes requises.
+	 */
 	async handleEvent() {
 		try {
 			let bot = this.bot;

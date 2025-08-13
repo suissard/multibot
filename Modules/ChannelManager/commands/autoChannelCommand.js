@@ -12,6 +12,11 @@ class AutoChannelCommand extends Commande {
 	static test = [];
 	static arguments = [];
 
+	/**
+	 * Exécute la commande pour déclencher manuellement le processus de gestion automatique des salons.
+	 * @param {object} args - Les arguments de la commande (non utilisés ici).
+	 * @returns {Promise<string>} Un message indiquant que le processus est en cours.
+	 */
 	async methode(args = {}) {
 			autoChannel(this.bot, this.guild).then(() => {
 				this.answerToUser(

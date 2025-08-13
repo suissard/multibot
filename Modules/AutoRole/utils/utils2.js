@@ -2,6 +2,11 @@ const { OlympeApi } = require('olympe-client-api');
 const { processCasterUsers, getCasterTeam, processAllUsers, processAllTeams } = require('./utils');
 const simultaneousRequest = require('../../../Tools/simultaneousRequest.js');
 
+/**
+ * Initialise la connexion à l'API Olympe et la stocke dans l'objet bot.
+ * @param {import('../../../Class/Bot')} bot - L'instance du bot.
+ * @param {import('../models/ChallengesRolesId')} challengesRolesId - L'objet contenant les IDs des rôles de la compétition.
+ */
 const instanciateOlympe = async (bot, challengesRolesId) => {
 	// Token d'utilisateur random (aucun droits nécessaires)
 	const olympeToken = bot.modules.AutoRole.olympeAuth.value;
@@ -49,10 +54,11 @@ const recurciveIdGet = (object, target) => {
 };
 
 /**
- * Recuperer les données de teams inscrites dans un challenge de la compétition
- * @param {String} idChallenge
- * @returns {Array
- * }
+ * Récupère les données de toutes les équipes disponibles pour un challenge de compétition spécifique.
+ * @param {import('../../../Class/Bot')} bot - L'instance du bot.
+ * @param {string} idChallenge - L'ID du challenge.
+ * @returns {Promise<Array<object>>} Une promesse qui se résout avec un tableau d'objets d'équipe.
+ * @todo La méthode actuelle pour sélectionner la poule (la dernière de la liste) n'est pas fiable.
  */
 const getAllTeamsFromChallenge = async (bot, idChallenge) => {
 	if (!idChallenge.match(/[0-9]/)) return [];

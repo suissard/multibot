@@ -46,8 +46,10 @@ module.exports = class BotManager extends Map {
 	}
 
 	/**
-	 * Charge les donnée de bots et démarre toute les instances
-	 * @param {*} botsData
+	 * Initialise et démarre tous les bots.
+	 * Cette fonction crée toutes les instances de bot, configure les commandes et les événements,
+	 * puis charge les modules associés à chaque bot.
+	 * @param {Map<string, object>} botsData - Une map contenant les données de configuration de chaque bot.
 	 */
 	async start(botsData) {
 		this.createAllBot(botsData);
@@ -63,11 +65,11 @@ module.exports = class BotManager extends Map {
 		this.loadModules();
 	}
 	/**
-	 * Renvoie le bot maitre pour une guild/channel/message donnée
-	 * @param {String} guildId
-	 * @param {String} channelId
-	 * @param {String} messageId
-	 * @returns {Bot}
+	 * Détermine le bot "maître" pour une ressource Discord donnée, en priorité celui dont le "home" correspond au serveur.
+	 * @param {string} [guildId] - L'ID du serveur.
+	 * @param {string} [channelId] - L'ID du salon.
+	 * @param {string} [messageId] - L'ID du message.
+	 * @returns {Promise<{bot: Bot, guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}|undefined>} L'objet de données d'accès du bot maître, ou undefined si aucun bot n'a accès.
 	 */
 	async getMasterBot(guildId, channelId, messageId) {
 		let dataFromBot = await this.checkBotsAccess(guildId, channelId, messageId);
@@ -121,8 +123,10 @@ module.exports = class BotManager extends Map {
 	}
 
 	/**
-	 * Créer un bot a partir de donnée de paramétrage
-	 * @params {Object} data - Donnée permetttant de paramtrer un bot
+	 * Crée et enregistre une nouvelle instance de bot.
+	 * @param {object} data - Données de configuration pour le bot.
+	 * @param {BotManager} BOTS - L'instance du gestionnaire de bots.
+	 * @returns {Bot} L'instance du bot créé.
 	 */
 	createBot(data, BOTS) {
 		let bot = new Bot(data, BOTS);
@@ -131,8 +135,9 @@ module.exports = class BotManager extends Map {
 	}
 
 	/**
-	 * Créer un bot a partir de donnée de paramétrage
-	 * @params {Object} data - Donnée permetttant de paramtrer un bot
+	 * Crée toutes les instances de bot à partir de leurs données de configuration.
+	 * Seuls les bots marqués comme "actifs" sont créés.
+	 * @param {Map<string, object>} botsData - Une map contenant les données de configuration de chaque bot.
 	 */
 	createAllBot(botsData) {
 		for (let [id, botData] of botsData) {
@@ -189,6 +194,13 @@ module.exports = class BotManager extends Map {
 		}
 	}
 
+	/**
+	 * Vérifie quels bots ont accès à une ressource Discord spécifique.
+	 * @param {string} [guildId] - L'ID du serveur.
+	 * @param {string} [channelId] - L'ID du salon.
+	 * @param {string} [messageId] - L'ID du message.
+	 * @returns {Promise<Array<{bot: Bot, guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}>>} Un tableau d'objets contenant le bot et les ressources accessibles.
+	 */
 	async checkBotsAccess(guildId, channelId, messageId) {
 		let dataFromBot = [];
 		for (let [id, bot] of this) {

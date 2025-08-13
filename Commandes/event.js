@@ -29,6 +29,13 @@ module.exports = class Event extends Command {
     ];
     static test = [];
 
+    /**
+     * Exécute la sous-commande appropriée en fonction des arguments.
+     * @param {object} args - Les arguments de la commande.
+     * @param {string} args.texte - La sous-commande à exécuter ('info', 'team', 'wash').
+     * @param {string} [args.users] - Les utilisateurs pour la sous-commande 'team'.
+     * @returns {Promise<string|EmbedBuilder>} La réponse de la sous-commande.
+     */
     async methode(args = {}) {
         if (args.texte.toLowerCase() == 'info') {
             return await this.info();
@@ -45,6 +52,10 @@ module.exports = class Event extends Command {
         }
     }
 
+    /**
+     * Affiche les informations sur toutes les équipes inscrites sur le serveur.
+     * @returns {Promise<EmbedBuilder>} Un embed contenant la liste des équipes et leurs informations.
+     */
     async info() {
         let infoteam = async function(guild) {
             let teams = [];
@@ -87,6 +98,11 @@ module.exports = class Event extends Command {
         return embedInfo;
     }
 
+    /**
+     * Ajoute le rôle de l'équipe de l'auteur de la commande aux utilisateurs mentionnés.
+     * @param {string} mention - Une chaîne contenant les mentions des utilisateurs.
+     * @returns {Promise<string>} Un message de confirmation ou d'erreur.
+     */
     async addTeamRole(mention) {
         try {
             let commandUser = this.guild.members.cache.get(this.user.id);
@@ -125,6 +141,14 @@ module.exports = class Event extends Command {
         }
     }
 
+    /**
+     * Vérifie si un membre a bien le rôle de l'équipe.
+     * Tente de rajouter le rôle si manquant.
+	 * @TODO La variable `rolecap` n'est pas définie dans la portée de cette fonction, ce qui causera une erreur.
+     * @param {import('discord.js').GuildMember} member - Le membre à vérifier.
+     * @param {import('discord.js').Role} roleteam - Le rôle de l'équipe à vérifier.
+     * @returns {Promise<import('discord.js').GuildMember>} Le membre vérifié.
+     */
     async checkRole(member, roleteam) {
         await member.fetch(true);
         console.log('Checkrole lancé !', member.user.tag);
@@ -134,6 +158,11 @@ module.exports = class Event extends Command {
         return member;
     }
 
+    /**
+     * Nettoie tous les salons, rôles et grades de capitaine liés aux équipes sur le serveur.
+     * Commande réservée aux administrateurs.
+     * @returns {Promise<string>} Un message de confirmation.
+     */
     async eventWash() {
         if (this.member.permissions.has('ADMINISTRATOR')) {
             let guild = this.guild;

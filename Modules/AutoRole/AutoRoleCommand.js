@@ -28,6 +28,14 @@ module.exports = class AutoRoleCommand extends Command {
 		},
 	];
 
+	/**
+	 * Exécute la commande d'attribution manuelle des rôles.
+	 * Peut être déclenchée pour tous les utilisateurs, un utilisateur spécifique ou une équipe spécifique.
+	 * @param {object} args - Les arguments de la commande.
+	 * @param {string} [args.user] - L'ID de l'utilisateur Discord à mettre à jour.
+	 * @param {string} [args.teamid] - L'ID de l'équipe Olympe à mettre à jour.
+	 * @returns {Promise<string>} Un message indiquant que le processus est en cours.
+	 */
 	async methode(args = {}) {
 		if (!args.user && !args.teamid) {
 			autoRole(this.bot).then((result) => this.answerToUser('Roles mis à jour'));

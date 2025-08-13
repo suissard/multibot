@@ -16,6 +16,11 @@ class SalonCommand extends Command {
     static howTo = '';
     static test = [];
 
+    /**
+     * Exécute la commande pour retirer le salon actuel de son groupe de partage.
+     * @param {object} args - Les arguments de la commande (non utilisés ici).
+     * @returns {string} Un message de confirmation ou d'erreur.
+     */
     methode(args = {}) {
         try {
             let shareChannel = BOTS.ShareChannels.get('all').get(this.channel.id);
@@ -28,7 +33,10 @@ class SalonCommand extends Command {
     }
 
     /**
-     * Supprimer le channel du systeme
+     * Retire le salon actuel de son groupe de partage.
+     * @returns {string} Un message de confirmation.
+     * @throws {Error} Si le salon n'était pas dans le système de partage.
+     * @todo Utilise `this.message.channel.id` qui est obsolète, devrait utiliser `this.channel.id`.
      */
     del() {
         let shareChannel = BOTS.ShareChannels.get('all').get(this.message.channel.id);

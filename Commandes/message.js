@@ -67,6 +67,19 @@ module.exports = class Message extends Commande {
         },
     ];
 
+    /**
+     * Exécute la commande pour envoyer un message privé à des utilisateurs.
+     * Cible les utilisateurs via une mention directe, un rôle, ou une chaîne de mentions multiples.
+     * Peut également transférer le message au "secrétariat" pour archivage.
+     * @param {object} args - Les arguments de la commande.
+     * @param {string} args.texte - Le contenu du message à envoyer.
+     * @param {boolean} args.sendsecretary - Si `true`, le message est aussi envoyé au secrétariat.
+     * @param {string} [args.usersandroles] - Une chaîne de mentions d'utilisateurs et de rôles.
+     * @param {string} [args.user] - L'ID d'un utilisateur unique à qui envoyer le message.
+     * @param {string} [args.imageurl] - L'URL d'une image à joindre au message.
+     * @param {string} [args.role] - L'ID d'un rôle dont les membres recevront le message.
+     * @returns {Promise<string>} Un message de confirmation ou d'erreur.
+     */
     async methode(args = {}) {
         let botAvatar = await this.bot.user.avatarURL();
 
@@ -117,6 +130,11 @@ module.exports = class Message extends Commande {
         return 'les messages ont été envoyé';
     }
 
+    /**
+     * Extrait et retourne une liste d'objets User à partir d'une chaîne contenant des mentions d'utilisateurs et de rôles.
+     * @param {string} string - La chaîne de caractères à analyser.
+     * @returns {Promise<Array<import('discord.js').User>>} Une liste d'objets User uniques.
+     */
     async getUsersFromUsersAndRolesString(string) {
         let listeUsers = [];
 

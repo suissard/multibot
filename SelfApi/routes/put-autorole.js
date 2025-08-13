@@ -10,12 +10,12 @@ module.exports = {
 	path: /autorole/,
 	method: 'put',
 	/**
-	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {Bot} botArg
-	 * @param {Discord.User} user
-	 * @param {*} app
+	 * Gère la requête pour déclencher le processus d'attribution de rôles pour des équipes ou utilisateurs spécifiques.
+	 * @param {import('express').Request} req - L'objet de la requête Express. Le corps doit contenir `organization` et soit `teamIDs` soit `userIDs`.
+	 * @param {import('express').Response} res - L'objet de la réponse Express.
+	 * @param {any} botArg - (Non utilisé) L'instance du bot.
+	 * @param {any} user - (Non utilisé) L'utilisateur authentifié.
+	 * @param {import('../Api')} app - L'instance de l'API principale.
 	 */
 	handler: (req, res, botArg, user, app) => {
 		console.log('AUTOROLE API DEBUG');

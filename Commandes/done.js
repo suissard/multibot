@@ -12,6 +12,12 @@ module.exports = class Done extends Command {
     static test = [];
     static arguments = [];
 
+    /**
+     * Exécute la commande pour marquer un ticket comme "terminé".
+     * Renomme le salon actuel en ajoutant un préfixe "✅" pour indiquer qu'il est clos.
+     * @param {object} args - Les arguments de la commande (non utilisés ici).
+     * @returns {string} Un message de confirmation ou d'échec.
+     */
     methode(args = {}) {
         let chan = this.channel;
         if (chan.name.startsWith('✅') == false) {

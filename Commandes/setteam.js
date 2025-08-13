@@ -51,6 +51,16 @@ module.exports = class SetTeam extends Commande {
         },
     ];
 
+    /**
+     * Exécute la commande de création d'équipe.
+     * Lance le processus de création de rôle et de salon, puis envoie un message de confirmation.
+     * @param {object} args - Les arguments de la commande.
+     * @param {string} args.teamname - Le nom de l'équipe.
+     * @param {string} args.capitaine - L'ID de l'utilisateur capitaine.
+     * @param {string} args.elo - L'elo de l'équipe.
+     * @param {string} args.btag - Le BattleTag du capitaine.
+     * @returns {string} Un message indiquant que la création est en cours.
+     */
     async methode(args = {}) {
         this.getEventRole(args).then(async ({ roleteam, rolecap }) => {
             await this.createRoleAnChannel(args, roleteam, rolecap);
@@ -64,6 +74,12 @@ module.exports = class SetTeam extends Commande {
         return 'Team en cours d\'ajout ...';
     }
 
+    /**
+     * Récupère ou crée les rôles nécessaires pour l'équipe.
+     * Crée un rôle spécifique pour l'équipe et trouve le rôle de "Capitaine".
+     * @param {object} args - Les arguments de la commande, principalement `args.teamname`.
+     * @returns {Promise<{roleteam: import('discord.js').Role, rolecap: import('discord.js').Role}>} Un objet contenant le rôle de l'équipe et le rôle de capitaine.
+     */
     async getEventRole(args) {
         await this.guild.roles.fetch();
         let roleteam = await teamManager.createRoleTeam(args.teamname, this.guild);
@@ -74,6 +90,12 @@ module.exports = class SetTeam extends Commande {
         return { roleteam, rolecap };
     }
 
+    /**
+     * Crée le salon de l'équipe, assigne les rôles au capitaine et enregistre les données de l'équipe.
+     * @param {object} args - Les arguments de la commande.
+     * @param {import('discord.js').Role} roleteam - Le rôle de l'équipe.
+     * @param {import('discord.js').Role} rolecap - Le rôle de capitaine.
+     */
     async createRoleAnChannel(args, roleteam, rolecap) {
         let member = this.guild.members.cache.get(args.capitaine);
         await teamManager.createChannelTeam(args.teamname, this.guild);

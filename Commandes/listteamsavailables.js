@@ -25,6 +25,14 @@ module.exports = class Ping extends Command {
         },
     ];
 
+    /**
+     * Exécute la commande.
+     * @todo Le contenu de cette commande semble être une copie de la commande 'ping' et ne correspond pas au nom du fichier 'listteamsavailables'. Le code correct est probablement dans le bloc commenté en dessous.
+     * @param {object} args - Les arguments de la commande.
+     * @param {string} [args.user] - L'ID de l'utilisateur à mentionner.
+     * @param {string} [args.texte] - Le texte à inclure dans la réponse.
+     * @returns {string} La réponse de la commande.
+     */
     methode(args = {}) {
         let result = 'Pong : ';
         if (Object.keys(args).length == 0) {

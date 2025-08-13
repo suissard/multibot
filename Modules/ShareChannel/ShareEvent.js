@@ -9,6 +9,12 @@ class ShareEvent extends Event {
     static id = 'shareEvent';
     static listener = 'messageCreate';
 
+    /**
+     * Gère l'événement `messageCreate` pour les salons partagés.
+     * Si le message provient d'un salon qui fait partie d'un groupe de partage,
+     * il est transmis au gestionnaire de ce groupe pour être traité.
+     * @param {import('discord.js').Message} message - Le message créé.
+     */
     handleEvent(message) {
         try {
             let shareChannels = BOTS.ShareChannels.get('all').get(message.channel.id);

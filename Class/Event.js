@@ -1,20 +1,30 @@
 const Bot = require('./Bot');
 
 module.exports = class Event {
+	/**
+	 * @property {string} id - L'identifiant unique de l'événement.
+	 * @property {string} listener - Le nom de l'événement Discord à écouter.
+	 */
+	static id = undefined;
+	static listener = undefined;
+
 	constructor(bot) {
 		/**
+		 * L'instance du bot pour lequel cet événement est enregistré.
 		 * @type {Bot}
 		 */
 		this.bot = bot;
 
 		/**
-         * @type {String} id 
-         */
+		 * L'identifiant unique de l'événement.
+		 * @type {string}
+		 */
 		this.id = this.constructor.id;
 
-        /**
-		 * @type {String}
-         */
+		/**
+		 * Le nom de l'événement Discord à écouter (par exemple, 'messageCreate').
+		 * @type {string}
+		 */
 		this.listener = this.constructor.listener;
 	}
 
@@ -33,9 +43,9 @@ module.exports = class Event {
 	}
 
 	/**
-	 * Renvoie une erreur type
-	 * @param {Error} err
-	 * @param {User || Channel} target
+	 * Gère les erreurs survenant dans l'événement.
+	 * @param {Error} err - L'erreur qui s'est produite.
+	 * @param {import('discord.js').User | import('discord.js').Channel} [target] - La cible à qui envoyer un message d'erreur (optionnel).
 	 */
 	handleError(err, target) {
 		this.bot.error(err, `Event - ${this.listener} - ${this.id}`);

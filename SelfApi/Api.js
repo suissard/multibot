@@ -47,12 +47,22 @@ module.exports = class SelfApi {
 		this.startRouter();
 	}
 
+	/**
+	 * Ajoute plusieurs utilisateurs à partir d'un tableau de configuration.
+	 * @param {Array<{token: string, discordId: string}>} users - Un tableau d'objets utilisateur.
+	 */
 	async addConfigUsers(users) {
 		for (const user of users) {
 			await this.addUser(user.token, user.discordId);
 		}
 	}
 
+	/**
+	 * Ajoute un utilisateur et son token d'API au cache d'authentification.
+	 * Le token est hashé avant d'être stocké.
+	 * @param {string} token - Le token d'API brut de l'utilisateur.
+	 * @param {string} discordId - L'ID Discord de l'utilisateur.
+	 */
 	async addUser(token, discordId) {
 		const oldHash = Array.from(this.hashUsers).find(([hash, id]) => id == discordId);
 		if (oldHash) this.hashUsers.delete(oldHash[0]);
@@ -61,6 +71,11 @@ module.exports = class SelfApi {
 		this.hashUsers.set(hash, discordId); // Ajouter le hash et le discordId a ala table de correspondance
 	}
 
+	/**
+	 * Extrait le token Bearer d'une requête et retourne son hash.
+	 * @param {import('express').Request} req - L'objet de la requête Express.
+	 * @returns {Promise<string|false>} Le hash du token, ou `false` si aucun token n'est trouvé.
+	 */
 	async getHashFromTokenRequest(req) {
 		const token = req.headers?.authorization?.replace('Bearer ', '');
 		if (!token) return false;
@@ -69,6 +84,11 @@ module.exports = class SelfApi {
 		return hash;
 	}
 
+	/**
+	 * Extrait le code d'autorisation Discord des paramètres de la requête.
+	 * @param {import('express').Request} req - L'objet de la requête Express.
+	 * @returns {string} Le code d'autorisation.
+	 */
 	getDiscordCodeFromRequest(req) {
 		return req.query?.code;
 	}
@@ -77,10 +97,19 @@ module.exports = class SelfApi {
 		return req.query.command_id;
 	}
 
+	/**
+	 * Génère un token d'API unique en utilisant UUID v4.
+	 * @returns {string} Le token généré.
+	 */
 	generateToken() {
 		return uuidv4() + uuidv4();
 	}
 
+	/**
+	 * Échange un code d'autorisation Discord contre un jeton d'accès.
+	 * @param {string} code - Le code d'autorisation obtenu via OAuth2.
+	 * @returns {Promise<string>} Le jeton d'accès de l'utilisateur.
+	 */
 	async getDiscordAccessTokenFromCode(code) {
 		const body = new URLSearchParams();
 		body.append('client_id', this.discord.clientId);
@@ -100,6 +129,11 @@ module.exports = class SelfApi {
 		return response.access_token;
 	}
 
+	/**
+	 * Récupère l'ID Discord d'un utilisateur en utilisant son jeton d'accès.
+	 * @param {string} token - Le jeton d'accès OAuth2 de l'utilisateur.
+	 * @returns {Promise<string>} L'ID Discord de l'utilisateur.
+	 */
 	async getDiscordIdFromDiscordToken(token) {
 		const response = await fetch('https://discord.com/api/users/@me', {
 			headers: { Authorization: 'Bearer ' + token },
@@ -134,8 +168,11 @@ module.exports = class SelfApi {
 	}
 
 	/**
-	 * Vérifie l'authentification et renvoie l'instance de bot et d'utilisateur correspondant
-	 * @return { bot, user }
+	 * Gère l'authentification d'une requête API.
+	 * @todo La logique de cette fonction est commentée et doit être réimplémentée.
+	 * @param {import('express').Request} req - L'objet de la requête Express.
+	 * @param {import('express').Response} res - L'objet de la réponse Express.
+	 * @returns {Promise<{bot: Bot, user: import('discord.js').User}>} L'instance du bot et de l'utilisateur.
 	 */
 	async authentication(req, res) {
 		//TODO donnée de test
@@ -153,14 +190,28 @@ module.exports = class SelfApi {
 		// return { bot, user };
 	}
 
+	/**
+	 * Extrait l'ID du bot des paramètres de la requête.
+	 * @param {import('express').Request} req - L'objet de la requête Express.
+	 * @returns {string} L'ID du bot.
+	 */
 	getBotIdFromRequest(req) {
 		return req.query.bot_id;
 	}
 
+	/**
+	 * Hashe une chaîne de caractères en utilisant le sel de l'instance.
+	 * @param {string} password - La chaîne à hasher.
+	 * @returns {Promise<string>} Le hash résultant.
+	 */
 	hashPassword(password) {
 		return bcrypt.hash(password, this.salt);
 	}
 
+	/**
+	 * Construit et retourne l'URL d'autorisation OAuth2 de Discord.
+	 * @returns {string} L'URL d'autorisation.
+	 */
 	getDiscordAuthUrl() {
 		return encodeURI(
 			`https://discord.com/api/oauth2/authorize?client_id=${
@@ -217,6 +268,9 @@ module.exports = class SelfApi {
 		);
 	}
 
+	/**
+	 * Définit la route `/auth` pour la création d'utilisateur via le flux OAuth2.
+	 */
 	setAuthRoute() {
 		new Route(this, '/auth', 'get', (req, res) => {
 			this.createUser(req, res);
@@ -231,6 +285,13 @@ module.exports = class SelfApi {
 		for (let { path, method, handler } of routes) this.setRoute(path, method, handler);
 	}
 
+	/**
+	 * Enregistre une nouvelle route dans le routeur Express.
+	 * Ajoute un wrapper pour gérer l'authentification et les erreurs de manière centralisée.
+	 * @param {string} path - Le chemin de la route (ex: '/commands').
+	 * @param {'get'|'post'|'put'|'delete'} method - La méthode HTTP.
+	 * @param {function} handler - La fonction de gestion de la route.
+	 */
 	setRoute(path, method, handler) {
 		this.routes.set(`${method}--${path}`, { path, method, handler });
 
@@ -258,6 +319,10 @@ module.exports = class SelfApi {
 		this.setAuthRoute();
 	}
 
+	/**
+	 * Initialise toutes les routes définies dans le répertoire `routes`.
+	 * @param {object} routesArg - Arguments supplémentaires à passer au créateur de routes.
+	 */
 	listenAllRoutes(routesArg) {
 		createAllRoutes(this, routesArg);
 	}

@@ -5,6 +5,12 @@ module.exports = class CheckSecretary extends Event {
     static id = 'checkSecretary';
     static listener = 'messageCreate';
 
+    /**
+     * Gère l'événement `messageCreate` pour détecter les messages liés au secrétariat.
+     * Si un message est un DM (et n'est pas une commande), il est routé vers le gestionnaire du secrétariat.
+     * Si un message est dans un salon de secrétariat, il est également routé.
+     * @param {import('discord.js').Message} message - Le message créé.
+     */
     handleEvent(message) {
         try {
             // detecter message de secretariat

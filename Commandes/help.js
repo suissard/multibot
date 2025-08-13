@@ -17,10 +17,9 @@ module.exports =
 
 
         /**
-         * Renvoie toute les nom de commandes désirées dans un array
-         * @param {Boolean} devBoss Veut ton voir les help devBoss true = oui
-         * @param {Boolean} help Veut on voir les help normalement dissimulé true = oui
-         * @param {String} category Quel catégorie de commande souhaite-on voir
+         * Construit et retourne une liste de noms de commandes à afficher.
+         * Filtre les commandes qui ne sont pas censées être affichées dans l'aide, sauf pour les développeurs.
+         * @returns {Array<string>} Un tableau trié des noms de commandes.
          */
         helpArray() {
             var arrayHelp = [];
@@ -32,8 +31,11 @@ module.exports =
         }
 
         /**
-         *Renvoie un array contenant des messageEmbeds par paquet de 25 fields
-         * @param {array} arrayHelp Array contenant tout les noms de commande a transposer au format Message.RichEmbed
+         * Crée un ou plusieurs `EmbedBuilder` à partir d'une liste de noms de commandes.
+         * Sépare les commandes en plusieurs embeds si la liste dépasse 20 champs.
+		 * @TODO La méthode `addField` est dépréciée et devrait être remplacée par `addFields`. Le code actuel est probablement cassé.
+         * @param {Array<string>} arrayHelp - Un tableau contenant les noms des commandes à afficher.
+         * @returns {Array<Discord.EmbedBuilder>} Un tableau d'objets EmbedBuilder prêts à être envoyés.
          */
         helpEmbed(arrayHelp) {
             // decoupe les commandes en groupe de 25
@@ -57,6 +59,11 @@ module.exports =
             return returnEmbed;
         }
 
+        /**
+         * Crée un `EmbedBuilder` pour afficher l'aide détaillée d'une commande spécifique.
+         * @param {string} command - Le nom de la commande pour laquelle afficher les détails.
+         * @returns {Discord.EmbedBuilder} Un objet EmbedBuilder avec les détails de la commande.
+         */
         detailHelpEmbed(command) {
             let cmd = BOTS.Commands.get(command);
             return new Discord.EmbedBuilder()
@@ -64,6 +71,11 @@ module.exports =
                 .setDescription(cmd.description + '\n' + cmd.howTo.replace('PREFIX', this.bot.prefix).replace('CMD', command));
         }
 
+        /**
+         * Exécute la commande d'aide.
+         * Affiche l'aide détaillée si un nom de commande est fourni, sinon affiche la liste de toutes les commandes.
+		 * @param {object} options - Les options de l'interaction (non utilisé ici, semble basé sur un ancien système d'args).
+         */
         methode() {
             if (Commands.get(this.args[0])) return this.answerToUser(this.detailHelpEmbed(this.args[0]));
 

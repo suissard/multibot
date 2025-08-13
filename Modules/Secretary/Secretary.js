@@ -7,6 +7,11 @@ module.exports = class Secretary extends Event {
     static id = 'secretary';
     static listener = 'secretary';
 
+    /**
+     * Gère l'événement 'secretary', qui est déclenché pour les messages privés ou les réponses du staff.
+     * @param {import('discord.js').Message} message - Le message à traiter.
+     * @param {boolean} isDm - `true` si le message provient d'un message privé, `false` sinon.
+     */
     handleEvent(message, isDm) {
         try {
             if (!isDm) {
@@ -17,6 +22,11 @@ module.exports = class Secretary extends Event {
         }
     }
 
+    /**
+     * Traite un message reçu en message privé par le bot.
+     * Trouve ou crée un salon de secrétariat dédié à l'utilisateur et y transfère le message.
+     * @param {import('discord.js').Message} message - Le message privé reçu.
+     */
     async handleDm(message) {
         try {
             let freeServ = await this.checkFreeServ();
@@ -126,6 +136,11 @@ module.exports = class Secretary extends Event {
         }
     }
 
+    /**
+     * Traite un message envoyé dans un salon de secrétariat sur le serveur.
+     * S'il commence par 'msg', transfère le contenu à l'utilisateur concerné en message privé.
+     * @param {import('discord.js').Message} message - Le message du salon de secrétariat.
+     */
     handleMsgFromSecretaryGuild(message) {
         if (!message.content.toLowerCase().startsWith('msg')) return;
         this.answer(message);
@@ -136,13 +151,11 @@ module.exports = class Secretary extends Event {
     }
 
     /**
-     * Renvoie des informations sur un utilisateur et la compétition.
-     * La logique etant que tout utilisateur chargé dans le systeme a vus ses données
-     * enrichie d'une entrée "competition" qui contient tout ce qu'il faut savoir sur
-     * l'utilisateur. Si il n'y a pas cette entrée, la fonction renvera undefined
-     * TODO Pourrait nécessiter l'affichage de multiples competitions
-     * @param {Discord.User} user
-     * @returns {String} AFO TeamName (Role - Segment - Pool)\nTeamName (Role - Segment - Pool)\n
+     * Construit une chaîne de caractères pour le pied de page d'un embed,
+     * contenant les informations Olympe d'un utilisateur (équipes, rôles, etc.).
+     * @param {Bot} bot - L'instance du bot.
+     * @param {import('discord.js').User} user - L'utilisateur Discord.
+     * @returns {string|undefined} La chaîne formatée pour le pied de page, ou undefined si l'utilisateur n'est pas trouvé.
      */
     getMessageFooterFromUser(bot, user) {
         try {
@@ -169,6 +182,10 @@ module.exports = class Secretary extends Event {
         }
     }
 
+    /**
+     * Cherche un serveur de secrétariat qui n'est pas plein (moins de 480 salons).
+     * @returns {Promise<object|false>} L'objet de configuration du serveur disponible, ou `false` si aucun n'est libre.
+     */
     async checkFreeServ() {
         for (let i in this.bot.modules.Secretary.secretary) {
             let cacheSize = this.bot.modules.Secretary.secretary[i].guild.channels.cache.size;
@@ -177,6 +194,13 @@ module.exports = class Secretary extends Event {
         return false;
     }
 
+    /**
+     * Crée un nouveau salon de secrétariat pour un utilisateur.
+     * @param {import('discord.js').Message} message - Le message original de l'utilisateur.
+     * @param {import('discord.js').CategoryChannel} parentChannel - La catégorie où créer le salon.
+     * @param {object} serv - L'objet de configuration du serveur de secrétariat.
+     * @returns {Promise<import('discord.js').TextChannel>} Le salon de secrétariat qui a été créé.
+     */
     async createSecretaryChannel(message, parentChannel, serv) {
         try {
             let dataChannel = [
@@ -209,6 +233,12 @@ module.exports = class Secretary extends Event {
         }
     }
 
+    /**
+     * Crée une nouvelle catégorie de secrétariat lorsqu'une catégorie existante est pleine.
+     * @param {number} allCategorieSize - Le nombre total de catégories de secrétariat existantes pour nommer la nouvelle.
+     * @param {object} serv - L'objet de configuration du serveur de secrétariat.
+     * @returns {Promise<import('discord.js').CategoryChannel>} La catégorie de secrétariat qui a été créée.
+     */
     async createSecretaryCategory(allCategorieSize, serv) {
         try {
             let dataChannel = [
@@ -242,8 +272,10 @@ module.exports = class Secretary extends Event {
     }
 
     /**
-     * Verifie si une categorie existe et renvoie l'objet channel existant ou en créer un
-     * @param {*} message objet message initiateur de la commande
+     * Vérifie s'il existe une catégorie de secrétariat avec de l'espace disponible.
+     * Si c'est le cas, la renvoie. Sinon, en crée une nouvelle.
+     * @param {object} serv - L'objet de configuration du serveur de secrétariat.
+     * @returns {Promise<import('discord.js').CategoryChannel>} La catégorie disponible ou nouvellement créée.
      */
     async checkSecretaryCategory(serv) {
         let allCategory = new Map();
@@ -269,8 +301,11 @@ module.exports = class Secretary extends Event {
     }
 
     /**
-     * Verifie si un channel existe et renvoie l'objet channel existant ou en créer un
-     * @param {*} message objet message initiateur de la commande
+     * Vérifie si un salon de secrétariat existe déjà pour un utilisateur.
+     * Si c'est le cas, le renvoie. Sinon, en crée un nouveau.
+     * @param {import('discord.js').Message} message - Le message de l'utilisateur, pour obtenir son ID.
+     * @param {object} serv - L'objet de configuration du serveur de secrétariat où chercher/créer le salon.
+     * @returns {Promise<import('discord.js').TextChannel>} Le salon de secrétariat existant ou nouvellement créé.
      */
     async checkSecretaryChannel(message, serv) {
         // try {
@@ -299,8 +334,8 @@ module.exports = class Secretary extends Event {
     }
 
     /**
-     * Fonction pour repondre depuis un channel de secretatriat
-     * @param {Discord.Message} message
+     * Gère la réponse d'un membre du staff depuis un salon de secrétariat vers un utilisateur en message privé.
+     * @param {import('discord.js').Message} message - Le message de réponse envoyé par le staff.
      */
     async answer(message) {
         try {

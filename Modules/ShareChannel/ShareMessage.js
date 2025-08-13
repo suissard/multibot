@@ -2,9 +2,17 @@ const Discord = require('discord.js');
 const BOTS = require('../../Class/BOTS.js');
 
 /**
- * Message partagé, avec ses données pour l'identifier et les cibles ouù ont été envoyé les messages
+ * Représente un message qui a été partagé dans un groupe de salons.
+ * Contient le message original, des informations extraites, et une liste des
+ * messages "cibles" (les copies envoyées dans les autres salons).
+ * @class
  */
 class ShareMessage {
+    /**
+     * @param {import('discord.js').Message} message - Le message original qui a été partagé.
+     * @param {string} game - Le jeu associé au groupe de partage.
+     * @param {string} categorie - La catégorie associée au groupe de partage.
+     */
     constructor(message, game, categorie) {
         this.message = message;
         this.id = message.id;
@@ -51,7 +59,8 @@ class ShareMessage {
     }
 
     /**
-     * Supprime les cibles atteintes lors de la diffusion du message
+     * Supprime toutes les copies du message partagé dans les salons cibles.
+     * Retire également le message du cache anti-spam de l'auteur.
      */
     async resetTargets() {
         let shareChannel = BOTS.ShareChannels.get('all').get(this.message.channel.id);
@@ -60,9 +69,8 @@ class ShareMessage {
     }
 
     /**
-     * Pour mettre a jour tout les messages qui ont été partagé
-     * @param {String} content
-     * @returns
+     * Met à jour le contenu de toutes les copies du message partagé.
+     * @param {string} content - Le nouveau contenu du message.
      */
     async updateTarget(content) {
         let shareChannel = BOTS.ShareChannels.get('all').get(this.message.channel.id);

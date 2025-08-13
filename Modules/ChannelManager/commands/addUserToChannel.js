@@ -37,6 +37,16 @@ class AddUserToChannel extends Commande {
 		},
 	];
 
+	/**
+	 * Exécute la commande pour ajouter un ou plusieurs utilisateurs à un salon.
+	 * @param {object} args - Les arguments de la commande.
+	 * @param {string} args.channel - L'ID du salon.
+	 * @param {string} args.user1 - L'ID du premier utilisateur à ajouter.
+	 * @param {string} [args.user2] - L'ID du deuxième utilisateur à ajouter.
+	 * @param {string} [args.user3] - L'ID du troisième utilisateur à ajouter.
+	 * @returns {string} Un message de confirmation ou d'erreur.
+	 * @todo Le `module.exports` est commenté, rendant cette commande inactive.
+	 */
 	methode(args = {}) {
 		const channelId = args.channel;
 		const channel = this.guild.channels.cache.find((channel) => channel.id === channelId);

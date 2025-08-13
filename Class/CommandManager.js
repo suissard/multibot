@@ -3,37 +3,56 @@ const Discord = require('discord.js');
 const Command = require('./Command.js');
 
 module.exports = class CommandeManager {
+	/**
+	 * Gère l'enregistrement et l'accès aux commandes du bot.
+	 */
 	constructor() {
 		this.__commands = new Map();
 	}
 
+	/**
+	 * Ajoute une nouvelle commande à la collection.
+	 * Ne fait rien si une commande avec le même ID existe déjà.
+	 * @param {string} id - L'identifiant unique de la commande.
+	 * @param {Command} value - La classe de la commande à ajouter.
+	 */
 	add(id, value) {
 		if (this.__commands.has(id)) return; //throw new Error('This id already exist');
 		this.__commands.set(id, value);
 	}
 
+	/**
+	 * Met à jour une commande existante dans la collection.
+	 * @param {string} id - L'identifiant de la commande à mettre à jour.
+	 * @param {Command} value - La nouvelle classe de la commande.
+	 * @throws {Error} Si aucune commande avec cet ID n'existe.
+	 */
 	update(id, value) {
 		if (!this.__commands.has(id)) throw new Error("This id don't exist");
 		this.__commands.set(id, value);
 	}
 
 	/**
-	 *
-	 * @param {String} id
-	 * @returns {Command}
+	 * Récupère une commande par son ID.
+	 * @param {string} id - L'identifiant de la commande.
+	 * @returns {Command} La classe de la commande correspondante.
 	 */
 	get(id) {
 		return this.__commands.get(id);
 	}
 
+	/**
+	 * Récupère toutes les commandes enregistrées.
+	 * @returns {Map<string, Command>} Une map de toutes les commandes.
+	 */
 	getAll() {
 		return this.__commands;
 	}
 
 	/**
-	 *
-	 * @param {String} id
-	 * @returns {Boolean}
+	 * Vérifie si une commande avec l'ID spécifié existe.
+	 * @param {string} id - L'identifiant de la commande à vérifier.
+	 * @returns {boolean} `true` si la commande existe, sinon `false`.
 	 */
 	has(id) {
 		return this.__commands.has(id);

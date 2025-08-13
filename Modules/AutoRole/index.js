@@ -7,6 +7,14 @@ const { autoRole, instanciateOlympe } = require('./utils/utils2');
 
 const ChallengesRolesId = require('./models/ChallengesRolesId.js');
 
+/**
+ * Initialise le module AutoRole pour un bot.
+ * Ce module attribue automatiquement des rôles aux membres en fonction de données
+ * provenant d'une source externe (Olympe API). Il se déclenche au démarrage du bot
+ * puis s'exécute à intervalles réguliers.
+ * @param {import('../../Class/Bot')} bot - L'instance du bot pour laquelle initialiser le module.
+ * @returns {object} Un objet contenant les classes de commandes exportées par ce module.
+ */
 module.exports = (bot) => {
 	// Exemple de config
 	/**
@@ -19,7 +27,9 @@ module.exports = (bot) => {
 	 }
 	 */
 	/**
-	 * Déclencher l'autorole au démarrage puis a interval régulier
+	 * Une fois le bot prêt, ce gestionnaire configure et lance le processus d'attribution automatique des rôles.
+	 * Il initialise la connexion à l'API Olympe, s'assure que les données du serveur sont en cache,
+	 * puis exécute la fonction d'attribution des rôles immédiatement et à un intervalle défini.
 	 */
 	bot.on('ready', async () => {
 		try {

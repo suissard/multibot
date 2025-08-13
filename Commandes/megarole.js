@@ -30,6 +30,15 @@ module.exports = class Ping extends Command {
         },
     ];
 
+    /**
+     * Exécute la commande "megarole".
+     * Prépare la liste des rôles et des utilisateurs, puis lance l'opération d'ajout ou de suppression de masse.
+     * @param {object} args - Les arguments de la commande.
+     * @param {boolean} args.del - `true` pour supprimer les rôles, `false` pour les ajouter.
+     * @param {string} [args.role] - L'ID d'un rôle unique à traiter.
+     * @param {string} [args.multipleroles] - Une chaîne contenant les mentions de plusieurs rôles.
+     * @returns {Promise<string>} Un message de confirmation ou d'erreur.
+     */
     async methode(args = {}) {
         await this.guild.members.fetch();
         let roles = [];
@@ -48,12 +57,25 @@ module.exports = class Ping extends Command {
     }
 
 
+    /**
+     * Extrait les ID de rôle à partir d'une chaîne de mentions de rôles.
+     * @param {string} string - La chaîne contenant les mentions de rôles.
+     * @returns {Promise<Array<string>>} Un tableau d'IDs de rôles.
+     */
     async getRoleFromMultipleRoles(string) {
         let rolesID = string.match(/<@&[0-9]{18}>/g);
         rolesID = rolesID.map((x) => x.replace(/(<@&)|>/g, ''));
         return rolesID;
     }
 
+    /**
+     * Ajoute ou supprime en masse une liste de rôles pour une liste d'utilisateurs.
+     * Le nom de la fonction est trompeur, car elle gère à la fois l'ajout et la suppression.
+     * @param {import('discord.js').Collection<string, import('discord.js').GuildMember>} user - La collection des membres du serveur.
+     * @param {Array<string>} role - Un tableau d'IDs de rôles à ajouter ou supprimer.
+     * @param {object} args - Les arguments de la commande, principalement `args.del` pour déterminer l'action.
+     * @returns {Promise<string>} Un message de résumé de l'opération.
+     */
     async removeRolesToUser(user, role, args) {
         let error = [];
         let listeUser = [];

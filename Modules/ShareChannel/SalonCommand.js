@@ -31,6 +31,14 @@ class SalonCommand extends Command {
         },
     ];
 
+    /**
+     * Exécute la commande pour ajouter le salon actuel à un groupe de partage.
+     * Valide les arguments de jeu et de catégorie avant de procéder à l'ajout.
+     * @param {object} args - Les arguments de la commande.
+     * @param {string} args.game - Le nom du jeu pour ce groupe de partage.
+     * @param {string} args.catégorie - Le nom de la catégorie pour ce groupe.
+     * @returns {Promise<string>} Un message de confirmation ou d'erreur.
+     */
     methode(args = {}) {
 
         let game = args.game,
@@ -66,9 +74,11 @@ class SalonCommand extends Command {
     }
 
     /**
-     * Ajouter un salon au systeme
-     * @param {String} categorie
-     * @param {String} game
+     * Ajoute le salon actuel au groupe de partage spécifié.
+     * @param {string} categorie - La catégorie du groupe de partage.
+     * @param {string} game - Le jeu du groupe de partage.
+     * @returns {Promise<string>} Un message de confirmation.
+     * @throws {Error} Si le groupe de partage n'existe pas.
      */
     async add(categorie, game) {
         let shareChannel = BOTS.ShareChannels.get(`${game}-${categorie}`);

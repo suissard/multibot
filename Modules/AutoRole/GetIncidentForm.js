@@ -42,6 +42,15 @@ class GetIncidentFormCommand extends Command {
 		},
 	];
 
+	/**
+	 * Génère une URL personnalisée pour le formulaire de déclaration d'incident.
+	 * @param {object} [olympeUserInfo] - Les informations de l'utilisateur provenant de l'API Olympe.
+	 * @param {string} olympeUserInfo.nationality - La nationalité de l'utilisateur.
+	 * @param {string} olympeUserInfo.battlenetBtag - Le BattleTag de l'utilisateur.
+	 * @param {Array<{name: string}>} olympeUserInfo.teams - Les équipes de l'utilisateur.
+	 * @param {import('discord.js').User} discordUser - L'objet utilisateur Discord.
+	 * @returns {string} L'URL personnalisée et pré-remplie du formulaire Google.
+	 */
 	getIncidentUrlForm(
 		olympeUserInfo = { nationality: 'FR', battlenetBtag: '', teams: [] },
 		discordUser
@@ -58,7 +67,7 @@ class GetIncidentFormCommand extends Command {
 			'https://docs.google.com/forms/d/e/1FAIpQLSf2zxdhxHjMe3ZTmAVnP5t5xyKgMrulyHRZxKdQZ5TZ_1CPOg/viewform';
 		return `${baseUrl}?usp=pp_url&entry.2097190482=${encodeURIComponent(
 			lang
-		)}&entry.786009289=${encodeURIComponent(BTag)}&entry.1797737228=${encodeURIComponent(
+		)}&entry.786009289=${encodeURIComponent(BTag)}&entry.179773228=${encodeURIComponent(
 			DTag
 		)}&entry.1386247695=${encodeURIComponent(teamName)}&entry.1144352831=${encodeURIComponent(
 			BTag
@@ -67,6 +76,14 @@ class GetIncidentFormCommand extends Command {
 		)}`;
 	}
 
+	/**
+	 * Exécute la commande pour envoyer un formulaire de déclaration d'incident.
+	 * Récupère les informations Olympe de l'utilisateur, génère une URL de formulaire
+	 * personnalisée et l'envoie en message privé.
+	 * @param {object} args - Les arguments de la commande.
+	 * @param {string} [args.user] - L'ID de l'utilisateur à qui envoyer le formulaire.
+	 * @returns {Promise<string>} Un message de confirmation.
+	 */
 	async methode(args = {}) {
 		const discordUser = this.bot.users.cache.get(args.user) || this.user;
 

@@ -20,6 +20,12 @@ class CreateMatchCommand extends Commande {
 		},
 	];
 
+	/**
+	 * Exécute la commande pour créer manuellement les salons pour un match spécifique.
+	 * @param {object} args - Les arguments de la commande.
+	 * @param {string} args.matchid - L'ID du match pour lequel créer les salons.
+	 * @returns {Promise<string>} Un message indiquant que le processus est en cours ou qu'une erreur s'est produite.
+	 */
 	async methode(args = {}) {
 		const matchId = args.matchid;
 		const match = await getMatchById(this.bot, matchId).catch(()=>{});

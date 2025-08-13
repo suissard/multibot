@@ -8,20 +8,19 @@ const catEventName = '━━━ Event : Général ━━━';
 
 class TeamManager {
     /**
-     * regroupement de méthodes pour gerer les teams
-     * @param {StrapiCollection} collection collection issu de la base de donnée Strapi
+     * @param {import('suissard-strapi-client').StrapiCollection} collection - La collection Strapi pour les équipes.
      */
     constructor(collection) {
         this.collection = collection;
     }
 
     /**
-     * Sauvegarder les teams ou met les donnée a jour dans la base de donnée Strapi
-     * @param {String} name
-     * @param {String} userID
-     * @param {String} elo
-     * @param {String} battleTag
-     * @returns {StrapiObject} team
+     * Sauvegarde ou met à jour les données d'une équipe dans la base de données Strapi.
+     * @param {string} name - Le nom de l'équipe.
+     * @param {string} userID - L'ID Discord du capitaine.
+     * @param {string} elo - Le classement de l'équipe.
+     * @param {string} battleTag - Le BattleTag du capitaine.
+     * @returns {Promise<import('suissard-strapi-client').StrapiObject>} L'objet équipe sauvegardé ou mis à jour.
      */
     async saveTeamData(name, userID, elo, battleTag) {
         let oldData = this.getTeamByName(name);
@@ -38,19 +37,19 @@ class TeamManager {
     }
 
     /**
-     * Retrouver une team dans le cache grace a son nom
-     * @param {String} name
-     * @returns {StrapiObject} team
+     * Retrouve une équipe dans le cache par son nom.
+     * @param {string} name - Le nom de l'équipe.
+     * @returns {import('suissard-strapi-client').StrapiObject|undefined} L'objet équipe trouvé, ou undefined.
      */
     getTeamByName(name) {
         return this.collection.cache.find((team) => team.name == name);
     }
 
     /**
-     *
-     * @param {String} teamname
-     * @param {Discord.Guild} guild
-     * @returns {Discord.Role} roleteam
+     * Crée le rôle spécifique pour une équipe, s'il n'existe pas déjà.
+     * @param {string} teamname - Le nom de l'équipe.
+     * @param {import('discord.js').Guild} guild - La guilde.
+     * @returns {Promise<import('discord.js').Role>} Le rôle de l'équipe.
      */
     async createRoleTeam(teamname, guild) {
         try {
@@ -65,19 +64,20 @@ class TeamManager {
     }
 
     /**
-     * Creer la catégorie de channel d'event
-     * @param {Discord.Guild} guild
-     * @returns {Discord.Channel} category
+     * Crée la catégorie de salons pour les événements.
+     * @param {import('discord.js').Guild} guild - La guilde.
+     * @returns {Promise<import('discord.js').CategoryChannel>} La catégorie créée.
      */
     createCatEvent(guild) {
         return guild.channels.create({ name: catEventName, type: ChannelType.GuildCategory });
     }
 
     /**
-     * Creer un channel de team pour une équipe
-     * @param {String} teamname
-     * @param {Discord.Guild} guild
-     * @returns {Discord.Channel} channel
+     * Crée le salon vocal pour une équipe, s'il n'existe pas déjà.
+     * Configure les permissions pour le staff, le capitaine et les membres de l'équipe.
+     * @param {string} teamname - Le nom de l'équipe.
+     * @param {import('discord.js').Guild} guild - La guilde.
+     * @returns {Promise<import('discord.js').VoiceChannel>} Le salon vocal de l'équipe.
      */
     async createChannelTeam(teamname, guild) {
         try {
@@ -139,11 +139,11 @@ class TeamManager {
     }
 
     /**
-     * Ajouter el role de team a un membre
-     * @param {Discord.GuildMember} member
-     * @param {Discord.Role} rolecap
-     * @param {Discord.Role} roleteam
-     * @returns {Discord.GuildMember} member
+     * Ajoute les rôles d'équipe et de capitaine à un membre.
+     * @param {import('discord.js').GuildMember} member - Le membre à qui ajouter les rôles.
+     * @param {import('discord.js').Role} rolecap - Le rôle de capitaine.
+     * @param {import('discord.js').Role} roleteam - Le rôle de l'équipe.
+     * @returns {Promise<import('discord.js').GuildMember>} Le membre mis à jour.
      */
     async addRoleTeam(member, rolecap, roleteam) {
         if (!member.roles.cache.has(roleteam.id)) {
@@ -155,11 +155,11 @@ class TeamManager {
     }
 
     /**
-     * Verifier si un membre a le role de team
-     * @param {Discord.GuildMember} member
-     * @param {Discord.Role} rolecap
-     * @param {Discord.Role} roleteam
-     * @returns {Discord.GuildMember} member
+     * Vérifie si un membre a les rôles d'équipe et de capitaine, et les ajoute si nécessaire.
+     * @param {import('discord.js').GuildMember} member - Le membre à vérifier.
+     * @param {import('discord.js').Role} rolecap - Le rôle de capitaine.
+     * @param {import('discord.js').Role} roleteam - Le rôle de l'équipe.
+     * @returns {Promise<import('discord.js').GuildMember>} Le membre vérifié.
      */
     async checkRole(member, rolecap, roleteam) {
         await member.fetch(true);
@@ -170,10 +170,10 @@ class TeamManager {
     }
 
     /**
-     * Met a jour le role de team d'un membre
-     * @param {Discord.Role} role
-     * @param {String} newTeamName
-     * @returns {Discord.Role} role
+     * Met à jour le nom d'un rôle d'équipe.
+     * @param {import('discord.js').Role} role - Le rôle à modifier.
+     * @param {string} newTeamName - Le nouveau nom de l'équipe.
+     * @returns {Promise<import('discord.js').Role>} Le rôle mis à jour.
      */
     async updateRoleTeam(role, newTeamName) {
         role.edit({ name: `Team [${newTeamName}]` });
@@ -181,10 +181,10 @@ class TeamManager {
     }
 
     /**
-     * Met a jour le channel de team
-     * @param {Discord.Channel} channel
-     * @param {String} newTeamName
-     * @returns {Discord.Channel} channel
+     * Met à jour le nom d'un salon d'équipe.
+     * @param {import('discord.js').VoiceChannel} channel - Le salon à modifier.
+     * @param {string} newTeamName - Le nouveau nom de l'équipe.
+     * @returns {Promise<import('discord.js').VoiceChannel>} Le salon mis à jour.
      */
     async updateChannelTeam(channel, newTeamName) {
         channel.edit({ name: `Team [${newTeamName}]` });
@@ -192,12 +192,12 @@ class TeamManager {
     }
 
     /**
-     * Remplace le capiaitne actuel par un nouveau capitaine (retrait puis ajoutr de role)
-     * @param {Discord.GuildMember} cap
-     * @param {Discord.GuildMember} newCap
-     * @param {Discord.Role} capRole
-     * @param {Discord.Role} teamRole
-     * @returns {Discord.GuildMember} newCap
+     * Transfère les rôles de capitaine et d'équipe d'un ancien capitaine à un nouveau.
+     * @param {import('discord.js').GuildMember} cap - L'ancien capitaine.
+     * @param {import('discord.js').GuildMember} newCap - Le nouveau capitaine.
+     * @param {import('discord.js').Role} capRole - Le rôle de capitaine.
+     * @param {import('discord.js').Role} teamRole - Le rôle de l'équipe.
+     * @returns {Promise<import('discord.js').GuildMember>} Le nouveau capitaine mis à jour.
      */
     async updateTeamCap(cap, newCap, capRole, teamRole) {
         cap.roles.remove([capRole, teamRole]);
@@ -206,17 +206,19 @@ class TeamManager {
     }
 
     /**
-     *
-     * @param {*} teamInfo
-     * @param {*} newBtag
+     * Met à jour le BattleTag du capitaine.
+     * @todo Cette fonction n'est pas implémentée.
+     * @param {object} teamInfo - Les informations de l'équipe.
+     * @param {string} newBtag - Le nouveau BattleTag.
      */
     async updateCapBtag(teamInfo, newBtag) {
     }
 
     /**
-     *
-     * @param {*} teamInfo
-     * @param {*} newRank
+     * Met à jour le classement (elo) de l'équipe.
+     * @todo Cette fonction n'est pas implémentée.
+     * @param {object} teamInfo - Les informations de l'équipe.
+     * @param {number} newRank - Le nouveau classement.
      */
     async updateTeamRank(teamInfo, newRank) {
     }

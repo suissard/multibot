@@ -577,9 +577,8 @@ class AutoRoleConfig {
 	}
 
 	/**
-	 * Supprimer les parametres liés a un identifiant de guild
-	 * @param {*} guildId
-	 * @returns
+	 * Supprime les paramètres de configuration liés à un ID de guilde spécifique.
+	 * @param {string} guildId - L'ID de la guilde à supprimer de la configuration.
 	 */
 	deleteGuildParam(guildId) {
 		delete this.guilds[guildId];
@@ -603,6 +602,11 @@ class AutoRoleConfig {
 		});
 	}
 
+	/**
+	 * Vérifie l'accessibilité de toutes les guildes configurées.
+	 * Si une guilde n'est pas accessible, elle est retirée de la configuration.
+	 * @returns {Array<import('discord.js').Guild>} La liste des objets Guild accessibles.
+	 */
 	checkAllGuild() {
 		const guilds = [];
 		const guildIds = Object.keys(this.guilds);
@@ -617,6 +621,10 @@ class AutoRoleConfig {
 		return guilds;
 	}
 
+	/**
+	 * Itère sur toutes les guildes configurées et lance le processus de récupération ou de création des rôles
+	 * pour chacune d'entre elles.
+	 */
 	fetchOrCreateRolesFromIdentifiersForAllGuild() {
 		for (const guildId in this.guilds) {
 			const identifiers = this.getAllRoleIdentifiersFromGuildId(guildId);

@@ -1,7 +1,13 @@
+/**
+ * Initialise le module VocalDuplicate pour un bot.
+ * Ce module gère la duplication de salons vocaux. Lorsqu'un utilisateur rejoint un salon "modèle",
+ * un nouveau salon est créé pour lui. Les salons dupliqués et vides sont nettoyés périodiquement.
+ * @param {import('../../Class/Bot')} bot - L'instance du bot.
+ */
 module.exports = (bot) => {
     /**
-     * Renvoie la liste des channels de matchs créés
-     * @returns {Set<string>} Set of channel ids
+     * Récupère l'ensemble des IDs des salons vocaux qui ont été dupliqués par ce module.
+     * @returns {Promise<Set<string>>} Un Set contenant les IDs des salons dupliqués.
      */
     async function getCreatedChannels() {
         let createdChannels = new Set();
@@ -50,6 +56,9 @@ module.exports = (bot) => {
         return createdChannels;
     }
 
+    /**
+     * Vérifie tous les salons dupliqués et supprime ceux qui sont inactifs (vides).
+     */
     async function checkInactiveChannels() {
         let createdChannels = await getCreatedChannels();
         for (const channelId of createdChannels) {
@@ -65,6 +74,11 @@ module.exports = (bot) => {
 
     setInterval(checkInactiveChannels, 1000 * 60 * 10);
 
+    /**
+     * Gère l'événement 'voiceStateUpdate' pour déclencher la duplication de salon.
+     * Si un utilisateur rejoint un salon vocal configuré comme "modèle", un nouveau salon
+     * est créé avec les mêmes permissions et l'utilisateur y est déplacé.
+     */
     bot.on('voiceStateUpdate', async (oldState, newState) => {
         if (!newState.channel || newState.channel.type !== 2) return;
 

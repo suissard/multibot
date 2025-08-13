@@ -1,6 +1,17 @@
 const { EmbedBuilder } = require('discord.js');
 
+/**
+ * Une classe wrapper pour `discord.js/EmbedBuilder` afin de fournir une interface personnalisée.
+ * @class
+ * @todo Cette classe semble réimplémenter une grande partie de l'interface chainable de `EmbedBuilder`.
+ * Elle contient également des méthodes dupliquées (`setDescription`, `setThumbnail`) et utilise une méthode
+ * dépréciée (`addField` au lieu de `addFields`). Une simplification ou une suppression pourrait être envisagée.
+ */
 module.exports = class MultiBotMessageEmbed {
+    /**
+     * @param {string} [title] - Le titre initial de l'embed.
+     * @param {string} [description] - La description initiale de l'embed.
+     */
     constructor(title, description) {
         this.embed = new EmbedBuilder();
         this.embeds = [this.embed];

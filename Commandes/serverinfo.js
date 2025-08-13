@@ -15,13 +15,21 @@ module.exports =
         static test = [];
         static arguments = [];
 
+        /**
+         * Exécute la commande serverinfo.
+         * Génère et retourne un embed contenant les informations du serveur actuel.
+         * @param {object} args - Les arguments de la commande (non utilisés ici).
+         * @returns {Promise<Discord.EmbedBuilder>} L'embed avec les informations du serveur.
+         */
         async methode(args = {}) {
             let embed = await this.serverInfoEmbed(this.guild);
             return embed;
         }
 
         /**
-         * Retourne un embed avec els info du serveur discord
+         * Crée et retourne un `EmbedBuilder` avec les informations d'un serveur.
+         * @param {Discord.Guild} guild - L'objet Guild du serveur dont il faut extraire les informations.
+         * @returns {Promise<Discord.EmbedBuilder>} Un EmbedBuilder contenant les informations formatées du serveur.
          */
         async serverInfoEmbed(guild) {
             let owner = await guild.fetchOwner();

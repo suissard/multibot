@@ -13,9 +13,9 @@ const putAutorole = require('./put-autorole.js');
 const routes = [getCommands, postCommands, getEvents, postEvents, getdiscordAuthurl, post, putAutorole];
 
 /**
- *
- * @param {SelfApi} api
- * @param {Array} routesArg
+ * Enregistre une liste de routes sur l'instance de l'API.
+ * @param {import('../Api')} api - L'instance de l'API.
+ * @param {Array<{path: string, method: string, handler: function}>} [routesArg] - Un tableau d'objets de route à enregistrer. Si non fourni, utilise les routes importées par défaut.
  */
 const createAllRoutes = (api, routesArg) => {
     if (!routesArg) routesArg = routes;

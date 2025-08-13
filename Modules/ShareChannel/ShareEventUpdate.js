@@ -8,6 +8,13 @@ class ShareEventUpdate extends Event {
     static id = 'shareEventUpdate';
     static listener = 'messageUpdate';
 
+    /**
+     * Gère l'événement `messageUpdate` pour les salons partagés.
+     * Si un message partagé est mis à jour, cette fonction propage la mise à jour
+     * à toutes les copies du message dans les autres salons.
+     * @param {import('discord.js').Message} oldMessage - L'ancien message.
+     * @param {import('discord.js').Message} newMessage - Le nouveau message.
+     */
     handleEvent(oldMessage, newMessage) {
         try {
             if (oldMessage.author?.bot) return;

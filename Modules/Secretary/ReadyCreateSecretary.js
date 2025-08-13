@@ -4,6 +4,12 @@ module.exports = class CreateSecretary extends Event {
     static id = 'createSecretary';
     static listener = 'ready';
 
+    /**
+     * Gère l'événement 'ready' pour initialiser la configuration du secrétariat.
+     * Pour chaque ID de catégorie de secrétariat dans la configuration,
+     * cet événement récupère les objets nécessaires (catégorie, rôles) et les
+     * stocke dans `bot.modules.Secretary.secretary` pour une utilisation ultérieure.
+     */
     handleEvent() {
         try {
             this.bot.modules.Secretary.secretary = [];

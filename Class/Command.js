@@ -18,32 +18,17 @@ const simultaneousRequest = require('../Tools/simultaneousRequest.js');
 
 module.exports = class Commande {
 	/**
-     * @params id {String} : id unique de la commande
-     * @params id {Boolean} : Est ce qu'il faut etre developpeur pour utiliser la commande
-     * @params home {Boolean} : id de la commande
-     * @params userPermissions {Array} : id de la commande
-     * @params botPermissions {Array} : id de la commande
-     * @params description {String} : id de la commande
-     * @params help {} : id de la commande
-     * @params test {Array} : Arguments pour l'interaction. Format des items
-     [
-     {
-     configs: {
-     botID: "1",
-     guildID: "595557812051116052",
-     userID: "244419544825856000",
-     channelID: "668412501301657620"
-     },
-     options: [
-     {name, value},
-     {name, value},
-     ...
-     ],
-     },
-     ...
-     ]
-     * @params arguments {Array} : Arguments pour l'interaction, voir fonction "setOption"
-     */
+	 * @property {string} id - L'identifiant unique de la commande.
+	 * @property {boolean} [devBoss=false] - Si `true`, la commande ne peut être utilisée que par le développeur du bot.
+	 * @property {boolean} [home=false] - Si `true`, la commande ne peut être utilisée que sur le serveur "home" du bot.
+	 * @property {Array<import('discord.js').PermissionResolvable>} [userPermissions=[]] - Permissions requises pour l'utilisateur.
+	 * @property {Array<import('discord.js').PermissionResolvable>} [botPermissions=[]] - Permissions requises pour le bot.
+	 * @property {string} description - Une courte description de ce que fait la commande.
+	 * @property {boolean} [help=true] - Si `true`, la commande est affichée dans la commande d'aide. Déprécié.
+	 * @property {string} [howTo] - Instructions sur la façon d'utiliser la commande.
+	 * @property {Array<object>} [test] - Configurations de test pour la commande.
+	 * @property {Array<object>} [arguments] - Les arguments que la commande accepte.
+	 */
 	static id = undefined;
 	static devBoss = undefined;
 	static home = undefined;
