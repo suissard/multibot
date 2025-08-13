@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <link rel="stylesheet" href="/docs/assets/css/custom.css">
+    <link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
     <style>
     </style>
   </head>
@@ -40,24 +40,24 @@
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation -->
           <nav class="mdl-navigation mdl-layout--large-screen-only">
-            <a class="mdl-navigation__link" href="/docs/index.html">Accueil</a>
-            <a class="mdl-navigation__link" href="/docs/architecture.html">Architecture</a>
-            <a class="mdl-navigation__link" href="/docs/commands.html">Commandes</a>
-            <a class="mdl-navigation__link" href="/docs/configuration.html">Configuration</a>
-            <a class="mdl-navigation__link" href="/docs/events.html">Événements</a>
-            <a class="mdl-navigation__link" href="/docs/modules.html">Modules</a>
+            <a class="mdl-navigation__link" href="{{ '/' | relative_url }}">Accueil</a>
+            <a class="mdl-navigation__link" href="{{ '/architecture.html' | relative_url }}">Architecture</a>
+            <a class="mdl-navigation__link" href="{{ '/commands.html' | relative_url }}">Commandes</a>
+            <a class="mdl-navigation__link" href="{{ '/configuration.html' | relative_url }}">Configuration</a>
+            <a class="mdl-navigation__link" href="{{ '/events.html' | relative_url }}">Événements</a>
+            <a class="mdl-navigation__link" href="{{ '/modules.html' | relative_url }}">Modules</a>
           </nav>
         </div>
       </header>
       <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">Navigation</span>
         <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href="/docs/index.html">Accueil</a>
-          <a class="mdl-navigation__link" href="/docs/architecture.html">Architecture</a>
-          <a class="mdl-navigation__link" href="/docs/commands.html">Commandes</a>
-          <a class="mdl-navigation__link" href="/docs/configuration.html">Configuration</a>
-          <a class="mdl-navigation__link" href="/docs/events.html">Événements</a>
-          <a class="mdl-navigation__link" href="/docs/modules.html">Modules</a>
+          <a class="mdl-navigation__link" href="{{ '/' | relative_url }}">Accueil</a>
+          <a class="mdl-navigation__link" href="{{ '/architecture.html' | relative_url }}">Architecture</a>
+          <a class="mdl-navigation__link" href="{{ '/commands.html' | relative_url }}">Commandes</a>
+          <a class="mdl-navigation__link" href="{{ '/configuration.html' | relative_url }}">Configuration</a>
+          <a class="mdl-navigation__link" href="{{ '/events.html' | relative_url }}">Événements</a>
+          <a class="mdl-navigation__link" href="{{ '/modules.html' | relative_url }}">Modules</a>
         </nav>
       </div>
       <main class="mdl-layout__content">
