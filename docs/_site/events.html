@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Événements</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/docs/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">Événements</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/docs/index.html">Accueil</a>
+            <a class="mdl-navigation__link" href="/docs/architecture.html">Architecture</a>
+            <a class="mdl-navigation__link" href="/docs/commands.html">Commandes</a>
+            <a class="mdl-navigation__link" href="/docs/configuration.html">Configuration</a>
+            <a class="mdl-navigation__link" href="/docs/events.html">Événements</a>
+            <a class="mdl-navigation__link" href="/docs/modules.html">Modules</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="/docs/index.html">Accueil</a>
+          <a class="mdl-navigation__link" href="/docs/architecture.html">Architecture</a>
+          <a class="mdl-navigation__link" href="/docs/commands.html">Commandes</a>
+          <a class="mdl-navigation__link" href="/docs/configuration.html">Configuration</a>
+          <a class="mdl-navigation__link" href="/docs/events.html">Événements</a>
+          <a class="mdl-navigation__link" href="/docs/modules.html">Modules</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><p><a href="./index.md">Accueil</a> - <a href="./architecture.md">Architecture</a> - <a href="./commands.md">Commandes</a> - <a href="./configuration.md">Configuration</a> - <a href="./events.md">Événements</a> - <a href="./modules.md">Modules</a></p>
+
+<h1 id="gestion-des-événements">Gestion des Événements</h1>
+
+<p>Ce document explique comment les gestionnaires d’événements (event handlers) sont structurés, comment en créer de nouveaux, et comment ils sont gérés par l’<code class="language-plaintext highlighter-rouge">EventManager</code>.</p>
+
+<h2 id="la-classe-event">La Classe <code class="language-plaintext highlighter-rouge">Event</code></h2>
+
+<p>Tous les gestionnaires d’événements doivent hériter de la classe de base <code class="language-plaintext highlighter-rouge">Event</code> située dans <code class="language-plaintext highlighter-rouge">Class/Event.js</code>. Cette classe fournit le cadre pour écouter et réagir aux événements de l’API Discord.</p>
+
+<h3 id="structure-dun-événement">Structure d’un Événement</h3>
+
+<p>Un gestionnaire d’événement est un fichier JavaScript qui exporte une classe héritant de <code class="language-plaintext highlighter-rouge">Event</code>. Voici les propriétés statiques à définir :</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> (String) : Un identifiant unique pour ce gestionnaire d’événement (par exemple, <code class="language-plaintext highlighter-rouge">log-messages</code>). <strong>Requis</strong>.</li>
+  <li><code class="language-plaintext highlighter-rouge">listener</code> (String) : Le nom de l’événement de <code class="language-plaintext highlighter-rouge">discord.js</code> que vous souhaitez écouter (par exemple, <code class="language-plaintext highlighter-rouge">messageCreate</code>, <code class="language-plaintext highlighter-rouge">guildMemberAdd</code>). La liste complète des événements est disponible dans la documentation de discord.js. <strong>Requis</strong>.</li>
+</ul>
+
+<h3 id="la-méthode-handleevent">La Méthode <code class="language-plaintext highlighter-rouge">handleEvent</code></h3>
+
+<p>C’est ici que vous définissez la logique à exécuter lorsque l’événement se produit. Vous devez surcharger la méthode <code class="language-plaintext highlighter-rouge">async handleEvent(...args)</code> dans votre classe.</p>
+
+<ul>
+  <li>Elle reçoit les mêmes arguments que ceux fournis par l’événement de <code class="language-plaintext highlighter-rouge">discord.js</code>. Par exemple, pour <code class="language-plaintext highlighter-rouge">messageCreate</code>, l’argument sera <code class="language-plaintext highlighter-rouge">message</code>.</li>
+  <li>À l’intérieur de cette méthode, vous pouvez utiliser <code class="language-plaintext highlighter-rouge">this.bot</code>, qui est l’instance du bot qui a reçu l’événement.</li>
+</ul>
+
+<h2 id="comment-créer-un-nouveau-gestionnaire-dévénement">Comment Créer un Nouveau Gestionnaire d’Événement</h2>
+
+<ol>
+  <li>
+    <p><strong>Créer le fichier</strong> : Créez un nouveau fichier JavaScript dans le dossier <code class="language-plaintext highlighter-rouge">Events/</code>. Le nom du fichier est arbitraire (par exemple, <code class="language-plaintext highlighter-rouge">logNewMember.js</code>).</p>
+  </li>
+  <li>
+    <p><strong>Définir la classe</strong> : Dans ce fichier, créez une classe qui hérite de <code class="language-plaintext highlighter-rouge">Event</code> et exportez-la.</p>
+  </li>
+  <li>
+    <p><strong>Définir les propriétés statiques</strong> : Ajoutez les propriétés statiques <code class="language-plaintext highlighter-rouge">id</code> et <code class="language-plaintext highlighter-rouge">listener</code>.</p>
+  </li>
+  <li>
+    <p><strong>Implémenter <code class="language-plaintext highlighter-rouge">handleEvent</code></strong> : Ajoutez la méthode <code class="language-plaintext highlighter-rouge">handleEvent</code> et écrivez la logique qui doit s’exécuter lorsque l’événement est déclenché.</p>
+  </li>
+</ol>
+
+<h3 id="exemple--messagelogger">Exemple : <code class="language-plaintext highlighter-rouge">MessageLogger</code></h3>
+
+<p>Voici un exemple simple d’un gestionnaire d’événement qui logue chaque nouveau message reçu par le bot dans la console.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Events/MessageLogger.js</span>
+
+<span class="kd">const</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../Class/Event.js</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">class</span> <span class="nc">MessageLogger</span> <span class="kd">extends</span> <span class="nc">Event</span> <span class="p">{</span>
+    <span class="kd">static</span> <span class="nx">id</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">messageLogger</span><span class="dl">'</span><span class="p">;</span>
+    <span class="kd">static</span> <span class="nx">listener</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">messageCreate</span><span class="dl">'</span><span class="p">;</span> <span class="c1">// Événement de discord.js</span>
+
+    <span class="k">async</span> <span class="nf">handleEvent</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Ignore les messages du bot lui-même pour éviter les boucles</span>
+        <span class="k">if </span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nx">author</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="k">this</span><span class="p">.</span><span class="nx">bot</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+        <span class="kd">const</span> <span class="nx">author</span> <span class="o">=</span> <span class="nx">message</span><span class="p">.</span><span class="nx">author</span><span class="p">.</span><span class="nx">tag</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="nx">channel</span> <span class="o">=</span> <span class="nx">message</span><span class="p">.</span><span class="nx">channel</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="nx">guild</span> <span class="o">=</span> <span class="nx">message</span><span class="p">.</span><span class="nx">guild</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+
+        <span class="c1">// this.bot.log est une méthode utilitaire de la classe Bot</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">bot</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="s2">`Nouveau message de </span><span class="p">${</span><span class="nx">author</span><span class="p">}</span><span class="s2"> dans #</span><span class="p">${</span><span class="nx">channel</span><span class="p">}</span><span class="s2"> sur </span><span class="p">${</span><span class="nx">guild</span><span class="p">}</span><span class="s2">: "</span><span class="p">${</span><span class="nx">message</span><span class="p">.</span><span class="nx">content</span><span class="p">}</span><span class="s2">"`</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="enregistrement-des-gestionnaires-dévénements">Enregistrement des Gestionnaires d’Événements</h2>
+
+<p>Comme pour les commandes, vous n’avez pas besoin d’enregistrer manuellement vos gestionnaires d’événements. L’<code class="language-plaintext highlighter-rouge">EventManager</code> parcourt automatiquement le dossier <code class="language-plaintext highlighter-rouge">Events/</code> au démarrage du bot.</p>
+
+<p>Pour chaque gestionnaire trouvé, il l’ajoute à la liste des événements disponibles. Ensuite, pour chaque instance de <code class="language-plaintext highlighter-rouge">Bot</code>, il attache un écouteur pour cet événement, sauf si l’événement est spécifiquement désactivé dans la configuration du bot (via la propriété <code class="language-plaintext highlighter-rouge">unauthorizedEvents</code>).</p>
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>
