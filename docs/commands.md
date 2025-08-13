@@ -8,6 +8,8 @@ layout: default
 
 Ce document explique comment les commandes sont structurées, comment en créer de nouvelles et comment elles sont gérées par le `CommandManager`.
 
+Pour une liste complète de toutes les commandes disponibles, voir la [Liste des Commandes]({% link commands-list.md %}).
+
 ## La Classe `Command`
 
 Toutes les commandes du bot doivent hériter de la classe de base `Command` située dans `Class/Command.js`. Cette classe fournit une structure et des fonctionnalités communes à toutes les commandes.
