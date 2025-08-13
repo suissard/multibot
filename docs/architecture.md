@@ -2,8 +2,6 @@
 title: Architecture
 layout: default
 ---
-[Accueil]({% link index.md %}) - [Architecture]({% link architecture.md %}) - [Commandes]({% link commands.md %}) - [Configuration]({% link configuration.md %}) - [Événements]({% link events.md %}) - [Modules]({% link modules.md %})
-
 # Architecture du Projet
 
 Ce document décrit l'architecture de haut niveau du projet MultiBot. La compréhension de ces concepts est essentielle pour développer de nouvelles fonctionnalités.

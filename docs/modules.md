@@ -2,8 +2,6 @@
 title: Modules
 layout: default
 ---
-[Accueil]({% link index.md %}) - [Architecture]({% link architecture.md %}) - [Commandes]({% link commands.md %}) - [Configuration]({% link configuration.md %}) - [Événements]({% link events.md %}) - [Modules]({% link modules.md %})
-
 # Le Système de Modules
 
 Le système de modules est une des caractéristiques les plus puissantes de ce framework. Il permet d'encapsuler des fonctionnalités complètes (commandes, événements, logique de fond) dans des unités autonomes qui peuvent être activées ou désactivées pour chaque bot individuellement.

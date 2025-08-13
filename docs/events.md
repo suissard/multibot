@@ -2,8 +2,6 @@
 title: Événements
 layout: default
 ---
-[Accueil]({% link index.md %}) - [Architecture]({% link architecture.md %}) - [Commandes]({% link commands.md %}) - [Configuration]({% link configuration.md %}) - [Événements]({% link events.md %}) - [Modules]({% link modules.md %})
-
 # Gestion des Événements
 
 Ce document explique comment les gestionnaires d'événements (event handlers) sont structurés, comment en créer de nouveaux, et comment ils sont gérés par l'`EventManager`.
