@@ -17,19 +17,19 @@ layout: default
     <h2 class="mdl-typography--display-1">Navigation</h2>
     <ul class="mdl-list">
       <li class="mdl-list__item">
-        <a href="./architecture.md" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Architecture</a>
+        <a href="{% link architecture.md %}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Architecture</a>
       </li>
       <li class="mdl-list__item">
-        <a href="./commands.md" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Commandes</a>
+        <a href="{% link commands.md %}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Commandes</a>
       </li>
       <li class="mdl-list__item">
-        <a href="./configuration.md" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Configuration</a>
+        <a href="{% link configuration.md %}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Configuration</a>
       </li>
       <li class="mdl-list__item">
-        <a href="./events.md" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Événements</a>
+        <a href="{% link events.md %}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Événements</a>
       </li>
       <li class="mdl-list__item">
-        <a href="./modules.md" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Modules</a>
+        <a href="{% link modules.md %}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Modules</a>
       </li>
     </ul>
   </div>

@@ -2,7 +2,7 @@
 title: Commandes
 layout: default
 ---
-[Accueil](./index.md) - [Architecture](./architecture.md) - [Commandes](./commands.md) - [Configuration](./configuration.md) - [Événements](./events.md) - [Modules](./modules.md)
+[Accueil]({% link index.md %}) - [Architecture]({% link architecture.md %}) - [Commandes]({% link commands.md %}) - [Configuration]({% link configuration.md %}) - [Événements]({% link events.md %}) - [Modules]({% link modules.md %})
 
 # Gestion des Commandes
 
