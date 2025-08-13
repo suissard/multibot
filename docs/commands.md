@@ -2,8 +2,6 @@
 title: Commandes
 layout: default
 ---
-[Accueil]({% link index.md %}) - [Architecture]({% link architecture.md %}) - [Commandes]({% link commands.md %}) - [Configuration]({% link configuration.md %}) - [Événements]({% link events.md %}) - [Modules]({% link modules.md %})
-
 # Gestion des Commandes
 
 Ce document explique comment les commandes sont structurées, comment en créer de nouvelles et comment elles sont gérées par le `CommandManager`.

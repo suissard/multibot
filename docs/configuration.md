@@ -2,8 +2,6 @@
 title: Configuration
 layout: default
 ---
-[Accueil]({% link index.md %}) - [Architecture]({% link architecture.md %}) - [Commandes]({% link commands.md %}) - [Configuration]({% link configuration.md %}) - [Événements]({% link events.md %}) - [Modules]({% link modules.md %})
-
 # Configuration des Bots
 
 Ce document détaille comment configurer les instances de bot, que ce soit pour le développement local ou pour la production.
