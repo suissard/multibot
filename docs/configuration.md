@@ -1,3 +1,9 @@
+---
+title: Configuration
+layout: default
+---
+[Accueil](./index.md) - [Architecture](./architecture.md) - [Commandes](./commands.md) - [Configuration](./configuration.md) - [Événements](./events.md) - [Modules](./modules.md)
+
 # Configuration des Bots
 
 Ce document détaille comment configurer les instances de bot, que ce soit pour le développement local ou pour la production.
