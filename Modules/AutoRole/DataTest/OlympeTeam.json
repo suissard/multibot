@@ -1,0 +1,164 @@
+{
+	"id": "e96daf02-f300-4ab5-8e36-7e2592e19b52-08f72545-0d50-45c7-b07f-2784ae95d103",
+	"name": "Nyx",
+	"nationality": "FR",
+	"recruitment": 0,
+	"registerDate": 1738008541,
+	"externalLinks": {
+		"discord": null,
+		"facebook": null,
+		"twitter": null,
+		"instagram": null,
+		"youtube": null,
+		"twitch": null,
+		"website": null
+	},
+	"members": [
+        {
+            "user": {
+                "id": "1b899e04-b3cb-4a65-b86c-e3a08b6fd883-0de2fd54-31aa-4635-88dc-e7f2b15af9be",
+                "username": "Suissou#99786",
+                "publicEmail": 0,
+                "publicBattlenetBtag": 1,
+                "nationality": "FR",
+                "marketplaceTransfer": 0,
+                "marketplaceLent": 0,
+                "thirdparties": {
+                    "discord": {
+                        "publicDiscordTag": 1,
+                        "discordTag": "senpaidc#0",
+                        "discordID": "306395745693597697"
+                    }
+                },
+                "castUrl":"twitch.tv/suissou",
+                "followers": {
+                    "number": 1,
+                    "followed": false
+                },
+                "subscriptions": {
+                    "number": 3
+                },
+                "registerDate": 1616614568
+            },
+            "tags": {
+                "gameRoles": ["dps hitscan"]
+            },
+            "roles": ["captain", "owner"],
+            "ticketsPurchased": [
+                {
+                    "id": 12284,
+                    "teamID": "e96daf02-f300-4ab5-8e36-7e2592e19b52-08f72545-0d50-45c7-b07f-2784ae95d103",
+                    "userID": "1b899e04-b3cb-4a65-b86c-e3a08b6fd883-0de2fd54-31aa-4635-88dc-e7f2b15af9be",
+                    "user": {
+                        "id": "1b899e04-b3cb-4a65-b86c-e3a08b6fd883-0de2fd54-31aa-4635-88dc-e7f2b15af9be"
+                    },
+                    "team": {
+                        "id": "e96daf02-f300-4ab5-8e36-7e2592e19b52-08f72545-0d50-45c7-b07f-2784ae95d103"
+                    },
+                    "type": "personal",
+                    "registerDate": 1738099011,
+                    "ticket": {
+                        "id": 88,
+                        "challengeID": 55,
+                        "stepsID": [200, 201, 203, 206, 207, 208, 209, 210, 211, 212],
+                        "steps": [
+                            {
+                                "id": 200,
+                                "challengeID": 55,
+                                "name": "Inscription",
+                                "type": "register",
+                                "startDate": 1738006200,
+                                "endDate": 1742165940
+                            },
+                            {
+                                "id": 201,
+                                "challengeID": 55,
+                                "name": "Overwatch All For One - Espot Qualifier",
+                                "type": "play",
+                                "startDate": 1742022000,
+                                "endDate": 1742158800
+                            },
+                            {
+                                "id": 203,
+                                "challengeID": 55,
+                                "name": "Stage 1",
+                                "type": "play",
+                                "startDate": 1742166060,
+                                "endDate": 1744581540
+                            },
+                            {
+                                "id": 206,
+                                "challengeID": 55,
+                                "name": "Winter Break",
+                                "type": "break",
+                                "startDate": 1744581660,
+                                "endDate": 1745791140
+                            },
+                            {
+                                "id": 207,
+                                "challengeID": 55,
+                                "name": "Barrages",
+                                "type": "play",
+                                "startDate": 1745272860,
+                                "endDate": 1745791140
+                            },
+                            {
+                                "id": 208,
+                                "challengeID": 55,
+                                "name": "Stage 2",
+                                "type": "play",
+                                "startDate": 1745791260,
+                                "endDate": 1747605540
+                            },
+                            {
+                                "id": 209,
+                                "challengeID": 55,
+                                "name": "Playoffs",
+                                "type": "play",
+                                "startDate": 1747432860,
+                                "endDate": 1747605540
+                            },
+                            {
+                                "id": 210,
+                                "challengeID": 55,
+                                "name": "Spring Break",
+                                "type": "break",
+                                "startDate": 1747605660,
+                                "endDate": 1751061540
+                            },
+                            {
+                                "id": 211,
+                                "challengeID": 55,
+                                "name": "Finales de division",
+                                "type": "play",
+                                "startDate": 1747605660,
+                                "endDate": 1750024740
+                            },
+                            {
+                                "id": 212,
+                                "challengeID": 55,
+                                "name": "Grande Finale",
+                                "type": "play",
+                                "startDate": 1751061660,
+                                "endDate": 1751147940
+                            }
+                        ],
+                        "name": "Overwatch All For One 2025 - France",
+                        "price": 0,
+                        "expirationDateTeamValidated": 1751320740,
+                        "expirationDateTeamNotValidated": 1751320740,
+                        "multiplePurchaseLimit": 1
+                    }
+                }
+            ],
+            "lent": [],
+            "username": "No username"
+        }
+        
+	],
+	"membersLent": [],
+	"segments": [203],
+	"followers": {
+		"number": 3
+	}
+}

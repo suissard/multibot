@@ -1,0 +1,100 @@
+{
+	"botsData": [
+		{
+			"id": "1",
+			"token": "NjgzNzg5Njg3NTA0MzcxNzE5.XlwqxQ.EP1pd7V6AWHCbGn8FMJVkO1H41k",
+			"tokenGETI": "MzU3OTgwODQzMDAxNTExOTM3.Wbrhow.pNY8_ZZ-impb4UKvzuck4q45_4k",
+			"name": "TutoBot",
+			"activity": "test",
+			"ownerId": "306395745693597697",
+			"home": "595557812051116052",
+			"prefix": "$$",
+			"admin": [
+				"244419544825856000",
+				"306395745693597697"
+			],
+			"modules": {
+				"Secretary": {
+					"secretaryCategorieId": [
+						"596435600941252613"
+					],
+					"secretaryRoleId": [
+						"777298495052709900"
+					]
+				},
+				"AutoRole": {
+					"everyXhours": 6,
+					"olympeAuth": {
+						"value": "+HZ24OYdI7YREfWiznXznoK0/YpPvRLDVJhAdIJWnyLQ7Q2YCabzTGawtOaIv6WGkZU5bceVqzTOApTkM9GimHuB6HrJ5w+PL8IP44nrNqKS7DQ7BVebgw8sOxLn8L/pTO3zJNl4+us2yxaFJQf0ukaX+p8US3cBhtif3dNckDU=",
+						"expiration": 1677583806
+					}
+				},
+				"ShareChannel": true
+			},
+			"unauthorizedCommands": [],
+			"unauthorizedEvents": [
+				"error",
+				"debug",
+				"warn"
+			],
+			"active": true,
+			"devMode": true,
+			"commandInDev": []
+		},
+		{
+			"id": "2",
+			"token": "NDE3MjYwOTgxMzM3NDU2NjQx.WpKKkg.OWOmIFfJaXSk0yNySp6LrszJ6sE",
+			"name": "TestBot",
+			"activity": "test",
+			"ownerId": "306395745693597697",
+			"home": "595557812051116052",
+			"prefix": "$$",
+			"admin": [
+				"244419544825856000",
+				"306395745693597697"
+			],
+			"modules": {
+				"Secretary": {
+					"secretaryCategorieId": [
+						"596435600941252613"
+					],
+					"secretaryRoleId": [
+						"777298495052709900"
+					]
+				},
+				"ShareChannel": true
+			},
+			"unauthorizedCommands": [],
+			"unauthorizedEvents": [
+				"error",
+				"debug",
+				"warn"
+			],
+			"active": true,
+			"devMode": true,
+			"commandInDev": []
+		}
+	],
+	"api": {
+		"token": "ceciestuntokentemporaire",
+		"hostname": "localhost",
+		"port": 3000,
+		"users": [
+			{
+				"token": "ceciestuntokentemporaire",
+				"discordId": "306395745693597697"
+			}
+		]
+	},
+	"discord": {
+		"clientId": "716968666821820497",
+		"clientPublicKey": "e74d333048e11ff0b0171dfd7d7d37e5b1fed8870fa6918a16663616b8ac7320",
+		"clientSecret": "XoIZXo85XArNsHKVKvSFdpX2nyR8W4kD",
+		"scope": [
+			"identify",
+			"guilds",
+			"guilds.join"
+		],
+		"redirectUrl": "http://localhost:3000/auth"
+	}
+}

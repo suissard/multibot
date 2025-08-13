@@ -1,0 +1,12 @@
+{
+	"token": "ceciestuntokentemporaire",
+	"hostname": "0.0.0.0",
+	"port": 3000,
+	"saltRounds": 12,
+	"users": [
+		{
+			"token": "ceciestuntokentemporaire",
+			"discordId": "306395745693597697"
+		}
+	]
+}

@@ -1,0 +1,1247 @@
+{
+	"id": "5e142694-0404-4a1a-899a-749cb55d21a0-269aa76f-59c2-4d51-a4e9-e828e6efbded",
+	"name": "Nu.age",
+	"nationality": "FR",
+	"recruitment": 1,
+	"registerDate": 1699619096,
+	"externalLinks": {
+		"discord": null,
+		"facebook": null,
+		"twitter": "https://twitter.com/nuage_gg",
+		"instagram": null,
+		"youtube": "https://youtube.com/@nuage_gg",
+		"twitch": "https://twitch.tv/peurle_ow",
+		"website": null
+	},
+	"members": [
+		{
+			"user": {
+				"id": "b2c39cd6-506c-4984-8edf-98d15d96915e-b2ac2db7-9548-4b38-968e-1b31c4792be9",
+				"username": "Enravota#45724",
+				"publicEmail": 0,
+				"publicBattlenetBtag": 1,
+				"nationality": "FR",
+				"marketplaceTransfer": 0,
+				"marketplaceLent": 0,
+				"thirdparties": {
+					"discord": {
+						"publicDiscordTag": 1,
+						"discordTag": "enravota#0",
+						"discordID": "273126289211129856"
+					}
+				},
+				"followers": {
+					"number": 2,
+					"followed": false
+				},
+				"subscriptions": {
+					"number": 1
+				},
+				"registerDate": 1578923886,
+				"battlenetBtag": "Enravota#2716"
+			},
+			"tags": {
+				"gameRoles": []
+			},
+			"roles": [
+				"owner",
+				"president",
+				"staff"
+			],
+			"ticketsPurchased": [],
+			"lent": []
+		},
+		{
+			"user": {
+				"id": "b1f4bf5e-e60c-4bcb-ad61-e45310cb643f-d09cba4b-0cec-4019-8b8f-322d08a0daec",
+				"username": "Zorfen#20094",
+				"publicEmail": 0,
+				"publicBattlenetBtag": 1,
+				"nationality": "FR",
+				"marketplaceTransfer": 0,
+				"marketplaceLent": 0,
+				"thirdparties": {
+					"discord": {
+						"publicDiscordTag": 1,
+						"discordTag": "zorfen#0",
+						"discordID": "366632400547217418"
+					}
+				},
+				"followers": {
+					"number": 1,
+					"followed": false
+				},
+				"subscriptions": {
+					"number": 2
+				},
+				"registerDate": 1577643773,
+				"battlenetBtag": "Zorfen#21238"
+			},
+			"tags": {
+				"gameRoles": []
+			},
+			"roles": [
+				"owner",
+				"staff",
+				"manager"
+			],
+			"ticketsPurchased": [],
+			"lent": []
+		},
+		{
+			"user": {
+				"id": "ebb2a7bb-24be-4019-b8cc-4732381704bd-87426112-7e45-4962-91e9-ecdb0e65acef",
+				"username": "ohiuly#45081",
+				"publicEmail": 0,
+				"publicBattlenetBtag": 0,
+				"nationality": "TN",
+				"marketplaceTransfer": 0,
+				"marketplaceLent": 0,
+				"thirdparties": {
+					"discord": null
+				},
+				"followers": {
+					"number": 1,
+					"followed": false
+				},
+				"subscriptions": {
+					"number": 1
+				},
+				"registerDate": 1699635401,
+				"battlenetBtag": null
+			},
+			"tags": {
+				"gameRoles": []
+			},
+			"roles": [
+				"staff",
+				"communication",
+				"esport director"
+			],
+			"ticketsPurchased": [],
+			"lent": []
+		},
+		{
+			"user": {
+				"id": "25068e23-3f10-4b53-96de-a81e72d439d3-642e8779-6780-4d3a-bdbd-12cbe3b6d5cb",
+				"username": "unkeempt#14550",
+				"publicEmail": 0,
+				"publicBattlenetBtag": 1,
+				"nationality": "SE",
+				"marketplaceTransfer": 0,
+				"marketplaceLent": 0,
+				"thirdparties": {
+					"discord": {
+						"publicDiscordTag": 0,
+						"discordTag": null,
+						"discordID": null
+					}
+				},
+				"followers": {
+					"number": 1,
+					"followed": false
+				},
+				"subscriptions": {
+					"number": 1
+				},
+				"registerDate": 1697736896,
+				"battlenetBtag": "jonte#22598"
+			},
+			"tags": {
+				"gameRoles": [
+					"flex heal"
+				]
+			},
+			"roles": [],
+			"ticketsPurchased": [
+				{
+					"id": 11226,
+					"teamID": "5e142694-0404-4a1a-899a-749cb55d21a0-269aa76f-59c2-4d51-a4e9-e828e6efbded",
+					"userID": "25068e23-3f10-4b53-96de-a81e72d439d3-642e8779-6780-4d3a-bdbd-12cbe3b6d5cb",
+					"user": {
+						"id": "25068e23-3f10-4b53-96de-a81e72d439d3-642e8779-6780-4d3a-bdbd-12cbe3b6d5cb"
+					},
+					"team": {
+						"id": "5e142694-0404-4a1a-899a-749cb55d21a0-269aa76f-59c2-4d51-a4e9-e828e6efbded"
+					},
+					"type": "personal",
+					"registerDate": 1699730015,
+					"ticket": {
+						"id": 79,
+						"challengeID": 46,
+						"stepsID": [
+							146,
+							134,
+							147,
+							135,
+							158,
+							160,
+							161
+						],
+						"steps": [
+							{
+								"id": 134,
+								"challengeID": 46,
+								"name": "Stage 1",
+								"type": "play",
+								"startDate": 1704664860,
+								"endDate": 1707688740
+							},
+							{
+								"id": 135,
+								"challengeID": 46,
+								"name": "Stage 2",
+								"type": "play",
+								"startDate": 1708293660,
+								"endDate": 1711317540
+							},
+							{
+								"id": 146,
+								"challengeID": 46,
+								"name": "Winter Break",
+								"type": "break",
+								"startDate": 1702854060,
+								"endDate": 1704668340
+							},
+							{
+								"id": 147,
+								"challengeID": 46,
+								"name": "Break",
+								"type": "break",
+								"startDate": 1707692460,
+								"endDate": 1708297140
+							},
+							{
+								"id": 158,
+								"challengeID": 46,
+								"name": "Playoffs",
+								"type": "play",
+								"startDate": 1711321260,
+								"endDate": 1713740340
+							},
+							{
+								"id": 160,
+								"challengeID": 46,
+								"name": "Spring Break",
+								"type": "break",
+								"startDate": 1713740400,
+								"endDate": 1714773540
+							},
+							{
+								"id": 161,
+								"challengeID": 46,
+								"name": "Grande Finale",
+								"type": "play",
+								"startDate": 1714773660,
+								"endDate": 1714946340
+							}
+						],
+						"name": "Overwatch All For One 2024 - France",
+						"price": 0.0,
+						"expirationDateTeamValidated": 1714946460,
+						"expirationDateTeamNotValidated": 1714946460,
+						"multiplePurchaseLimit": 1
+					}
+				}
+			],
+			"lent": []
+		},
+		{
+			"user": {
+				"id": "d3fccf9d-712d-464b-b7ba-fe466415260f-bb07bd28-b9c2-4703-a7ff-ec3160c0ac7e",
+				"username": "Peurle#78056",
+				"publicEmail": 0,
+				"publicBattlenetBtag": 1,
+				"nationality": "FR",
+				"marketplaceTransfer": 0,
+				"marketplaceLent": 0,
+				"thirdparties": {
+					"discord": null
+				},
+				"followers": {
+					"number": 28,
+					"followed": false
+				},
+				"subscriptions": {
+					"number": 4
+				},
+				"registerDate": 1699650779,
+				"battlenetBtag": "Peurle#2285"
+			},
+			"tags": {
+				"gameRoles": []
+			},
+			"roles": [
+				"staff",
+				"vice president"
+			],
+			"ticketsPurchased": [],
+			"lent": []
+		},
+		{
+			"user": {
+				"id": "d7b37bf2-b9d6-4b0b-bf98-a39bed669e07-7e9da236-9960-445b-98fc-3ccf8f28d57b",
+				"username": "Kilaa#22883",
+				"publicEmail": 0,
+				"publicBattlenetBtag": 1,
+				"nationality": null,
+				"marketplaceTransfer": 0,
+				"marketplaceLent": 1,
+				"thirdparties": {
+					"discord": {
+						"publicDiscordTag": 1,
+						"discordTag": "kilaa#0",
+						"discordID": "233198545673388032"
+					}
+				},
+				"followers": {
+					"number": 2,
+					"followed": false
+				},
+				"subscriptions": {
+					"number": 1
+				},
+				"registerDate": 1699735446,
+				"battlenetBtag": "Kilaa#1697"
+			},
+			"tags": {
+				"gameRoles": [
+					"dps hitscan"
+				]
+			},
+			"roles": [],
+			"ticketsPurchased": [
+				{
+					"id": 11279,
+					"teamID": "5e142694-0404-4a1a-899a-749cb55d21a0-269aa76f-59c2-4d51-a4e9-e828e6efbded",
+					"userID": "d7b37bf2-b9d6-4b0b-bf98-a39bed669e07-7e9da236-9960-445b-98fc-3ccf8f28d57b",
+					"user": {
+						"id": "d7b37bf2-b9d6-4b0b-bf98-a39bed669e07-7e9da236-9960-445b-98fc-3ccf8f28d57b"
+					},
+					"team": {
+						"id": "5e142694-0404-4a1a-899a-749cb55d21a0-269aa76f-59c2-4d51-a4e9-e828e6efbded"
+					},
+					"type": "personal",
+					"registerDate": 1699735758,
+					"ticket": {
+						"id": 79,
+						"challengeID": 46,
+						"stepsID": [
+							146,
+							134,
+							147,
+							135,
+							158,
+							160,
+							161
+						],
+						"steps": [
+							{
+								"id": 134,
+								"challengeID": 46,
+								"name": "Stage 1",
+								"type": "play",
+								"startDate": 1704664860,
+								"endDate": 1707688740
+							},
+							{
+								"id": 135,
+								"challengeID": 46,
+								"name": "Stage 2",
+								"type": "play",
+								"startDate": 1708293660,
+								"endDate": 1711317540
+							},
+							{
+								"id": 146,
+								"challengeID": 46,
+								"name": "Winter Break",
+								"type": "break",
+								"startDate": 1702854060,
+								"endDate": 1704668340
+							},
+							{
+								"id": 147,
+								"challengeID": 46,
+								"name": "Break",
+								"type": "break",
+								"startDate": 1707692460,
+								"endDate": 1708297140
+							},
+							{
+								"id": 158,
+								"challengeID": 46,
+								"name": "Playoffs",
+								"type": "play",
+								"startDate": 1711321260,
+								"endDate": 1713740340
+							},
+							{
+								"id": 160,
+								"challengeID": 46,
+								"name": "Spring Break",
+								"type": "break",
+								"startDate": 1713740400,
+								"endDate": 1714773540
+							},
+							{
+								"id": 161,
+								"challengeID": 46,
+								"name": "Grande Finale",
+								"type": "play",
+								"startDate": 1714773660,
+								"endDate": 1714946340
+							}
+						],
+						"name": "Overwatch All For One 2024 - France",
+						"price": 0.0,
+						"expirationDateTeamValidated": 1714946460,
+						"expirationDateTeamNotValidated": 1714946460,
+						"multiplePurchaseLimit": 1
+					}
+				}
+			],
+			"lent": []
+		},
+		{
+			"user": {
+				"id": "859f3a5f-eea0-4109-a491-33f7d1431ca7-3e35acb2-f58e-4f7a-88c4-c016708dc4a2",
+				"username": "Tarteg#50930",
+				"publicEmail": 0,
+				"publicBattlenetBtag": 1,
+				"nationality": "FR",
+				"marketplaceTransfer": 0,
+				"marketplaceLent": 0,
+				"thirdparties": {
+					"discord": {
+						"publicDiscordTag": 1,
+						"discordTag": "tarteg#0",
+						"discordID": "694226142898421871"
+					}
+				},
+				"followers": {
+					"number": 0,
+					"followed": false
+				},
+				"subscriptions": {
+					"number": 1
+				},
+				"registerDate": 1639422936,
+				"battlenetBtag": "Tarteg#2827"
+			},
+			"tags": {
+				"gameRoles": []
+			},
+			"roles": [
+				"mental coach",
+				"staff"
+			],
+			"ticketsPurchased": [],
+			"lent": []
+		},
+		{
+			"user": {
+				"id": "1c92bda9-cc93-468a-809d-c2d54f830844-b72d9a2e-f141-494d-97c5-af5df498e192",
+				"username": "Chako#57247",
+				"publicEmail": 0,
+				"publicBattlenetBtag": 1,
+				"nationality": "FR",
+				"marketplaceTransfer": 1,
+				"marketplaceLent": 1,
+				"thirdparties": {
+					"discord": {
+						"publicDiscordTag": 1,
+						"discordTag": "chako.#0",
+						"discordID": "401551588423893002"
+					}
+				},
+				"followers": {
+					"number": 0,
+					"followed": false
+				},
+				"subscriptions": {
+					"number": 3
+				},
+				"registerDate": 1684262876,
+				"battlenetBtag": "Chako#21276"
+			},
+			"tags": {
+				"gameRoles": [
+					"dps projectile"
+				]
+			},
+			"roles": [],
+			"ticketsPurchased": [
+				{
+					"id": 10832,
+					"teamID": "5e142694-0404-4a1a-899a-749cb55d21a0-269aa76f-59c2-4d51-a4e9-e828e6efbded",
+					"userID": "1c92bda9-cc93-468a-809d-c2d54f830844-b72d9a2e-f141-494d-97c5-af5df498e192",
+					"user": {
+						"id": "1c92bda9-cc93-468a-809d-c2d54f830844-b72d9a2e-f141-494d-97c5-af5df498e192"
+					},
+					"team": {
+						"id": "5e142694-0404-4a1a-899a-749cb55d21a0-269aa76f-59c2-4d51-a4e9-e828e6efbded"
+					},
+					"type": "personal",
+					"registerDate": 1699567631,
+					"ticket": {
+						"id": 79,
+						"challengeID": 46,
+						"stepsID": [
+							146,
+							134,
+							147,
+							135,
+							158,
+							160,
+							161
+						],
+						"steps": [
+							{
+								"id": 134,
+								"challengeID": 46,
+								"name": "Stage 1",
+								"type": "play",
+								"startDate": 1704664860,
+								"endDate": 1707688740
+							},
+							{
+								"id": 135,
+								"challengeID": 46,
+								"name": "Stage 2",
+								"type": "play",
+								"startDate": 1708293660,
+								"endDate": 1711317540
+							},
+							{
+								"id": 146,
+								"challengeID": 46,
+								"name": "Winter Break",
+								"type": "break",
+								"startDate": 1702854060,
+								"endDate": 1704668340
+							},
+							{
+								"id": 147,
+								"challengeID": 46,
+								"name": "Break",
+								"type": "break",
+								"startDate": 1707692460,
+								"endDate": 1708297140
+							},
+							{
+								"id": 158,
+								"challengeID": 46,
+								"name": "Playoffs",
+								"type": "play",
+								"startDate": 1711321260,
+								"endDate": 1713740340
+							},
+							{
+								"id": 160,
+								"challengeID": 46,
+								"name": "Spring Break",
+								"type": "break",
+								"startDate": 1713740400,
+								"endDate": 1714773540
+							},
+							{
+								"id": 161,
+								"challengeID": 46,
+								"name": "Grande Finale",
+								"type": "play",
+								"startDate": 1714773660,
+								"endDate": 1714946340
+							}
+						],
+						"name": "Overwatch All For One 2024 - France",
+						"price": 0.0,
+						"expirationDateTeamValidated": 1714946460,
+						"expirationDateTeamNotValidated": 1714946460,
+						"multiplePurchaseLimit": 1
+					}
+				}
+			],
+			"lent": []
+		},
+		{
+			"user": {
+				"id": "41d25081-7cfd-43b6-840a-42603ae64950-8128c7b5-ea74-40e7-8846-6c9fd53d4971",
+				"username": "ANJ#54989",
+				"publicEmail": 0,
+				"publicBattlenetBtag": 1,
+				"nationality": "NL",
+				"marketplaceTransfer": 1,
+				"marketplaceLent": 1,
+				"thirdparties": {
+					"discord": {
+						"publicDiscordTag": 1,
+						"discordTag": "anj2218#0",
+						"discordID": "237657122853093377"
+					}
+				},
+				"followers": {
+					"number": 0,
+					"followed": false
+				},
+				"subscriptions": {
+					"number": 0
+				},
+				"registerDate": 1642031055,
+				"battlenetBtag": "ANJ#21753"
+			},
+			"tags": {
+				"gameRoles": [
+					"main heal"
+				]
+			},
+			"roles": [],
+			"ticketsPurchased": [
+				{
+					"id": 12212,
+					"teamID": "5e142694-0404-4a1a-899a-749cb55d21a0-269aa76f-59c2-4d51-a4e9-e828e6efbded",
+					"userID": "41d25081-7cfd-43b6-840a-42603ae64950-8128c7b5-ea74-40e7-8846-6c9fd53d4971",
+					"user": {
+						"id": "41d25081-7cfd-43b6-840a-42603ae64950-8128c7b5-ea74-40e7-8846-6c9fd53d4971"
+					},
+					"team": {
+						"id": "5e142694-0404-4a1a-899a-749cb55d21a0-269aa76f-59c2-4d51-a4e9-e828e6efbded"
+					},
+					"type": "personal",
+					"registerDate": 1709750178,
+					"ticket": {
+						"id": 79,
+						"challengeID": 46,
+						"stepsID": [
+							146,
+							134,
+							147,
+							135,
+							158,
+							160,
+							161
+						],
+						"steps": [
+							{
+								"id": 134,
+								"challengeID": 46,
+								"name": "Stage 1",
+								"type": "play",
+								"startDate": 1704664860,
+								"endDate": 1707688740
+							},
+							{
+								"id": 135,
+								"challengeID": 46,
+								"name": "Stage 2",
+								"type": "play",
+								"startDate": 1708293660,
+								"endDate": 1711317540
+							},
+							{
+								"id": 146,
+								"challengeID": 46,
+								"name": "Winter Break",
+								"type": "break",
+								"startDate": 1702854060,
+								"endDate": 1704668340
+							},
+							{
+								"id": 147,
+								"challengeID": 46,
+								"name": "Break",
+								"type": "break",
+								"startDate": 1707692460,
+								"endDate": 1708297140
+							},
+							{
+								"id": 158,
+								"challengeID": 46,
+								"name": "Playoffs",
+								"type": "play",
+								"startDate": 1711321260,
+								"endDate": 1713740340
+							},
+							{
+								"id": 160,
+								"challengeID": 46,
+								"name": "Spring Break",
+								"type": "break",
+								"startDate": 1713740400,
+								"endDate": 1714773540
+							},
+							{
+								"id": 161,
+								"challengeID": 46,
+								"name": "Grande Finale",
+								"type": "play",
+								"startDate": 1714773660,
+								"endDate": 1714946340
+							}
+						],
+						"name": "Overwatch All For One 2024 - France",
+						"price": 0.0,
+						"expirationDateTeamValidated": 1714946460,
+						"expirationDateTeamNotValidated": 1714946460,
+						"multiplePurchaseLimit": 1
+					}
+				}
+			],
+			"lent": []
+		},
+		{
+			"user": {
+				"id": "e039cd4b-c2eb-4825-a3ed-44cbdb9681b6-60df03ef-4c30-46fc-8f3f-7ca0ab92f2c7",
+				"username": "Shyraa#33125",
+				"publicEmail": 0,
+				"publicBattlenetBtag": 1,
+				"nationality": "BE",
+				"marketplaceTransfer": 1,
+				"marketplaceLent": 0,
+				"thirdparties": {
+					"discord": {
+						"publicDiscordTag": 1,
+						"discordTag": "naleira#0",
+						"discordID": "993211334227410984"
+					}
+				},
+				"followers": {
+					"number": 2,
+					"followed": false
+				},
+				"subscriptions": {
+					"number": 0
+				},
+				"registerDate": 1577401999,
+				"battlenetBtag": "Shyraa#21522"
+			},
+			"tags": {
+				"gameRoles": [
+					"off tank"
+				]
+			},
+			"roles": [],
+			"ticketsPurchased": [
+				{
+					"id": 11128,
+					"teamID": "5e142694-0404-4a1a-899a-749cb55d21a0-269aa76f-59c2-4d51-a4e9-e828e6efbded",
+					"userID": "e039cd4b-c2eb-4825-a3ed-44cbdb9681b6-60df03ef-4c30-46fc-8f3f-7ca0ab92f2c7",
+					"user": {
+						"id": "e039cd4b-c2eb-4825-a3ed-44cbdb9681b6-60df03ef-4c30-46fc-8f3f-7ca0ab92f2c7"
+					},
+					"team": {
+						"id": "5e142694-0404-4a1a-899a-749cb55d21a0-269aa76f-59c2-4d51-a4e9-e828e6efbded"
+					},
+					"type": "personal",
+					"registerDate": 1699711493,
+					"ticket": {
+						"id": 79,
+						"challengeID": 46,
+						"stepsID": [
+							146,
+							134,
+							147,
+							135,
+							158,
+							160,
+							161
+						],
+						"steps": [
+							{
+								"id": 134,
+								"challengeID": 46,
+								"name": "Stage 1",
+								"type": "play",
+								"startDate": 1704664860,
+								"endDate": 1707688740
+							},
+							{
+								"id": 135,
+								"challengeID": 46,
+								"name": "Stage 2",
+								"type": "play",
+								"startDate": 1708293660,
+								"endDate": 1711317540
+							},
+							{
+								"id": 146,
+								"challengeID": 46,
+								"name": "Winter Break",
+								"type": "break",
+								"startDate": 1702854060,
+								"endDate": 1704668340
+							},
+							{
+								"id": 147,
+								"challengeID": 46,
+								"name": "Break",
+								"type": "break",
+								"startDate": 1707692460,
+								"endDate": 1708297140
+							},
+							{
+								"id": 158,
+								"challengeID": 46,
+								"name": "Playoffs",
+								"type": "play",
+								"startDate": 1711321260,
+								"endDate": 1713740340
+							},
+							{
+								"id": 160,
+								"challengeID": 46,
+								"name": "Spring Break",
+								"type": "break",
+								"startDate": 1713740400,
+								"endDate": 1714773540
+							},
+							{
+								"id": 161,
+								"challengeID": 46,
+								"name": "Grande Finale",
+								"type": "play",
+								"startDate": 1714773660,
+								"endDate": 1714946340
+							}
+						],
+						"name": "Overwatch All For One 2024 - France",
+						"price": 0.0,
+						"expirationDateTeamValidated": 1714946460,
+						"expirationDateTeamNotValidated": 1714946460,
+						"multiplePurchaseLimit": 1
+					}
+				}
+			],
+			"lent": []
+		},
+		{
+			"user": {
+				"id": "533f38e4-ae0e-40cb-bf37-bdf450a3509d-5979663b-0fcf-49ae-a78e-45214f90af67",
+				"username": "Avo#31754",
+				"publicEmail": 0,
+				"publicBattlenetBtag": 1,
+				"nationality": "FR",
+				"marketplaceTransfer": 1,
+				"marketplaceLent": 0,
+				"thirdparties": {
+					"discord": {
+						"publicDiscordTag": 0,
+						"discordTag": null,
+						"discordID": null
+					}
+				},
+				"followers": {
+					"number": 5,
+					"followed": false
+				},
+				"subscriptions": {
+					"number": 0
+				},
+				"registerDate": 1626625890,
+				"battlenetBtag": "Avo#21729"
+			},
+			"tags": {
+				"gameRoles": [
+					"dps hitscan"
+				]
+			},
+			"roles": [],
+			"ticketsPurchased": [
+				{
+					"id": 12215,
+					"teamID": "5e142694-0404-4a1a-899a-749cb55d21a0-269aa76f-59c2-4d51-a4e9-e828e6efbded",
+					"userID": "533f38e4-ae0e-40cb-bf37-bdf450a3509d-5979663b-0fcf-49ae-a78e-45214f90af67",
+					"user": {
+						"id": "533f38e4-ae0e-40cb-bf37-bdf450a3509d-5979663b-0fcf-49ae-a78e-45214f90af67"
+					},
+					"team": {
+						"id": "5e142694-0404-4a1a-899a-749cb55d21a0-269aa76f-59c2-4d51-a4e9-e828e6efbded"
+					},
+					"type": "personal",
+					"registerDate": 1709996060,
+					"ticket": {
+						"id": 79,
+						"challengeID": 46,
+						"stepsID": [
+							146,
+							134,
+							147,
+							135,
+							158,
+							160,
+							161
+						],
+						"steps": [
+							{
+								"id": 134,
+								"challengeID": 46,
+								"name": "Stage 1",
+								"type": "play",
+								"startDate": 1704664860,
+								"endDate": 1707688740
+							},
+							{
+								"id": 135,
+								"challengeID": 46,
+								"name": "Stage 2",
+								"type": "play",
+								"startDate": 1708293660,
+								"endDate": 1711317540
+							},
+							{
+								"id": 146,
+								"challengeID": 46,
+								"name": "Winter Break",
+								"type": "break",
+								"startDate": 1702854060,
+								"endDate": 1704668340
+							},
+							{
+								"id": 147,
+								"challengeID": 46,
+								"name": "Break",
+								"type": "break",
+								"startDate": 1707692460,
+								"endDate": 1708297140
+							},
+							{
+								"id": 158,
+								"challengeID": 46,
+								"name": "Playoffs",
+								"type": "play",
+								"startDate": 1711321260,
+								"endDate": 1713740340
+							},
+							{
+								"id": 160,
+								"challengeID": 46,
+								"name": "Spring Break",
+								"type": "break",
+								"startDate": 1713740400,
+								"endDate": 1714773540
+							},
+							{
+								"id": 161,
+								"challengeID": 46,
+								"name": "Grande Finale",
+								"type": "play",
+								"startDate": 1714773660,
+								"endDate": 1714946340
+							}
+						],
+						"name": "Overwatch All For One 2024 - France",
+						"price": 0.0,
+						"expirationDateTeamValidated": 1714946460,
+						"expirationDateTeamNotValidated": 1714946460,
+						"multiplePurchaseLimit": 1
+					}
+				}
+			],
+			"lent": []
+		},
+		{
+			"user": {
+				"id": "f91eb502-714e-4256-9e2b-f0494b58a3b2-efebe438-f6f6-48d0-84fc-52f5b1ce2f59",
+				"username": "KroxZ#96578",
+				"publicEmail": 0,
+				"publicBattlenetBtag": 1,
+				"nationality": "FR",
+				"marketplaceTransfer": 1,
+				"marketplaceLent": 1,
+				"thirdparties": {
+					"discord": {
+						"publicDiscordTag": 1,
+						"discordTag": "kroxz#0",
+						"discordID": "231698352557916160"
+					}
+				},
+				"followers": {
+					"number": 2,
+					"followed": false
+				},
+				"subscriptions": {
+					"number": 1
+				},
+				"registerDate": 1639424534,
+				"battlenetBtag": "KroxZ#21878"
+			},
+			"tags": {
+				"gameRoles": [
+					"off tank"
+				]
+			},
+			"roles": [],
+			"ticketsPurchased": [
+				{
+					"id": 12217,
+					"teamID": "5e142694-0404-4a1a-899a-749cb55d21a0-269aa76f-59c2-4d51-a4e9-e828e6efbded",
+					"userID": "f91eb502-714e-4256-9e2b-f0494b58a3b2-efebe438-f6f6-48d0-84fc-52f5b1ce2f59",
+					"user": {
+						"id": "f91eb502-714e-4256-9e2b-f0494b58a3b2-efebe438-f6f6-48d0-84fc-52f5b1ce2f59"
+					},
+					"team": {
+						"id": "5e142694-0404-4a1a-899a-749cb55d21a0-269aa76f-59c2-4d51-a4e9-e828e6efbded"
+					},
+					"type": "personal",
+					"registerDate": 1710191184,
+					"ticket": {
+						"id": 79,
+						"challengeID": 46,
+						"stepsID": [
+							146,
+							134,
+							147,
+							135,
+							158,
+							160,
+							161
+						],
+						"steps": [
+							{
+								"id": 134,
+								"challengeID": 46,
+								"name": "Stage 1",
+								"type": "play",
+								"startDate": 1704664860,
+								"endDate": 1707688740
+							},
+							{
+								"id": 135,
+								"challengeID": 46,
+								"name": "Stage 2",
+								"type": "play",
+								"startDate": 1708293660,
+								"endDate": 1711317540
+							},
+							{
+								"id": 146,
+								"challengeID": 46,
+								"name": "Winter Break",
+								"type": "break",
+								"startDate": 1702854060,
+								"endDate": 1704668340
+							},
+							{
+								"id": 147,
+								"challengeID": 46,
+								"name": "Break",
+								"type": "break",
+								"startDate": 1707692460,
+								"endDate": 1708297140
+							},
+							{
+								"id": 158,
+								"challengeID": 46,
+								"name": "Playoffs",
+								"type": "play",
+								"startDate": 1711321260,
+								"endDate": 1713740340
+							},
+							{
+								"id": 160,
+								"challengeID": 46,
+								"name": "Spring Break",
+								"type": "break",
+								"startDate": 1713740400,
+								"endDate": 1714773540
+							},
+							{
+								"id": 161,
+								"challengeID": 46,
+								"name": "Grande Finale",
+								"type": "play",
+								"startDate": 1714773660,
+								"endDate": 1714946340
+							}
+						],
+						"name": "Overwatch All For One 2024 - France",
+						"price": 0.0,
+						"expirationDateTeamValidated": 1714946460,
+						"expirationDateTeamNotValidated": 1714946460,
+						"multiplePurchaseLimit": 1
+					}
+				}
+			],
+			"lent": []
+		},
+		{
+			"user": {
+				"id": "2ec1f01e-6423-447a-85b6-a26dbc362531-3f0a0b34-d0ce-40e3-9166-004cdadad0a5",
+				"username": "GoGo#36894",
+				"publicEmail": 0,
+				"publicBattlenetBtag": 1,
+				"nationality": "FR",
+				"marketplaceTransfer": 0,
+				"marketplaceLent": 1,
+				"thirdparties": {
+					"discord": {
+						"publicDiscordTag": 1,
+						"discordTag": "googoogoo#0",
+						"discordID": "328837755293663234"
+					}
+				},
+				"followers": {
+					"number": 1,
+					"followed": false
+				},
+				"subscriptions": {
+					"number": 2
+				},
+				"registerDate": 1639914715,
+				"battlenetBtag": "L\u00facio#21587"
+			},
+			"tags": {
+				"gameRoles": [
+					"off tank"
+				]
+			},
+			"roles": [],
+			"ticketsPurchased": [
+				{
+					"id": 12241,
+					"teamID": "5e142694-0404-4a1a-899a-749cb55d21a0-269aa76f-59c2-4d51-a4e9-e828e6efbded",
+					"userID": "2ec1f01e-6423-447a-85b6-a26dbc362531-3f0a0b34-d0ce-40e3-9166-004cdadad0a5",
+					"user": {
+						"id": "2ec1f01e-6423-447a-85b6-a26dbc362531-3f0a0b34-d0ce-40e3-9166-004cdadad0a5"
+					},
+					"team": {
+						"id": "5e142694-0404-4a1a-899a-749cb55d21a0-269aa76f-59c2-4d51-a4e9-e828e6efbded"
+					},
+					"type": "personal",
+					"registerDate": 1713984088,
+					"ticket": {
+						"id": 79,
+						"challengeID": 46,
+						"stepsID": [
+							146,
+							134,
+							147,
+							135,
+							158,
+							160,
+							161
+						],
+						"steps": [
+							{
+								"id": 134,
+								"challengeID": 46,
+								"name": "Stage 1",
+								"type": "play",
+								"startDate": 1704664860,
+								"endDate": 1707688740
+							},
+							{
+								"id": 135,
+								"challengeID": 46,
+								"name": "Stage 2",
+								"type": "play",
+								"startDate": 1708293660,
+								"endDate": 1711317540
+							},
+							{
+								"id": 146,
+								"challengeID": 46,
+								"name": "Winter Break",
+								"type": "break",
+								"startDate": 1702854060,
+								"endDate": 1704668340
+							},
+							{
+								"id": 147,
+								"challengeID": 46,
+								"name": "Break",
+								"type": "break",
+								"startDate": 1707692460,
+								"endDate": 1708297140
+							},
+							{
+								"id": 158,
+								"challengeID": 46,
+								"name": "Playoffs",
+								"type": "play",
+								"startDate": 1711321260,
+								"endDate": 1713740340
+							},
+							{
+								"id": 160,
+								"challengeID": 46,
+								"name": "Spring Break",
+								"type": "break",
+								"startDate": 1713740400,
+								"endDate": 1714773540
+							},
+							{
+								"id": 161,
+								"challengeID": 46,
+								"name": "Grande Finale",
+								"type": "play",
+								"startDate": 1714773660,
+								"endDate": 1714946340
+							}
+						],
+						"name": "Overwatch All For One 2024 - France",
+						"price": 0.0,
+						"expirationDateTeamValidated": 1714946460,
+						"expirationDateTeamNotValidated": 1714946460,
+						"multiplePurchaseLimit": 1
+					}
+				}
+			],
+			"lent": []
+		},
+		{
+			"user": {
+				"id": "2f6afdb8-c9f0-4533-a2f2-771512c0e497-e2695624-be0c-418b-bfb6-7635696cf274",
+				"username": "Mat71#44477",
+				"publicEmail": 0,
+				"publicBattlenetBtag": 1,
+				"nationality": "FR",
+				"marketplaceTransfer": 1,
+				"marketplaceLent": 1,
+				"thirdparties": {
+					"discord": {
+						"publicDiscordTag": 1,
+						"discordTag": "mat71#0",
+						"discordID": "514172574914183178"
+					}
+				},
+				"followers": {
+					"number": 2,
+					"followed": false
+				},
+				"subscriptions": {
+					"number": 6
+				},
+				"registerDate": 1697041859,
+				"battlenetBtag": "Mat71#21140"
+			},
+			"tags": {
+				"gameRoles": []
+			},
+			"roles": [
+				"manager",
+				"owner"
+			],
+			"ticketsPurchased": [],
+			"lent": []
+		}
+	],
+	"membersLent": [],
+	"segments": [
+		{
+			"id": 161,
+			"challengeID": 44,
+			"position": 1,
+			"name": "Placement Professionnel"
+		},
+		{
+			"id": 164,
+			"challengeID": 46,
+			"position": 1,
+			"name": "Championnat de France"
+		}
+	],
+	"followers": {
+		"number": 238
+	}
+}

@@ -1,0 +1,98 @@
+{
+	"pools": [
+		{
+			"id": 175,
+			"name": "Pool Test",
+			"challengeID": 9,
+			"segmentID": 22,
+			"stepsID": [
+				27
+			],
+			"minScoresPerMatch": 4
+		},
+		{
+			"id": 181,
+			"name": "Pool test 2",
+			"challengeID": 9,
+			"segmentID": 23,
+			"stepsID": [
+				27,
+				34
+			],
+			"minScoresPerMatch": 4
+		},
+		{
+			"id": 183,
+			"name": "Pool Test 3",
+			"challengeID": 9,
+			"segmentID": 23,
+			"stepsID": [
+				53
+			],
+			"minScoresPerMatch": 4
+		},
+		{
+			"id": 450,
+			"name": "Saucisse",
+			"challengeID": 9,
+			"segmentID": 98,
+			"stepsID": [
+				58,
+				59,
+				74
+			],
+			"minScoresPerMatch": 4
+		},
+		{
+			"id": 454,
+			"name": "Pool Alpha",
+			"challengeID": 9,
+			"segmentID": 98,
+			"stepsID": [
+				74,
+				75
+			],
+			"minScoresPerMatch": 4
+		},
+		{
+			"id": 575,
+			"name": "Pool Beta",
+			"challengeID": 9,
+			"segmentID": 98,
+			"stepsID": [
+				78
+			],
+			"minScoresPerMatch": 4
+		},
+		{
+			"id": 766,
+			"name": "Pool Gamma",
+			"challengeID": 9,
+			"segmentID": 130,
+			"stepsID": [
+				87
+			],
+			"minScoresPerMatch": 4
+		},
+		{
+			"id": 781,
+			"name": "Pool 1 S-A 2023",
+			"challengeID": 9,
+			"segmentID": 98,
+			"stepsID": [
+				89
+			],
+			"minScoresPerMatch": 4
+		},
+		{
+			"id": 784,
+			"name": "Pool Ad Vitam",
+			"challengeID": 9,
+			"segmentID": 22,
+			"stepsID": [
+				92
+			],
+			"minScoresPerMatch": 5
+		}
+	]
+}

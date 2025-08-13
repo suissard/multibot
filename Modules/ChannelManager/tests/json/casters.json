@@ -1,0 +1,161 @@
+[
+	{
+		"id": "999",
+		"username": "Zugmat#1234",
+		"publicEmail": 0,
+		"publicBattlenetBtag": 1,
+		"nationality": "AR",
+		"marketplaceTransfer": 1,
+		"marketplaceLent": 0,
+		"thirdparties": {
+			"discord": {
+				"publicDiscordTag": 1,
+				"discordTag": "zugmat",
+				"discordID": "694491796147011595"
+			}
+		},
+		"followers": {
+			"number": 2,
+			"followed": false
+		},
+		"subscriptions": {
+			"number": 16
+		},
+		"registerDate": 1659118766,
+		"castUrl": "https://twitch.tv/fefegg",
+		"emailValidated": null,
+		"emailAllowCommercialUsage": null,
+		"organizationRoles": [],
+		"teams": [
+			{
+				"id": "1907a51b-b5c5-4268-9d73-e1a017f4077b-417c83e6-004b-4559-88b1-6020d6f67384",
+				"name": "!Suissardine",
+				"nationality": "AR",
+				"recruitment": 0,
+				"registerDate": 1613292921,
+				"externalLinks": {
+					"discord": null,
+					"facebook": null,
+					"twitter": "https://twitter.com/suissard",
+					"instagram": null,
+					"youtube": null,
+					"twitch": null,
+					"website": null
+				}
+			},
+			{
+				"id": "38b3feef-2d96-4ddc-a567-671b8bda8592-fdc62335-43c8-415a-8941-7cd16375ccaf",
+				"name": "La team de Tristan",
+				"nationality": "ID",
+				"recruitment": 1,
+				"registerDate": 1640903293,
+				"externalLinks": {
+					"discord": null,
+					"facebook": null,
+					"twitter": null,
+					"instagram": null,
+					"youtube": null,
+					"twitch": null,
+					"website": null
+				}
+			},
+			{
+				"id": "38c8b033-234f-4560-8367-a1912f92fa6f-f770d75d-59e8-42f4-ab88-f487538876c7",
+				"name": "Empty Team",
+				"nationality": "AD",
+				"recruitment": 1,
+				"registerDate": 1666050198,
+				"externalLinks": {
+					"discord": null,
+					"facebook": null,
+					"twitter": null,
+					"instagram": null,
+					"youtube": null,
+					"twitch": null,
+					"website": null
+				}
+			},
+			{
+				"id": "5b51bb7f-899d-4005-835b-854241057b65-2bd9feec-003b-4887-8cb8-4d9d090f1624",
+				"name": "Dune",
+				"nationality": "AL",
+				"recruitment": 1,
+				"registerDate": 1660000721,
+				"externalLinks": {
+					"discord": "https://discord.gg/ss",
+					"facebook": "https://facebook.com/",
+					"twitter": "https://twitter.com/",
+					"instagram": "https://instagram.com/",
+					"youtube": "https://youtube.com/",
+					"twitch": "https://twitch.tv/",
+					"website": "https://www.figma.com/file/ZTTc6MfgGhmT5IVnqQ0TKk/Olympe-team-library_UI-Kit?node-id=7305%3A39548&t=EoQqb1Dk9shptm7c-0"
+				}
+			},
+			{
+				"id": "a2920255-e7ec-4b1d-9a1c-18d892c1a2d5-d584601e-439d-4fb2-9cbb-c5b12d882fc3",
+				"name": "Munchkin",
+				"nationality": "AT",
+				"recruitment": 1,
+				"registerDate": 1665062798,
+				"externalLinks": {
+					"discord": "https://discord.gg/channels/547046741896069120/723149380621828136",
+					"facebook": "https://facebook.com/konbinifr",
+					"twitter": "https://twitter.com/AlertesInfos",
+					"instagram": "https://instagram.com/gracieuse_violence/",
+					"youtube": "https://youtube.com/@StudioBagel",
+					"twitch": "https://twitch.tv/",
+					"website": "https://playallforone.com"
+				}
+			},
+			{
+				"id": "a88d2e51-b5a0-49d1-89e8-92358dc5ef85-2aa3036a-d650-4e98-8e56-c33116b5b0c8",
+				"name": "LePasseur",
+				"nationality": "FR",
+				"recruitment": 1,
+				"registerDate": 1660000473,
+				"externalLinks": {
+					"discord": null,
+					"facebook": "https://facebook.com/konbinifr/",
+					"twitter": "https://twitter.com/AlertesInfos",
+					"instagram": null,
+					"youtube": null,
+					"twitch": "https://twitch.tv/twitdsdsch",
+					"website": "https://stackoverflow.com/questions/44430740/how-do-i-set-text-overflow-to-ellipsis-in-css-grid-layout"
+				}
+			},
+			{
+				"id": "c7a03ce4-bf9c-4801-97c2-090001a40f03-e8c20695-258e-4c98-b25c-84ac6e1eecc8",
+				"name": "zazazaza",
+				"nationality": "US",
+				"recruitment": 1,
+				"registerDate": 1708174957,
+				"externalLinks": {
+					"discord": null,
+					"facebook": null,
+					"twitter": null,
+					"instagram": null,
+					"youtube": null,
+					"twitch": null,
+					"website": null
+				}
+			},
+			{
+				"id": "de4aa4ef-3149-4f68-932a-13fc861d0f6a-47d50348-fe6c-4992-a418-6ac5dd41a972",
+				"name": "Guts Team",
+				"nationality": "BF",
+				"recruitment": 0,
+				"registerDate": 1665065921,
+				"externalLinks": {
+					"discord": null,
+					"facebook": null,
+					"twitter": null,
+					"instagram": "https://instagram.com/bnngngdsds",
+					"youtube": null,
+					"twitch": null,
+					"website": null
+				}
+			}
+		],
+		"teamsLent": []
+	}
+]

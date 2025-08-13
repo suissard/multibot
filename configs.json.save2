@@ -1,0 +1,20 @@
+{
+	"api": {
+		"token": "ceciestuntokentemporaire",
+		"hostname": "localhost",
+		"port": 3000,
+		"users": [
+			{
+				"token": "ceciestuntokentemporaire",
+				"discordId": "306395745693597697"
+			}
+		]
+	},
+	"discord": {
+		"clientId": "XXXXXXXX",
+		"clientPublicKey": "XXXXXXXX",
+		"clientSecret": "XXXXXXXX",
+		"scope": ["identify", "guilds", "guilds.join"],
+		"redirectUrl": "http://localhost:3000/auth"
+	}
+}

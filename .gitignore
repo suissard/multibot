@@ -1,0 +1,13 @@
+node_modules/
+config.json
+configs.json.unactive
+configs.json
+configsGETI.json
+userNamePassword.json
+botMode.json
+.vscode/
+TEST/
+dataGetibot/
+.archives
+auto_pull.sh
+.idea

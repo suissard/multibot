@@ -1,0 +1,179 @@
+{
+      "id": "1907a51b-b5c5-4268-9d73-e1a017f4077b-417c83e6-004b-4559-88b1-6020d6f67384",
+      "name": "Team 1",
+      "nationality": "FR",
+      "recruitment": 1,
+      "registerDate": 1613292921,
+      "externalLinks": {
+        "discord": null,
+        "facebook": null,
+        "twitter": "https://twitter.com/suissard",
+        "instagram": null,
+        "youtube": null,
+        "twitch": null,
+        "website": null
+      },
+      "members": [
+        {
+          "user": {
+            "id": "0ee5936d-2a20-48ce-a202-55d8f49e6bb4-55dd7711-dcb6-45fe-836d-1bd3e4df162c",
+            "username": "Serkox#48400",
+            "publicEmail": 1,
+            "publicBattlenetBtag": 1,
+            "nationality": "FR",
+            "marketplaceTransfer": 0,
+            "marketplaceLent": 0,
+            "thirdparties": {
+              "discord": {
+                "publicDiscordTag": 1,
+                "discordTag": "Serkox#6372",
+                "discordID": "189386881920794624"
+              }
+            },
+            "followers": {
+              "number": 0
+            },
+            "registerDate": null
+          },
+          "tags": {
+            "gameRoles": [
+              "dps projectile"
+            ]
+          },
+          "roles": [
+            "owner"
+          ],
+          "ticketsPurchased": [
+            {
+              "id": 9189,
+              "teamID": "1907a51b-b5c5-4268-9d73-e1a017f4077b-417c83e6-004b-4559-88b1-6020d6f67384",
+              "userID": "0ee5936d-2a20-48ce-a202-55d8f49e6bb4-55dd7711-dcb6-45fe-836d-1bd3e4df162c",
+              "user": {
+                "id": "0ee5936d-2a20-48ce-a202-55d8f49e6bb4-55dd7711-dcb6-45fe-836d-1bd3e4df162c"
+              },
+              "team": {
+                "id": "1907a51b-b5c5-4268-9d73-e1a017f4077b-417c83e6-004b-4559-88b1-6020d6f67384"
+              },
+              "type": "personal",
+              "registerDate": 1645740063,
+              "ticket": {
+                "id": 49,
+                "challengeID": 9,
+                "stepsID": [
+                  74,
+                  75,
+                  78
+                ],
+                "steps": [
+                  {
+                    "id": 74,
+                    "challengeID": 9,
+                    "name": "Step 220 C",
+                    "startDate": 1638745200,
+                    "endDate": 1640646000
+                  },
+                  {
+                    "id": 75,
+                    "challengeID": 9,
+                    "name": "Step 2022 D",
+                    "startDate": 1640559600,
+                    "endDate": 1653951600
+                  },
+                  {
+                    "id": 78,
+                    "challengeID": 9,
+                    "name": "Step 2022 E",
+                    "startDate": 1645398000,
+                    "endDate": 1647817140
+                  }
+                ],
+                "name": "Saison 2022",
+                "price": 0,
+                "expirationDateTeamValidated": 1654011360,
+                "expirationDateTeamNotValidated": 1654011420
+              }
+            },
+            {
+              "id": 9645,
+              "teamID": "1907a51b-b5c5-4268-9d73-e1a017f4077b-417c83e6-004b-4559-88b1-6020d6f67384",
+              "userID": "0ee5936d-2a20-48ce-a202-55d8f49e6bb4-55dd7711-dcb6-45fe-836d-1bd3e4df162c",
+              "user": {
+                "id": "0ee5936d-2a20-48ce-a202-55d8f49e6bb4-55dd7711-dcb6-45fe-836d-1bd3e4df162c"
+              },
+              "team": {
+                "id": "1907a51b-b5c5-4268-9d73-e1a017f4077b-417c83e6-004b-4559-88b1-6020d6f67384"
+              },
+              "type": "personal",
+              "registerDate": 1660651731,
+              "ticket": {
+                "id": 57,
+                "challengeID": 9,
+                "stepsID": [
+                  89
+                ],
+                "steps": [
+                  {
+                    "id": 89,
+                    "challengeID": 9,
+                    "name": "Step A 2023",
+                    "startDate": 1659909600,
+                    "endDate": 1664575140
+                  }
+                ],
+                "name": "Saison 2023",
+                "price": 0,
+                "expirationDateTeamValidated": 1661896800,
+                "expirationDateTeamNotValidated": 1661983140
+              }
+            },
+            {
+              "id": 9670,
+              "teamID": "1907a51b-b5c5-4268-9d73-e1a017f4077b-417c83e6-004b-4559-88b1-6020d6f67384",
+              "userID": "0ee5936d-2a20-48ce-a202-55d8f49e6bb4-55dd7711-dcb6-45fe-836d-1bd3e4df162c",
+              "user": {
+                "id": "0ee5936d-2a20-48ce-a202-55d8f49e6bb4-55dd7711-dcb6-45fe-836d-1bd3e4df162c"
+              },
+              "team": {
+                "id": "1907a51b-b5c5-4268-9d73-e1a017f4077b-417c83e6-004b-4559-88b1-6020d6f67384"
+              },
+              "type": "personal",
+              "registerDate": 1664958523,
+              "ticket": {
+                "id": 60,
+                "challengeID": 9,
+                "stepsID": [
+                  92
+                ],
+                "steps": [
+                  {
+                    "id": 92,
+                    "challengeID": 9,
+                    "name": "Step ad Vitam",
+                    "startDate": 1664532300,
+                    "endDate": 2111738700
+                  }
+                ],
+                "name": "ticket AdVitam",
+                "price": 0,
+                "expirationDateTeamValidated": 1664958360,
+                "expirationDateTeamNotValidated": 1948955160
+              }
+            }
+          ],
+          "lent": []
+        }
+      ],
+      "membersLent": [],
+      "segments": [
+        {
+          "id": 22,
+          "challengeID": 9,
+          "position": 1,
+          "name": "Division Test"
+        }
+      ],
+      "followers": {
+        "number": 1,
+        "followed": true
+      }
+    }

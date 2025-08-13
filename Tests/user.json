@@ -1,0 +1,46 @@
+{
+	"id": "b2c39cd6-506c-4984-8edf-98d15d96915e-b2ac2db7-9548-4b38-968e-1b31c4792be9",
+	"username": "Enravota#45724",
+	"publicEmail": 0,
+	"publicBattlenetBtag": 1,
+	"nationality": "FR",
+	"marketplaceTransfer": 0,
+	"marketplaceLent": 0,
+	"thirdparties": {
+		"discord": {
+			"publicDiscordTag": 1,
+			"discordTag": "enravota#0",
+			"discordID": "273126289211129856"
+		}
+	},
+	"followers": {
+		"number": 2,
+		"followed": false
+	},
+	"subscriptions": {
+		"number": 1
+	},
+	"registerDate": 1578923886,
+	"emailValidated": null,
+	"emailAllowCommercialUsage": null,
+	"organizationRoles": [],
+	"teams": [
+		{
+			"id": "5e142694-0404-4a1a-899a-749cb55d21a0-269aa76f-59c2-4d51-a4e9-e828e6efbded",
+			"name": "Nu.age",
+			"nationality": "FR",
+			"recruitment": 1,
+			"registerDate": 1699619096,
+			"externalLinks": {
+				"discord": null,
+				"facebook": null,
+				"twitter": "https://twitter.com/nuage_gg",
+				"instagram": null,
+				"youtube": "https://youtube.com/@nuage_gg",
+				"twitch": "https://twitch.tv/peurle_ow",
+				"website": null
+			}
+		}
+	],
+	"teamsLent": []
+}
