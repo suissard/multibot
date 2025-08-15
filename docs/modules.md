@@ -17,6 +17,20 @@ L'avantage principal est la **séparation des préoccupations**. Au lieu d'avoir
 Un module est un dossier à la racine de `Modules/`. Le nom du dossier sert d'identifiant pour le module (par exemple, `AutoRole`).
 
 ```
+
+---
+
+## Liste des Modules
+
+Voici la liste de tous les modules disponibles. Cliquez sur le nom d'un module pour voir sa documentation détaillée.
+
+- [AutoRole](./modules_pages/AutoRole.md)
+- [ChannelManager](./modules_pages/ChannelManager.md)
+- [GetiJsonToDataBase](./modules_pages/GetiJsonToDataBase.md)
+- [MatchNotifier](./modules_pages/MatchNotifier.md)
+- [Secretary](./modules_pages/Secretary.md)
+- [ShareChannel](./modules_pages/ShareChannel.md)
+- [VocalDuplicate](./modules_pages/VocalDuplicate.md)
 Modules/
 └── AutoRole/
     ├── index.js           # Point d'entrée du module (obligatoire)
