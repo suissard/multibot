@@ -3,6 +3,7 @@
 // #############################################################
 const BotManager = require('../Class/BotManager.js');
 const { routes, createAllRoutes } = require('./routes');
+const { transformApiArgsToDiscordObjects } = require('./discord-object-transformer.js');
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -45,6 +46,31 @@ module.exports = class SelfApi {
 		});
 
 		this.startRouter();
+	}
+
+	/**
+	 * Récupère l'instance du bot à partir de la requête.
+	 * @param {import('express').Request} req - L'objet de la requête Express.
+	 * @returns {import('../Class/Bot.js')} L'instance du bot.
+	 */
+	getBot(req) {
+		const botId = this.getBotIdFromRequest(req);
+		if (!botId) throw new Error('Bot non trouvé');
+		const bot = this.BOTS.get(botId);
+		if (!bot) throw new Error('Bot non trouvé');
+		return bot;
+	}
+
+	/**
+	 * Convertit le corps de la requête API en objets Discord.
+	 * @param {import('express').Request} req - L'objet de la requête Express.
+	 * @param {import('../Class/Command.js')} command - La commande à exécuter.
+	 * @returns {Promise<object>} Les arguments transposés.
+	 */
+	async convertApiBadyToDiscordObject(req, command) {
+		const bot = this.getBot(req);
+		const args = req.body.args;
+		return await transformApiArgsToDiscordObjects(args, command, bot);
 	}
 
 	/**

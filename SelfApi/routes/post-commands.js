@@ -15,7 +15,7 @@ module.exports = {
         const cmdId = req._parsedUrl.pathname.replace('/commands', '').replace('/', '');
 
         // Verifier l'authenticité de l'utilisateur
-        const result = await BOTS.Commands.handleApiRequestCommand(bot, req, res, cmdId, user);
+        const result = await BOTS.Commands.handleApiRequestCommand(bot, req, res, cmdId, user, app);
         // comparer ses droit discord et ceux requis pour la commande
 
         // executer la commande

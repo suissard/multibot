@@ -237,7 +237,7 @@ module.exports = class Commande {
 	 * @param {Object} user
 	 * @returns
 	 */
-	async handleApiRequest(req, res, user) {
+	async handleApiRequest(req, res, user, app) {
 		const guild = this.bot.guilds.cache.get(this.bot.home);
 		const member = guild.members.cache.get(user.id);
 		this.setCommunicationData(
@@ -251,8 +251,8 @@ module.exports = class Commande {
 			this.checkPermission(member, guild); //Renvoie une erreur en cas de permission inssufisante
 
 			//Lancement de la commande
-			// message.channel.sendTyping();
-			let result = await this.methode(req.body.args);
+			const args = await app.convertApiBadyToDiscordObject(req, this);
+			let result = await this.methode(args);
 
 			// res.status(200).json({result});
 			return result;

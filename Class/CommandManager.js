@@ -116,14 +116,14 @@ module.exports = class CommandeManager {
 	 * @param {} res
 	 * @param {Discord.User} user
 	 */
-	handleApiRequestCommand(bot, req, res, commandId, user) {
+	handleApiRequestCommand(bot, req, res, commandId, user, app) {
 		if (!this.__commands.has(commandId))
 			throw new Error(`Cette commande "${commandId}" n'existe pas`);
 		if (bot.unauthorizedCommands.includes(commandId))
 			throw new Error(`Cette commande "${commandId}" n'est pas autorisé`);
 
 		let command = this.get(commandId);
-		return new command(bot).handleApiRequest(req, res, user);
+		return new command(bot).handleApiRequest(req, res, user, app);
 	}
 
 	/**
