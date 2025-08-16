@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { callApi } from '@/services/callApi';
 
 export default {
   name: 'ModulesList',
@@ -27,12 +27,7 @@ export default {
   },
   async created() {
     try {
-      const response = await axios.get('/api/modules', {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('api_token')}`
-        }
-      });
-      this.modules = response.data;
+      this.modules = await callApi('getModules');
     } catch (err) {
       this.error = 'Failed to load modules.';
       console.error(err);

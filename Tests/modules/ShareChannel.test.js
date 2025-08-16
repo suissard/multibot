@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import ShareMessage from './ShareMessage.js';
+import ShareMessage from '../../Modules/ShareChannel/ShareMessage.js';
 
 // Mock BOTS dependency
 vi.mock('../../Class/BOTS.js', () => ({
