@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "name": "ping",
+    "description": "Replies with pong!"
+  },
+  {
+    "name": "help",
+    "description": "Shows a list of all commands."
+  }
+]
