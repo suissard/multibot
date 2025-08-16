@@ -6,6 +6,7 @@ import SettingsPage from '../components/Settings.vue'
 import ModulesList from '../components/ModulesList.vue'
 import ModuleData from '../components/ModuleData.vue'
 import ModuleSettings from '../components/ModuleSettings.vue'
+import EventData from '../components/EventData.vue'
 import LoginAuth from '../components/LoginAuth.vue'
 import AuthCallback from '../components/AuthCallback.vue'
 
@@ -34,6 +35,11 @@ const routes = [
     path: '/events',
     name: 'EventsList',
     component: EventsList
+  },
+  {
+    path: '/events/:eventName/test-data',
+    name: 'EventData',
+    component: EventData
   },
   {
     path: '/settings',
