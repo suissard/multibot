@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { isMatchAlreadyPlayed, isMatchStartedSoon } from '../utils/utils';
+import { isMatchAlreadyPlayed, isMatchStartedSoon } from '../../Modules/ChannelManager/utils/utils.js';
 
 
 describe('Check if match is started soon', () => {

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import api from '../api';
+import { callApi } from '../services/callApi';
 
 export const useMainStore = defineStore('main', {
   state: () => ({
@@ -11,7 +11,7 @@ export const useMainStore = defineStore('main', {
     async fetchCommands() {
       this.loading = true;
       try {
-        this.commands = await api.selfApi.getCommands();
+        this.commands = await callApi('getCommands');
       } catch (error) {
         console.error('Failed to fetch commands:', error);
       } finally {
@@ -21,7 +21,7 @@ export const useMainStore = defineStore('main', {
     async fetchEvents() {
       this.loading = true;
       try {
-        this.events = await api.selfApi.getEvents();
+        this.events = await callApi('getEvents');
       } catch (error) {
         console.error('Failed to fetch events:', error);
       } finally {

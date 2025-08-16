@@ -1,13 +1,27 @@
+const BOTS = require('../../Class/BOTS.js');
+
+/**
+ * Route to get information about all events.
+ */
 module.exports = {
-    path: /\/events/,
+    path: '/events',
     method: 'get',
     /**
-     * Gère la requête pour obtenir des informations sur les événements.
-     * @todo Cette route est un placeholder et n'est pas implémentée.
-     * @param {import('express').Request} req - L'objet de la requête Express.
-     * @param {import('express').Response} res - L'objet de la réponse Express.
+     * Handles the request to get information about events.
+     * @param {import('express').Request} req - The Express request object.
+     * @param {import('express').Response} res - The Express response object.
      */
-    handler: (req, res, bot, user, app) => {
-        res.send('get-events');
+    handler: (req, res) => {
+        const listEvents = Array.from(BOTS.Events.__events).map(([name, event]) => {
+            return {
+                name: event.name,
+                description: event.description,
+                active: event.active,
+                intents: event.intents,
+                options: event.options,
+                config: event.config
+            };
+        });
+        return res.json(listEvents);
     },
 };

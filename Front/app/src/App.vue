@@ -16,8 +16,6 @@
                 <router-link to="/events" class="text-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Events</router-link>
                 <router-link to="/modules" class="text-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Modules</router-link>
                 <router-link to="/settings" class="text-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Settings</router-link>
-    <router-link v-if="!isAuthenticated" to="/login">Login</router-link>
-    <a v-if="isAuthenticated" href="#" @click.prevent="logout">Logout</a>
               </div>
             </div>
           </div>
@@ -31,6 +29,13 @@
                 </svg>
               </button>
             </div>
+
+<div class="flex items-center">
+            <button @click="toggleSettingsPanel" class="p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+              <span class="sr-only">View settings</span>
+              <img v-if="isAuthenticated && profilePictureUrl" :src="profilePictureUrl" alt="User Avatar" class="h-8 w-8 rounded-full">
+              <svg v-else class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            </button>
           </div>
         </div>
       </div>
@@ -39,16 +44,15 @@
     <main>
       <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div class="px-4 py-6 sm:px-0">
-          <div class="border-4 border-dashed border-gray-200 rounded-lg h-96">
-            <router-view v-slot="{ Component }">
-              <transition name="fade" mode="out-in">
-                <component :is="Component" />
-              </transition>
-            </router-view>
-          </div>
+          <router-view v-slot="{ Component }">
+            <transition name="fade" mode="out-in">
+              <component :is="Component" />
+            </transition>
+          </router-view>
         </div>
       </div>
     </main>
+    <SettingsPanel :is-open="isSettingsPanelOpen" @close="toggleSettingsPanel" />
   </div>
 </template>
 
@@ -56,29 +60,31 @@
 import { useNotificationStore } from './stores/notifications';
 import NotificationContainer from './components/NotificationContainer.vue';
 import NotificationHistory from './components/NotificationHistory.vue';
+import { mapState, mapActions } from 'pinia';
+import { useUserStore } from './stores/user';
+import SettingsPanel from './components/SettingsPanel.vue';
 
 export default {
   name: 'App',
   components: {
     NotificationContainer,
-    NotificationHistory
+    NotificationHistory,
+    SettingsPanel
   },
   data() {
     return {
+      isSettingsPanelOpen: false,
       isAuthenticated: false,
       showHistory: false
     };
   },
-  created() {
-    this.updateAuthStatus();
-    window.addEventListener('storage', this.updateAuthStatus);
-  },
-  beforeUnmount() {
-    window.removeEventListener('storage', this.updateAuthStatus);
+  computed: {
+    ...mapState(useUserStore, ['isAuthenticated', 'profilePictureUrl', 'theme']),
   },
   methods: {
-    updateAuthStatus() {
-      this.isAuthenticated = !!localStorage.getItem('api_token');
+    ...mapActions(useUserStore, ['checkAuth', 'logout']),
+    toggleSettingsPanel() {
+      this.isSettingsPanelOpen = !this.isSettingsPanelOpen;
     },
     logout() {
       const notificationStore = useNotificationStore();
@@ -92,10 +98,11 @@ export default {
         details: 'You will be redirected to the login page.'
       });
     }
+
   },
-  watch: {
-    '$route': 'updateAuthStatus'
-  }
+  created() {
+    this.checkAuth();
+  },
 };
 </script>
 

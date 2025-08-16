@@ -1,7 +1,7 @@
 // autoroleConfig.test.js
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 // Assurez-vous que le chemin vers votre classe AutoRoleConfig est correct
-import { AutoRoleConfig } from './AutoroleConfigClass.js'; // Remplacez par le chemin réel de VOTRE classe
+import { AutoRoleConfig } from '../../Modules/AutoRole/AutoroleConfigClass.js'; // Remplacez par le chemin réel de VOTRE classe
 
 // Mock pour la classe Bot, car elle est requise par AutoRoleConfig
 const mockBotInstance = {
