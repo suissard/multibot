@@ -22,32 +22,19 @@ redemarre le bot
 
 ## Arguments
 
-```javascript
-[
-            {
-                type: 'STRING',
-                name: 'raison',
-                description: 'Raison du restart',
-                required: false,
-            },
-        ]
-```
+La commande accepte un argument optionnel :
+
+-   `raison` (texte, optionnel) : Permet de spécifier une raison pour le redémarrage, qui sera affichée dans le message de confirmation.
 
 ## Fonctionnement du Code
 
-```javascript
-methode(args = {}) {
-            let result = 'Redémarrage efféctué avec succès !';
-            if (this.bot.ownerId == this.user.id) {
-                if (args.raison) {
-                    result = result + '\nPour la raison suivante : ' + args.raison;
-                }
-                this.bot.restart();
-                return result;
-            } else {
-                return 'Cette commande est réservé au proprietaire du bot';
-            }
-            //throw new Error("Cette commande est réservé au proprietaire du bot")
-        }
-    }
-```
+Cette commande permet de redémarrer le processus du bot. C'est une commande critique, et son accès est donc hautement restreint.
+
+1.  **Vérification des droits** : Avant toute chose, la commande vérifie si l'utilisateur qui l'invoque est bien le propriétaire officiel du bot (tel que défini dans sa configuration). Bien que les permissions de la commande limitent déjà son usage, cette vérification interne ajoute une couche de sécurité supplémentaire. Si l'utilisateur n'est pas le propriétaire, la commande renvoie un message d'erreur et s'arrête immédiatement.
+
+2.  **Procédure de redémarrage** : Si l'utilisateur est bien le propriétaire, la commande exécute les actions suivantes :
+    -   Elle prépare un message de confirmation. Si une raison a été fournie en argument, elle est ajoutée à ce message.
+    -   Elle appelle la fonction `restart()` de l'objet bot, qui déclenche la séquence de redémarrage du processus.
+    -   Elle retourne le message de confirmation.
+
+*Note : Le message de confirmation est envoyé juste avant que le bot ne s'éteigne. Il peut y avoir un court délai avant que le bot ne soit de nouveau en ligne.*

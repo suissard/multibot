@@ -22,74 +22,25 @@ Renvoie la liste des teams disponibles pour un challenge donné
 
 ## Arguments
 
-```javascript
-[
-        {
-            type: 'INTEGER',
-            name: 'challengeid',
-            description: 'ID du challenge pour lequel lister les équipes',
-            required: false,
-        },
-    ]
-```
+La commande accepte un argument optionnel :
+
+-   `challengeid` (nombre entier) : L'identifiant numérique du challenge pour lequel vous souhaitez lister les équipes. Si cet argument n'est pas fourni, la commande listera tous les challenges disponibles.
 
 ## Fonctionnement du Code
 
-```javascript
-methode(args) {
-        const challengeId = args.challengeid;
+Cette commande a pour but de lister les équipes participant à un challenge spécifique de l'écosystème Olympe.
 
-        if (!this.bot.olympe || !this.bot.olympe.api) {
-            return "Le module Olympe n'est pas correctement initialisé. Veuillez contacter un administrateur.";
-        }
+1.  **Vérification initiale** : La commande s'assure d'abord que le module Olympe est bien connecté et fonctionnel.
 
-        if (!challengeId) {
-            try {
-                const challenges = await this.bot.olympe.api.GET('challenges');
-                if (!challenges || challenges.length === 0) {
-                    return "Aucun challenge n'a été trouvé.";
-                }
+2.  **Comportement sans ID de challenge** : Si l'utilisateur n'a pas fourni d'ID de challenge, la commande va :
+    -   Interroger l'API pour obtenir la liste de tous les challenges existants.
+    -   Afficher cette liste à l'utilisateur, en indiquant l'ID et le nom de chaque challenge, pour l'inviter à relancer la commande avec un ID précis.
 
-                let response = "Veuillez spécifier un ID de challenge. Voici les challenges disponibles :\n";
-                // The API returns an object with a 'challenges' property which is the array
-                const challengesArray = challenges.challenges || challenges;
-                for (const challenge of challengesArray) {
-                    response += `\n**${challenge.id}** : ${challenge.name}`;
-                }
-                return response;
-            } catch (error) {
-                console.error(error);
-                return "Une erreur est survenue en récupérant la liste des challenges.";
-            }
-        }
+3.  **Comportement avec ID de challenge** : Si un ID de challenge est fourni, la commande va :
+    -   Appeler une fonction pour récupérer toutes les équipes inscrites à ce challenge via l'API.
+    -   Si aucune équipe n'est trouvée, un message l'indiquant est retourné.
+    -   Si des équipes sont trouvées, elle prépare un message listant les noms de toutes les équipes.
+    -   **Gestion des limites de Discord** : Pour éviter de dépasser la limite de 2000 caractères par message sur Discord, la commande envoie la liste en plusieurs messages si nécessaire.
+    -   Une fois la liste complète envoyée, un message final confirme que l'opération a réussi.
 
-        try {
-            const teams = await getAllTeamsFromChallenge(this.bot, String(challengeId));
-            if (!teams || teams.length === 0) {
-                return `Aucune équipe disponible trouvée pour le challenge ID ${challengeId}.`;
-            }
-
-            const teamNames = teams.map(team => team.name);
-
-            let response = `--- Équipes disponibles pour le challenge n°${challengeId} ---\n`;
-            while (teamNames.length > 0) {
-                const nextTeam = teamNames.shift();
-                // Check if adding the next team exceeds the Discord message limit
-                if (response.length + nextTeam.length + 1 > 2000) {
-                    await this.answerToUser(response);
-                    response = "";
-                }
-                response += nextTeam + "\n";
-            }
-
-            if (response) {
-                await this.answerToUser(response + `\n--- Fin de la liste ---`);
-            }
-
-            return '✅ La liste des équipes a été envoyée.'; // Final confirmation message
-        } catch (error) {
-            console.error(error);
-            return `Une erreur est survenue lors de la récupération des équipes pour le challenge ID ${challengeId}.`;
-        }
-    }
-```
+En cas de problème de communication avec l'API à n'importe quelle étape, un message d'erreur est affiché.

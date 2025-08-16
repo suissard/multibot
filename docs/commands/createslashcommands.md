@@ -22,19 +22,10 @@ Donne le nombre de channel du serveur
 
 ## Arguments
 
-```javascript
-[
-		{
-			type: 'STRING',
-			name: 'commandename',
-			description: 'Nom de la commande a créer',
-			required: true,
-		},
-	]
-```
+La commande prend un unique argument obligatoire :
+
+-   `commandename` (texte) : Le nom de la commande slash qui doit être créée. Cet argument est requis pour que la commande puisse fonctionner.
 
 ## Fonctionnement du Code
 
-```javascript
-N/A
-```
+La logique de cette commande n'est pas détaillée dans la documentation actuelle.

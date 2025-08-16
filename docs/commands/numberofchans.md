@@ -26,8 +26,6 @@ Cette commande n'accepte aucun argument.
 
 ## Fonctionnement du Code
 
-```javascript
-methode(args = {}) {
-        return `Le nombre de channel de ce server est: ${this.guild.channels.cache.size}/500`;
-    }
-```
+Le fonctionnement de cette commande est très direct. Lorsqu'elle est exécutée, elle accède à la liste des canaux du serveur mise en cache par le bot, compte le nombre total de canaux (textuels, vocaux, catégories, etc.), et retourne un message simple indiquant ce nombre.
+
+La réponse est formatée pour montrer le nombre actuel de canaux par rapport à la limite de 500 imposée par Discord.
