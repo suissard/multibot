@@ -14,4 +14,13 @@ export default {
     await sleep(500);
     return events;
   },
+
+  async getUser() {
+    await sleep(500);
+    return {
+      id: '12345',
+      username: 'Test User',
+      avatar: 'avatar-hash',
+    };
+  },
 };
