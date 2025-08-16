@@ -1,17 +1,41 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../components/Home.vue'
+import HomeView from '../components/Home.vue'
 import CommandList from '../components/CommandList.vue'
+import EventsList from '../components/EventsList.vue'
+import SettingsPage from '../components/Settings.vue'
+import ModulesList from '../components/ModulesList.vue'
+import ModuleSettings from '../components/ModuleSettings.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: HomeView
   },
   {
     path: '/commands',
     name: 'CommandList',
     component: CommandList
+  },
+  {
+    path: '/events',
+    name: 'EventsList',
+    component: EventsList
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: SettingsPage
+  },
+  {
+    path: '/modules',
+    name: 'ModulesList',
+    component: ModulesList
+  },
+  {
+    path: '/module/:id/settings',
+    name: 'ModuleSettings',
+    component: ModuleSettings
   }
 ]
 
