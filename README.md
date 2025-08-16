@@ -36,4 +36,4 @@ Le projet est structuré autour de plusieurs concepts clés :
 
 ## Documentation détaillée
 
-Pour une compréhension approfondie du fonctionnement interne, de la manière de développer de nouvelles fonctionnalités et de la configuration, veuillez consulter la **[documentation complète dans le dossier `/doc`](./doc/architecture.md)**.
+Pour une compréhension approfondie du fonctionnement interne, de la manière de développer de nouvelles fonctionnalités et de la configuration, veuillez consulter la **[documentation complète dans le dossier `/docs`](./docs/architecture.md)**.
