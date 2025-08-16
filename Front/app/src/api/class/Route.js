@@ -25,6 +25,7 @@ class Route {
                 return `/auth/callback?code=fake-code`;
             },
             getModuleTestData: (_moduleId) => {
+                console.log(`Fetching test data for module ${_moduleId}`);
                 // In a real app, you'd fetch data for the specific module.
                 // Here, we'll just return some generic test data.
                 return [
