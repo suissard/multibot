@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { callApi } from '@/services/callApi';
 import DataEditor from './DataEditor.vue';
 
 export default {
@@ -42,12 +42,7 @@ export default {
       this.error = null;
       const moduleId = this.$route.params.id;
       try {
-        const response = await axios.get(`/api/modules/${moduleId}/test-data`, {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('api_token')}`
-          }
-        });
-        this.testData = response.data;
+        this.testData = await callApi('getModuleTestData', moduleId);
       } catch (err) {
         this.error = 'Failed to load test data.';
         console.error(err);
@@ -62,11 +57,7 @@ export default {
       const moduleId = this.$route.params.id;
       const dataId = this.selectedItem.id;
       try {
-        await axios.put(`/api/modules/${moduleId}/test-data/${dataId}`, updatedData, {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('api_token')}`
-          }
-        });
+        await callApi('putModuleTestData', moduleId, dataId, updatedData);
         // Refresh data after save
         await this.fetchTestData();
         // Optionally, show a success message

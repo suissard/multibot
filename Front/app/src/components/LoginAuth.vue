@@ -10,14 +10,14 @@
 </template>
 
 <script>
-import authApi from '../api/auth';
+import { callApi } from '../services/callApi';
 
 export default {
   name: 'LoginAuth',
   methods: {
-    login() {
+    async login() {
       try {
-        const authUrl = authApi.getDiscordAuthUrl();
+        const authUrl = await callApi('getDiscordAuthUrl');
         window.location.href = authUrl;
       } catch (error) {
         console.error('Error getting Discord auth URL:', error);

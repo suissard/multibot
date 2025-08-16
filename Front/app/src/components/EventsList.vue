@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { callApi } from '@/services/callApi';
 
 export default {
   name: 'EventsList',
@@ -28,12 +28,7 @@ export default {
   },
   async created() {
     try {
-      const response = await axios.get('/api/events', {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('api_token')}`
-        }
-      });
-      this.events = response.data;
+      this.events = await callApi('getEvents');
     } catch (err) {
       this.error = 'Failed to load events.';
       console.error(err);
