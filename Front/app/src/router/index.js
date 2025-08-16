@@ -5,8 +5,20 @@ import EventsList from '../components/EventsList.vue'
 import SettingsPage from '../components/Settings.vue'
 import ModulesList from '../components/ModulesList.vue'
 import ModuleSettings from '../components/ModuleSettings.vue'
+import Login from '../components/Login.vue'
+import AuthCallback from '../components/AuthCallback.vue'
 
 const routes = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/auth/callback',
+    name: 'AuthCallback',
+    component: AuthCallback
+  },
   {
     path: '/',
     name: 'Home',
@@ -43,5 +55,17 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  const publicPages = ['/login', '/auth/callback'];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem('api_token');
+
+  if (authRequired && !loggedIn) {
+    return next('/login');
+  }
+
+  next();
+});
 
 export default router

@@ -3,15 +3,42 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/events">Events</router-link> |
     <router-link to="/modules">Modules</router-link> |
-    <router-link to="/settings">Settings</router-link>
+    <router-link to="/settings">Settings</router-link> |
+    <router-link v-if="!isAuthenticated" to="/login">Login</router-link>
+    <a v-if="isAuthenticated" href="#" @click.prevent="logout">Logout</a>
   </div>
   <router-view/>
 </template>
 
 <script>
 export default {
-  name: 'App'
-}
+  name: 'App',
+  data() {
+    return {
+      isAuthenticated: false
+    };
+  },
+  created() {
+    this.updateAuthStatus();
+    window.addEventListener('storage', this.updateAuthStatus);
+  },
+  beforeUnmount() {
+    window.removeEventListener('storage', this.updateAuthStatus);
+  },
+  methods: {
+    updateAuthStatus() {
+      this.isAuthenticated = !!localStorage.getItem('api_token');
+    },
+    logout() {
+      localStorage.removeItem('api_token');
+      this.updateAuthStatus();
+      this.$router.push('/login');
+    }
+  },
+  watch: {
+    '$route': 'updateAuthStatus'
+  }
+};
 </script>
 
 <style>
