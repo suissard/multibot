@@ -1,0 +1,19 @@
+{
+  "bot": {
+    "name": "MyBot",
+    "prefix": "!",
+    "activity": "Playing with APIs",
+    "home": "123456789012345678"
+  },
+  "admin": {
+    "ownerId": "098765432109876543",
+    "admins": [
+      "112233445566778899",
+      "998877665544332211"
+    ]
+  },
+  "unauthorized": {
+    "events": ["GUILD_MEMBER_ADD"],
+    "commands": ["ban"]
+  }
+}
