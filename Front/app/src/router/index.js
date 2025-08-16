@@ -4,6 +4,7 @@ import CommandList from '../components/CommandList.vue'
 import EventsList from '../components/EventsList.vue'
 import SettingsPage from '../components/Settings.vue'
 import ModulesList from '../components/ModulesList.vue'
+import ModuleData from '../components/ModuleData.vue'
 import ModuleSettings from '../components/ModuleSettings.vue'
 import LoginAuth from '../components/LoginAuth.vue'
 import AuthCallback from '../components/AuthCallback.vue'
@@ -43,6 +44,11 @@ const routes = [
     path: '/modules',
     name: 'ModulesList',
     component: ModulesList
+  },
+  {
+    path: '/modules/:id/test-data',
+    name: 'ModuleData',
+    component: ModuleData
   },
   {
     path: '/module/:id/settings',
