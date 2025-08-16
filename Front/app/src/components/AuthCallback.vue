@@ -5,24 +5,57 @@
 </template>
 
 <script>
+import { useNotificationStore } from '../stores/notifications';
+import authApi from '../api/auth';
 import { useUserStore } from '@/stores/user';
 
 export default {
   name: 'AuthCallback',
   async created() {
+    const notificationStore = useNotificationStore();
     const userStore = useUserStore();
     const code = this.$route.query.code;
 
     if (code) {
       try {
+// TODO CONFLICT PULL-REQUEST : I keep both of 2 next lign, but perhpa it cause bug. Correct It Jules and tell me explicitely if u do it 
+  const data = await authApi.login(code);
         await userStore.login(code);
-        this.$router.push('/');
+//====================================================
+        if (data.token) {
+          localStorage.setItem('api_token', data.token);
+          notificationStore.addNotification({
+            type: 'success',
+            message: 'Login successful!',
+            duration: 5000,
+            details: 'Welcome back!'
+          });
+          this.$router.push('/');
+        } else {
+          notificationStore.addNotification({
+            type: 'error',
+            message: 'Login Failed',
+            duration: 5000,
+            details: 'No token received from server.'
+          });
+          this.$router.push('/login');
+        }
       } catch (error) {
-        console.error('Error during authentication:', error);
+        notificationStore.addNotification({
+          type: 'error',
+          message: 'Authentication Error',
+          duration: 5000,
+          details: error.message || 'An unknown error occurred.'
+        });
         this.$router.push('/login');
       }
     } else {
-      console.error('No authorization code found');
+      notificationStore.addNotification({
+        type: 'error',
+        message: 'Authentication Failed',
+        duration: 5000,
+        details: 'No authorization code found in the URL.'
+      });
       this.$router.push('/login');
     }
   }
