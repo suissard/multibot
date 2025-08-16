@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { callApi } from '@/services/callApi';
 import DataEditor from './DataEditor.vue';
 
 export default {
@@ -34,12 +34,7 @@ export default {
       this.error = null;
       const eventName = this.$route.params.eventName;
       try {
-        const response = await axios.get(`/api/events/${eventName}`, {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('api_token')}`
-          }
-        });
-        this.eventData = response.data;
+        this.eventData = await callApi('getEventData', eventName);
       } catch (err) {
         this.error = 'Failed to load event data.';
         console.error(err);
@@ -48,13 +43,8 @@ export default {
       }
     },
     async handleSave(updatedData) {
-      const eventName = this.$route.params.eventName;
       try {
-        await axios.post(`/api/events`, { eventName, ...updatedData } , {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('api_token')}`
-          }
-        });
+        await callApi('postEventData', updatedData);
         // Refresh data after save
         await this.fetchEventData();
         // Optionally, show a success message

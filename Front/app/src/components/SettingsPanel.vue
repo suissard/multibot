@@ -41,7 +41,7 @@
 <script>
 import { mapState, mapActions } from 'pinia';
 import { useUserStore } from '@/stores/user';
-import authApi from '@/api/auth';
+import { callApi } from '@/services/callApi';
 
 export default {
   name: 'SettingsPanel',
@@ -57,8 +57,8 @@ export default {
   },
   methods: {
     ...mapActions(useUserStore, ['toggleTheme', 'login', 'logout']),
-    handleLogin() {
-      window.location.href = authApi.getDiscordAuthUrl();
+    async handleLogin() {
+      window.location.href = await callApi('getDiscordAuthUrl');
     },
     handleLogout() {
       this.logout();

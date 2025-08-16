@@ -1,10 +1,1 @@
-[
-  {
-    "name": "ready",
-    "description": "Triggered when the bot is ready."
-  },
-  {
-    "name": "messageCreate",
-    "description": "Triggered when a message is created."
-  }
-]
+[]

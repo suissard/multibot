@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
-import authApi from '../api/auth';
-import selfApi from '../api/routes/selfApi';
+import { callApi } from '../services/callApi';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -34,14 +33,14 @@ export const useUserStore = defineStore('user', {
     },
     async fetchUser() {
       try {
-        this.user = await selfApi.getUser();
+        this.user = await callApi('getUser');
       } catch (error) {
         console.error('Failed to fetch user:', error);
         this.logout();
       }
     },
     async login(code) {
-      const { token } = await authApi.login(code);
+      const { token } = await callApi('login', code);
       localStorage.setItem('api_token', token);
       this.isAuthenticated = true;
       await this.fetchUser();
