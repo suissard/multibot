@@ -22,7 +22,7 @@
 
       <div>
         <div v-if="isAuthenticated">
-          <div class="flex items-center space-x-3 mb-4">
+          <div v-if="user" class="flex items-center space-x-3 mb-4">
             <img :src="profilePictureUrl" alt="User Avatar" class="w-10 h-10 rounded-full">
             <div>
               <p class="font-semibold">{{ user.username }}</p>
