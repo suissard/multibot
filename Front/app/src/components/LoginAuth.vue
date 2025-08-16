@@ -1,7 +1,11 @@
 <template>
-  <div class="login">
-    <h1>Login</h1>
-    <button @click="login">Login with Discord</button>
+  <div class="flex items-center justify-center h-full">
+    <div class="text-center">
+      <h1 class="text-4xl font-bold mb-8">Login</h1>
+      <button @click="login" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">
+        Login with Discord
+      </button>
+    </div>
   </div>
 </template>
 
@@ -22,19 +26,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.login {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-}
-</style>
