@@ -5,11 +5,13 @@
 </template>
 
 <script>
+import { useNotificationStore } from '../stores/notifications';
 import authApi from '../api/auth';
 
 export default {
   name: 'AuthCallback',
   async created() {
+    const notificationStore = useNotificationStore();
     const code = this.$route.query.code;
 
     if (code) {
@@ -18,17 +20,38 @@ export default {
 
         if (data.token) {
           localStorage.setItem('api_token', data.token);
+          notificationStore.addNotification({
+            type: 'success',
+            message: 'Login successful!',
+            duration: 5000,
+            details: 'Welcome back!'
+          });
           this.$router.push('/');
         } else {
-          console.error('API token not received');
+          notificationStore.addNotification({
+            type: 'error',
+            message: 'Login Failed',
+            duration: 5000,
+            details: 'No token received from server.'
+          });
           this.$router.push('/login');
         }
       } catch (error) {
-        console.error('Error during authentication:', error);
+        notificationStore.addNotification({
+          type: 'error',
+          message: 'Authentication Error',
+          duration: 5000,
+          details: error.message || 'An unknown error occurred.'
+        });
         this.$router.push('/login');
       }
     } else {
-      console.error('No authorization code found');
+      notificationStore.addNotification({
+        type: 'error',
+        message: 'Authentication Failed',
+        duration: 5000,
+        details: 'No authorization code found in the URL.'
+      });
       this.$router.push('/login');
     }
   }
