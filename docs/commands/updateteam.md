@@ -22,95 +22,25 @@ Met à jour une équipe
 
 ## Arguments
 
-```javascript
-[
-        {
-            type: 'STRING',
-            name: 'teamname',
-            description: 'Nom de la team à modifier',
-            required: true,
-        },
-        {
-            type: 'STRING',
-            name: 'newteamname',
-            description: 'Nouveau nom de la team',
-            required: false,
-        },
-        {
-            type: 'USER',
-            name: 'newcap',
-            description: 'Nouveau capitaine de la team',
-            required: false,
-        },
-        {
-            type: 'STRING',
-            name: 'newbtag',
-            description: 'Nouveau battleTag du capitaine de la team',
-            required: false,
-        },
-        {
-            type: 'INTEGER',
-            name: 'newrank',
-            description: 'Nouveau rank de la team',
-            required: false,
-        },
-    ]
-```
+Cette commande permet de modifier les informations d'une équipe existante.
+
+-   `teamname` (texte, obligatoire) : Le nom actuel de l'équipe que vous souhaitez modifier.
+-   `newteamname` (texte, optionnel) : Le nouveau nom que vous souhaitez donner à l'équipe.
+-   `newcap` (utilisateur, optionnel) : La mention du nouveau capitaine.
+-   `newbtag` (texte, optionnel) : Le nouveau BattleTag du capitaine. Cet argument est **obligatoire** si vous changez de capitaine.
+-   `newrank` (nombre entier, optionnel) : Le nouveau classement (Elo) de l'équipe.
+
+*Note : Vous devez fournir au moins une des options de modification pour que la commande fonctionne.*
 
 ## Fonctionnement du Code
 
-```javascript
-methode(args = {}) {
-        await this.guild.roles.fetch();
-        await this.guild.members.fetch();
-        let roleTeam = this.guild.roles.cache.find((role) => {
-            if (role.name == `Team [${args.teamname}]`) return role;
-        });
-        let roleCap = this.guild.roles.cache.find((r) => r.name === 'Capitaine');
-        let channelTeam = this.guild.channels.cache.find((chan) => {
-            if (chan.name == `Team [${args.teamname}]`) return chan;
-        });
-        let newTeamCap = this.guild.members.cache.get(args.newcap);
-        let teamCap = this.guild.members.cache.find((cap) => {
-            if (cap.roles.cache.has(roleTeam.id) && cap.roles.cache.has(roleCap.id)) return cap;
-        });
+La commande `updateteam` est un outil de gestion qui permet de mettre à jour les détails d'une équipe déjà enregistrée, en modifiant ses informations sur Discord et dans la base de données interne.
 
-        let team = DATAS.collections.teams.cache.find((t) => {
-            return t.name == args.teamname;
-        });
-        if (!team) return 'Le nom de la team n\'est pas correct';
-        if (!roleTeam) return 'Le role de la team n\'est pas disponible';
-        if (!channelTeam) return 'Le channel de la team n\'est pas disponible';
+1.  **Identification de l'Équipe** : La commande commence par utiliser le `teamname` fourni pour retrouver tous les éléments associés à l'équipe : son rôle Discord, son canal privé, son capitaine actuel et ses données en base de données. Si l'un de ces éléments est introuvable, la commande s'arrête.
 
-        let saveUpdateTeamData = async (id, teamname, cap, elo, btag) => {
-            return await DATAS.collections.teams.update(id, {
-                capitaine: { User: cap },
-                name: teamname,
-                elo,
-                battleTag: btag,
-            });
-        };
+2.  **Mises à Jour Modulaires** : En fonction des arguments que vous fournissez, la commande effectue différentes actions, qui peuvent être combinées :
+    -   **Changement de nom (`newteamname`)** : Si un nouveau nom est fourni, la commande renomme à la fois le rôle de l'équipe et son canal privé.
+    -   **Changement de capitaine (`newcap` et `newbtag`)** : Si un nouveau capitaine et son BattleTag sont fournis, la commande transfère le rôle "Capitaine" de l'ancien au nouveau capitaine et met à jour le BattleTag dans la base de données.
+    -   **Changement de classement (`newrank`)** : Si un nouveau classement est fourni, la commande met à jour cette information dans la base de données.
 
-        saveUpdateTeamData(team.getID(), args.teamname, args.capitaine, args.elo, args.btag);
-
-        if (args.newteamname) {
-            await teamManager.updateChannelTeam(channelTeam, args.newteamname);
-            await teamManager.updateRoleTeam(roleTeam, args.newteamname);
-        }
-        if (args.newcap && args.newbtag) {
-            await teamManager.updateTeamCap(teamCap, newTeamCap, roleCap, roleTeam);
-            await teamManager.updateCapBtag(team, args.newbtag);
-        } else if (args.newcap && !args.newbtag) {
-            return 'Si tu veux changer de capitaine, tu dois changer le btag renseigné';
-        }
-        if (args.newrank) {
-            await teamManager.updateTeamRank(team, args.newrank);
-        }
-        if (!args.newteamname && !args.newcap && !args.newbtag && !args.newrank) {
-            return 'Tu dois mettre au moins une informations à modifier';
-        }
-
-
-        return 'Team mis-à-jour';
-    }
-```
+3.  **Validation et Confirmation** : La commande vérifie qu'au moins une modification a été demandée. Si toutes les modifications sont effectuées avec succès, elle renvoie un message confirmant que l'équipe a été mise à jour.

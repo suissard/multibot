@@ -22,78 +22,21 @@ N/A
 
 ## Arguments
 
-```javascript
-[
-            {
-                type: 'USER',
-                name: 'user',
-                description: 'User à unmute',
-                required: true,
-            },
-        ]
-```
+Cette commande annule la sanction de `mute` pour un utilisateur.
+
+-   `user` (utilisateur, obligatoire) : L'utilisateur qui doit être réhabilité.
 
 ## Fonctionnement du Code
 
-```javascript
-methode(args = {}) {
-            let channelMute = this.guild.channels.cache.find((chan) => {
-                if (chan.name == 'tu-as-été-mute') return chan;
-            });
-            let muteRole = await FindChanRole.findRole('mute', this.guild);
-            if (!muteRole) {
-                await FindChanRole.findRole('mute', this.guild);
-            }
-            await this.guild.members.fetch();
-            let userMute = await this.guild.members.cache.get(args.user);
-            if (!channelMute) {
-                channelMute = await this.guild.channels.create({
-                    name: 'tu-as-été-mute',
-                    type: ChannelType.GuildText,
-                    permissionOverwrites: [
-                        {
-                            id: this.guild.id,
-                            deny: ['ViewChannel', 'SendMessages'],
-                        },
-                    ],
-                });
-            }
-            const unmute = async (channel) => {
-                if (channel != channelMute) {
-                    channel.permissionOverwrites.delete(args.user);
-                    await setTimeout(console.log, 1000);
-                }
-            };
-            await channelMute.permissionOverwrites.delete(args.user);
-            if (userMute.roles.cache.has(muteRole.id)) {
-                this.loading(this.guild.channels.cache.map((chan) => {
-                    return chan;
-                }), unmute);
-                userMute.roles.remove(muteRole);
-                return 'Utilisateur unmute par : <@' + this.user.id + '> ✅';
-            } else if (!userMute.roles.cache.has(muteRole.id)) {
-                return 'L\'utilisateur n\'est pas mute';
-            }
+Cette commande est l'antidote de la commande `mute`. Elle lève la sanction et restaure les permissions de l'utilisateur sur le serveur.
 
+1.  **Préparation** : La commande identifie les éléments clés : l'utilisateur à réhabiliter, le rôle "mute", et le canal spécial "tu-as-été-mute".
 
-        }
+2.  **Vérification du Statut** : Elle vérifie si l'utilisateur possède bien le rôle "mute". Si ce n'est pas le cas, la commande s'arrête et signale que l'utilisateur n'est pas sanctionné.
 
+3.  **Restauration des Permissions** : Si l'utilisateur est bien muet, la commande procède à la levée de la sanction :
+    -   Elle commence par supprimer le rôle "mute" de l'utilisateur.
+    -   Ensuite, elle supprime la permission d'accès spécifique de l'utilisateur au canal "tu-as-été-mute".
+    -   Enfin, elle parcourt **tous les autres canaux du serveur** et, pour chacun, supprime les permissions spécifiques qui avaient été mises en place pour l'utilisateur, restaurant ainsi ses droits de lecture et d'écriture par défaut.
 
-        // async methode() {
-        //     try{
-        //         let guild = this.message.guild
-        //         let channelMute = guild.channels.cache.find((chan) => {if (chan.name == "tu-as-été-mute") return chan;})
-        //         for (let [id, user] of this.message.mentions.users){
-        //             const unmute = async (channel) =>{
-        //                 channel.permissionOverwrites.delete(user)
-        //                 await setTimeout(console.log, 1000)
-        //             }
-        //             channelMute.permissionOverwrites.delete(user)
-        //             this.loading(guild.channels.cache, unmute)
-        //         }
-        //     }catch(e){
-        //         console.log(e)
-        //     }
-        // }
-    }
-```
+4.  **Confirmation** : Un message est envoyé pour confirmer que l'utilisateur a bien été réhabilité.

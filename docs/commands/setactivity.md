@@ -22,31 +22,17 @@ change le status du bot
 
 ## Arguments
 
-```javascript
-[
-        {
-            type: 'STRING',
-            name: 'status',
-            description: 'Status a mettre',
-            required: true,
-        },
-        {
-            type: 'STRING',
-            name: 'type',
-            description: 'Type de status a mettre',
-            required: false,
-        },
-    ]
-```
+Cette commande, réservée aux développeurs, permet de changer le statut d'activité du bot affiché sur Discord.
+
+-   `status` (texte, obligatoire) : Le texte qui sera affiché comme statut du bot (par exemple, "Joue à Minecraft").
+-   `type` (texte, optionnel) : Le type d'activité (par exemple, "PLAYING", "STREAMING", "LISTENING"). *Note : cette fonctionnalité n'est pas encore totalement implémentée.*
 
 ## Fonctionnement du Code
 
-```javascript
-methode(args = {}) {
-        this.bot.user.setActivity(args.status);
-        // TODO permettre d'autres activités
-        // this.bot.user.setActivity(args.status, { name : args.status, type: args.status ||"STREAMING", url: "https://playallforone.com/event" });
+Cette commande modifie le statut "Joue à..." du bot visible par tous les utilisateurs sur Discord.
 
-        return 'Status mis a jour : ' + args.status;
-    }
-```
+Son fonctionnement est simple : elle prend le texte fourni dans l'argument `status` et l'utilise pour mettre à jour l'activité du bot via la fonction `setActivity` de l'API Discord.js.
+
+Actuellement, la commande ne change que le texte de l'activité. Une version plus avancée permettant de changer également le type d'activité (comme "Écoute...", "Regarde...") est envisagée mais pas encore active.
+
+Après avoir changé le statut, la commande renvoie un message pour confirmer que la mise à jour a été effectuée.
