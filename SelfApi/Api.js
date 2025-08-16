@@ -306,7 +306,7 @@ module.exports = class SelfApi {
 	 */
 	setAuthRoute() {
 		new Route(this, '/auth', 'get', (req, res) => {
-			this.createUser(req, res);
+			res.status(404).send({ message: "Authentication is handled by the client." });
 		});
 	}
 

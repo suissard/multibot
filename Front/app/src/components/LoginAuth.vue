@@ -6,16 +6,17 @@
 </template>
 
 <script>
+import authApi from '../api/auth';
+
 export default {
   name: 'LoginAuth',
   methods: {
-    async login() {
+    login() {
       try {
-        const response = await fetch('/api/discord/authurl');
-        const authUrl = await response.text();
+        const authUrl = authApi.getDiscordAuthUrl();
         window.location.href = authUrl;
       } catch (error) {
-        console.error('Error fetching Discord auth URL:', error);
+        console.error('Error getting Discord auth URL:', error);
       }
     }
   }
