@@ -1,7 +1,7 @@
 <template>
-  <div class="module-settings">
-    <h1>Module Settings</h1>
-    <!-- Module settings form will be implemented here -->
+  <div class="module-settings p-8">
+    <h1 class="text-3xl font-bold mb-6">Module Settings</h1>
+    <p class="text-gray-600 dark:text-gray-400">Module settings form will be implemented here.</p>
   </div>
 </template>
 
@@ -10,9 +10,3 @@ export default {
   name: 'ModuleSettings'
 }
 </script>
-
-<style scoped>
-.module-settings {
-  padding: 20px;
-}
-</style>

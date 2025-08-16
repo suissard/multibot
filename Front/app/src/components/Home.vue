@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
-    <h1>Welcome to the Bot Control Interface</h1>
-    <p>
+  <div class="home p-8">
+    <h1 class="text-4xl font-bold mb-4">Welcome to the Bot Control Interface</h1>
+    <p class="text-lg text-gray-600 dark:text-gray-400">
       This interface allows you to manage the bot's functions.
     </p>
   </div>
@@ -15,21 +15,3 @@ export default {
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
