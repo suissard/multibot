@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'Login',
+  name: 'LoginAuth',
   methods: {
     async login() {
       try {

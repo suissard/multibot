@@ -5,14 +5,14 @@ import EventsList from '../components/EventsList.vue'
 import SettingsPage from '../components/Settings.vue'
 import ModulesList from '../components/ModulesList.vue'
 import ModuleSettings from '../components/ModuleSettings.vue'
-import Login from '../components/Login.vue'
+import LoginAuth from '../components/LoginAuth.vue'
 import AuthCallback from '../components/AuthCallback.vue'
 
 const routes = [
   {
     path: '/login',
-    name: 'Login',
-    component: Login
+    name: 'LoginAuth',
+    component: LoginAuth
   },
   {
     path: '/auth/callback',
