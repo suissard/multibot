@@ -13,6 +13,8 @@
                 <router-link to="/events" class="text-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Events</router-link>
                 <router-link to="/modules" class="text-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Modules</router-link>
                 <router-link to="/settings" class="text-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Settings</router-link>
+    <router-link v-if="!isAuthenticated" to="/login">Login</router-link>
+    <a v-if="isAuthenticated" href="#" @click.prevent="logout">Logout</a>
               </div>
             </div>
           </div>
@@ -38,8 +40,33 @@
 
 <script>
 export default {
-  name: 'App'
-}
+  name: 'App',
+  data() {
+    return {
+      isAuthenticated: false
+    };
+  },
+  created() {
+    this.updateAuthStatus();
+    window.addEventListener('storage', this.updateAuthStatus);
+  },
+  beforeUnmount() {
+    window.removeEventListener('storage', this.updateAuthStatus);
+  },
+  methods: {
+    updateAuthStatus() {
+      this.isAuthenticated = !!localStorage.getItem('api_token');
+    },
+    logout() {
+      localStorage.removeItem('api_token');
+      this.updateAuthStatus();
+      this.$router.push('/login');
+    }
+  },
+  watch: {
+    '$route': 'updateAuthStatus'
+  }
+};
 </script>
 
 <style>

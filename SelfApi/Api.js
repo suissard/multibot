@@ -201,19 +201,26 @@ module.exports = class SelfApi {
 	 * @returns {Promise<{bot: Bot, user: import('discord.js').User}>} L'instance du bot et de l'utilisateur.
 	 */
 	async authentication(req, res) {
-		//TODO donnée de test
-		let userId;
-
 		const requestHash = await this.getHashFromTokenRequest(req);
-		if (!requestHash) userId = false;
-		else userId = this.hashUsers.get(requestHash);
-		// const botId = this.getBotIdFromRequest(req);
-		// const bot = this.BOTS.get(botId);
-		// if (!bot) throw new Error('Bot non trouvé');
-		// if (!userId) return { bot };
+		const userId = this.hashUsers.get(requestHash);
 
-		// const user = bot.users.cache.get(userId) || (await bot.users.fetch(userId));
-		// return { bot, user };
+		if (req.url.includes('/discord/authurl')) return {};
+		if (req.url.includes('/auth')) return {};
+
+		const botId = this.getBotIdFromRequest(req);
+		if (!botId) return {}; // Ne rien faire si le bot n'est pas spécifié
+		const bot = this.BOTS.get(botId);
+		if (!bot) throw new Error('Bot non trouvé');
+
+		if (!userId) {
+			if (req.url.includes('/commands')) return { bot };
+			else throw new Error('Utilisateur non authentifié');
+		}
+
+		const user = bot.users.cache.get(userId) || (await bot.users.fetch(userId));
+		if (!user) throw new Error('Utilisateur non trouvé');
+
+		return { bot, user };
 	}
 
 	/**
