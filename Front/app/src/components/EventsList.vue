@@ -1,41 +1,45 @@
 <template>
   <div class="events-list p-8">
     <h1 class="text-3xl font-bold mb-6">Events</h1>
-    <div v-if="loading">Loading...</div>
-    <ul v-else>
+    <div v-if="loading" class="text-gray-600 dark:text-gray-400">Loading...</div>
+    <div v-if="error" class="text-red-500">{{ error }}</div>
+    <ul v-if="events.length" class="space-y-4">
       <li v-for="event in events" :key="event.name">
-        <strong>{{ event.name }}</strong>: {{ event.description }}
+        <router-link :to="`/events/${event.name}/test-data`" class="block p-4 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700">
+          <h2 class="text-xl font-semibold">{{ event.name }}</h2>
+          <p class="text-gray-600 dark:text-gray-400">{{ event.description }}</p>
+        </router-link>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import { useMainStore } from '../stores/main';
-import { mapState, mapActions } from 'pinia';
+import axios from 'axios';
 
 export default {
   name: 'EventsList',
-  computed: {
-    ...mapState(useMainStore, ['events', 'loading']),
+  data() {
+    return {
+      events: [],
+      loading: true,
+      error: null,
+    };
   },
-  methods: {
-    ...mapActions(useMainStore, ['fetchEvents']),
-  },
-  mounted() {
-    this.fetchEvents();
+  async created() {
+    try {
+      const response = await axios.get('/api/events', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('api_token')}`
+        }
+      });
+      this.events = response.data;
+    } catch (err) {
+      this.error = 'Failed to load events.';
+      console.error(err);
+    } finally {
+      this.loading = false;
+    }
   },
 };
 </script>
-<style scoped>
-.events-list {
-  padding: 20px;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  margin: 10px 0;
-}
-</style>
