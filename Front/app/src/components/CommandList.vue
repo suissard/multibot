@@ -1,8 +1,8 @@
 <template>
-  <div class="command-list">
-    <h1>Command List</h1>
+  <div class="command-list p-8">
+    <h1 class="text-3xl font-bold mb-6">Command List</h1>
     <div v-if="loading">Loading...</div>
-    <ul v-else>
+    <ul class="space-y-4" v-else>
       <li v-for="command in commands" :key="command.name">
         <strong>{{ command.name }}</strong>: {{ command.description }}
       </li>
@@ -27,16 +27,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.command-list {
-  text-align: left;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  margin: 10px 0;
-}
-</style>

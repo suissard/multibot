@@ -1,6 +1,6 @@
 <template>
-  <div class="events-list">
-    <h1>Events</h1>
+  <div class="events-list p-8">
+    <h1 class="text-3xl font-bold mb-6">Events</h1>
     <div v-if="loading">Loading...</div>
     <ul v-else>
       <li v-for="event in events" :key="event.name">
@@ -27,7 +27,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .events-list {
   padding: 20px;
