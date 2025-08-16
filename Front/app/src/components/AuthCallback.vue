@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import authApi from '../api/auth';
+
 export default {
   name: 'AuthCallback',
   async created() {
@@ -12,8 +14,7 @@ export default {
 
     if (code) {
       try {
-        const response = await fetch(`/api/auth?code=${code}`);
-        const data = await response.json();
+        const data = await authApi.login(code);
 
         if (data.token) {
           localStorage.setItem('api_token', data.token);
