@@ -26,6 +26,6 @@ Cette commande n'accepte aucun argument.
 
 ## Fonctionnement du Code
 
-```javascript
-N/A
-```
+Cette commande simule un lancer de pièce de monnaie.
+
+Lorsqu'un utilisateur exécute la commande, le bot choisit de manière aléatoire entre deux résultats possibles : "Pile" ou "Face". Le résultat de ce tirage est ensuite affiché en réponse à l'utilisateur. C'est une commande simple pour prendre des décisions rapides ou pour le divertissement.

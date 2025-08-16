@@ -22,98 +22,34 @@ N/A
 
 ## Arguments
 
-```javascript
-[
-        {
-            type: 'STRING',
-            name: 'texte',
-            description: 'Message à envoyer',
-            required: true,
-        },
-        {
-            type: 'BOOLEAN',
-            name: 'sendsecretary',
-            description: 'Est ce que les messages envoyé doivent être envoyé au secrétariat',
-            required: true,
-        },
-        {
-            type: 'STRING',
-            name: 'usersandroles',
-            description: 'mention d\'utilisateurs et de roles en masse',
-            required: false,
-        },
-        {
-            type: 'USER',
-            name: 'user',
-            description: 'User à qui envoyer le message',
-            required: false,
-        },
-        {
-            //TODO Image marche pas
-            type: 'STRING',
-            name: 'imageurl',
-            description: 'Ajouter une URL d\'image au message',
-            required: false,
-        },
-        {
-            type: 'ROLE',
-            name: 'role',
-            description: 'Envoyer un message à un role',
-            required: false,
-        },
-    ]
-```
+Cette commande permet d'envoyer des messages privés (DM) à des utilisateurs ou des groupes d'utilisateurs. Elle est très flexible grâce à ses nombreux arguments :
+
+-   `texte` (texte, obligatoire) : Le contenu du message à envoyer. Vous pouvez utiliser `\\n` pour insérer un saut de ligne.
+-   `sendsecretary` (booléen, obligatoire) : Si mis à `true`, une copie ou une notification du message envoyé sera transmise au système de "secrétariat" du bot.
+-   `user` (utilisateur, optionnel) : Pour envoyer le message à un seul utilisateur spécifique.
+-   `role` (rôle, optionnel) : Pour envoyer le message à tous les utilisateurs possédant ce rôle.
+-   `usersandroles` (texte, optionnel) : Pour cibler plusieurs utilisateurs et/ou rôles en même temps dans une seule chaîne de texte.
+-   `imageurl` (URL, optionnel) : L'URL d'une image à joindre au message.
+
+*Note : Vous devez spécifier une cible en utilisant au moins l'un des arguments suivants : `user`, `role`, ou `usersandroles`.*
 
 ## Fonctionnement du Code
 
-```javascript
-methode(args = {}) {
-        let botAvatar = await this.bot.user.avatarURL();
+Cette commande est un outil de communication de masse qui envoie des messages privés personnalisés.
 
-        await this.guild.members.fetch();
-        let listeUser = {};
-        if (args.user) {
-            let user = this.bot.users.cache.get(args.user);
-            if (!user) {
-                user = await this.bot.users.fetch(args.user).catch(_ => null);
-            }
-            listeUser[args.user] = user;
-        } else if (args.role) {
-            let role = this.guild.roles.cache.get(args.role);
-            for (let [id, member] of role.members) {
-                if (!listeUser[member.user.id]) {
-                    listeUser[id] = member.user;
-                }
-            }
-        } else if (args.usersandroles) {
-            listeUser = await this.getUsersFromUsersAndRolesString(args.usersandroles);
-        } else
-            return '❌ Tu dois mentionner un rôle ou un utilisateur à qui envoyer le message';
-        let texte = args.texte.replace(/(%%)|(\\n)/g, '\n'); //pour repérer les souhaits de sauts de ligne
-        let embed = new EmbedBuilder()
-            .setThumbnail(botAvatar)
-            .setDescription(texte)
-        // .setFooter("Vous avez été contacté car vous possédez le role j'aime les events"); // TODO manque pk le message a été envoyé dinamyquement: mention spécial ou a travers un role
+1.  **Définition de la Cible** : La première étape consiste à déterminer les destinataires. La commande analyse les arguments pour construire une liste d'utilisateurs unique, en suivant cet ordre de priorité :
+    -   Un utilisateur unique via l'argument `user`.
+    -   Tous les membres d'un rôle via l'argument `role`.
+    -   Une liste mixte d'utilisateurs et de membres de rôles via l'argument `usersandroles`.
+    -   Si aucune cible n'est définie, une erreur est retournée.
 
-        if (args.imageurl) {
-            embed.setImage(args.imageurl);
-        }
+2.  **Préparation du Message** : Le message est construit sous la forme d'un "embed" Discord :
+    -   Le texte principal est défini par l'argument `texte`, avec la prise en charge des sauts de ligne.
+    -   Le message inclut l'avatar du bot comme miniature.
+    -   Si une URL d'image est fournie, elle est intégrée à l'embed.
 
-        listeUser = Object.values(listeUser);
-        //Envoie des messages
+3.  **Envoi en Masse** : La commande parcourt la liste des destinataires et envoie à chacun le message embed en message privé. L'envoi est géré par une fonction qui affiche probablement un indicateur de chargement.
 
-        await this.loading(listeUser, async (user) => {
-            let message = await user.send({ embeds: [embed] });
-            if (args.sendsecretary == true) {
-                message.author.bot = false; //déclenche un eevenement secretary et modifie els varialb pour alimenter les channels de secretariat
-                message.botAvatar = botAvatar;
-                message.author.id = user.id;
-                message.author.username = user.username;
-                message.content = texte;
-                message.fromCommandMessage = true;
-                this.bot.emit('secretary', message, true);
-            }
-        });
-        return 'les messages ont été envoyé';
-    }
-```
+4.  **Lien avec le Secrétariat** : Si l'option `sendsecretary` est activée, après chaque envoi réussi, la commande simule un événement de message pour le module "secrétariat". Cela permet de garder une trace ou de traiter les messages envoyés via ce système interne, même s'ils sont envoyés en privé.
+
+5.  **Confirmation Finale** : Une fois tous les messages envoyés, la commande répond avec un message de confirmation.
