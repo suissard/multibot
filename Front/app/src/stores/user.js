@@ -6,6 +6,7 @@ export const useUserStore = defineStore('user', {
     isAuthenticated: !!localStorage.getItem('api_token'),
     user: null,
     theme: localStorage.getItem('theme') || 'light',
+    token: localStorage.getItem('api_token') || null,
   }),
   getters: {
     profilePictureUrl() {
@@ -42,11 +43,13 @@ export const useUserStore = defineStore('user', {
     async login(code) {
       const { token } = await callApi('login', code);
       localStorage.setItem('api_token', token);
+      this.token = token;
       this.isAuthenticated = true;
       await this.fetchUser();
     },
     logout() {
       localStorage.removeItem('api_token');
+      this.token = null;
       this.isAuthenticated = false;
       this.user = null;
     },
