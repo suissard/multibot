@@ -23,8 +23,10 @@ module.exports =
          */
         helpArray() {
             var arrayHelp = [];
+            console.log('All commands in BOTS.Commands:');
+            console.log(BOTS.Commands.getAll());
             for (let i of BOTS.Commands.getAll()) {
-                if (i[1].help == false && !this.bot.dev.includes(this.message.author.id)) continue;
+                // if (i[1].help == false && !this.bot.dev.includes(this.message.author.id)) continue;
                 arrayHelp.push(i[0]);
             }
             return arrayHelp.sort();
@@ -47,14 +49,14 @@ module.exports =
                 for (var y in fullHelp[x]) {
                     let cmd = BOTS.Commands.get(fullHelp[x][y]);
 
-                    embed.addField(`${cmd.id.toUpperCase()} ${!cmd.help ? '*' : ''}`, cmd.description);
-                    if (embed.fields.length == 20) {
+                    embed.addFields({name: `${cmd.id.toUpperCase()} ${!cmd.help ? '*' : ''}`, value: cmd.description});
+                    if (embed.data.fields.length == 20) {
                         returnEmbed.push(embed);
                         embed = new Discord.EmbedBuilder();
                     }
                 }
             }
-            if (embed.fields.length > 0) returnEmbed.push(embed);
+            if (embed.data.fields && embed.data.fields.length > 0) returnEmbed.push(embed);
 
             return returnEmbed;
         }
@@ -76,8 +78,8 @@ module.exports =
          * Affiche l'aide détaillée si un nom de commande est fourni, sinon affiche la liste de toutes les commandes.
 		 * @param {object} options - Les options de l'interaction (non utilisé ici, semble basé sur un ancien système d'args).
          */
-        methode() {
-            if (Commands.get(this.args[0])) return this.answerToUser(this.detailHelpEmbed(this.args[0]));
+        methode(options) {
+            if (BOTS.Commands.get(options.interaction.options.getString('command'))) return this.answerToUser(this.detailHelpEmbed(options.interaction.options.getString('command')));
 
             let allEmbed = this.helpEmbed(this.helpArray());
             for (let i in allEmbed) this.answerToUser(allEmbed[i].setTitle(`Liste des commandes`));

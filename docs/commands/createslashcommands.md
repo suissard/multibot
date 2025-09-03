@@ -22,10 +22,33 @@ Donne le nombre de channel du serveur
 
 ## Arguments
 
-La commande prend un unique argument obligatoire :
-
--   `commandename` (texte) : Le nom de la commande slash qui doit être créée. Cet argument est requis pour que la commande puisse fonctionner.
+```javascript
+[
+		{
+			type: 'STRING',
+			name: 'commandename',
+			description: 'Nom de la commande a créer',
+			required: true,
+		},
+	]
+```
 
 ## Fonctionnement du Code
 
-La logique de cette commande n'est pas détaillée dans la documentation actuelle.
+```javascript
+async methode(args = {}) {
+		try {
+			let bot = this.bot;
+			let commandName;
+			await bot.application.commands.fetch();
+			let i = 0;
+			for (let y in args) i++;
+			if (i == 0) commandName = 'createslashcommands';
+			else commandName = args.commandename;
+			for (let [commandId, Command] of BOTS.Commands.getAll()) {
+				try {
+					if (commandId == args.commandename) {
+						await new Command(bot).createSlashCommand();
+						return `La commande ${args.commandename} a bien été créée`;
+	}
+```
