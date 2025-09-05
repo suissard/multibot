@@ -39,13 +39,8 @@ Répond pong
     ]
 ```
 
-## Fonctionnement du Code
+## Fonctionnement
 
-```javascript
-methode(args = {}) {
-        let result = 'Pong';
-        if (args.user) result += ' <@' + args.user + '>';
-        if (args.texte) result += ` ${args.texte}`;
-        return result;
-	}
-```
+- La commande répond simplement "Pong".
+- Si un argument 'user' est fourni, elle mentionne l'utilisateur.
+- Si un argument 'texte' est fourni, elle ajoute le texte à la réponse.

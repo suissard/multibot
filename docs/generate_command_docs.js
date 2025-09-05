@@ -53,6 +53,7 @@ for (const filePath of allCommandFiles) {
     const devBossMatch = content.match(/static devBoss = (true|false);/);
     const homeMatch = content.match(/static home = (true|false);/);
     const argsMatch = content.match(/static arguments = (\[[\s\S]*?\]);/);
+    const narrativeMatch = content.match(/static narrative = `([\s\S]*?)`;/);
     const methodeMatch = content.match(/(?:async\s+)?methode\s*\([^)]*\)\s*\{[\s\S]*?\n\s*\}/);
 
     const descriptionRaw = descriptionMatch ? descriptionMatch[1] : 'N/A';
@@ -62,9 +63,13 @@ for (const filePath of allCommandFiles) {
     const devBoss = devBossMatch ? devBossMatch[1] : 'false';
     const home = homeMatch ? homeMatch[1] : 'false';
     const argsString = argsMatch ? argsMatch[1] : '[]';
-    let methode = 'N/A';
-    if(methodeMatch) {
-        methode = methodeMatch[0].replace(/(\n\s*\}\s*$)/, '\n\t}');
+
+    let fonctionnement = 'N/A';
+    if (narrativeMatch) {
+        fonctionnement = narrativeMatch[1].trim();
+    } else if (methodeMatch) {
+        const methode = methodeMatch[0].replace(/(\n\s*\}\s*$)/, '\n\t}');
+        fonctionnement = `\`\`\`javascript\n${methode}\n\`\`\``;
     }
 
 
@@ -99,11 +104,9 @@ ${description}
 
 ${argsTable}
 
-## Fonctionnement du Code
+## Fonctionnement
 
-\`\`\`javascript
-${methode}
-\`\`\`
+${fonctionnement}
 `;
 
     const outputFilePath = path.join(outputDir, `${id}.md`);

@@ -33,19 +33,18 @@ Renvoit un url personnalisé pour déclarer un incident lors de la compétition 
 	]
 ```
 
-## Fonctionnement du Code
+## Fonctionnement
 
-```javascript
-async methode(args = {}) {
-		const discordUser = this.bot.users.cache.get(args.user) || this.user;
+- Cette commande a pour but de fournir à un utilisateur un lien personnalisé pour déclarer un incident survenu lors de la compétition OAFO.
+- Elle peut cibler l'auteur de la commande ou un autre utilisateur si celui-ci est mentionné.
 
-		//Recuperer les info de l'utilisateur discord qui a fait la commande
-		const olympeId = this.bot.olympe.users[discordUser.id]?.id;
-
-		var oAfoInfo = { nationality: 'FR', battlenetBtag: '', teams: [] };
-		try {
-			oAfoInfo = await this.bot.olympe.api.GET(
-				`users/${olympeId}?fields=battlenetBtag%2CthirdpartiesDiscord`
-			);
-	}
-```
+- **Fonctionnement :**
+    1.  La commande identifie l'utilisateur Discord cible.
+    2.  Elle recherche l'ID Olympe de cet utilisateur dans sa base de données locale.
+    3.  Elle tente d'utiliser cet ID pour récupérer des informations supplémentaires sur l'utilisateur depuis l'API Olympe (BattleTag, équipes, etc.).
+    4.  Elle utilise une URL de base de formulaire Google et la personnalise en pré-remplissant plusieurs champs avec les informations récupérées :
+        - Langue (basée sur la nationalité), BattleTag, Tag Discord, nom de l'équipe, etc.
+    5.  Si les informations Olympe ne sont pas trouvées, elle utilise des valeurs par défaut.
+    6.  Elle crée un message "embed" contenant le lien vers le formulaire pré-rempli.
+    7.  Elle envoie cet embed en message privé (DM) à l'utilisateur cible.
+    8.  Elle renvoie un message de confirmation, qui précise si les informations Olympe de l'utilisateur ont été trouvées ou non.

@@ -21,6 +21,15 @@ module.exports =
             },
         ];
 
+        static narrative = `
+- Cette commande est conçue pour redémarrer le bot.
+- **Sécurité :** L'exécution est strictement réservée au propriétaire du bot, dont l'ID est défini dans la configuration (\`this.bot.ownerId\`).
+- La commande vérifie si l'ID de l'utilisateur qui l'exécute correspond à l'ID du propriétaire.
+- Si c'est le cas, elle appelle la méthode \`this.bot.restart()\` qui gère le processus de redémarrage.
+- Si une raison est fournie en argument, elle est ajoutée au message de confirmation qui est envoyé juste avant le redémarrage.
+- Si l'utilisateur n'est pas le propriétaire, la commande renvoie un message d'erreur et ne fait rien d'autre.
+`;
+
 
         /**
          * Exécute la commande pour redémarrer le bot.

@@ -33,13 +33,11 @@ redemarre le bot
         ]
 ```
 
-## Fonctionnement du Code
+## Fonctionnement
 
-```javascript
-methode(args = {}) {
-            let result = 'Redémarrage efféctué avec succès !';
-            if (this.bot.ownerId == this.user.id) {
-                if (args.raison) {
-                    result = result + '\nPour la raison suivante : ' + args.raison;
-	}
-```
+- Cette commande est conçue pour redémarrer le bot.
+- **Sécurité :** L'exécution est strictement réservée au propriétaire du bot, dont l'ID est défini dans la configuration (\`this.bot.ownerId\`).
+- La commande vérifie si l'ID de l'utilisateur qui l'exécute correspond à l'ID du propriétaire.
+- Si c'est le cas, elle appelle la méthode \`this.bot.restart()\` qui gère le processus de redémarrage.
+- Si une raison est fournie en argument, elle est ajoutée au message de confirmation qui est envoyé juste avant le redémarrage.
+- Si l'utilisateur n'est pas le propriétaire, la commande renvoie un message d'erreur et ne fait rien d'autre.

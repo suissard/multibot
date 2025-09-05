@@ -64,17 +64,27 @@ Envoie un direct message aux membres mentionnés ou ayant un role mentionné
     ]
 ```
 
-## Fonctionnement du Code
+## Fonctionnement
 
-```javascript
-async methode(args = {}) {
-        let botAvatar = await this.bot.user.avatarURL();
+- Cette commande permet d'envoyer un message privé (DM) à un ou plusieurs utilisateurs.
+- Elle nécessite la permission "Bannir des membres" (\`BanMembers\`) pour être utilisée.
 
-        await this.guild.members.fetch();
-        let listeUser = {};
-        if (args.user) {
-            let user = this.bot.users.cache.get(args.user);
-            if (!user) {
-                user = await this.bot.users.fetch(args.user).catch(_ => null);
-	}
-```
+- **Ciblage des utilisateurs :**
+    - La commande peut cibler les utilisateurs de plusieurs manières :
+        1.  En mentionnant un utilisateur unique (\`user\`).
+        2.  En mentionnant un rôle (\`role\`), ce qui ciblera tous les membres ayant ce rôle.
+        3.  En fournissant une chaîne de texte (\`usersandroles\`) contenant plusieurs mentions d'utilisateurs et/ou de rôles.
+
+- **Contenu du message :**
+    - Le message à envoyer est fourni via l'argument \`texte\`. Les séquences spéciales comme \`\\n\` sont converties en sauts de ligne.
+    - Une image peut être jointe au message en fournissant une URL via l'argument \`imageurl\`.
+    - Le message est envoyé sous forme d'"embed" Discord.
+
+- **Fonctionnement :**
+    1. La commande identifie tous les utilisateurs uniques à contacter en fonction des arguments fournis.
+    2. Elle construit l'embed avec le texte et l'image éventuelle.
+    3. Elle parcourt la liste des utilisateurs ciblés et envoie le message privé à chacun d'eux.
+    4. Une barre de chargement visuelle est affichée pendant le processus d'envoi.
+
+- **Option Secrétariat :**
+    - Si l'argument \`sendsecretary\` est défini sur \`true\`, une copie de chaque message envoyé est également transmise au module "Secretary" du bot, probablement pour archivage ou suivi.

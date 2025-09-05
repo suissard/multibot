@@ -24,31 +24,10 @@ Récupérer un lien d\invitation pour faire venir le Getibot dans ton discord
 
 Cette commande n'accepte aucun argument.
 
-## Fonctionnement du Code
+## Fonctionnement
 
-```javascript
-async methode(args = {}) {
-        //Réponses ludiques pour inciter a l'utilisation de la commande
-        const answers = [
-            `Tu es sûr de vouloir cette invitation ?`,
-            `Voici une invitation rien que pour toi ;)`,
-            `Ouais !!! ${this.bot.user.username} partout !!`,
-            `Avec toi, ça fera ${this.bot.guilds.cache.size + 1} serveurs !`,
-            `Je veux bien te révéler l'invitation, mais je serais obligé de te tuer après 🔫🤵`,
-            `A toi je peux bien te la donner ;)`,
-            `Super, pleins de nouveaux potes à découvrir chez toi`,
-            `Grand fou, on se connaît à peine ^^`,
-            `C'est pour moi un grand honneur de te partager cette invitation ${this.user} :)`,
-            `Plus on sera de fou, plus on rira : n'hésite pas à parler de moi !!`,
-            `Je sais pas quoi te dire, je crois que je suis ému d'une telle demande ...`,
-            `Je savais qu'on était fait pour s'entendre, invite moi grand fou !!!`,
-            `Vous n'avez pas les droits pour cette commande ... mais comme vous êtes trop BG, je vous offre le lien quand même :)`,
-            `Non j'parlerai pas, jamais je te donnerai l'inv ... 👊💥\n\n🦷\n`,
-            // ``,
-            // ``,
-        ];
-        answers.push(`Tu savais que le développeur a imaginé ${answers.length + 1} pour te donner cette invit ?`);
-        const answer = answers[getRandom(answers.length - 1)];
-        return `${answer}\nhttps://discord.com/api/oauth2/authorize?client_id=${this.bot.user.id}&permissions=8&scope=bot`;
-	}
-```
+- La commande a pour but de fournir un lien d'invitation pour que les utilisateurs puissent ajouter ce bot à leur propre serveur Discord.
+- Elle contient une liste de réponses textuelles amusantes et prédéfinies.
+- À chaque exécution, elle choisit une de ces réponses de manière aléatoire.
+- Elle construit ensuite le lien d'invitation OAuth2 du bot en utilisant l'ID client du bot actuellement connecté. Le lien demande des permissions d'administrateur (\`permissions=8\`).
+- Finalement, elle renvoie une chaîne de caractères combinant la réponse amusante choisie et le lien d'invitation généré.
