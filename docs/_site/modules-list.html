@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Liste et Déroulé des Modules</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/multibot/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">Liste et Déroulé des Modules</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/multibot/">Accueil</a>
+            <a class="mdl-navigation__link" href="/multibot/architecture.html">Architecture</a>
+            <a class="mdl-navigation__link" href="/multibot/commands.html">Commandes</a>
+            <a class="mdl-navigation__link" href="/multibot/commands-list.html">Liste des commandes</a>
+            <a class="mdl-navigation__link" href="/multibot/configuration.html">Configuration</a>
+            <a class="mdl-navigation__link" href="/multibot/events.html">Événements</a>
+            <a class="mdl-navigation__link" href="/multibot/modules.html">Modules</a>
+            <a class="mdl-navigation__link" href="/multibot/modules-list.html">Liste des modules</a>
+            <a class="mdl-navigation__link" href="/multibot/sitemap.html">Plan du site</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="/multibot/">Accueil</a>
+          <a class="mdl-navigation__link" href="/multibot/architecture.html">Architecture</a>
+          <a class="mdl-navigation__link" href="/multibot/commands.html">Commandes</a>
+          <a class="mdl-navigation__link" href="/multibot/commands-list.html">Liste des commandes</a>
+          <a class="mdl-navigation__link" href="/multibot/configuration.html">Configuration</a>
+          <a class="mdl-navigation__link" href="/multibot/events.html">Événements</a>
+          <a class="mdl-navigation__link" href="/multibot/modules.html">Modules</a>
+          <a class="mdl-navigation__link" href="/multibot/modules-list.html">Liste des modules</a>
+          <a class="mdl-navigation__link" href="/multibot/sitemap.html">Plan du site</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="liste-et-déroulé-des-modules">Liste et Déroulé des Modules</h1>
+
+<p>Ce document présente les modules du bot, leur rôle, et comment ils s’articulent les uns avec les autres pour créer des fonctionnalités complexes.</p>
+
+<h2 id="quest-ce-quun-module-">Qu’est-ce qu’un module ?</h2>
+
+<p>Comme décrit dans la section <a href="./modules.md">Modules</a>, un module est une brique fonctionnelle autonome. Certains modules sont indépendants, tandis que d’autres collaborent pour réaliser des tâches plus complexes.</p>
+
+<h2 id="les-modules-principaux-et-leur-interaction">Les modules principaux et leur interaction</h2>
+
+<p>Voici une description des modules et de leur ordre logique de fonctionnement.</p>
+
+<ol>
+  <li><strong><code class="language-plaintext highlighter-rouge">GetiJsonToDataBase</code></strong>
+    <ul>
+      <li><strong>Rôle :</strong> C’est le point de départ de nombreuses interactions. Ce module est responsable de la synchronisation des données depuis une source externe (probablement un fichier JSON ou une API) vers la base de données interne du bot.</li>
+      <li><strong>Déroulé :</strong> Il est souvent exécuté périodiquement ou manuellement pour s’assurer que le bot dispose des informations les plus à jour, comme les listes de joueurs, les équipes, ou les matchs à venir.</li>
+    </ul>
+  </li>
+  <li><strong><code class="language-plaintext highlighter-rouge">ChannelManager</code></strong>
+    <ul>
+      <li><strong>Rôle :</strong> Gère la création, la suppression et la gestion des canaux (channels) de manière automatisée.</li>
+      <li><strong>Déroulé :</strong> Ce module est souvent déclenché par des événements ou d’autres commandes. Par exemple, après que <code class="language-plaintext highlighter-rouge">GetiJsonToDataBase</code> a importé un nouveau match, <code class="language-plaintext highlighter-rouge">ChannelManager</code> pourrait automatiquement créer un canal de discussion privé pour les deux équipes de ce match.</li>
+    </ul>
+  </li>
+  <li><strong><code class="language-plaintext highlighter-rouge">AutoRole</code></strong>
+    <ul>
+      <li><strong>Rôle :</strong> Attribue automatiquement des rôles aux membres en fonction de critères prédéfinis.</li>
+      <li><strong>Déroulé :</strong> Ce module peut fonctionner de plusieurs manières :
+        <ul>
+          <li>Il peut réagir à l’arrivée d’un nouveau membre sur le serveur.</li>
+          <li>Il peut être lié à <code class="language-plaintext highlighter-rouge">GetiJsonToDataBase</code> : après une mise à jour des équipes, <code class="language-plaintext highlighter-rouge">AutoRole</code> pourrait scanner les membres et leur attribuer les rôles correspondants à leur nouvelle équipe.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong><code class="language-plaintext highlighter-rouge">MatchNotifier</code></strong>
+    <ul>
+      <li><strong>Rôle :</strong> Notifie les utilisateurs des matchs à venir.</li>
+      <li><strong>Déroulé :</strong> Ce module dépend des données synchronisées par <code class="language-plaintext highlighter-rouge">GetiJsonToDataBase</code>. Il surveille la base de données et, lorsqu’un match est sur le point de commencer, il envoie une notification dans un canal spécifié, en mentionnant potentiellement les joueurs concernés grâce aux rôles gérés par <code class="language-plaintext highlighter-rouge">AutoRole</code>.</li>
+    </ul>
+  </li>
+  <li><strong><code class="language-plaintext highlighter-rouge">Secretary</code></strong>
+    <ul>
+      <li><strong>Rôle :</strong> Gère des messages “secrétariat” qui permettent aux utilisateurs de réagir avec des émoticônes pour obtenir des rôles ou des informations.</li>
+      <li><strong>Déroulé :</strong> C’est un module plus interactif. Un administrateur configure un message, et le module <code class="language-plaintext highlighter-rouge">Secretary</code> écoute les réactions sur ce message. Lorsqu’un utilisateur ajoute une réaction, le module lui attribue un rôle (par exemple, le rôle d’un jeu pour être notifié des actualités de ce jeu).</li>
+    </ul>
+  </li>
+  <li><strong><code class="language-plaintext highlighter-rouge">ShareChannel</code></strong>
+    <ul>
+      <li><strong>Rôle :</strong> Permet de partager le contenu d’un canal (channel) d’un serveur à un autre.</li>
+      <li><strong>Déroulé :</strong> Un administrateur configure un canal à “partager”. Le module écoute alors tous les messages de ce canal et les republie automatiquement dans un canal d’un autre serveur, permettant une communication inter-serveurs.</li>
+    </ul>
+  </li>
+  <li><strong><code class="language-plaintext highlighter-rouge">VocalDuplicate</code></strong>
+    <ul>
+      <li><strong>Rôle :</strong> Crée dynamiquement des copies de canaux vocaux lorsque ceux-ci sont pleins.</li>
+      <li><strong>Déroulé :</strong> Le module surveille les canaux vocaux configurés. Si un utilisateur rejoint un canal vocal et que celui-ci atteint sa capacité maximale, le module crée instantanément un nouveau canal vocal identique (par exemple, “Général #2”) pour accueillir plus de monde.</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="schéma-de-collaboration">Schéma de collaboration</h2>
+
+<p>On peut imaginer le flux de données suivant pour une fonctionnalité de tournoi :</p>
+
+<p><code class="language-plaintext highlighter-rouge">GetiJsonToDataBase</code> (importe les équipes/matchs) -&gt; <code class="language-plaintext highlighter-rouge">AutoRole</code> (donne les rôles aux joueurs) -&gt; <code class="language-plaintext highlighter-rouge">ChannelManager</code> (crée les canaux pour les matchs) -&gt; <code class="language-plaintext highlighter-rouge">MatchNotifier</code> (prévient les joueurs avant le match).</p>
+
+<p>Chaque module reste indépendant, mais leur orchestration permet de créer un système de gestion de tournoi entièrement automatisé.</p>
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

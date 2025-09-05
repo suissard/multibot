@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Accueil</title>
+    <title>createslashcommands</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -35,7 +35,7 @@
       <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
           <!-- Title -->
-          <span class="mdl-layout-title">Accueil</span>
+          <span class="mdl-layout-title">createslashcommands</span>
           <!-- Add spacer, to align navigation to the right -->
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation -->
@@ -67,28 +67,79 @@
         </nav>
       </div>
       <main class="mdl-layout__content">
-        <div class="page-content"><div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--12-col">
-    <h1 class="mdl-typography--display-2">Documentation du Bot</h1>
-    <p class="mdl-typography--headline">
-      Bienvenue sur la documentation officielle du bot. Vous trouverez ici toutes les informations nécessaires pour comprendre, utiliser et étendre les fonctionnalités du bot.
-    </p>
-  </div>
-</div>
+        <div class="page-content"><h1 id="commande-createslashcommands">Commande <code class="language-plaintext highlighter-rouge">createslashcommands</code></h1>
 
-<div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--12-col">
-    <h2 class="mdl-typography--display-1">Pour commencer</h2>
-    <p>
-      Si vous êtes nouveau, voici quelques pages pour vous aider à démarrer :
-    </p>
-    <ul>
-      <li><a href="/multibot/configuration.html">Configuration</a> : Apprenez à configurer le bot pour votre serveur.</li>
-      <li><a href="/multibot/modules-list.html">Liste des Modules</a> : Découvrez les fonctionnalités clés à travers les modules.</li>
-      <li><a href="/multibot/commands-list.html">Liste des Commandes</a> : Explorez toutes les commandes disponibles.</li>
-    </ul>
-  </div>
-</div>
+<h2 id="description">Description</h2>
+
+<p>Donne le nombre de channel du serveur</p>
+
+<h2 id="détails">Détails</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Propriété</th>
+      <th>Valeur</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>ID</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">createslashcommands</code></td>
+    </tr>
+    <tr>
+      <td><strong>Description</strong></td>
+      <td>Donne le nombre de channel du serveur</td>
+    </tr>
+    <tr>
+      <td><strong>Permissions User</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[]</code></td>
+    </tr>
+    <tr>
+      <td><strong>Permissions Bot</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[]</code></td>
+    </tr>
+    <tr>
+      <td><strong>Dev Boss Only</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">false</code></td>
+    </tr>
+    <tr>
+      <td><strong>Home Server Only</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">false</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="arguments">Arguments</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span>
+		<span class="p">{</span>
+			<span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">STRING</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">commandename</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">description</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Nom de la commande a créer</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">required</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+		<span class="p">},</span>
+	<span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="fonctionnement">Fonctionnement</h2>
+
+<ul>
+  <li>Cette commande permet de forcer la création ou la mise à jour d’une commande slash (commande d’interaction) spécifique auprès de l’API de Discord.</li>
+  <li>C’est un outil de développement/administration utile si une commande ne s’est pas enregistrée correctement au démarrage du bot.</li>
+  <li>
+    <p>L’utilisateur doit fournir le nom de la commande à créer en argument.</p>
+  </li>
+  <li><strong>Fonctionnement :</strong>
+    <ol>
+      <li>La commande récupère la liste de toutes les commandes chargées par le bot.</li>
+      <li>Elle parcourt cette liste pour trouver la commande dont le nom (ID) correspond à celui fourni en argument.</li>
+      <li>Une fois la commande trouvée, elle instancie cette commande et appelle sa méthode interne `createSlashCommand()`. Cette méthode est responsable de l’envoi de la requête à l’API de Discord pour enregistrer la structure de la commande (nom, description, arguments).</li>
+      <li>Si la commande est créée avec succès, un message de confirmation est renvoyé.</li>
+      <li>Si aucune commande correspondant au nom fourni n’est trouvée, un message d’erreur est renvoyé.</li>
+    </ol>
+  </li>
+</ul>
 </div>
       </main>
     </div>

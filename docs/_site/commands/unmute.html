@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Accueil</title>
+    <title>unmute</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -35,7 +35,7 @@
       <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
           <!-- Title -->
-          <span class="mdl-layout-title">Accueil</span>
+          <span class="mdl-layout-title">unmute</span>
           <!-- Add spacer, to align navigation to the right -->
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation -->
@@ -67,28 +67,81 @@
         </nav>
       </div>
       <main class="mdl-layout__content">
-        <div class="page-content"><div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--12-col">
-    <h1 class="mdl-typography--display-2">Documentation du Bot</h1>
-    <p class="mdl-typography--headline">
-      Bienvenue sur la documentation officielle du bot. Vous trouverez ici toutes les informations nécessaires pour comprendre, utiliser et étendre les fonctionnalités du bot.
-    </p>
-  </div>
-</div>
+        <div class="page-content"><h1 id="commande-unmute">Commande <code class="language-plaintext highlighter-rouge">unmute</code></h1>
 
-<div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--12-col">
-    <h2 class="mdl-typography--display-1">Pour commencer</h2>
-    <p>
-      Si vous êtes nouveau, voici quelques pages pour vous aider à démarrer :
-    </p>
-    <ul>
-      <li><a href="/multibot/configuration.html">Configuration</a> : Apprenez à configurer le bot pour votre serveur.</li>
-      <li><a href="/multibot/modules-list.html">Liste des Modules</a> : Découvrez les fonctionnalités clés à travers les modules.</li>
-      <li><a href="/multibot/commands-list.html">Liste des Commandes</a> : Explorez toutes les commandes disponibles.</li>
-    </ul>
-  </div>
-</div>
+<h2 id="description">Description</h2>
+
+<p>Annule le statut muet dun utilisateur, restaurant son accès aux salons.</p>
+
+<h2 id="détails">Détails</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Propriété</th>
+      <th>Valeur</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>ID</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">unmute</code></td>
+    </tr>
+    <tr>
+      <td><strong>Description</strong></td>
+      <td>Annule le statut muet dun utilisateur, restaurant son accès aux salons.</td>
+    </tr>
+    <tr>
+      <td><strong>Permissions User</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">['BanMembers']</code></td>
+    </tr>
+    <tr>
+      <td><strong>Permissions Bot</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[]</code></td>
+    </tr>
+    <tr>
+      <td><strong>Dev Boss Only</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">false</code></td>
+    </tr>
+    <tr>
+      <td><strong>Home Server Only</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">true</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="arguments">Arguments</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span>
+            <span class="p">{</span>
+                <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">USER</span><span class="dl">'</span><span class="p">,</span>
+                <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">user</span><span class="dl">'</span><span class="p">,</span>
+                <span class="na">description</span><span class="p">:</span> <span class="dl">'</span><span class="s1">User à unmute</span><span class="dl">'</span><span class="p">,</span>
+                <span class="na">required</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="fonctionnement">Fonctionnement</h2>
+
+<ul>
+  <li>Cette commande permet de retirer le statut “muet” d’un utilisateur, restaurant son accès normal aux salons.</li>
+  <li>
+    <p>Elle nécessite la permission “Bannir des membres” (`BanMembers`).</p>
+  </li>
+  <li><strong>Fonctionnement :</strong>
+    <ol>
+      <li>La commande cible un utilisateur spécifié en argument.</li>
+      <li>Elle recherche le rôle “mute” sur le serveur.</li>
+      <li>Elle vérifie si l’utilisateur cible possède bien ce rôle.</li>
+      <li>Si l’utilisateur est bien muet :
+a.  Elle lui retire le rôle “mute”.
+b.  Elle parcourt <strong>tous les salons</strong> du serveur pour supprimer toutes les permissions spécifiques (surécritures) qui avaient été appliquées à cet utilisateur. Cela a pour effet de restaurer ses permissions par défaut, lui redonnant accès aux salons.
+c.  Elle supprime également les permissions spécifiques de l’utilisateur sur le salon “tu-as-été-mute”.</li>
+      <li>Si l’utilisateur n’était pas muet au départ, la commande renvoie un message l’indiquant et ne fait rien.</li>
+    </ol>
+  </li>
+</ul>
 </div>
       </main>
     </div>
