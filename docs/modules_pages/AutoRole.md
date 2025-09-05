@@ -5,92 +5,30 @@ layout: default
 
 # Module: `AutoRole`
 
-## Description
+## Rôle
 
-*Documentation à compléter*
+Le module `AutoRole` est conçu pour attribuer automatiquement des rôles aux membres d'un serveur Discord en fonction de critères prédéfinis. C'est un outil puissant pour automatiser la gestion des permissions et des statuts des utilisateurs, en particulier dans les grandes communautés ou les serveurs de jeu.
 
-## Fichiers du Module
+## Déroulé et Cas d'Usage
 
-```
-AutoRoleCommand.js, AutoroleConfigClass.js, DataTest, GetCastRewardForm.js, GetCasterStatForm.js, GetIncidentForm.js, index.js, models, utils
-```
+Le fonctionnement de `AutoRole` peut être déclenché de plusieurs manières, ce qui le rend très flexible.
 
-## Composants Enregistrés
+### 1. Réaction à l'arrivée de nouveaux membres
 
-Ce module enregistre les composants suivants (commandes, événements) :
-```
-GetIncidentForm, AutoRoleCommand, GetCasterStatFormCommand, GetCastRewardFormCommand
-```
+C'est le cas d'usage le plus simple. Lorsqu'un nouveau membre rejoint le serveur, le module peut automatiquement lui assigner un rôle de "Nouveau" ou de "Membre", lui donnant accès à certains canaux de base.
 
-## Contenu de `index.js`
+*   **Exemple de situation :** Un nouveau joueur rejoint le serveur Discord de votre communauté de jeu. `AutoRole` lui donne immédiatement le rôle "Visiteur", ce qui lui permet de lire les règles et de se présenter dans le canal d'accueil, mais pas encore de rejoindre les canaux de discussion des équipes.
 
-```javascript
-const simultaneousRequest = require('../../Tools/simultaneousRequest');
-const GetIncidentForm = require('./GetIncidentForm.js');
-const GetCastRewardFormCommand = require('./GetCastRewardForm.js');
-const GetCasterStatFormCommand = require('./GetCasterStatForm.js');
-const AutoRoleCommand = require('./AutoRoleCommand.js');
-const { autoRole, instanciateOlympe } = require('./utils/utils2');
+### 2. Synchronisation avec une source de données externe
 
-const ChallengesRolesId = require('./models/ChallengesRolesId.js');
+`AutoRole` peut être couplé avec des modules comme `GetiJsonToDataBase`. Après une mise à jour des données (par exemple, la liste des équipes d'un tournoi), `AutoRole` peut parcourir tous les membres du serveur et mettre à jour leurs rôles en fonction de ces nouvelles informations.
 
-/**
- * Initialise le module AutoRole pour un bot.
- * Ce module attribue automatiquement des rôles aux membres en fonction de données
- * provenant d'une source externe (Olympe API). Il se déclenche au démarrage du bot
- * puis s'exécute à intervalles réguliers.
- * @param {import('../../Class/Bot')} bot - L'instance du bot pour laquelle initialiser le module.
- * @returns {object} Un objet contenant les classes de commandes exportées par ce module.
- */
-module.exports = (bot) => {
-	// Exemple de config
-	/**
-	 AutoRole : {
-		"everyXhours": 8,
-		"olympeAuth": {
-			"value": "token",
-		},
-		olympeDomain: "playallforone.com",
-	 }
-	 */
-	/**
-	 * Une fois le bot prêt, ce gestionnaire configure et lance le processus d'attribution automatique des rôles.
-	 * Il initialise la connexion à l'API Olympe, s'assure que les données du serveur sont en cache,
-	 * puis exécute la fonction d'attribution des rôles immédiatement et à un intervalle défini.
-	 */
-	bot.on('ready', async () => {
-		try {
-			// ===== DEV ===== TEST =====
-			// const roleCast = bot.modules.AutoRole.guilds["595557812051116052"].specialRoles.caster.id
-			// ===== DEV ===== TEST =====
+*   **Exemple de situation :** Votre bot vient de synchroniser les dernières informations d'un tournoi. Le joueur "PlayerX" a été promu capitaine de l'équipe "Les Aigles". Le module `AutoRole` détecte ce changement, retire son ancien rôle de "Membre de l'équipe" et lui attribue le rôle "Capitaine", lui donnant de nouvelles permissions, comme la possibilité de déplacer d'autres joueurs dans les canaux vocaux de l'équipe.
 
-			const challengesRolesId = new ChallengesRolesId(
-				bot.modules.AutoRole.roleIds.ALL,
-				bot.modules.AutoRole.roleIds.captain,
-				// roleCast, // ===== DEV ===== TEST =====
-				bot.modules.AutoRole.roleIds.caster,
-				bot.modules.AutoRole.roleIds.competitions
-			);
+### 3. Attribution de rôles basés sur des succès ou des statuts
 
-			await instanciateOlympe(bot, challengesRolesId);
+Le module peut également être utilisé pour récompenser des utilisateurs ou refléter leur statut. Par exemple, si les données externes indiquent qu'un joueur a remporté un certain nombre de matchs, `AutoRole` pourrait lui attribuer un rôle de "Vétéran" ou de "Champion".
 
-			for (guildId in bot.modules.AutoRole.guilds) {
-				const guild = await bot.guilds.fetch(bot.home).catch((_) => null);
-				await guild.roles.fetch();
-				await guild.members.fetch();
-			}
+*   **Exemple de situation :** Une joueuse, "GameMasterZ", a atteint le statut de "Caster" officiel pour les matchs de la communauté. Le module `AutoRole` lui assigne le rôle "Caster", qui met son nom en évidence dans la liste des membres et lui donne accès à un canal privé pour coordonner les diffusions avec les autres casters.
 
-			const autoroleFn = () => {
-				for (guildId in bot.modules.AutoRole.guilds) autoRole(bot, guildId);
-			};
-			autoroleFn(); // .then(() => deleteAllRole(bot));
-			setInterval(autoroleFn, bot.modules.AutoRole.everyXhours * 60 * 60 * 1000);
-		} catch (err) {
-			bot.error(err, 'autorole');
-		}
-	});
-
-	return { GetIncidentForm, AutoRoleCommand, GetCasterStatFormCommand, GetCastRewardFormCommand };
-};
-
-```
+En résumé, `AutoRole` est un pilier de l'automatisation de la gestion de communauté. Il assure que les bons utilisateurs ont les bons rôles au bon moment, sans intervention manuelle, ce qui permet aux administrateurs de se concentrer sur d'autres tâches.
