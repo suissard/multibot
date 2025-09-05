@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Module: ChannelManager</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/multibot/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">Module: ChannelManager</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/multibot/">Accueil</a>
+            <a class="mdl-navigation__link" href="/multibot/architecture.html">Architecture</a>
+            <a class="mdl-navigation__link" href="/multibot/commands.html">Commandes</a>
+            <a class="mdl-navigation__link" href="/multibot/commands-list.html">Liste des commandes</a>
+            <a class="mdl-navigation__link" href="/multibot/configuration.html">Configuration</a>
+            <a class="mdl-navigation__link" href="/multibot/events.html">Événements</a>
+            <a class="mdl-navigation__link" href="/multibot/modules.html">Modules</a>
+            <a class="mdl-navigation__link" href="/multibot/modules-list.html">Liste des modules</a>
+            <a class="mdl-navigation__link" href="/multibot/sitemap.html">Plan du site</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="/multibot/">Accueil</a>
+          <a class="mdl-navigation__link" href="/multibot/architecture.html">Architecture</a>
+          <a class="mdl-navigation__link" href="/multibot/commands.html">Commandes</a>
+          <a class="mdl-navigation__link" href="/multibot/commands-list.html">Liste des commandes</a>
+          <a class="mdl-navigation__link" href="/multibot/configuration.html">Configuration</a>
+          <a class="mdl-navigation__link" href="/multibot/events.html">Événements</a>
+          <a class="mdl-navigation__link" href="/multibot/modules.html">Modules</a>
+          <a class="mdl-navigation__link" href="/multibot/modules-list.html">Liste des modules</a>
+          <a class="mdl-navigation__link" href="/multibot/sitemap.html">Plan du site</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="module-channelmanager">Module: <code class="language-plaintext highlighter-rouge">ChannelManager</code></h1>
+
+<h2 id="description">Description</h2>
+
+<p><em>Documentation à compléter</em></p>
+
+<h2 id="fichiers-du-module">Fichiers du Module</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>commands, events, index.js, tests, utils
+</code></pre></div></div>
+
+<h2 id="composants-enregistrés">Composants Enregistrés</h2>
+
+<p>Ce module enregistre les composants suivants (commandes, événements) :</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AddUserToChannel, RemoveUserFromChannel, CreateMatchCommand, washMatchCommand, AutoChannelCommand, GuildMemberAddAutorole
+</code></pre></div></div>
+
+<h2 id="contenu-de-indexjs">Contenu de <code class="language-plaintext highlighter-rouge">index.js</code></h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">Bot</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../../Class/Bot.js</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">schedule</span> <span class="p">}</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">node-cron</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">AddUserToChannel</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./commands/addUserToChannel</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">RemoveUserFromChannel</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./commands/removeUserFromChannel</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">CreateMatchCommand</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./commands/createMatchCommand</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">washMatchCommand</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./commands/washMatchCommand</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">AutoChannelCommand</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./commands/autoChannelCommand</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">GuildMemberAddAutorole</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./events/NewGuildMember</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">autoChannel</span> <span class="p">}</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./utils/channelManagement.js</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="cm">/**
+ * Initialise le module ChannelManager pour un bot.
+ * Ce module gère automatiquement la création et la suppression de salons de match
+ * en se basant sur une tâche planifiée (cron).
+ * @param {import('../../Class/Bot')} bot - L'instance du bot pour laquelle initialiser le module.
+ * @returns {object} Un objet contenant les classes de commandes et d'événements exportées par ce module.
+ */</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">bot</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+	<span class="cm">/**
+	 * Une fois le bot prêt, ce gestionnaire configure et lance la tâche planifiée
+	 * pour la gestion automatique des salons.
+	 */</span>
+	<span class="nx">bot</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">ready</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+		<span class="kd">const</span> <span class="nx">guildId</span> <span class="o">=</span> <span class="nx">bot</span><span class="p">.</span><span class="nx">home</span><span class="p">;</span>
+		<span class="kd">const</span> <span class="nx">guild</span> <span class="o">=</span> <span class="nx">bot</span><span class="p">.</span><span class="nx">guilds</span><span class="p">.</span><span class="nx">cache</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="nx">guildId</span><span class="p">);</span>
+		<span class="k">await</span> <span class="nx">guild</span><span class="p">.</span><span class="nx">channels</span><span class="p">.</span><span class="nf">fetch</span><span class="p">();</span>
+		<span class="k">await</span> <span class="nx">guild</span><span class="p">.</span><span class="nx">members</span><span class="p">.</span><span class="nf">fetch</span><span class="p">();</span>
+		<span class="c1">//! TEST =====================================================================</span>
+		<span class="c1">// bot.modules.ChannelManager.cronSchedule = '*/1 * * * *';</span>
+		<span class="c1">// const duration = 12//0.5</span>
+		<span class="c1">// bot.modules.ChannelManager.maximumNumberOfHoursToRetrieveFutureMatches = duration;</span>
+		<span class="c1">// bot.modules.ChannelManager.maximumMatchDuration = duration;</span>
+
+		<span class="c1">// let member = guild.members.cache.get("306395745693597697")</span>
+		<span class="c1">// const event = bot.BOTS.Events.get('autorolenewguildmember')</span>
+		<span class="c1">// new event(bot).handleEvent(member)</span>
+
+		<span class="c1">//! TEST =====================================================================</span>
+		<span class="k">await</span> <span class="nf">schedule</span><span class="p">(</span><span class="nx">bot</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">ChannelManager</span><span class="p">.</span><span class="nx">cronSchedule</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+			<span class="nf">autoChannel</span><span class="p">(</span><span class="nx">bot</span><span class="p">,</span> <span class="nx">guild</span><span class="p">);</span>
+		<span class="p">});</span>
+	<span class="p">});</span>
+
+	<span class="k">return</span> <span class="p">{</span>
+		<span class="nx">AddUserToChannel</span><span class="p">,</span>
+		<span class="nx">RemoveUserFromChannel</span><span class="p">,</span>
+		<span class="nx">CreateMatchCommand</span><span class="p">,</span>
+		<span class="nx">washMatchCommand</span><span class="p">,</span>
+		<span class="nx">AutoChannelCommand</span><span class="p">,</span>
+		<span class="nx">GuildMemberAddAutorole</span>
+	<span class="p">};</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

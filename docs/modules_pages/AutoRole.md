@@ -12,7 +12,7 @@ layout: default
 ## Fichiers du Module
 
 ```
-AutoRoleCommand.js, AutoroleConfigClass.js, AutoroleConfigClass.test.js, DataTest, GetCastRewardForm.js, GetCasterStatForm.js, GetIncidentForm.js, index.js, models, utils
+AutoRoleCommand.js, AutoroleConfigClass.js, DataTest, GetCastRewardForm.js, GetCasterStatForm.js, GetIncidentForm.js, index.js, models, utils
 ```
 
 ## Composants Enregistrés

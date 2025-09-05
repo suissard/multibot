@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Accueil</title>
+    <title>listteamsavailables</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -35,7 +35,7 @@
       <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
           <!-- Title -->
-          <span class="mdl-layout-title">Accueil</span>
+          <span class="mdl-layout-title">listteamsavailables</span>
           <!-- Add spacer, to align navigation to the right -->
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation -->
@@ -67,28 +67,84 @@
         </nav>
       </div>
       <main class="mdl-layout__content">
-        <div class="page-content"><div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--12-col">
-    <h1 class="mdl-typography--display-2">Documentation du Bot</h1>
-    <p class="mdl-typography--headline">
-      Bienvenue sur la documentation officielle du bot. Vous trouverez ici toutes les informations nécessaires pour comprendre, utiliser et étendre les fonctionnalités du bot.
-    </p>
-  </div>
-</div>
+        <div class="page-content"><h1 id="commande-listteamsavailables">Commande <code class="language-plaintext highlighter-rouge">listteamsavailables</code></h1>
 
-<div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--12-col">
-    <h2 class="mdl-typography--display-1">Pour commencer</h2>
-    <p>
-      Si vous êtes nouveau, voici quelques pages pour vous aider à démarrer :
-    </p>
+<h2 id="description">Description</h2>
+
+<p>Renvoie la liste des teams disponibles pour un challenge donné</p>
+
+<h2 id="détails">Détails</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Propriété</th>
+      <th>Valeur</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>ID</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">listteamsavailables</code></td>
+    </tr>
+    <tr>
+      <td><strong>Description</strong></td>
+      <td>Renvoie la liste des teams disponibles pour un challenge donné</td>
+    </tr>
+    <tr>
+      <td><strong>Permissions User</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[]</code></td>
+    </tr>
+    <tr>
+      <td><strong>Permissions Bot</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">['SEND_MESSAGES']</code></td>
+    </tr>
+    <tr>
+      <td><strong>Dev Boss Only</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">false</code></td>
+    </tr>
+    <tr>
+      <td><strong>Home Server Only</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">false</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="arguments">Arguments</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span>
+        <span class="p">{</span>
+            <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">INTEGER</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">challengeid</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">description</span><span class="p">:</span> <span class="dl">'</span><span class="s1">ID du challenge pour lequel lister les équipes</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">required</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="fonctionnement">Fonctionnement</h2>
+
+<ul>
+  <li>
+    <p>Cette commande a deux modes de fonctionnement en fonction de si un ‘challengeid’ est fourni.</p>
+  </li>
+  <li><strong>Mode 1 : ‘challengeid’ non fourni</strong>
     <ul>
-      <li><a href="/multibot/configuration.html">Configuration</a> : Apprenez à configurer le bot pour votre serveur.</li>
-      <li><a href="/multibot/modules-list.html">Liste des Modules</a> : Découvrez les fonctionnalités clés à travers les modules.</li>
-      <li><a href="/multibot/commands-list.html">Liste des Commandes</a> : Explorez toutes les commandes disponibles.</li>
+      <li>La commande interroge une API externe (via `this.bot.olympe.api`) pour obtenir la liste de tous les challenges disponibles.</li>
+      <li>Elle construit et renvoie un message listant chaque challenge avec son nom et son ID, invitant l’utilisateur à relancer la commande avec un ID spécifique.</li>
+      <li>En cas d’erreur ou si aucun challenge n’est trouvé, un message approprié est renvoyé.</li>
     </ul>
-  </div>
-</div>
+  </li>
+  <li><strong>Mode 2 : ‘challengeid’ fourni</strong>
+    <ul>
+      <li>La commande utilise la fonction `getAllTeamsFromChallenge` pour récupérer toutes les équipes participant au challenge spécifié.</li>
+      <li>Elle prépare une réponse contenant la liste des noms de toutes les équipes trouvées.</li>
+      <li>Pour éviter de dépasser la limite de caractères de Discord (2000), elle envoie la liste en plusieurs messages si nécessaire.</li>
+      <li>Un message final confirme que la liste a été envoyée avec succès.</li>
+      <li>En cas d’erreur ou si aucune équipe n’est trouvée pour le challenge, un message d’erreur est renvoyé.</li>
+    </ul>
+  </li>
+</ul>
 </div>
       </main>
     </div>

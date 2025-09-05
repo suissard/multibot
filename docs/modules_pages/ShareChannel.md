@@ -12,7 +12,7 @@ layout: default
 ## Fichiers du Module
 
 ```
-LoadShareChannelsBotsReady.js, SalonCommand.js, ShareChannels.js, ShareEvent.js, ShareEventDelete.js, ShareEventUpdate.js, ShareGetiCommand.js, ShareInfoCommand.js, ShareMessage.js, ShareMessage.test.js, SharePromoCommand.js, ShareStopCommand.js, index.js, shareChannelsConfig.js
+LoadShareChannelsBotsReady.js, SalonCommand.js, ShareChannels.js, ShareEvent.js, ShareEventDelete.js, ShareEventUpdate.js, ShareGetiCommand.js, ShareInfoCommand.js, ShareMessage.js, SharePromoCommand.js, ShareStopCommand.js, index.js, shareChannelsConfig.js
 ```
 
 ## Composants Enregistrés

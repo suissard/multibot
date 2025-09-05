@@ -12,7 +12,7 @@ layout: default
 ## Fichiers du Module
 
 ```
-MessageCheckSecretary.js, ReadyCreateSecretary.js, Secretary.js, Secretary.test.js, index.js
+MessageCheckSecretary.js, ReadyCreateSecretary.js, Secretary.js, index.js
 ```
 
 ## Composants Enregistrés

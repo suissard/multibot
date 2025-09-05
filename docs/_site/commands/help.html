@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Accueil</title>
+    <title>help</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -35,7 +35,7 @@
       <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
           <!-- Title -->
-          <span class="mdl-layout-title">Accueil</span>
+          <span class="mdl-layout-title">help</span>
           <!-- Add spacer, to align navigation to the right -->
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation -->
@@ -67,28 +67,83 @@
         </nav>
       </div>
       <main class="mdl-layout__content">
-        <div class="page-content"><div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--12-col">
-    <h1 class="mdl-typography--display-2">Documentation du Bot</h1>
-    <p class="mdl-typography--headline">
-      Bienvenue sur la documentation officielle du bot. Vous trouverez ici toutes les informations nécessaires pour comprendre, utiliser et étendre les fonctionnalités du bot.
-    </p>
-  </div>
-</div>
+        <div class="page-content"><h1 id="commande-help">Commande <code class="language-plaintext highlighter-rouge">help</code></h1>
 
-<div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--12-col">
-    <h2 class="mdl-typography--display-1">Pour commencer</h2>
-    <p>
-      Si vous êtes nouveau, voici quelques pages pour vous aider à démarrer :
-    </p>
+<h2 id="description">Description</h2>
+
+<p>Permet d\obtenir le détail des commandes</p>
+
+<h2 id="détails">Détails</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Propriété</th>
+      <th>Valeur</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>ID</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">help</code></td>
+    </tr>
+    <tr>
+      <td><strong>Description</strong></td>
+      <td>Permet d\obtenir le détail des commandes</td>
+    </tr>
+    <tr>
+      <td><strong>Permissions User</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[]</code></td>
+    </tr>
+    <tr>
+      <td><strong>Permissions Bot</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[]</code></td>
+    </tr>
+    <tr>
+      <td><strong>Dev Boss Only</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">false</code></td>
+    </tr>
+    <tr>
+      <td><strong>Home Server Only</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">true</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="arguments">Arguments</h2>
+
+<p>Cette commande n’accepte aucun argument.</p>
+
+<h2 id="fonctionnement">Fonctionnement</h2>
+
+<ul>
+  <li>Cette commande a deux modes de fonctionnement :
+    <ol>
+      <li><strong>Afficher la liste de toutes les commandes :</strong> Si aucun nom de commande spécifique n’est fourni.</li>
+      <li><strong>Afficher les détails d’une commande :</strong> Si un nom de commande est passé en argument.</li>
+    </ol>
+  </li>
+  <li><strong>Mode Liste :</strong>
     <ul>
-      <li><a href="/multibot/configuration.html">Configuration</a> : Apprenez à configurer le bot pour votre serveur.</li>
-      <li><a href="/multibot/modules-list.html">Liste des Modules</a> : Découvrez les fonctionnalités clés à travers les modules.</li>
-      <li><a href="/multibot/commands-list.html">Liste des Commandes</a> : Explorez toutes les commandes disponibles.</li>
+      <li>La commande récupère la liste de toutes les commandes enregistrées dans le bot.</li>
+      <li>Elle filtre les commandes qui ne sont pas destinées à être affichées publiquement (celles avec `help = false`), à moins que l’utilisateur ne soit un développeur.</li>
+      <li>Elle construit un ou plusieurs messages “embed” pour afficher la liste. Si la liste est trop longue (plus de 20 commandes), elle est automatiquement divisée en plusieurs messages.</li>
+      <li>Chaque commande dans la liste est affichée avec son nom et sa description.</li>
     </ul>
-  </div>
-</div>
+  </li>
+  <li><strong>Mode Détail :</strong>
+    <ul>
+      <li>Si l’utilisateur fournit un nom de commande valide, la commande recherche cette commande spécifique.</li>
+      <li>Elle génère un message “embed” détaillé qui inclut :
+        <ul>
+          <li>Le nom de la commande.</li>
+          <li>Sa description.</li>
+          <li>Des instructions sur comment l’utiliser (`howTo`), en remplaçant les placeholders comme ‘PREFIX’ par la configuration actuelle du bot.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
 </div>
       </main>
     </div>

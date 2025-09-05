@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>casterstat</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/multibot/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">casterstat</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/multibot/">Accueil</a>
+            <a class="mdl-navigation__link" href="/multibot/architecture.html">Architecture</a>
+            <a class="mdl-navigation__link" href="/multibot/commands.html">Commandes</a>
+            <a class="mdl-navigation__link" href="/multibot/commands-list.html">Liste des commandes</a>
+            <a class="mdl-navigation__link" href="/multibot/configuration.html">Configuration</a>
+            <a class="mdl-navigation__link" href="/multibot/events.html">Événements</a>
+            <a class="mdl-navigation__link" href="/multibot/modules.html">Modules</a>
+            <a class="mdl-navigation__link" href="/multibot/modules-list.html">Liste des modules</a>
+            <a class="mdl-navigation__link" href="/multibot/sitemap.html">Plan du site</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="/multibot/">Accueil</a>
+          <a class="mdl-navigation__link" href="/multibot/architecture.html">Architecture</a>
+          <a class="mdl-navigation__link" href="/multibot/commands.html">Commandes</a>
+          <a class="mdl-navigation__link" href="/multibot/commands-list.html">Liste des commandes</a>
+          <a class="mdl-navigation__link" href="/multibot/configuration.html">Configuration</a>
+          <a class="mdl-navigation__link" href="/multibot/events.html">Événements</a>
+          <a class="mdl-navigation__link" href="/multibot/modules.html">Modules</a>
+          <a class="mdl-navigation__link" href="/multibot/modules-list.html">Liste des modules</a>
+          <a class="mdl-navigation__link" href="/multibot/sitemap.html">Plan du site</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="commande-casterstat">Commande <code class="language-plaintext highlighter-rouge">casterstat</code></h1>
+
+<h2 id="description">Description</h2>
+
+<p>Renvoit un url personnalisé pour déclarer les statistiques dun match</p>
+
+<h2 id="détails">Détails</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Propriété</th>
+      <th>Valeur</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>ID</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">casterstat</code></td>
+    </tr>
+    <tr>
+      <td><strong>Description</strong></td>
+      <td>Renvoit un url personnalisé pour déclarer les statistiques dun match</td>
+    </tr>
+    <tr>
+      <td><strong>Permissions User</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[]</code></td>
+    </tr>
+    <tr>
+      <td><strong>Permissions Bot</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[]</code></td>
+    </tr>
+    <tr>
+      <td><strong>Dev Boss Only</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">false</code></td>
+    </tr>
+    <tr>
+      <td><strong>Home Server Only</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">false</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="arguments">Arguments</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span>
+		<span class="p">{</span>
+			<span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">STRING</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">matchid</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">description</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Identifiant de match de la compétition</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">required</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+		<span class="p">},</span>
+		<span class="p">{</span>
+			<span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">USER</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">user</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">description</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Utilisateur a qui faire parvenir le formulaire</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">required</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+		<span class="p">},</span>
+		<span class="p">{</span>
+			<span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">STRING</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">castnbr</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">description</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Caster était en position 1 ou 2</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">required</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+		<span class="p">},</span>
+	<span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="fonctionnement">Fonctionnement</h2>
+
+<ul>
+  <li>Cette commande a pour but de générer et d’envoyer un lien vers un formulaire pré-rempli pour que les casters (diffuseurs) puissent soumettre leurs statistiques après un match.</li>
+  <li>
+    <p>Elle nécessite l’ID du match concerné.</p>
+  </li>
+  <li><strong>Fonctionnement :</strong>
+    <ol>
+      <li>La commande prend en argument l’ID d’un match (`matchid`). Elle peut aussi prendre en option un utilisateur cible et un numéro de caster (1 ou 2).</li>
+      <li>Elle interroge l’API Olympe pour récupérer toutes les informations du match correspondant à l’ID fourni.</li>
+      <li>Si le match est trouvé, elle utilise une URL de base de formulaire (probablement Google Forms) et la personnalise en pré-remplissant plusieurs champs avec les données du match :
+        <ul>
+          <li>ID du match, date, nom des équipes, nom de la division, lien de la chaîne Twitch, etc.</li>
+        </ul>
+      </li>
+      <li>Elle identifie l’utilisateur à qui envoyer le formulaire (l’utilisateur mentionné ou l’auteur de la commande).</li>
+      <li>Elle crée un message “embed” contenant le lien vers le formulaire pré-rempli.</li>
+      <li>Elle envoie cet embed en message privé (DM) à l’utilisateur cible.</li>
+      <li>Si le match n’est pas trouvé, elle renvoie un message d’erreur.</li>
+    </ol>
+  </li>
+</ul>
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

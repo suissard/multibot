@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Accueil</title>
+    <title>ping</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -35,7 +35,7 @@
       <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
           <!-- Title -->
-          <span class="mdl-layout-title">Accueil</span>
+          <span class="mdl-layout-title">ping</span>
           <!-- Add spacer, to align navigation to the right -->
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation -->
@@ -67,28 +67,74 @@
         </nav>
       </div>
       <main class="mdl-layout__content">
-        <div class="page-content"><div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--12-col">
-    <h1 class="mdl-typography--display-2">Documentation du Bot</h1>
-    <p class="mdl-typography--headline">
-      Bienvenue sur la documentation officielle du bot. Vous trouverez ici toutes les informations nécessaires pour comprendre, utiliser et étendre les fonctionnalités du bot.
-    </p>
-  </div>
-</div>
+        <div class="page-content"><h1 id="commande-ping">Commande <code class="language-plaintext highlighter-rouge">ping</code></h1>
 
-<div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--12-col">
-    <h2 class="mdl-typography--display-1">Pour commencer</h2>
-    <p>
-      Si vous êtes nouveau, voici quelques pages pour vous aider à démarrer :
-    </p>
-    <ul>
-      <li><a href="/multibot/configuration.html">Configuration</a> : Apprenez à configurer le bot pour votre serveur.</li>
-      <li><a href="/multibot/modules-list.html">Liste des Modules</a> : Découvrez les fonctionnalités clés à travers les modules.</li>
-      <li><a href="/multibot/commands-list.html">Liste des Commandes</a> : Explorez toutes les commandes disponibles.</li>
-    </ul>
-  </div>
-</div>
+<h2 id="description">Description</h2>
+
+<p>Répond pong</p>
+
+<h2 id="détails">Détails</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Propriété</th>
+      <th>Valeur</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>ID</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">ping</code></td>
+    </tr>
+    <tr>
+      <td><strong>Description</strong></td>
+      <td>Répond pong</td>
+    </tr>
+    <tr>
+      <td><strong>Permissions User</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[]</code></td>
+    </tr>
+    <tr>
+      <td><strong>Permissions Bot</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[]</code></td>
+    </tr>
+    <tr>
+      <td><strong>Dev Boss Only</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">false</code></td>
+    </tr>
+    <tr>
+      <td><strong>Home Server Only</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">false</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="arguments">Arguments</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span>
+        <span class="p">{</span>
+            <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">STRING</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">texte</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">description</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Texte à envoyer</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">required</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">USER</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">user</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">description</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Mentionner un user à ping</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">required</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="fonctionnement">Fonctionnement</h2>
+
+<ul>
+  <li>La commande répond simplement “Pong”.</li>
+  <li>Si un argument ‘user’ est fourni, elle mentionne l’utilisateur.</li>
+  <li>Si un argument ‘texte’ est fourni, elle ajoute le texte à la réponse.</li>
+</ul>
 </div>
       </main>
     </div>
