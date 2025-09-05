@@ -35,7 +35,7 @@ const commandFiles = fs.readdirSync(commandsDir)
 
 const moduleCommandFiles = findCommandFiles(modulesDir);
 const allCommandFiles = commandFiles.concat(moduleCommandFiles);
-
+const allCommandIds = [];
 
 for (const filePath of allCommandFiles) {
     const content = fs.readFileSync(filePath, 'utf8');
@@ -112,4 +112,38 @@ ${fonctionnement}
     const outputFilePath = path.join(outputDir, `${id}.md`);
     fs.writeFileSync(outputFilePath, markdownContent);
     console.log(`Generated documentation for ${id} at ${outputFilePath}`);
+    allCommandIds.push(id);
 }
+
+function updateCommandList(commandIds) {
+    const commandListPath = path.join(__dirname, 'commands-list.md');
+    const header = `---
+title: Liste des Commandes
+layout: default
+---
+
+# Liste des Commandes
+
+Voici la liste de toutes les commandes disponibles. Cliquez sur le nom d'une commande pour voir sa documentation détaillée.
+`;
+    const commandLinks = commandIds.map(id => `- [${id}](./commands/${id}.md)`).join('\n');
+    fs.writeFileSync(commandListPath, `${header}\n${commandLinks}\n`);
+    console.log(`Updated ${commandListPath}`);
+}
+
+function updateSitemap(commandIds) {
+    const sitemapPath = path.join(__dirname, 'sitemap.md');
+    let sitemapContent = fs.readFileSync(sitemapPath, 'utf8');
+
+    const commandsHeader = '## Commandes\n\n';
+    const commandLinks = commandIds.map(id => `* [${id}](./commands/${id}.md)`).join('\n');
+
+    const regex = /(## Commandes\n\n)[\s\S]*?(?=\n##|$)/;
+    sitemapContent = sitemapContent.replace(regex, `${commandsHeader}${commandLinks}`);
+
+    fs.writeFileSync(sitemapPath, sitemapContent);
+    console.log(`Updated ${sitemapPath}`);
+}
+
+updateCommandList(allCommandIds);
+updateSitemap(allCommandIds);

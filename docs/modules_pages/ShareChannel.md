@@ -5,56 +5,32 @@ layout: default
 
 # Module: `ShareChannel`
 
-## Description
+## Rôle
 
-*Documentation à compléter*
+Le module `ShareChannel` est un pont entre les serveurs Discord. Sa fonction principale est de "partager" le contenu d'un canal (channel) d'un serveur source vers un ou plusieurs canaux sur des serveurs de destination. Il permet de créer une communication inter-serveurs transparente.
 
-## Fichiers du Module
+## Déroulé et Cas d'Usage
 
-```
-LoadShareChannelsBotsReady.js, SalonCommand.js, ShareChannels.js, ShareEvent.js, ShareEventDelete.js, ShareEventUpdate.js, ShareGetiCommand.js, ShareInfoCommand.js, ShareMessage.js, SharePromoCommand.js, ShareStopCommand.js, index.js, shareChannelsConfig.js
-```
+Un administrateur configure un canal à "partager" via des commandes. Une fois la configuration en place, le module écoute en permanence le canal source et republie automatiquement les messages dans les canaux de destination.
 
-## Composants Enregistrés
+### 1. Annonces Globales
 
-Ce module enregistre les composants suivants (commandes, événements) :
-```
-ShareEvent, ShareEventUpdate, ShareEventDelete, SalonCommand, ShareInfoCommand, SharePromoCommand, ShareStopCommand, LoadShareChannels, ShareGetiCommand
-```
+C'est l'utilisation la plus évidente. Vous pouvez avoir un canal d'annonces sur votre serveur principal et le partager sur tous les serveurs de votre communauté.
 
-## Contenu de `index.js`
+*   **Exemple de situation :** Vous gérez une communauté de jeu répartie sur plusieurs serveurs (un pour chaque jeu). Vous avez un serveur "Hub" central. Vous postez une annonce importante dans le canal `#annonces-globales` du serveur Hub. Le module `ShareChannel` détecte ce message et le republie instantanément dans le canal `#annonces` de tous les autres serveurs. Cela vous évite de devoir copier-coller le message manuellement sur chaque serveur.
 
-```javascript
-/**
- * Initialise le module ShareChannel pour un bot.
- * Ce module semble gérer le partage de messages entre différents salons,
- * potentiellement sur différents serveurs, en se basant sur des configurations.
- * Il exporte les différentes classes de commandes et d'événements qui composent le module.
- * @param {import('../../Class/Bot')} bot - L'instance du bot.
- * @returns {object} Un objet contenant les classes du module.
- */
-module.exports = (bot) => {
-    const LoadShareChannels = require('./LoadShareChannelsBotsReady.js');
-    const ShareEvent = require('./ShareEvent.js');
-    const ShareEventUpdate = require('./ShareEventUpdate.js');
-    const ShareEventDelete = require('./ShareEventDelete.js');
-    const SalonCommand = require('./SalonCommand.js');
-    const ShareInfoCommand = require('./ShareInfoCommand.js');
-    const SharePromoCommand = require('./SharePromoCommand.js');
-    const ShareStopCommand = require('./ShareStopCommand.js');
-    const ShareGetiCommand = require('./ShareGetiCommand.js');
+### 2. Partage de Contenu Spécifique
 
-    return {
-        ShareEvent,
-        ShareEventUpdate,
-        ShareEventDelete,
-        SalonCommand,
-        ShareInfoCommand,
-        SharePromoCommand,
-        ShareStopCommand,
-        LoadShareChannels,
-        ShareGetiCommand,
-    };
-};
+Le partage peut être plus ciblé. Vous pouvez partager des canaux thématiques entre des serveurs partenaires.
 
-```
+*   **Exemple de situation :** Votre serveur est partenaire avec un autre serveur spécialisé dans le "speedrunning". Vous configurez `ShareChannel` pour que tous les messages du canal `#speedrun-news` de votre partenaire soient automatiquement postés dans un canal `#actus-partenaires` sur votre serveur. Vos membres peuvent ainsi suivre l'actualité de votre partenaire sans avoir à rejoindre leur serveur.
+
+### 3. Communication Inter-Équipes
+
+Dans un contexte de tournoi multi-serveurs, `ShareChannel` peut permettre aux équipes de communiquer même si elles ne sont pas sur le même serveur.
+
+*   **Exemple de situation :** L'équipe "A" est sur le serveur "France" et l'équipe "B" est sur le serveur "Belgique". Un canal `#discussion-match` est créé sur chaque serveur. `ShareChannel` est configuré pour synchroniser les deux canaux. Quand un membre de l'équipe A poste un message dans son canal, il apparaît instantanément dans le canal de l'équipe B, et vice-versa.
+
+Le module gère également les modifications et les suppressions de messages. Si un message partagé est modifié dans le canal source, la modification est répercutée sur tous les serveurs de destination, assurant que l'information reste cohérente partout.
+
+En résumé, `ShareChannel` est un outil puissant pour connecter les communautés, centraliser l'information et faciliter la communication à travers les frontières des serveurs Discord.
