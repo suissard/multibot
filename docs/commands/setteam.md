@@ -51,16 +51,22 @@ Crée une nouvelle équipe avec un rôle et un salon dédiés.
     ]
 ```
 
-## Fonctionnement du Code
+## Fonctionnement
 
-```javascript
-async methode(args = {}) {
-        this.getEventRole(args).then(async ({ roleteam, rolecap }) => {
-            await this.createRoleAnChannel(args, roleteam, rolecap);
-            const embed = new MultiBotMessageEmbed(
-                `__Création de la team **${args.teamname}**__`,
-                `**Capitaine :** <@${args.capitaine}>\n**Elo :** ${args.elo}\n**Btag :** ${args.btag}`,
-            );
-            this.answerToUser(embed);
-	}
-```
+- Cette commande permet de créer une nouvelle équipe sur le serveur.
+- Elle nécessite la permission "Gérer les rôles" (\`ManageRoles\`).
+
+- **Arguments requis :**
+    - \`teamname\` : Le nom de la nouvelle équipe.
+    - \`btag\` : Le BattleTag du capitaine.
+    - \`capitaine\` : La mention de l'utilisateur qui sera le capitaine.
+    - \`elo\` : Le niveau de classement (elo) de l'équipe.
+
+- **Processus de création :**
+    1.  La commande commence par envoyer un message temporaire "Team en cours d'ajout...".
+    2.  Elle crée un nouveau rôle pour l'équipe, dont le nom est formaté (par exemple, "Team [NomDeLequipe]").
+    3.  Elle recherche le rôle "🎉 Capitaine". Si ce rôle n'existe pas, il est créé.
+    4.  Elle crée un nouveau salon textuel privé pour l'équipe. Seuls les membres ayant le rôle de l'équipe peuvent y accéder.
+    5.  Elle assigne le rôle de l'équipe et le rôle "🎉 Capitaine" à l'utilisateur désigné comme capitaine.
+    6.  Elle enregistre les informations de l'équipe (nom, capitaine, elo, btag) dans une base de données ou un système de stockage.
+    7.  Une fois toutes les opérations terminées, elle envoie un message "embed" final pour confirmer la création de l'équipe avec tous ses détails.

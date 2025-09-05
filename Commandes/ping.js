@@ -25,6 +25,12 @@ module.exports = class Ping extends Command {
         },
     ];
 
+    static narrative = `
+- La commande répond simplement "Pong".
+- Si un argument 'user' est fourni, elle mentionne l'utilisateur.
+- Si un argument 'texte' est fourni, elle ajoute le texte à la réponse.
+`;
+
     /**
      * Exécute la commande ping.
      * Répond "Pong" et peut inclure un texte ou mentionner un utilisateur si fourni en argument.

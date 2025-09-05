@@ -33,23 +33,14 @@ Renvoit un url personnalisé pour réclamer une récompense de cast OAFO
     ]
 ```
 
-## Fonctionnement du Code
+## Fonctionnement
 
-```javascript
-async methode(args = {}) {
-        const discordUser = this.bot.users.cache.get(args.user) || this.user;
+- Cette commande a pour but d'envoyer un lien personnalisé vers un formulaire Google pour réclamer une récompense de cast (diffusion de match).
+- Elle peut cibler soit un utilisateur mentionné en argument, soit l'auteur de la commande si personne n'est mentionné.
 
-
-        const formUrl = this.getCastRewardUrlForm(discordUser);
-
-        //envoyer par mp
-        var msgEmbed = new EmbedBuilder()
-            .setTitle("Formulaire castReward")
-            .setColor(Colors.Purple)
-            .setDescription(`[**LIEN**](${formUrl})`);
-
-        discordUser.send({ embeds: [msgEmbed] });
-
-        return 'Un formulaire personnalisé a été envoyer par mp';
-	}
-```
+- **Fonctionnement :**
+    1.  La commande identifie l'utilisateur Discord cible.
+    2.  Elle construit une URL unique pour un formulaire Google. L'URL est personnalisée en ajoutant l'ID Discord de l'utilisateur comme paramètre pré-rempli (\`entry.728176607\`).
+    3.  Elle crée un message "embed" contenant ce lien personnalisé.
+    4.  Elle envoie cet embed en message privé (DM) à l'utilisateur cible.
+    5.  Enfin, elle renvoie un message de confirmation dans le salon où la commande a été exécutée.

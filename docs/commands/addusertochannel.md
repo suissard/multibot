@@ -51,18 +51,15 @@ Add a user to a channel
 	]
 ```
 
-## Fonctionnement du Code
+## Fonctionnement
 
-```javascript
-methode(args = {}) {
-		const channelId = args.channel;
-		const channel = this.guild.channels.cache.find((channel) => channel.id === channelId);
-		const users = ['user1', 'user2', 'user3']
-			.map((option) => args[option])
-			.filter((user) => user !== null);
+- **ATTENTION : Cette commande est actuellement désactivée (le \`module.exports\` est en commentaire).**
+- L'objectif de cette commande est d'ajouter jusqu'à trois utilisateurs à un salon spécifique.
+- Elle nécessite la permission "Gérer les salons" (\`ManageChannels\`).
 
-		try {
-			for (const user of users) {
-				addUserToChannel(channel, user, channel.type);
-	}
-```
+- **Fonctionnement :**
+    1.  La commande prend en argument un salon cible (\`channel\`) et au moins un utilisateur (\`user1\`). Deux autres utilisateurs (\`user2\`, \`user3\`) sont optionnels.
+    2.  Elle identifie le salon sur le serveur.
+    3.  Elle parcourt la liste des utilisateurs fournis en argument.
+    4.  Pour chaque utilisateur, elle appelle la fonction \`addUserToChannel\` du service Discord. Cette fonction est responsable de modifier les permissions du salon pour y ajouter l'utilisateur.
+    5.  Une fois tous les utilisateurs traités, elle renvoie un message de confirmation.

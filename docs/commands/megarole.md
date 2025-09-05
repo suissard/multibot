@@ -44,14 +44,22 @@ Ajoute ou supprime en masse un ou plusieurs rôles à tous les membres du serveu
     ]
 ```
 
-## Fonctionnement du Code
+## Fonctionnement
 
-```javascript
-async methode(args = {}) {
-        await this.guild.members.fetch();
-        let roles = [];
-        let userlist = this.guild.members.cache;
-        if (!args.role && !args.multipleroles) {
-            return 'Il faut mentionner un rôle à supprimer';
-	}
-```
+- Cette commande permet d'ajouter ou de supprimer un ou plusieurs rôles à **tous les membres** du serveur en une seule fois.
+- Elle nécessite la permission "Gérer les rôles" (\`ManageRoles\`) pour être utilisée.
+
+- **Arguments :**
+    - \`del\` (booléen, requis) : Détermine l'action. \`true\` pour supprimer les rôles, \`false\` pour les ajouter.
+    - \`role\` (rôle, optionnel) : Un rôle unique à traiter.
+    - \`multipleroles\` (texte, optionnel) : Une chaîne de texte contenant les mentions de plusieurs rôles.
+
+- **Fonctionnement :**
+    1. La commande commence par récupérer la liste complète de tous les membres du serveur.
+    2. Elle collecte les rôles à traiter à partir des arguments \`role\` et/ou \`multipleroles\`.
+    3. En fonction de la valeur de l'argument \`del\`, elle parcourt la liste de **tous les membres** :
+        - Si \`del\` est \`true\`, elle tente de **supprimer** les rôles spécifiés à chaque membre.
+        - Si \`del\` est \`false\`, elle tente d'**ajouter** les rôles spécifiés à chaque membre.
+    4. Une barre de chargement visuelle est affichée pendant l'opération.
+    5. Après l'opération, si des erreurs se sont produites (par exemple, permissions insuffisantes pour modifier un membre avec un rôle plus élevé), elles sont listées dans un message.
+    6. Un message final confirme que la commande a été exécutée.

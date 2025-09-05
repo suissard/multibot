@@ -45,24 +45,17 @@ Renvoit un url personnalisé pour déclarer les statistiques dun match
 	]
 ```
 
-## Fonctionnement du Code
+## Fonctionnement
 
-```javascript
-async methode(args = {}) {
-		const discordUser = this.bot.users.cache.get(args.user) || this.user;
-		const match = await this.bot.olympe.api.matchs.get(args.matchid).catch();
-		if (!match) return 'Match non trouvé';
+- Cette commande a pour but de générer et d'envoyer un lien vers un formulaire pré-rempli pour que les casters (diffuseurs) puissent soumettre leurs statistiques après un match.
+- Elle nécessite l'ID du match concerné.
 
-		const formUrl = this.getCasterStatUrlForm(match, Number(args.castnbr||"1")-1);
-
-		//envoyer par mp
-		var msgEmbed = new EmbedBuilder()
-			.setTitle('Formulaire casterStat')
-			.setColor(Colors.Purple)
-			.setDescription(`[**LIEN**](${formUrl})`);
-
-		discordUser.send({ embeds: [msgEmbed] });
-
-		return 'Un formulaire personnalisé a été envoyé par MP';
-	}
-```
+- **Fonctionnement :**
+    1.  La commande prend en argument l'ID d'un match (\`matchid\`). Elle peut aussi prendre en option un utilisateur cible et un numéro de caster (1 ou 2).
+    2.  Elle interroge l'API Olympe pour récupérer toutes les informations du match correspondant à l'ID fourni.
+    3.  Si le match est trouvé, elle utilise une URL de base de formulaire (probablement Google Forms) et la personnalise en pré-remplissant plusieurs champs avec les données du match :
+        - ID du match, date, nom des équipes, nom de la division, lien de la chaîne Twitch, etc.
+    4.  Elle identifie l'utilisateur à qui envoyer le formulaire (l'utilisateur mentionné ou l'auteur de la commande).
+    5.  Elle crée un message "embed" contenant le lien vers le formulaire pré-rempli.
+    6.  Elle envoie cet embed en message privé (DM) à l'utilisateur cible.
+    7.  Si le match n'est pas trouvé, elle renvoie un message d'erreur.
