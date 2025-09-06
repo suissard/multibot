@@ -4,7 +4,9 @@ layout: default
 ---
 # Gestion des Événements
 
-Ce document explique comment les gestionnaires d'événements (event handlers) sont structurés, comment en créer de nouveaux, et comment ils sont gérés par l'`EventManager`.
+Ce document explique comment les gestionnaires d'événements (*event handlers*) sont structurés dans le projet, comment en créer de nouveaux, et comment ils sont gérés par l'`EventManager`.
+
+> Pour une description détaillée de chaque événement existant, consultez la **[Liste des Événements](./events-list.md)**.
 
 ## La Classe `Event`
 
@@ -26,43 +28,13 @@ C'est ici que vous définissez la logique à exécuter lorsque l'événement se 
 
 ## Comment Créer un Nouveau Gestionnaire d'Événement
 
-1.  **Créer le fichier** : Créez un nouveau fichier JavaScript dans le dossier `Events/`. Le nom du fichier est arbitraire (par exemple, `logNewMember.js`).
-
+1.  **Créer le fichier** : Créez un nouveau fichier JavaScript dans le dossier `Events/` (pour les événements de base) ou dans le dossier de votre module.
 2.  **Définir la classe** : Dans ce fichier, créez une classe qui hérite de `Event` et exportez-la.
-
 3.  **Définir les propriétés statiques** : Ajoutez les propriétés statiques `id` et `listener`.
-
 4.  **Implémenter `handleEvent`** : Ajoutez la méthode `handleEvent` et écrivez la logique qui doit s'exécuter lorsque l'événement est déclenché.
-
-### Exemple : `MessageLogger`
-
-Voici un exemple simple d'un gestionnaire d'événement qui logue chaque nouveau message reçu par le bot dans la console.
-
-```javascript
-// Events/MessageLogger.js
-
-const Event = require('../Class/Event.js');
-
-module.exports = class MessageLogger extends Event {
-    static id = 'messageLogger';
-    static listener = 'messageCreate'; // Événement de discord.js
-
-    async handleEvent(message) {
-        // Ignore les messages du bot lui-même pour éviter les boucles
-        if (message.author.id === this.bot.user.id) return;
-
-        const author = message.author.tag;
-        const channel = message.channel.name;
-        const guild = message.guild.name;
-
-        // this.bot.log est une méthode utilitaire de la classe Bot
-        this.bot.log(`Nouveau message de ${author} dans #${channel} sur ${guild}: "${message.content}"`);
-    }
-}
-```
 
 ## Enregistrement des Gestionnaires d'Événements
 
-Comme pour les commandes, vous n'avez pas besoin d'enregistrer manuellement vos gestionnaires d'événements. L'`EventManager` parcourt automatiquement le dossier `Events/` au démarrage du bot.
+Comme pour les commandes, vous n'avez pas besoin d'enregistrer manuellement vos gestionnaires d'événements. L'`EventManager` parcourt automatiquement le dossier `Events/` ainsi que tous les dossiers des modules activés au démarrage du bot.
 
 Pour chaque gestionnaire trouvé, il l'ajoute à la liste des événements disponibles. Ensuite, pour chaque instance de `Bot`, il attache un écouteur pour cet événement, sauf si l'événement est spécifiquement désactivé dans la configuration du bot (via la propriété `unauthorizedEvents`).
