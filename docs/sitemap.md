@@ -13,6 +13,7 @@ layout: default
 * [Liste des commandes](./commands-list.md)
 * [Configuration](./configuration.md)
 * [Événements](./events.md)
+* [Liste des événements](./events-list.md)
 * [Modules](./modules.md)
 * [Liste des modules](./modules-list.md)
 
