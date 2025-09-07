@@ -40,31 +40,13 @@
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation -->
           <nav class="mdl-navigation mdl-layout--large-screen-only">
-            <a class="mdl-navigation__link" href="{{ '/' | relative_url }}">Accueil</a>
-            <a class="mdl-navigation__link" href="{{ '/architecture.html' | relative_url }}">Architecture</a>
-            <a class="mdl-navigation__link" href="{{ '/commands.html' | relative_url }}">Commandes</a>
-            <a class="mdl-navigation__link" href="{{ '/commands-list.html' | relative_url }}">Liste des commandes</a>
-            <a class="mdl-navigation__link" href="{{ '/configuration.html' | relative_url }}">Configuration</a>
-            <a class="mdl-navigation__link" href="{{ '/events.html' | relative_url }}">Événements</a>
-            <a class="mdl-navigation__link" href="{{ '/modules.html' | relative_url }}">Modules</a>
-            <a class="mdl-navigation__link" href="{{ '/modules-list.html' | relative_url }}">Liste des modules</a>
-            <a class="mdl-navigation__link" href="{{ '/sitemap.html' | relative_url }}">Plan du site</a>
+            {% include navigation.html %}
           </nav>
         </div>
       </header>
       <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">Navigation</span>
-        <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href="{{ '/' | relative_url }}">Accueil</a>
-          <a class="mdl-navigation__link" href="{{ '/architecture.html' | relative_url }}">Architecture</a>
-          <a class="mdl-navigation__link" href="{{ '/commands.html' | relative_url }}">Commandes</a>
-          <a class="mdl-navigation__link" href="{{ '/commands-list.html' | relative_url }}">Liste des commandes</a>
-          <a class="mdl-navigation__link" href="{{ '/configuration.html' | relative_url }}">Configuration</a>
-          <a class="mdl-navigation__link" href="{{ '/events.html' | relative_url }}">Événements</a>
-          <a class="mdl-navigation__link" href="{{ '/modules.html' | relative_url }}">Modules</a>
-          <a class="mdl-navigation__link" href="{{ '/modules-list.html' | relative_url }}">Liste des modules</a>
-          <a class="mdl-navigation__link" href="{{ '/sitemap.html' | relative_url }}">Plan du site</a>
-        </nav>
+        {% include navigation.html %}
       </div>
       <main class="mdl-layout__content">
         <div class="page-content">{{ content }}</div>
