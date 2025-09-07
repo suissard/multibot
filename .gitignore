@@ -11,3 +11,14 @@ dataGetibot/
 .archives
 auto_pull.sh
 .idea
+
+# Documentation
+docs/_site
+docs/Class
+docs/Commandes
+docs/Events
+docs/Modules
+docs/SelfApi
+docs/Tools
+docs/sitemap.md
+docs/_includes/navigation.html
