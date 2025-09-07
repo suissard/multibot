@@ -11,6 +11,14 @@ Ce document présente les modules du bot, leur rôle, et comment ils s'articulen
 
 Comme décrit dans la section [Modules](./modules.md), un module est une brique fonctionnelle autonome. Certains modules sont indépendants, tandis que d'autres collaborent pour réaliser des tâches plus complexes.
 
+## Fonctionnalités de Base
+
+En plus des modules, le bot dispose de fonctionnalités de base intégrées qui ne sont pas modulaires.
+
+- **[Système de Rôles par Réaction (EmoteMessage)](./emote-message.md)**
+  - **Rôle :** Permet aux utilisateurs d'obtenir des rôles en réagissant à un message.
+  - **Déroulé :** Un administrateur configure un message spécifique. Lorsque les utilisateurs ajoutent ou retirent des réactions sur ce message, le bot leur attribue ou retire automatiquement les rôles correspondants.
+
 ## Les modules principaux et leur interaction
 
 Voici une description des modules et de leur ordre logique de fonctionnement.
@@ -34,8 +42,8 @@ Voici une description des modules et de leur ordre logique de fonctionnement.
     *   **Déroulé :** Ce module dépend des données synchronisées par `GetiJsonToDataBase`. Il surveille la base de données et, lorsqu'un match est sur le point de commencer, il envoie une notification dans un canal spécifié, en mentionnant potentiellement les joueurs concernés grâce aux rôles gérés par `AutoRole`.
 
 5.  **`Secretary`** ([Voir la documentation détaillée](./modules_pages/Secretary.md))
-    *   **Rôle :** Gère des messages "secrétariat" qui permettent aux utilisateurs de réagir avec des émoticônes pour obtenir des rôles ou des informations.
-    *   **Déroulé :** C'est un module plus interactif. Un administrateur configure un message, et le module `Secretary` écoute les réactions sur ce message. Lorsqu'un utilisateur ajoute une réaction, le module lui attribue un rôle (par exemple, le rôle d'un jeu pour être notifié des actualités de ce jeu).
+    *   **Rôle :** Gère un système de "secrétariat" pour les messages privés. Il permet aux utilisateurs de contacter le staff en envoyant un message privé au bot, qui le transfère dans un salon dédié.
+    *   **Déroulé :** Un utilisateur envoie un DM au bot. Le module crée un salon privé sur un serveur de staff et y poste le message de l'utilisateur. Le staff peut répondre directement dans ce salon, et la réponse est renvoyée en DM à l'utilisateur.
 
 6.  **`ShareChannel`** ([Voir la documentation détaillée](./modules_pages/ShareChannel.md))
     *   **Rôle :** Permet de partager le contenu d'un canal (channel) d'un serveur à un autre.

@@ -7,44 +7,59 @@ layout: default
 
 ## Rôle
 
-Le module `Secretary` gère des messages interactifs, souvent appelés "messages à réaction" ou "reaction roles". Il permet aux administrateurs de créer des messages spéciaux où les utilisateurs peuvent réagir avec des émoticônes pour obtenir des rôles, accéder à des informations, ou déclencher d'autres actions.
+Le module `Secretary` met en place un système de "secrétariat" ou de "messagerie privée" qui permet aux utilisateurs d'envoyer des messages privés au bot, lesquels sont ensuite transférés dans des salons textuels privés sur un serveur dédié. Cela permet aux membres du staff de voir et de répondre aux demandes des utilisateurs de manière centralisée et confidentielle, sans que l'utilisateur n'ait besoin d'être sur le même serveur que le staff.
 
 ## Déroulé et Cas d'Usage
 
-C'est un module hautement interactif qui repose sur la participation des utilisateurs. Un administrateur configure le message, et le module se charge de surveiller et de réagir aux interactions des membres.
+Ce module est conçu pour la gestion de support, les demandes d'aide, ou toute autre communication qui doit être privée entre un utilisateur et l'équipe de modération.
 
-### 1. Attribution de Rôles par Réaction (Reaction Roles)
+### 1. L'Utilisateur envoie un Message Privé
 
-C'est l'utilisation la plus courante. Les utilisateurs peuvent s'auto-attribuer des rôles sans avoir à demander à un administrateur.
+-   Un utilisateur envoie un message privé (DM) au bot.
+-   Le module `Secretary` intercepte ce message.
 
-*   **Exemple de situation :** Dans le canal `#roles`, un administrateur poste un message géré par le module `Secretary` :
+### 2. Création d'un Salon de Secrétariat
 
-    > **Choisissez vos jeux préférés pour être notifié des actualités !**
-    >
-    > :video_game: - Pour les news sur les jeux en général
-    > :rocket: - Pour les news sur "Starship Odyssey"
-    > :dragon: - Pour les news sur "Dragon's Lair RPG"
+-   Si c'est la première fois que cet utilisateur contacte le secrétariat, le module crée un nouveau salon textuel sur un serveur de secrétariat configuré.
+-   Ce salon est nommé avec le nom et l'ID de l'utilisateur (par exemple, `❌Utilisateur-123456789012345678`). Le ❌ indique qu'il y a un message en attente de réponse.
+-   Le salon n'est visible que par les rôles de staff configurés.
+-   Si un salon existe déjà pour cet utilisateur, le module utilise simplement ce salon existant.
 
-    Un utilisateur qui réagit avec :rocket: se verra instantanément attribuer le rôle "Starship Odyssey Fans" par le module. S'il retire sa réaction, le rôle lui est automatiquement retiré.
+### 3. Transfert du Message
 
-### 2. Validation des Règles
+-   Le contenu du message de l'utilisateur (texte, images, vidéos) est formaté dans un "embed" et envoyé dans le salon de secrétariat qui lui est dédié.
+-   Le message de l'utilisateur en DM est marqué d'une réaction 📩 pour confirmer sa bonne réception.
 
-Le module peut être utilisé pour s'assurer que les nouveaux membres ont lu et accepté les règles du serveur.
+### 4. Réponse du Staff
 
-*   **Exemple de situation :** Le canal `#regles` contient un message décrivant toutes les règles du serveur. À la fin du message, une instruction demande de réagir avec :white_check_mark: pour accepter les règles. Tant qu'un nouveau membre n'a pas réagi, il ne peut voir que le canal des règles. Une fois qu'il a réagi, le module `Secretary` lui attribue le rôle "Membre Vérifié", qui lui débloque l'accès au reste du serveur.
+-   Un membre du staff voit le message dans le salon de secrétariat.
+-   Pour répondre, il utilise une commande simple dans ce même salon, généralement en commençant son message par `msg`.
+-   Le module `Secretary` prend le contenu de cette réponse et l'envoie en message privé à l'utilisateur d'origine.
+-   Le salon change de nom pour indiquer qu'une réponse a été apportée (par exemple, en remplaçant ❌ par ✅).
 
-### 3. Sondages et Votes Simples
+## Configuration
 
-Le module peut également être utilisé pour créer des sondages simples et rapides.
+La configuration de ce module se fait dans le fichier `configs.json`, sous la clé `modules.Secretary`.
 
-*   **Exemple de situation :** Un administrateur veut savoir quel jour organiser le prochain événement communautaire. Il poste un message :
+```json
+"Secretary": {
+    "secretary": [
+        {
+            "guild": "ID_DU_SERVEUR_DE_SECRETARIAT",
+            "name": "Nom de la catégorie",
+            "idRole": "ID_ROLE_NOTIFICATION_SOS",
+            "idRoleAdmin": ["ID_ROLE_STAFF_1", "ID_ROLE_STAFF_2"]
+        }
+    ],
+    "notifKeywords": true
+}
+```
 
-    > **Quel jour préférez-vous pour notre prochain tournoi ?**
-    >
-    > :regional_indicator_l: - Lundi
-    > :regional_indicator_m: - Mercredi
-    > :regional_indicator_v: - Vendredi
+-   `secretary`: Un tableau d'objets, où chaque objet représente un serveur de secrétariat. Vous pouvez en avoir plusieurs.
+    -   `guild`: L'ID du serveur Discord où les salons de secrétariat seront créés.
+    -   `name`: Le nom de base pour les catégories qui contiendront les salons.
+    -   `idRole`: (Optionnel) Un rôle à notifier si le message de l'utilisateur contient des mots-clés d'urgence (comme "SOS").
+    -   `idRoleAdmin`: Un tableau d'ID de rôles qui auront la permission de voir et de répondre dans les salons de secrétariat.
+-   `notifKeywords`: Si `true`, active la notification pour les mots-clés d'urgence.
 
-    Les utilisateurs votent en réagissant, et le nombre de réactions sur chaque émoticône donne une indication claire du choix de la communauté.
-
-En résumé, le module `Secretary` est un outil puissant pour l'engagement communautaire et l'automatisation de la gestion des rôles. Il donne aux utilisateurs plus de contrôle sur leur expérience tout en allégeant la charge de travail des modérateurs.
+Ce module est essentiel pour centraliser la communication et assurer un suivi efficace des demandes des utilisateurs.
