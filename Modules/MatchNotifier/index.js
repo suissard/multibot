@@ -1,3 +1,8 @@
+/**
+ * @description Initialise le module MatchNotifier pour un bot.
+ * @narrative Ce module envoie des notifications pour les matchs à venir via une tâche planifiée (cron). Il récupère les matchs futurs, vérifie s'ils commencent bientôt et s'ils ont des casters assignés, puis envoie une notification dans le salon approprié en mentionnant le rôle de notification correspondant.
+ * @param {Bot} bot - L'instance du bot.
+ */
 const { schedule } = require('node-cron');
 const { getFutureMatchs, getUserById } = require('../../services/apiService');
 const {

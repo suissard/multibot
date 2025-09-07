@@ -7,6 +7,8 @@ const BOTS = require('../../Class/BOTS.js');
 class ShareEventUpdate extends Event {
     static id = 'shareEventUpdate';
     static listener = 'messageUpdate';
+    static description = 'Gère la mise à jour de messages dans les salons partagés.';
+    static narrative = "Cet événement écoute l'événement `messageUpdate` et, si un message partagé est mis à jour, il propage la mise à jour à toutes les copies de ce message dans les autres salons partagés.";
 
     /**
      * Gère l'événement `messageUpdate` pour les salons partagés.

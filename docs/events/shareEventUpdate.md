@@ -1,21 +1,20 @@
 ---
-title: "Événement : Share Event Update"
+title: "Événement : shareEventUpdate"
 layout: default
 ---
 
-# Événement : Share Event Update
+# Événement : shareEventUpdate
 
-Cet événement assure la synchronisation des modifications de messages dans les salons partagés.
+## Description
+
+Gère la mise à jour de messages dans les salons partagés.
 
 ## Déroulement
 
-Lorsqu'un message est modifié (`messageUpdate`), cet événement s'active. Il vérifie si le message modifié appartenait à un groupe de partage.
-
-Si c'est le cas, il retrouve l'objet `ShareMessage` correspondant et lui transmet le nouveau contenu du message. L'objet `ShareMessage` se charge alors de modifier toutes les copies du message dans les autres salons, pour que la mise à jour soit visible partout.
+N/A
 
 ## Informations techniques
 
 - **ID de l'événement :** `shareEventUpdate`
 - **Événement discord.js :** `messageUpdate`
 - **Fichier source :** `Modules/ShareChannel/ShareEventUpdate.js`
-- **Module associé :** `ShareChannel`

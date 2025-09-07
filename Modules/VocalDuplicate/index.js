@@ -1,7 +1,6 @@
 /**
- * Initialise le module VocalDuplicate pour un bot.
- * Ce module gère la duplication de salons vocaux. Lorsqu'un utilisateur rejoint un salon "modèle",
- * un nouveau salon est créé pour lui. Les salons dupliqués et vides sont nettoyés périodiquement.
+ * @description Initialise le module VocalDuplicate pour un bot.
+ * @narrative Ce module gère la duplication de salons vocaux. Lorsqu'un utilisateur rejoint un salon "modèle", un nouveau salon est créé pour lui. Les salons dupliqués et vides sont nettoyés périodiquement.
  * @param {import('../../Class/Bot')} bot - L'instance du bot.
  */
 module.exports = (bot) => {

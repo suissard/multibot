@@ -1,17 +1,17 @@
 ---
-title: "Événement : Warn"
+title: "Événement : warn"
 layout: default
 ---
 
-# Événement : Warn
+# Événement : warn
 
-Cet événement est déclenché pour signaler des avertissements non critiques provenant de la librairie `discord.js`.
+## Description
+
+Affiche les avertissements de discord.js.
 
 ## Déroulement
 
-Tout comme les événements `debug` et `error`, l'événement `warn` sert à remonter des informations de la bibliothèque `discord.js`. Il est utilisé pour des problèmes qui ne sont pas assez graves pour être une erreur (et faire planter le bot), mais qui signalent un comportement inattendu ou une configuration potentiellement incorrecte.
-
-Ce gestionnaire se contente d'afficher l'avertissement reçu dans la console, afin que les développeurs puissent en prendre connaissance.
+N/A
 
 ## Informations techniques
 

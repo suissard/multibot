@@ -4,6 +4,8 @@ const BOTS = require('../Class/BOTS.js');
 module.exports = class CheckCommand extends Event {
     static id = 'checkCommand';
     static listener = 'messageCreate';
+    static description = 'Gère les commandes textuelles basées sur un préfixe.';
+    static narrative = "Cet événement écoute l'événement `messageCreate` et vérifie si le message commence par le préfixe du bot. Si c'est le cas, il transmet le message au `CommandManager` pour qu'il soit traité comme une commande.";
 
     /**
      * Gère l'événement `messageCreate` pour les commandes textuelles (basées sur un préfixe).
