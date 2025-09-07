@@ -8,6 +8,8 @@ const BOTS = require('../../Class/BOTS.js');
 class ShareEvent extends Event {
     static id = 'shareEvent';
     static listener = 'messageCreate';
+    static description = 'Gère les messages envoyés dans les salons partagés.';
+    static narrative = "Cet événement écoute l'événement `messageCreate` et, si le message provient d'un salon partagé, il le transmet au gestionnaire de partage pour qu'il soit dupliqué dans les autres salons du groupe.";
 
     /**
      * Gère l'événement `messageCreate` pour les salons partagés.

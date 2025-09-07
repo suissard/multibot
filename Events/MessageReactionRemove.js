@@ -4,6 +4,8 @@ const BOTS = require('../Class/BOTS.js');
 module.exports = class CheckCommand extends Event {
     static id = 'MessageReactionRemove';
     static listener = 'messageReactionRemove';
+    static description = 'Gère le retrait de réactions pour les rôles par réaction.';
+    static narrative = "Cet événement écoute l'événement `messageReactionRemove` et transmet la réaction et l'utilisateur au `EmoteMessageManager`. Ce manager gère ensuite la logique pour retirer des rôles en fonction des réactions.";
 
     /**
      * Gère l'événement `messageReactionRemove`.

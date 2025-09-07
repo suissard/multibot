@@ -1,3 +1,7 @@
+/**
+ * @description Un ensemble d'utilitaires pour migrer des données JSON vers la base de données.
+ * @narrative Ce module fournit des fonctions pour lire des fichiers JSON depuis un répertoire, les transformer et les insérer dans la base de données. Il contient également des fonctions spécifiques pour convertir d'anciens formats de données vers les nouveaux.
+ */
 const ShareChannels = require('../ShareChannel/ShareChannels.js');
 const fs = require('fs');
 

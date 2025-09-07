@@ -1,8 +1,6 @@
 /**
- * Initialise le module ShareChannel pour un bot.
- * Ce module semble gérer le partage de messages entre différents salons,
- * potentiellement sur différents serveurs, en se basant sur des configurations.
- * Il exporte les différentes classes de commandes et d'événements qui composent le module.
+ * @description Initialise le module ShareChannel pour un bot.
+ * @narrative Ce module gère le partage de messages entre différents salons, potentiellement sur différents serveurs. Il est composé d'événements pour détecter les messages, les mises à jour et les suppressions, et de commandes pour gérer les partages.
  * @param {import('../../Class/Bot')} bot - L'instance du bot.
  * @returns {object} Un objet contenant les classes du module.
  */

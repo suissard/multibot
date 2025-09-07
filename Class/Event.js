@@ -4,9 +4,13 @@ module.exports = class Event {
 	/**
 	 * @property {string} id - L'identifiant unique de l'événement.
 	 * @property {string} listener - Le nom de l'événement Discord à écouter.
+	 * @property {string} description - Une courte description de ce que fait l'événement.
+	 * @property {string} narrative - Une description détaillée du fonctionnement de l'événement.
 	 */
 	static id = undefined;
 	static listener = undefined;
+	static description = 'N/A';
+	static narrative = 'N/A';
 
 	constructor(bot) {
 		/**

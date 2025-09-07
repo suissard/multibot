@@ -7,6 +7,8 @@ const BOTS = require('../../Class/BOTS.js');
 class ShareEventDelete extends Event {
     static id = 'shareEventDelete';
     static listener = 'messageDelete';
+    static description = 'Gère la suppression de messages dans les salons partagés.';
+    static narrative = "Cet événement écoute l'événement `messageDelete` et, si un message partagé est supprimé, il supprime toutes les copies de ce message dans les autres salons partagés.";
 
     /**
      * Gère l'événement `messageDelete` pour les salons partagés.

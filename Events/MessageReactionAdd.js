@@ -4,6 +4,8 @@ const BOTS = require('../Class/BOTS.js');
 module.exports = class CheckCommand extends Event {
     static id = 'MessageReactionAdd';
     static listener = 'messageReactionAdd';
+    static description = 'Gère l\'ajout de réactions pour les rôles par réaction.';
+    static narrative = "Cet événement écoute l'événement `messageReactionAdd` et transmet la réaction et l'utilisateur au `EmoteMessageManager`. Ce manager gère ensuite la logique pour attribuer ou retirer des rôles en fonction des réactions.";
 
     /**
      * Gère l'événement `messageReactionAdd`.

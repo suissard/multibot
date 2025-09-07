@@ -6,6 +6,8 @@ const { Colors } = require('discord.js');
 module.exports = class Secretary extends Event {
     static id = 'secretary';
     static listener = 'secretary';
+    static description = 'Gère la logique du module de secrétariat.';
+    static narrative = "Cet événement est le cœur du module de secrétariat. Il gère les messages reçus en message privé et les réponses du staff dans les salons de secrétariat. Il contient la logique pour créer des salons, transférer des messages, et notifier le staff.";
 
     /**
      * Gère l'événement 'secretary', qui est déclenché pour les messages privés ou les réponses du staff.

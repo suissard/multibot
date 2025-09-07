@@ -6,6 +6,8 @@ let botReady = 0;
 module.exports = class BotsReady extends Event {
     static id = 'botsReady';
     static listener = 'ready';
+    static description = 'Détermine quand tous les bots sont prêts et émet un événement global.';
+    static narrative = "Cet événement écoute l'événement `ready` de chaque bot. Il incrémente un compteur et, une fois que tous les bots sont prêts, il émet un événement `botsReady` sur le `BotManager` pour signaler que le système est pleinement opérationnel.";
 
     /**
      * Gère l'événement 'ready' de chaque bot pour déterminer quand tous les bots sont prêts.

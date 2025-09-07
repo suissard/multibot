@@ -1,17 +1,17 @@
 ---
-title: "Événement : Starting Log"
+title: "Événement : startingLog"
 layout: default
 ---
 
-# Événement : Starting Log
+# Événement : startingLog
 
-Cet événement affiche un message de confirmation dans la console lorsque le bot a démarré avec succès.
+## Description
+
+Affiche un message de démarrage dans la console.
 
 ## Déroulement
 
-Lorsque le bot se connecte avec succès à Discord et déclenche l'événement `ready`, ce gestionnaire s'active. Son unique rôle est d'afficher un message dans la console pour confirmer que le démarrage s'est bien passé.
-
-Le message contient des informations utiles comme le nom du bot, le nombre de serveurs sur lesquels il se trouve, et le nombre total d'utilisateurs qu'il dessert. C'est un simple retour visuel pour l'administrateur du bot.
+N/A
 
 ## Informations techniques
 

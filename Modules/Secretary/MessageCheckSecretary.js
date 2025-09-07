@@ -4,6 +4,8 @@ const { ChannelType } = require('discord.js');
 module.exports = class CheckSecretary extends Event {
     static id = 'checkSecretary';
     static listener = 'messageCreate';
+    static description = 'Détecte et route les messages liés au secrétariat.';
+    static narrative = "Cet événement écoute l'événement `messageCreate`. Si un message est un DM (et n'est pas une commande), ou s'il est envoyé dans un salon de secrétariat, il est routé vers le gestionnaire du secrétariat pour être traité.";
 
     /**
      * Gère l'événement `messageCreate` pour détecter les messages liés au secrétariat.

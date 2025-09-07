@@ -5,40 +5,147 @@ layout: default
 
 # Module: `VocalDuplicate`
 
-## Rôle
+## Description
 
-Le module `VocalDuplicate` est un gestionnaire de canaux vocaux intelligent. Son rôle est de créer dynamiquement des copies de canaux vocaux prédéfinis lorsque ceux-ci sont utilisés, et de les supprimer lorsqu'ils ne le sont plus. Il permet de maintenir une liste de canaux vocaux propre et organisée, tout en s'assurant qu'il y a toujours assez de place pour tout le monde.
+Initialise le module VocalDuplicate pour un bot.
 
-## Déroulé et Cas d'Usage
+## Fonctionnement
 
-Le fonctionnement est simple et transparent pour les utilisateurs. Un administrateur désigne un ou plusieurs canaux vocaux comme étant des "canaux modèles".
+Ce module gère la duplication de salons vocaux. Lorsqu'un utilisateur rejoint un salon "modèle", un nouveau salon est créé pour lui. Les salons dupliqués et vides sont nettoyés périodiquement.
+ @param {import('../../Class/Bot')} bot - L'instance du bot.
 
-### 1. Création de Canaux à la Volée
+## Fichiers du Module
 
-Lorsqu'un utilisateur rejoint un canal vocal modèle, le module entre en action.
+```
+index.js
+```
 
-*   **Exemple de situation :** Vous avez un canal vocal nommé "➕ Créer un salon". C'est un canal modèle.
-    1.  Un utilisateur, "Alex", rejoint le canal "➕ Créer un salon".
-    2.  Le module `VocalDuplicate` le détecte instantanément.
-    3.  Il crée immédiatement un nouveau canal vocal nommé "Salon de Alex".
-    4.  Il déplace automatiquement Alex dans ce nouveau canal.
-    5.  Le canal "➕ Créer un salon" est de nouveau libre pour qu'un autre utilisateur puisse créer son propre salon.
+## Composants Enregistrés
 
-### 2. Duplication de Canaux de Jeu
+Ce module enregistre les composants suivants (commandes, événements) :
+```
+N/A
+```
 
-Cette fonctionnalité est particulièrement utile pour les jeux en équipe.
+## Contenu de `index.js`
 
-*   **Exemple de situation :** Vous avez une catégorie "Jeux en équipe" avec un canal vocal modèle nommé "Duo".
-    1.  Deux joueurs rejoignent le canal "Duo" pour jouer ensemble.
-    2.  Le module `VocalDuplicate` crée une copie du canal, "Duo #2", et y déplace les deux joueurs.
-    3.  Un autre groupe de deux joueurs arrive et rejoint à son tour le canal "Duo" original.
-    4.  Le module crée "Duo #3" et les y déplace.
-    Cela permet à plusieurs groupes de jouer en même temps sans avoir à créer manuellement 15 canaux "Duo" qui resteraient vides la plupart du temps.
+```javascript
+/**
+ * @description Initialise le module VocalDuplicate pour un bot.
+ * @narrative Ce module gère la duplication de salons vocaux. Lorsqu'un utilisateur rejoint un salon "modèle", un nouveau salon est créé pour lui. Les salons dupliqués et vides sont nettoyés périodiquement.
+ * @param {import('../../Class/Bot')} bot - L'instance du bot.
+ */
+module.exports = (bot) => {
+    /**
+     * Récupère l'ensemble des IDs des salons vocaux qui ont été dupliqués par ce module.
+     * @returns {Promise<Set<string>>} Un Set contenant les IDs des salons dupliqués.
+     */
+    async function getCreatedChannels() {
+        let createdChannels = new Set();
+        const config = bot.modules.VocalDuplicate.guilds;
 
-### 3. Nettoyage Automatique
+        for (let guildConfig of config) {
+            let guild = bot.guilds.cache.get(guildConfig.guild);
+            let channels = [];
 
-La partie la plus importante du module est sa capacité à nettoyer derrière lui. Il surveille en permanence les canaux qu'il a créés.
+            if (!guild) {
+                try {
+                    guild = await bot.guilds.fetch(guildConfig.guild).catch(_ => null);
+                } catch (e) {
+                    console.error(`VOCAL DUPLICATE : Le serveur ${guildConfig.guild} n'existe pas`);
+                }
+            }
 
-*   **Exemple de situation :** Le groupe dans "Duo #2" a fini de jouer et tous les membres ont quitté le canal vocal. Le canal est maintenant vide. Après une courte période (par exemple, 5 minutes), le module `VocalDuplicate` détecte que le canal est inactif et le supprime automatiquement. La liste des canaux reste ainsi toujours propre et ne contient que les canaux activement utilisés.
+            if (!guild) {
+                console.error(`VOCAL DUPLICATE : Le serveur ${guildConfig.guild} n'existe pas`);
+                continue;
+            }
 
-En résumé, `VocalDuplicate` est un outil d'organisation qui offre une grande flexibilité aux utilisateurs tout en garantissant que le serveur ne soit jamais encombré de dizaines de canaux vocaux vides. Il automatise entièrement le cycle de vie des canaux vocaux temporaires.
+            for (let id of guildConfig.channels) {
+                let channel = guild.channels.cache.get(id.id);
+                if (!channel) {
+                    try {
+                        channel = await guild.channels.fetch(id.id).catch(_ => null);
+                    } catch (e) {
+                        console.error(`VOCAL DUPLICATE : Le channel ${id.id} n'existe pas`);
+                    }
+                }
+                if (channel)
+                    channels.push([id.name ,channel]);
+            }
+            guild.channels.cache.forEach((chan) => {
+                if (chan.type === 2) {
+                    for (let [name, id] of channels) {
+                        if (chan.parent === id.parent && chan.name.startsWith(`${name} #`)) {
+                            createdChannels.add(chan.id);
+                        }
+                    }
+                }
+            });
+        }
+
+        return createdChannels;
+    }
+
+    /**
+     * Vérifie tous les salons dupliqués et supprime ceux qui sont inactifs (vides).
+     */
+    async function checkInactiveChannels() {
+        let createdChannels = await getCreatedChannels();
+        for (const channelId of createdChannels) {
+            const channel = bot.channels.cache.get(channelId);
+            if (channel && !channel.members.size) {
+                channel
+                    .delete()
+                    .then(() => createdChannels.delete(channelId))
+                    .catch(console.error);
+            }
+        }
+    }
+
+    setInterval(checkInactiveChannels, 1000 * 60 * 10);
+
+    /**
+     * Gère l'événement 'voiceStateUpdate' pour déclencher la duplication de salon.
+     * Si un utilisateur rejoint un salon vocal configuré comme "modèle", un nouveau salon
+     * est créé avec les mêmes permissions et l'utilisateur y est déplacé.
+     */
+    bot.on('voiceStateUpdate', async (oldState, newState) => {
+        if (!newState.channel || newState.channel.type !== 2) return;
+
+        try {
+            const config = bot.modules.VocalDuplicate.guilds;
+            const category = newState.channel.parent;
+            const guildFind = config.find((guild) => guild.guild === newState.guild.id);
+            if (!guildFind) return;
+
+            const guild = bot.guilds.cache.get(guildFind.guild);
+            if (!guild) return;
+
+            const channel = guildFind.channels.find((channel) => channel.id === newState.channel.id);
+            if (channel) {
+                const matchChannels = [];
+                guild.channels.cache.forEach((chan) => {
+                    if (chan.parent === category && chan.type === 2 && chan.name.startsWith(`${channel.name} #`)) {
+                        matchChannels.push(chan);
+                    }
+                });
+                const newChannelName = `${channel.name} #${matchChannels.length}`;
+
+                const newChannel = await guild.channels.create({
+                    type: 2,
+                    parent: category,
+                    name: newChannelName,
+                    userLimit: newState.channel.userLimit,
+                    permissionOverwrites: newState.channel.permissionOverwrites.cache,
+                });
+
+                await newState.setChannel(newChannel);
+            }
+        } catch (error) {
+            console.error('An error occurred:', error);
+        }
+    });
+};
+
+```

@@ -24,6 +24,26 @@ for (const moduleName of moduleDirs) {
     const indexContent = fs.readFileSync(indexPath, 'utf8');
     const filesInModule = fs.readdirSync(modulePath).join(', ');
 
+    // Extract JSDoc
+    const jsdocMatch = indexContent.match(/\/\*\*([\s\S]*?)\*\//);
+    let description = '*Documentation à compléter*';
+    let narrative = '*Documentation à compléter*';
+
+    if (jsdocMatch) {
+        const jsdoc = jsdocMatch[1];
+        const descriptionMatch = jsdoc.match(/@description (.*)/);
+        const narrativeMatch = jsdoc.match(/@narrative ([\s\S]*)/);
+
+        if (descriptionMatch) {
+            description = descriptionMatch[1].trim();
+        }
+
+        if (narrativeMatch) {
+            narrative = narrativeMatch[1].replace(/\n\s*\*/g, '\n').trim();
+        }
+    }
+
+
     // Simple analysis of index.js
     const registeredComponents = indexContent.match(/return\s*\{([\s\S]*?)\};/);
     let componentsList = 'N/A';
@@ -40,7 +60,11 @@ layout: default
 
 ## Description
 
-*Documentation à compléter*
+${description}
+
+## Fonctionnement
+
+${narrative}
 
 ## Fichiers du Module
 
