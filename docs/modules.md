@@ -22,7 +22,7 @@ Un module est un dossier à la racine de `Modules/`. Le nom du dossier sert d'id
 
 ## Liste des Modules
 
-Voici la liste de tous les modules disponibles. Cliquez sur le nom d'un module pour voir sa documentation détaillée.
+Voici la liste de tous les modules disponibles. Pour une description de leur interaction, consultez la [Liste et Déroulé des Modules](./modules-list.md).
 
 - [AutoRole](./modules_pages/AutoRole.md)
 - [ChannelManager](./modules_pages/ChannelManager.md)
@@ -31,6 +31,8 @@ Voici la liste de tous les modules disponibles. Cliquez sur le nom d'un module p
 - [Secretary](./modules_pages/Secretary.md)
 - [ShareChannel](./modules_pages/ShareChannel.md)
 - [VocalDuplicate](./modules_pages/VocalDuplicate.md)
+
+> **Note :** En plus de ces modules, le bot inclut des **fonctionnalités de base** non-modulaires, comme le [système de rôles par réaction](./emote-message.md).
 Modules/
 └── AutoRole/
     ├── index.js           # Point d'entrée du module (obligatoire)
