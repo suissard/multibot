@@ -3,6 +3,7 @@ title: valid
 layout: default
 ---
 
-# valid
+# `valid`
 
-Documentation for `Commandes/valid.js`.
+Exécute la commande pour valider une autre commande en attente.
+

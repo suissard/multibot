@@ -3,6 +3,7 @@ title: dev
 layout: default
 ---
 
-# dev
+# `dev`
 
-Documentation for `Commandes/dev.js`.
+Exécute du code JavaScript fourni en argument. Commande réservée au développeur du bot.
+

@@ -3,6 +3,13 @@ title: MessageCheckSecretary
 layout: default
 ---
 
-# MessageCheckSecretary
+# `MessageCheckSecretary`
 
-Documentation for `Modules/Secretary/MessageCheckSecretary.js`.
+Gère l'événement `messageCreate` pour détecter les messages liés au secrétariat. Si un message est un DM (et n'est pas une commande), il est routé vers le gestionnaire du secrétariat. Si un message est dans un salon de secrétariat, il est également routé.
+
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `message` | `import('discord.js').Message` | - Le message créé. |
+
