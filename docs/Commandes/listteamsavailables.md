@@ -3,6 +3,6 @@ title: listteamsavailables
 layout: default
 ---
 
-# listteamsavailables
+# `listteamsavailables`
 
-Documentation for `Commandes/listteamsavailables.js`.
+*No JSDoc comments found in this file.*

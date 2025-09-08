@@ -3,6 +3,6 @@ title: get-user
 layout: default
 ---
 
-# get-user
+# `get-user`
 
-Documentation for `SelfApi/routes/get-user.js`.
+*No JSDoc comments found in this file.*

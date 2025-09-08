@@ -3,6 +3,6 @@ title: index
 layout: default
 ---
 
-# index
+# `index`
 
-Documentation for `Class/DataBase/index.js`.
+*No JSDoc comments found in this file.*

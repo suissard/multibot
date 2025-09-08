@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { parse } = require('comment-parser');
 
 const rootDir = path.join(__dirname, '..');
 const outputDir = __dirname;
@@ -80,15 +81,52 @@ function generateDocFile(sourcePath, relativePath) {
     }
 
     const fileName = path.basename(sourcePath, '.js');
-    const content = `---
+    const fileContent = fs.readFileSync(sourcePath, 'utf8');
+    const parsed = parse(fileContent);
+
+    let content = `---
 title: ${fileName}
 layout: default
 ---
 
-# ${fileName}
+# \`${fileName}\`
 
-Documentation for \`${relativePath}\`.
 `;
+
+    if (parsed.length > 0) {
+        parsed.forEach(block => {
+            if (block.tags.some(tag => tag.tag === 'class')) {
+                const classTag = block.tags.find(tag => tag.tag === 'class');
+                content += `## Class: ${classTag.name}\n\n`;
+                content += `${block.description}\n\n`;
+            } else {
+                const method = block.tags.find(tag => tag.tag === 'method' || tag.tag === 'function');
+                if (method) {
+                    content += `### ${method.name}\n\n`;
+                }
+                content += `${block.description}\n\n`;
+
+                const params = block.tags.filter(tag => tag.tag === 'param');
+                if (params.length > 0) {
+                    content += `**Parameters:**\n\n`;
+                    content += `| Name | Type | Description |\n`;
+                    content += `| ---- | ---- | ----------- |\n`;
+                    params.forEach(param => {
+                        content += `| \`${param.name}\` | \`${param.type}\` | ${param.description} |\n`;
+                    });
+                    content += `\n`;
+                }
+
+                const returns = block.tags.find(tag => tag.tag === 'returns');
+                if (returns) {
+                    content += `**Returns:** \`${returns.type}\` - ${returns.description}\n\n`;
+                }
+            }
+        });
+    } else {
+        content += `*No JSDoc comments found in this file.*\n`;
+    }
+
     fs.writeFileSync(docPath, content);
     console.log(`Generated doc for ${relativePath}`);
 }
@@ -144,11 +182,11 @@ function generateNavigationHtml(sitemap, level) {
     let html = '';
     for (const item of sitemap) {
         if (item.children) {
-            html += `<div class="mdl-navigation__link" style="padding-left: ${level * 20}px">${item.name}</div>`;
+            html += `<div class="mdl-navigation__link" style="padding-left: ${level * 20}px">${item.name}</div>\n`;
             html += generateNavigationHtml(item.children, level + 1);
         } else {
             const docPath = `{{ '/${item.path.replace('.js', '.html')}' | relative_url }}`;
-            html += `<a class="mdl-navigation__link" href="${docPath}" style="padding-left: ${level * 20}px">${item.name}</a>`;
+            html += `<a class="mdl-navigation__link" href="${docPath}" style="padding-left: ${level * 20}px">${item.name}</a>\n`;
         }
     }
     return html;
