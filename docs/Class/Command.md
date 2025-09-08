@@ -41,7 +41,7 @@ Liste des arguments pour exécuter la commande.
 
 Renvoie un object compactible avec la base de donnée strapi
 
-**Returns:** `Object` -
+**Returns:** `Object` - 
 
 Methode de lancement de la commande via un message
 
@@ -69,7 +69,7 @@ Methode de lancement de la commande via l'api
 | `res` | `*` |  |
 | `user` | `Object` |  |
 
-**Returns:** `` -
+**Returns:** `` - 
 
 Function lancé par handleMessage, handleApiRequest et handleInteraction
 
@@ -99,7 +99,7 @@ Verification des permissions pour l'usage de la commande
 | `member` | `Discord.GuildMember` |  |
 | `guild` | `Discord.Guild` |  |
 
-**Returns:** `` -
+**Returns:** `` - 
 
 Enregistre les données de log TODO adapter pour une provenance depuis l'api
 
@@ -109,7 +109,7 @@ Enregistre les données de log TODO adapter pour une provenance depuis l'api
 | ---- | ---- | ----------- |
 | `message` | `Discord.Message` |  |
 
-**Returns:** `` -
+**Returns:** `` - 
 
 Fonction de retour à l'utilisateur ayant instancié la commande
 
@@ -159,11 +159,11 @@ Protocole de test de la commande afin de s'assurer de son bon fonctionnement
 | `userID` | `String` |  |
 | `channelID` | `String` |  |
 
-**Returns:** `` -
+**Returns:** `` - 
 
 Permet l'integration d'une commande au format interaction (aide a l'utilisateur , definition, arguments, préremplissage et...)
 
-**Returns:** `Discord.SlashCommandBuilder` -
+**Returns:** `Discord.SlashCommandBuilder` - 
 
 Enrichi une slash command avec les options de la commande
 
@@ -192,7 +192,7 @@ Ajout les données d'une option
 | `option` | `*` |  |
 | `optionData` | `*` |  |
 
-**Returns:** `` -
+**Returns:** `` - 
 
 Permet l'enregistrement d'une commande slash (création ou mise à jour). Cette méthode vérifie si la commande existe déjà. Si c'est le cas, elle la met à jour. Sinon, elle la crée.
 

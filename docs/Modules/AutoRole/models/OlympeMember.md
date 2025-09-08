@@ -5,7 +5,7 @@ layout: default
 
 # `OlympeMember`
 
-## Class:
+## Class: 
 
 Représente un membre d'une équipe dans le contexte de l'API Olympe.
 

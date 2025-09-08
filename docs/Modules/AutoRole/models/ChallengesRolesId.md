@@ -5,7 +5,7 @@ layout: default
 
 # `ChallengesRolesId`
 
-## Class:
+## Class: 
 
 Structure les IDs de rôles pour les différentes compétitions. Contient les rôles globaux (pour tous, capitaine, caster) et les rôles spécifiques à chaque compétition, organisés par segment.
 

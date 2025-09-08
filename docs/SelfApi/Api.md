@@ -107,7 +107,7 @@ TODO Creer un utilisateru dans le cache
 | `req` | `*` |  |
 | `res` | `*` |  |
 
-**Returns:** `` -
+**Returns:** `` - 
 
 Gère l'authentification d'une requête API.
 
@@ -156,11 +156,11 @@ Remonte une donnée depuis un objet, en se basant sur une url
 
 Renvoie la documentation des route dipsonible de l'api
 
-**Returns:** `` -
+**Returns:** `` - 
 
 Définit la route racine qui retourne la documentation
 
-**Returns:** `Route` -
+**Returns:** `Route` - 
 
 Définit la route `/auth` pour la création d'utilisateur via le flux OAuth2.
 

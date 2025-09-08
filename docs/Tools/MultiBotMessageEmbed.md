@@ -5,7 +5,7 @@ layout: default
 
 # `MultiBotMessageEmbed`
 
-## Class:
+## Class: 
 
 Une classe wrapper pour `discord.js/EmbedBuilder` afin de fournir une interface personnalisée.
 

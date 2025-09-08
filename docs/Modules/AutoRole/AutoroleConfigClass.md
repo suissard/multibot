@@ -5,7 +5,7 @@ layout: default
 
 # `AutoroleConfigClass`
 
-## Class:
+## Class: 
 
 Represents an authentication object.
 
@@ -22,7 +22,7 @@ Creates an instance of Auth.
 | `token` | `string` | - The authentication token. |
 | `validity` | `number` | - The validity period of the token. |
 
-## Class:
+## Class: 
 
 Represents a Guild ID with an associated challenge ID.
 
@@ -39,7 +39,7 @@ Creates an instance of GuildIdChallenge.
 | `id` | `string` | - The ID of the guild. |
 | `challengeID` | `string` | - The challenge ID. |
 
-## Class:
+## Class: 
 
 Represents a parameter for the AutoRole configuration.
 
@@ -66,7 +66,7 @@ Creates an instance of Param.
 | `paramData.domain` | `string` | - Domain. |
 | `paramData.organization` | `string` | - Organization. |
 
-## Class:
+## Class: 
 
 Represents details of a special role.
 
@@ -89,7 +89,7 @@ Creates an instance of SpecialRoleDetail.
 | `rename` | `boolean` | - Allows renaming. |
 | `priorityRename` | `boolean` | - Renaming has priority. |
 
-## Class:
+## Class: 
 
 Represents information about a role.
 
@@ -106,7 +106,7 @@ Creates an instance of RoleInfo.
 | `name` | `string` | - The name of the role. |
 | `id` | `?string` | - The ID of the role. |
 
-## Class:
+## Class: 
 
 Represents a mapping between a list of source roles and a target RoleInfo. This is a tuple-like structure [string[], RoleInfo].
 
@@ -123,7 +123,7 @@ Creates an instance of RoleMapping.
 | `sourceRoles` | `string[]` | - Array of source role names. |
 | `targetRole` | `RoleInfo` | - Target role information. |
 
-## Class:
+## Class: 
 
 Represents a division.
 
@@ -140,7 +140,7 @@ Creates an instance of Division.
 | `name` | `string` | - The name of the division. |
 | `id` | `?string` | - The ID of the division. |
 
-## Class:
+## Class: 
 
 Represents tags including game roles.
 
@@ -156,7 +156,7 @@ Creates an instance of Tags.
 | `tagsData.gameRoles` | `Array<[string[], {name: string, id: ?string}]>` | - Game roles mappings. |
 | `tagsData.divisions` | `Array<{name: string, id: ?string}>` | - Divisions. |
 
-## Class:
+## Class: 
 
 Represents divisions.
 
@@ -172,7 +172,7 @@ Creates an instance of Tags.
 | `tagsData.gameRoles` | `Array<[string[], {name: string, id: ?string}]>` | - Game roles mappings. |
 | `tagsData.divisions` | `Array<{name: string, id: ?string}>` | - Divisions. |
 
-## Class:
+## Class: 
 
 Represents details for a specific guild.
 
@@ -193,7 +193,7 @@ Creates an instance of GuildDetail.
 | `guildData.roles` | `Array<[string[], {name: string, id: ?string}]>` | - Role mappings. |
 | `guildData.tags` | `object` | - Tags data. |
 
-## Class:
+## Class: 
 
 Represents roles for a specific competition.
 
@@ -217,7 +217,7 @@ Creates an instance of CompetitionRoles.
 | `competitionData.player` | `Record<string, string>` | - Player roles. |
 | `competitionData.manager` | `Record<string, string>` | - Manager roles. |
 
-## Class:
+## Class: 
 
 Represents the structure for role IDs, including general and competition-specific roles.
 
@@ -238,7 +238,7 @@ Creates an instance of RoleIds.
 | `roleIdsData.captain` | `string` | - 'captain' role ID. |
 | `roleIdsData.competitions` | `Record<string, object>` | - Competition roles data. |
 
-## Class:
+## Class: 
 
 Represents Olympe authentication details.
 
@@ -252,7 +252,7 @@ Creates an instance of OlympeAuth.
 | ---- | ---- | ----------- |
 | `value` | `string` | - The authentication value. |
 
-## Class:
+## Class: 
 
 Main class for the AutoRole configuration. 🤖
 

@@ -37,7 +37,7 @@ Détermine le bot "maître" pour une ressource Discord donnée, en priorité cel
 
 Charge les modules pour tout les bots
 
-**Returns:** `` -
+**Returns:** `` - 
 
 Charge un module pour un bot définit
 
@@ -123,7 +123,7 @@ Met la référence et le contenu au bon format
 | `content` | `String || Error` |  |
 | `reference` | `String` |  |
 
-**Returns:** `` -
+**Returns:** `` - 
 
 Diffuse un log
 
