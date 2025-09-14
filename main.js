@@ -1,6 +1,5 @@
 const mode = require('./botMode.json'); // "PROD", "PREPROD" OU "DEV"
 
-
 console.log(`🤖 Démarrage des bots en mode ${mode}...`);
 
 const BOTS = require('./Class/BOTS.js');
@@ -25,6 +24,8 @@ async function start() {
 				let object = new StrapiObject(config.id, 'botdatas', config);
 				botsData.set(config.id, object);
 			}
+		} else {
+			throw new Error('No botsData in configs.json');
 		}
 	}
 
