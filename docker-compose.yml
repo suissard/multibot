@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  bot:
+    build: .
+    container_name: multibot
+    restart: unless-stopped
+    volumes:
+      - ./botMode.json:/usr/src/app/botMode.json
+      - ./configs.json:/usr/src/app/configs.json
+      - ./configsApi.json:/usr/src/app/configsApi.json
