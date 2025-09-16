@@ -77,7 +77,7 @@ module.exports = class CommandeManager {
 		// if (data.howTo === undefined) error.push("howTo");
 		if (data.test === undefined) error.push('test');
 
-		if (error.length != 0) throw new Error(`La commande doit avoir ${error.join(', ')}`);
+		if (error.length != 0) console.error(`La command "${data.id}" doit avoir ${error.join(', ')}`);
 
 		this.add(data.id, data);
 	}

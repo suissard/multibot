@@ -39,9 +39,12 @@ module.exports = class SelfApi {
 		this.app.use(bodyParser.json());
 		this.app.use(cors());
 		this.app.use((req, res, next) => {
-			res.header("Access-Control-Allow-Origin", "*");
-			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-			res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+			res.header('Access-Control-Allow-Origin', '*');
+			res.header(
+				'Access-Control-Allow-Headers',
+				'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+			);
+			res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 			next();
 		});
 
@@ -306,7 +309,7 @@ module.exports = class SelfApi {
 	 */
 	setAuthRoute() {
 		new Route(this, '/auth', 'get', (req, res) => {
-			res.status(404).send({ message: "Authentication is handled by the client." });
+			res.status(404).send({ message: 'Authentication is handled by the client.' });
 		});
 	}
 
@@ -327,17 +330,20 @@ module.exports = class SelfApi {
 	 */
 	setRoute(path, method, handler) {
 		this.routes.set(`${method}--${path}`, { path, method, handler });
-
-		this.router.route(path)[method](async (req, res) => {
-			try {
-				let { user, bot } = (await this.authentication(req, res)) || {};
-				return handler(req, res, bot, user, this);
-			} catch (e) {
-				console.error(`BUG API ${e.message}\n${e.stack}`);
-				res.status(e.status || 500);
-				res.send({ message: e.message });
-			}
-		});
+		try {
+			this.router.route(path)[method](async (req, res) => {
+				try {
+					let { user, bot } = (await this.authentication(req, res)) || {};
+					return handler(req, res, bot, user, this);
+				} catch (e) {
+					console.error(`BUG API ${e.message}\n${e.stack}`);
+					res.status(e.status || 500);
+					res.send({ message: e.message });
+				}
+			});
+		} catch (e) {
+			console.error(`BUG API Instanciation ${path}${method} \n${e.message}\n${e.stack}`);
+		} 
 	}
 
 	/*
