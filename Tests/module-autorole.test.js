@@ -5,7 +5,7 @@ const { Headers } = require('node-fetch');
 
 const token = 'token';
 const domain = 'prod.api.olympe.xyz'; // https://prod.api.olympe.xyz/api/
-const xDomain = 'www.playallforone.com'; 
+const xDomain = 'www.playallforone.com';
 const url = 'token';
 const method = 'GET';
 const body = { test: 'testing, testing' };
@@ -42,10 +42,10 @@ describe("Test de l'api", () => {
 	test('Tests requetes', () => {
 		const api = new OlympeApi(token, domain);
 
-		expect(api.GET('test')).toBeInstanceOf(Promise);
-		expect(api.POST('test')).toBeInstanceOf(Promise);
-		expect(api.PUT('test')).toBeInstanceOf(Promise);
-		expect(api.DELETE('test')).toBeInstanceOf(Promise);
+		expect(api.get('test')).toBeInstanceOf(Promise);
+		expect(api.post('test')).toBeInstanceOf(Promise);
+		expect(api.put('test')).toBeInstanceOf(Promise);
+		expect(api.delete('test')).toBeInstanceOf(Promise);
 	});
 
 	test('Tests en interaction', () => {

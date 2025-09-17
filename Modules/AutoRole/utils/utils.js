@@ -125,7 +125,9 @@ const changeDiscordRole = async (
 		let realRole = [];
 		let olympeMember, rolesToAdd;
 		teams.forEach((team) => {
-			olympeMember = team.members.concat(team.membersLent.map(m=>m.member)).find((member) => member.user.id === olympeMemberId);
+			olympeMember = team.members
+				.concat(team.membersLent.map((m) => m.member))
+				.find((member) => member.user.id === olympeMemberId);
 			rolesToAdd =
 				guild.client.olympe.users[olympeMember.user.thirdparties.discord.discordID]?.[
 					team.name
@@ -313,7 +315,7 @@ const processTeam = async (team, olympeTeams, bot) => {
  */
 const processTeamMembers = async (team, guild, bot) => {
 	const requestMembersArray = [];
-	const members = team.members.concat(team.membersLent.map(m=>m.member))
+	const members = team.members.concat(team.membersLent.map((m) => m.member));
 	for (let member of members) {
 		requestMembersArray.push(async () => {
 			await processTeamMember(team, member, guild, bot);
@@ -337,7 +339,7 @@ const processTeamMember = async (team, member, guild, bot) => {
 		!member.user?.thirdparties.discord ||
 		member.user.thirdparties.discord.publicDiscordTag != 1
 	) {
-		member.user = await bot.olympe.api.POST(
+		member.user = await bot.olympe.api.post(
 			'users/search?fields=thirdpartiesDiscord%2CcastUrl',
 			{
 				search: member.user.id,
@@ -501,7 +503,8 @@ const processFromOlympeTeamId = async (teamId, bot) => {
 	await processTeamMembers(team, guild, bot);
 
 	//!  doit aller chercher dans le cache
-	const users = team.members.concat(team.membersLent.map(m=>m.member))
+	const users = team.members
+		.concat(team.membersLent.map((m) => m.member))
 		.filter((olympeMember) => olympeMember.user.thirdparties?.discord?.discordID)
 		.map((olympeMember) => bot.olympe.users[olympeMember.user.thirdparties.discord.discordID]);
 	if (!users.length) return false;
