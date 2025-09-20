@@ -1,5 +1,5 @@
 const Commande = require('../Class/Command.js');
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, ActivityType } = require('discord.js');
 const Discord = require('discord.js');
 const BOTS = require('../Class/BOTS.js');
 
@@ -46,10 +46,25 @@ module.exports = class Message extends Commande {
      * @returns {Promise<string>} Un message de confirmation.
      */
     async methode(args = {}) {
-        this.bot.user.setActivity(args.status);
-        // TODO permettre d'autres activités
-        // this.bot.user.setActivity(args.status, { name : args.status, type: args.status ||"STREAMING", url: "https://playallforone.com/event" });
+        const type = args.type ? args.type.toUpperCase() : 'PLAYING';
+        const validTypes = ['PLAYING', 'STREAMING', 'LISTENING', 'WATCHING', 'COMPETING'];
 
-        return 'Status mis a jour : ' + args.status;
+        if (!validTypes.includes(type)) {
+            return `Type d'activité invalide. Types valides : ${validTypes.join(', ')}`;
+        }
+
+        const options = {
+            type: ActivityType[type],
+        };
+
+        if (type === 'STREAMING') {
+            // A valid URL is required for STREAMING type
+            // For now, let's use a placeholder. A better implementation would take a URL argument.
+            options.url = "https://www.twitch.tv/monstercat";
+        }
+
+        this.bot.user.setActivity(args.status, options);
+
+        return `Status mis à jour : ${args.status} (${type})`;
     }
 };
