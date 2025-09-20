@@ -15,6 +15,7 @@ module.exports = class StartingLog extends Event {
             console.log(
                 `🤖 [${this.bot.name}] ready avec ${this.bot.guilds.cache.size} guildes pour ${this.bot.users.cache.size} utilisateurs`,
             );
+            this.bot.user.setActivity(this.bot.activity);
         } catch (err) {
             this.handleError(err);
         }
