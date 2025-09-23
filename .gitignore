@@ -4,7 +4,6 @@ configs.json.unactive
 configs.json
 configsGETI.json
 userNamePassword.json
-botMode.json
 .vscode/
 TEST/
 dataGetibot/
