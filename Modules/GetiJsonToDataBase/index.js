@@ -1,6 +1,10 @@
 /**
- * @description Un ensemble d'utilitaires pour migrer des données JSON vers la base de données.
- * @narrative Ce module fournit des fonctions pour lire des fichiers JSON depuis un répertoire, les transformer et les insérer dans la base de données. Il contient également des fonctions spécifiques pour convertir d'anciens formats de données vers les nouveaux.
+ * Ce module contient un ensemble de scripts utilitaires conçus pour la migration de données.
+ *
+ * Sa fonction principale est de lire des données depuis des fichiers JSON, de les transformer dans un format compatible avec la base de données, puis de les y insérer.
+ * Il inclut des fonctions spécifiques pour traiter les données "Geti" et pour convertir d'anciens formats de configuration, comme ceux de 'ShareChannel', vers la nouvelle structure de la base de données.
+ *
+ * Ce module n'est pas destiné à être activé ou désactivé comme les autres modules du bot, mais plutôt à être utilisé ponctuellement pour des tâches de maintenance et de migration.
  */
 const ShareChannels = require('../ShareChannel/ShareChannels.js');
 const fs = require('fs');
