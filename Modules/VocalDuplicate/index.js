@@ -1,13 +1,14 @@
 /**
- * @description Initialise le module VocalDuplicate pour un bot.
- * @narrative Ce module gère la duplication de salons vocaux. Lorsqu'un utilisateur rejoint un salon "modèle", un nouveau salon est créé pour lui. Les salons dupliqués et vides sont nettoyés périodiquement.
+ * Le module "VocalDuplicate" offre une fonctionnalité de salons vocaux temporaires.
+ *
+ * Il surveille des salons vocaux "modèles" prédéfinis. Lorsqu'un utilisateur rejoint l'un de ces salons modèles, le module crée instantanément une copie de ce salon (un "duplicata") avec les mêmes permissions et y déplace l'utilisateur.
+ * Cela permet de créer des espaces de discussion à la volée sans encombrer la liste des salons.
+ *
+ * Le module inclut également un processus de nettoyage automatique : il vérifie périodiquement tous les salons dupliqués et supprime ceux qui sont vides et inactifs, garantissant ainsi une gestion efficace des ressources.
+ *
  * @param {import('../../Class/Bot')} bot - L'instance du bot.
  */
 module.exports = (bot) => {
-    /**
-     * Récupère l'ensemble des IDs des salons vocaux qui ont été dupliqués par ce module.
-     * @returns {Promise<Set<string>>} Un Set contenant les IDs des salons dupliqués.
-     */
     async function getCreatedChannels() {
         let createdChannels = new Set();
         const config = bot.modules.VocalDuplicate.guilds;
@@ -55,9 +56,6 @@ module.exports = (bot) => {
         return createdChannels;
     }
 
-    /**
-     * Vérifie tous les salons dupliqués et supprime ceux qui sont inactifs (vides).
-     */
     async function checkInactiveChannels() {
         let createdChannels = await getCreatedChannels();
         for (const channelId of createdChannels) {
@@ -73,11 +71,6 @@ module.exports = (bot) => {
 
     setInterval(checkInactiveChannels, 1000 * 60 * 10);
 
-    /**
-     * Gère l'événement 'voiceStateUpdate' pour déclencher la duplication de salon.
-     * Si un utilisateur rejoint un salon vocal configuré comme "modèle", un nouveau salon
-     * est créé avec les mêmes permissions et l'utilisateur y est déplacé.
-     */
     bot.on('voiceStateUpdate', async (oldState, newState) => {
         if (!newState.channel || newState.channel.type !== 2) return;
 
