@@ -16,3 +16,4 @@ Ce module est responsable de la gestion automatisée des salons de match. Il uti
 **Returns:** `object` - objet contenant les classes de commandes et d'événements exportées par ce module.
 
 Une fois le bot prêt, ce gestionnaire configure et lance la tâche planifiée pour la gestion automatique des salons.
+
