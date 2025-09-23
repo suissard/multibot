@@ -39,6 +39,7 @@
 	},
 	"homepage": "https://gitlab.com/suissard/multibot#readme",
 	"devDependencies": {
+		"comment-parser": "^1.4.1",
 		"eslint-config-prettier": "^9.1.0",
 		"vitest": "^2.1.4"
 	}
