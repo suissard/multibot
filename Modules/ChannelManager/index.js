@@ -5,6 +5,7 @@ const RemoveUserFromChannel = require('./commands/removeUserFromChannel');
 const CreateMatchCommand = require('./commands/createMatchCommand');
 const washMatchCommand = require('./commands/washMatchCommand');
 const AutoChannelCommand = require('./commands/autoChannelCommand');
+const NotifyMatchCommand = require('./commands/notifyMatchCommand');
 const GuildMemberAddAutorole = require('./events/NewGuildMember');
 const { autoChannel } = require('./utils/channelManagement.js');
 
@@ -49,6 +50,7 @@ module.exports = (bot) => {
 		CreateMatchCommand,
 		washMatchCommand,
 		AutoChannelCommand,
+		NotifyMatchCommand,
 		GuildMemberAddAutorole
 	};
 };
