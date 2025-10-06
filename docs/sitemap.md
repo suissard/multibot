@@ -74,6 +74,7 @@ layout: default
       * [addUserToChannel.js](./Modules/ChannelManager/commands/addUserToChannel.md)
       * [autoChannelCommand.js](./Modules/ChannelManager/commands/autoChannelCommand.md)
       * [createMatchCommand.js](./Modules/ChannelManager/commands/createMatchCommand.md)
+      * [notifyMatchCommand.js](./Modules/ChannelManager/commands/notifyMatchCommand.md)
       * [removeUserFromChannel.js](./Modules/ChannelManager/commands/removeUserFromChannel.md)
       * [washMatchCommand.js](./Modules/ChannelManager/commands/washMatchCommand.md)
     * **events**
