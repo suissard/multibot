@@ -1,6 +1,7 @@
 const Commande = require('../../../Class/Command');
 const { notifyMatch } = require('../../../services/discordService');
-const { getTeamByName } = require('../../../services/apiService');
+const { getMatchById } = require('../../../services/apiService');
+const { getMatchDivisionName } = require('../../../utils/matchUtils');
 
 class NotifyMatchCommand extends Commande {
     static id = 'notifymatch';
@@ -8,39 +9,15 @@ class NotifyMatchCommand extends Commande {
     static home = false;
     static userPermissions = ["ManageChannels"];
     static botPermissions = [];
-    static description = 'Envoie une notification de match';
-    static howTo = 'PREFIXCMD <team1> <team2> <division> <timestamp> [casters] [role]';
+    static description = "Envoie une notification de match à partir d'un ID de match.";
+    static howTo = 'PREFIXCMD <matchId> [role]';
     static test = [];
     static arguments = [
         {
             type: 'STRING',
-            name: 'team1',
-            description: 'Nom de la première équipe',
+            name: 'matchid',
+            description: 'ID du match Olympe',
             required: true,
-        },
-        {
-            type: 'STRING',
-            name: 'team2',
-            description: 'Nom de la deuxième équipe',
-            required: true,
-        },
-        {
-            type: 'STRING',
-            name: 'division',
-            description: 'Nom de la division',
-            required: true,
-        },
-        {
-            type: 'INTEGER',
-            name: 'timestamp',
-            description: 'Timestamp du match',
-            required: true,
-        },
-        {
-            type: 'STRING',
-            name: 'casters',
-            description: 'Noms des casters (séparés par une virgule)',
-            required: false,
         },
         {
             type: 'ROLE',
@@ -51,47 +28,43 @@ class NotifyMatchCommand extends Commande {
     ];
 
     static narrative = `
-- Cette commande permet d'envoyer manuellement une notification de match dans le salon où la commande est exécutée.
+- Cette commande permet d'envoyer manuellement une notification de match dans le salon où la commande est exécutée, en utilisant simplement l'ID du match.
 - Elle nécessite la permission "Gérer les salons" (\`ManageChannels\`).
 
 - **Fonctionnement :**
-    1.  La commande récupère les informations sur le match depuis les arguments.
-    2.  Elle appelle la fonction \`notifyMatch()\` pour envoyer la notification.
-    3.  La commande renvoie un message de confirmation.
+    1.  La commande récupère l'ID du match depuis l'argument.
+    2.  Elle appelle l'API pour obtenir les détails complets du match (équipes, division, date, casters).
+    3.  Elle appelle la fonction \`notifyMatch()\` pour envoyer la notification.
+    4.  La commande renvoie un message de confirmation.
 `;
 
     /**
-     * Exécute la commande pour envoyer une notification de match.
+     * Exécute la commande pour envoyer une notification de match à partir d'un ID.
      * @param {object} args - Les arguments de la commande.
      * @returns {Promise<string>} Un message de confirmation ou d'erreur.
      */
     async methode(args = {}) {
-        const { team1: team1Name, team2: team2Name, division, timestamp, casters: castersString, role } = args;
+        const { matchid, role } = args;
 
         try {
-            const team1 = await getTeamByName(this.bot, team1Name);
-            const team2 = await getTeamByName(this.bot, team2Name);
+            const match = await getMatchById(this.bot, matchid);
 
-            if (!team1 || !team2) {
-                return "Une des équipes n'a pas été trouvée.";
+            if (!match) {
+                return `Aucun match trouvé avec l'ID : ${matchid}`;
             }
 
-            const teams = [team1, team2];
+            const teams = [match.team1, match.team2];
+            const division = getMatchDivisionName(match);
+            const timestamp = match.matchDate;
+            const casters = match.casters;
 
-            let casters = [];
-            if (castersString) {
-                const casterNames = castersString.split(',');
-                // This is a simplification. We might need a way to get caster objects from names.
-                // For now, we'll just create simple objects.
-                casters = casterNames.map(name => ({
-                    user: { thirdparties: { discord: { discordID: null } } }, // Placeholder
-                    castUrl: `https://twitch.tv/${name.trim()}`
-                }));
+            if (!teams || !division || !timestamp) {
+                return "Les informations du match récupérées depuis l'API sont incomplètes.";
             }
 
             await notifyMatch(this.bot, teams, division, timestamp, casters, this.channel, role?.id);
 
-            return `Notification de match envoyée pour ${team1.name} vs ${team2.name}.`;
+            return `Notification de match envoyée pour ${teams[0].name} vs ${teams[1].name}.`;
         } catch (error) {
             console.error(error);
             return "Une erreur est survenue lors de l'envoi de la notification de match.";
