@@ -3,6 +3,7 @@ const GetIncidentForm = require('./GetIncidentForm.js');
 const GetCastRewardFormCommand = require('./GetCastRewardForm.js');
 const GetCasterStatFormCommand = require('./GetCasterStatForm.js');
 const AutoRoleCommand = require('./AutoRoleCommand.js');
+const GiveCasterRoleCommand = require('./GiveCasterRoleCommand.js');
 const { autoRole, instanciateOlympe } = require('./utils/utils2');
 
 const ChallengesRolesId = require('./models/ChallengesRolesId.js');
@@ -66,5 +67,5 @@ module.exports = (bot) => {
 		}
 	});
 
-	return { GetIncidentForm, AutoRoleCommand, GetCasterStatFormCommand, GetCastRewardFormCommand };
+	return { GetIncidentForm, AutoRoleCommand, GetCasterStatFormCommand, GetCastRewardFormCommand, GiveCasterRoleCommand };
 };
