@@ -33,6 +33,7 @@ layout: default
   * [ping.js](./Commandes/ping.md)
   * [privacypolicy.js](./Commandes/privacypolicy.md)
   * [restart.js](./Commandes/restart.md)
+  * [say.js](./Commandes/say.md)
   * [secretaryCommandMessage.js](./Commandes/secretaryCommandMessage.md)
   * [serverinfo.js](./Commandes/serverinfo.md)
   * [setInteractionCommand.js](./Commandes/setInteractionCommand.md)
