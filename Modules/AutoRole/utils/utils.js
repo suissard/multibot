@@ -571,6 +571,7 @@ const generateTeamFromOlympeMembers = (name, members = [], segments = []) => {
 	return {
 		name,
 		members,
+		membersLent: [],
 		segments,
 	};
 };
