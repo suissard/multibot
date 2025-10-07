@@ -63,6 +63,7 @@ layout: default
     * [GetCastRewardForm.js](./Modules/AutoRole/GetCastRewardForm.md)
     * [GetCasterStatForm.js](./Modules/AutoRole/GetCasterStatForm.md)
     * [GetIncidentForm.js](./Modules/AutoRole/GetIncidentForm.md)
+    * [GiveCasterRoleCommand.js](./Modules/AutoRole/GiveCasterRoleCommand.md)
     * [index.js](./Modules/AutoRole/index.md)
     * **models**
       * [ChallengesRolesId.js](./Modules/AutoRole/models/ChallengesRolesId.md)
