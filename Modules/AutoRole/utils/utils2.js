@@ -99,7 +99,7 @@ const autoRole = async function (bot, guildId) {
 		wipeOlympeData(bot);
 
 		// ===== DEV =====
-		// if (bot.modules.AutoRole.guilds[guildId].specialRoles.caster) await processCasterUsers(bot, bot.guilds.cache.get(bot.home));
+		if (bot.modules.AutoRole.guilds[guildId].specialRoles.caster) await processCasterUsers(bot, bot.guilds.cache.get(bot.home));
 
 		let teams = [];
 		for (let idChallenge in bot.olympe.challengesRolesId.competitions) {
