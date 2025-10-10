@@ -1,4 +1,4 @@
-FROM node:16.14.2
+FROM node:22.19.0
 
 ENV TZ="Europe/Paris"
 
