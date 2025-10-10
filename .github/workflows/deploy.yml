@@ -16,4 +16,6 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          script: /home/afo/discordBOT/deploy.sh
+          script: |
+            cd /home/afo/discordBOT/
+            ./deploy.sh
