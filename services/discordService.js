@@ -237,16 +237,16 @@ const getOlympeMention = (user, guild) => {
  */
 const mentionUsersInChannel = (textChannel, timestamp, teams, casters = null, matchID) => {
 	let embeds = [];
-	let message = `Hey @everyone !\nLe match entre **${teams[0].name} ⚔️ ${
+	let message = `Hey !\nLe match entre **${teams[0].name} ⚔️ ${
 		teams[1].name
-	}**\nIl se déroule **<t:${timestamp}:R>**\n[Lien vers le match](${getWebsiteUrl(
+	}**\nse déroule **<t:${timestamp}:R>**\n[Lien vers le match](${getWebsiteUrl(
 		textChannel.client
 	)}/matchs/${matchID})\n\n`;
 	const gradinChannel = textChannel.parent.children.cache.find(c => c.name.startsWith("Gradins"))
 		message +=
 		'⚠️ **Pas d\'accés au channel vocal ? :** Tu peux déplacer tes teammates depuis <#'+gradinChannel+'> vers le channel d\'équipe\n';
 	message +=
-		'⚠️ **Remplissez votre lineup** pour ne pas offrir une win gratuite à vos opposants !!!\n';
+	//	'⚠️ **Remplissez votre lineup** sur le site olympe pour ne pas offrir une win gratuite à vos opposants !!!\n';
 	// message += [...teamsChannels.map(chan=>`<#${chan.id}>`), ...castersChannels.map(chan=>`<#${chan.id}>`)].join(' ');
 
 	for (const team of teams) {
