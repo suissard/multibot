@@ -15,7 +15,8 @@ module.exports = class RegisterSlashCommands extends Command {
 		{
 			type: 'STRING',
 			name: 'command_name',
-			description: 'The name of the command to register. If not provided, all commands will be registered.',
+			description:
+				'The name of the command to register. If not provided, all commands will be registered.',
 			required: false,
 		},
 	];
@@ -57,16 +58,20 @@ module.exports = class RegisterSlashCommands extends Command {
 					return `The command ${commandName} does not exist.`;
 				}
 			} else {
-				let count = 0;
-				for (const [commandId, CommandToRegister] of BOTS.Commands.getAll()) {
-					try {
-						await new CommandToRegister(bot).createSlashCommand();
-						count++;
-					} catch (e) {
-						console.error(`Failed to register command ${commandId}:`, e);
-					}
+				// tranpose cette map en array
+				const commandsArray = Array.from(BOTS.Commands.getAll().values());
+				try {
+					this.loading(
+						commandsArray,
+						async (CommandToRegister) => {
+							return await new CommandToRegister(bot).createSlashCommand();
+						},
+						(e) => console.error(e)
+					);
+				} catch (e) {
+					console.error(`Failed to register command ${commandId}:`, e);
 				}
-				return `Successfully registered ${count} commands.`;
+				return 'Command in progress';
 			}
 		} catch (err) {
 			this.handleError(err);

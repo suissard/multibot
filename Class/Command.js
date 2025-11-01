@@ -374,7 +374,7 @@ module.exports = class Commande {
 				barreNbr = 0,
 				numUpdate = progressSize / copy.length;
 
-			if (!msgUpdate) msgUpdate = { edit: console.log };
+			if (!msgUpdate) msgUpdate = { edit: console.log, content: '' };
 
 			let requestFunction = (simultaneaous) => {
 				return new Promise(async (res) => {
