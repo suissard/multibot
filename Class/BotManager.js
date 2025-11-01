@@ -96,7 +96,7 @@ module.exports = class BotManager extends Map {
 			// TEST =================================================================================================
 
 			for (let moduleName in bot.modules) {
-				if (!bot.modules[moduleName]) return;
+				if (!bot.modules[moduleName]) continue;
 				this.loadModule(bot, moduleName);
 			}
 		}
@@ -108,6 +108,27 @@ module.exports = class BotManager extends Map {
 	 * @param {Object || Boolean} module
 	 */
 	loadModule(bot, moduleName) {
+		const moduleConfig = bot.modules[moduleName];
+        const validatorPath = `../Modules/${moduleName}/validatorClass.js`;
+
+        try {
+            const ValidatorClass = require(validatorPath);
+            const validator = new ValidatorClass(moduleConfig);
+            validator.validate();
+
+            if (!validator.isValid()) {
+                const errors = validator.getErrors().join('\\n');
+                bot.error(`Invalid configuration for module ${moduleName}:\\n${errors}`, moduleName);
+                return; // Stop loading this module
+            }
+        } catch (e) {
+            if (e.code !== 'MODULE_NOT_FOUND') {
+                bot.error(`Error during module validation ${moduleName}: ` + e.stack, moduleName);
+                return;
+            }
+            // Validator not found, continue without validation
+        }
+
 		let botModule;
 
 		try {
