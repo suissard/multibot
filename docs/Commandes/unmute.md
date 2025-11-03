@@ -5,6 +5,12 @@ layout: default
 
 # `unmute`
 
+## Narrative
+
+
+- Cette commande permet de retirer le statut "muet" d'un utilisateur, restaurant son accès normal aux salons.
+- Elle nécessite la permission "Bannir des membres" (\
+
 Exécute la commande pour enlever le statut muet d'un utilisateur. Supprime le rôle "mute" de l'utilisateur et restaure ses permissions sur tous les salons.
 
 **Parameters:**

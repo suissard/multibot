@@ -5,6 +5,10 @@ layout: default
 
 # `WarnEvent`
 
+## Description
+
+Affiche les avertissements de discord.js.
+
 Gère l'événement 'warn' de discord.js. Affiche l'avertissement dans la console.
 
 **Parameters:**

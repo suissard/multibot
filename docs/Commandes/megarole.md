@@ -5,6 +5,12 @@ layout: default
 
 # `megarole`
 
+## Narrative
+
+
+- Cette commande permet d'ajouter ou de supprimer un ou plusieurs rôles à **tous les membres** du serveur en une seule fois.
+- Elle nécessite la permission "Gérer les rôles" (\
+
 Exécute la commande "megarole". Prépare la liste des rôles et des utilisateurs, puis lance l'opération d'ajout ou de suppression de masse.
 
 **Parameters:**

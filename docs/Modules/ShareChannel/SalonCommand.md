@@ -5,6 +5,17 @@ layout: default
 
 # `SalonCommand`
 
+## Description
+
+Définit un salon partagée de recherche de joueur ou le supprime
+
+## Narrative
+
+
+- Cette commande permet de désigner le salon actuel comme faisant partie d'un "groupe de partage".
+- Un groupe de partage est défini par un jeu et une catégorie (par exemple, "overwatch-scrim"). Tous les messages postés dans un salon d'un groupe sont répliqués dans tous les autres salons du même groupe, même s'ils sont sur des serveurs différents.
+- Elle nécessite la permission "Gérer les salons" (\
+
 Commande de gestion des shareChannel
 
 Exécute la commande pour ajouter le salon actuel à un groupe de partage. Valide les arguments de jeu et de catégorie avant de procéder à l'ajout.

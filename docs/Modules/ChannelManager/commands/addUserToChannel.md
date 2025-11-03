@@ -5,6 +5,15 @@ layout: default
 
 # `addUserToChannel`
 
+## Description
+
+Add a user to a channel
+
+## Narrative
+
+
+- **ATTENTION : Cette commande est actuellement désactivée (le \
+
 Exécute la commande pour ajouter un ou plusieurs utilisateurs à un salon.
 
 **Parameters:**
