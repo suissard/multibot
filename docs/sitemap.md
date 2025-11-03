@@ -71,6 +71,7 @@ layout: default
       * [OlympeTeam.js](./Modules/AutoRole/models/OlympeTeam.md)
       * [OlympeUser.js](./Modules/AutoRole/models/OlympeUser.md)
       * [RolesSegmentsId.js](./Modules/AutoRole/models/RolesSegmentsId.md)
+    * [validatorClass.js](./Modules/AutoRole/validatorClass.md)
   * **ChannelManager**
     * **commands**
       * [addUserToChannel.js](./Modules/ChannelManager/commands/addUserToChannel.md)
@@ -82,15 +83,19 @@ layout: default
     * **events**
       * [NewGuildMember.js](./Modules/ChannelManager/events/NewGuildMember.md)
     * [index.js](./Modules/ChannelManager/index.md)
+    * [validatorClass.js](./Modules/ChannelManager/validatorClass.md)
   * **GetiJsonToDataBase**
     * [index.js](./Modules/GetiJsonToDataBase/index.md)
   * **MatchNotifier**
     * [index.js](./Modules/MatchNotifier/index.md)
+    * [validatorClass.js](./Modules/MatchNotifier/validatorClass.md)
+  * [ModuleConfigValidator.js](./Modules/ModuleConfigValidator.md)
   * **Secretary**
     * [MessageCheckSecretary.js](./Modules/Secretary/MessageCheckSecretary.md)
     * [ReadyCreateSecretary.js](./Modules/Secretary/ReadyCreateSecretary.md)
     * [Secretary.js](./Modules/Secretary/Secretary.md)
     * [index.js](./Modules/Secretary/index.md)
+    * [validatorClass.js](./Modules/Secretary/validatorClass.md)
   * **ShareChannel**
     * [LoadShareChannelsBotsReady.js](./Modules/ShareChannel/LoadShareChannelsBotsReady.md)
     * [SalonCommand.js](./Modules/ShareChannel/SalonCommand.md)
@@ -106,6 +111,7 @@ layout: default
     * [index.js](./Modules/ShareChannel/index.md)
   * **VocalDuplicate**
     * [index.js](./Modules/VocalDuplicate/index.md)
+    * [validatorClass.js](./Modules/VocalDuplicate/validatorClass.md)
 * **SelfApi**
   * [Api.js](./SelfApi/Api.md)
   * [Route.js](./SelfApi/Route.md)

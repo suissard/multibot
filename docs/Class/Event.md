@@ -5,6 +5,8 @@ layout: default
 
 # `Event`
 
+N/A
+
 
 
 L'instance du bot pour lequel cet événement est enregistré.
