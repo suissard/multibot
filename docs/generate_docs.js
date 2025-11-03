@@ -94,6 +94,34 @@ layout: default
 
 `;
 
+    const descriptionMatch = fileContent.match(/static description = '(.+)'/);
+    if (descriptionMatch) {
+        content += `${descriptionMatch[1]}\n\n`;
+    }
+
+    const narrativeMatch = fileContent.match(/static narrative = \`([\s\S]*?)\`;/);
+    if (narrativeMatch) {
+        content += `## Narrative\n\n${narrativeMatch[1]}\n\n`;
+    }
+
+    const argsMatch = fileContent.match(/static arguments = (\[[\s\S]*?\]);/);
+    if (argsMatch && argsMatch[1]) {
+        try {
+            const args = eval(argsMatch[1]);
+            if (args && args.length > 0) {
+                content += `## Arguments\n\n`;
+                content += `| Name | Type | Description | Required |\n`;
+                content += `| ---- | ---- | ----------- | -------- |\n`;
+                args.forEach(arg => {
+                    content += `| \`${arg.name}\` | \`${arg.type}\` | ${arg.description} | ${arg.required ? 'Yes' : 'No'} |\n`;
+                });
+                content += `\n`;
+            }
+        } catch (e) {
+            console.error(`Could not parse arguments for ${fileName}: ${e}`);
+        }
+    }
+
     if (parsed.length > 0) {
         parsed.forEach(block => {
             if (block.tags.some(tag => tag.tag === 'class')) {
