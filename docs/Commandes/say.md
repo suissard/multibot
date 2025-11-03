@@ -5,16 +5,6 @@ layout: default
 
 # `say`
 
-## Description
-
-Fait parler le bot.
-
-## Narrative
-
-
-- Cette commande permet de faire parler le bot dans un channel.
-- Elle nécessite la permission "Administrateur" (\
-
 Exécute la commande pour faire parler le bot.
 
 **Parameters:**

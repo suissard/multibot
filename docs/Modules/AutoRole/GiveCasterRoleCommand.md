@@ -5,16 +5,6 @@ layout: default
 
 # `GiveCasterRoleCommand`
 
-## Description
-
-Lance la procédure pour donner les roles aux casters
-
-## Narrative
-
-
-- La commande lance la procédure pour donner les roles aux casters.
-
-
 Exécute la commande caster.
 
 **Parameters:**

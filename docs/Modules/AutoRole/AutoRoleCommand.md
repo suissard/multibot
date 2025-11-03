@@ -5,15 +5,6 @@ layout: default
 
 # `AutoRoleCommand`
 
-## Narrative
-
-
-- Cette commande permet de lancer manuellement le processus d'attribution automatique des rôles liés à la compétition Olympe.
-- Elle offre trois modes de fonctionnement :
-
-- **1. Mode général (aucun argument) :**
-    - Si aucun argument n'est fourni, la commande lance la fonction \
-
 Exécute la commande d'attribution manuelle des rôles. Peut être déclenchée pour tous les utilisateurs, un utilisateur spécifique ou une équipe spécifique.
 
 **Parameters:**

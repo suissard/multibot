@@ -93,18 +93,6 @@ layout: default
 
 `;
 
-    // Extract static properties from the class
-    const staticDescriptionMatch = fileContent.match(/static description = '([^']*)'/);
-    const staticNarrativeMatch = fileContent.match(/static narrative = `([^`]*)`/);
-
-    if (staticDescriptionMatch) {
-        content += `## Description\n\n${staticDescriptionMatch[1]}\n\n`;
-    }
-
-    if (staticNarrativeMatch) {
-        content += `## Narrative\n\n${staticNarrativeMatch[1]}\n\n`;
-    }
-
     if (parsed.length > 0) {
         parsed.forEach(block => {
             if (block.tags.some(tag => tag.tag === 'class')) {
@@ -135,8 +123,8 @@ layout: default
                 }
             }
         });
-    } else if (!staticDescriptionMatch && !staticNarrativeMatch) {
-        content += `*No JSDoc comments or static properties found in this file.*\n`;
+    } else {
+        content += `*No JSDoc comments found in this file.*\n`;
     }
 
     fs.writeFileSync(docPath, content);

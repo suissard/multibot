@@ -5,15 +5,6 @@ layout: default
 
 # `removeUserFromChannel`
 
-## Description
-
-Remove a user from a channel
-
-## Narrative
-
-
-- **ATTENTION : Cette commande est actuellement désactivée (le \
-
 Exécute la commande pour retirer un ou plusieurs utilisateurs d'un salon.
 
 **Parameters:**
