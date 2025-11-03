@@ -1,8 +1,8 @@
 ---
-title: get-user
+title: ModuleConfigValidator
 layout: default
 ---
 
-# `get-user`
+# `ModuleConfigValidator`
 
 *No JSDoc comments or static properties found in this file.*

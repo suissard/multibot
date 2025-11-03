@@ -5,6 +5,15 @@ layout: default
 
 # `autoChannelCommand`
 
+## Description
+
+Lance la fonction autochannel : creation, permission et nettoyage des channels de match
+
+## Narrative
+
+
+- Cette commande permet de lancer manuellement la fonction principale du module ChannelManager : \
+
 Exécute la commande pour déclencher manuellement le processus de gestion automatique des salons.
 
 **Parameters:**
