@@ -5,6 +5,10 @@ layout: default
 
 # `piece`
 
+## Description
+
+Lance une piece pour récolter pile ou face
+
 Exécute la commande pour simuler un lancer de pièce.
 
 **Parameters:**

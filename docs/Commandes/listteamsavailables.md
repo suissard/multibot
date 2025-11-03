@@ -5,4 +5,6 @@ layout: default
 
 # `listteamsavailables`
 
-*No JSDoc comments found in this file.*
+## Description
+
+Renvoie la liste des teams disponibles pour un challenge donné

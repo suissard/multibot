@@ -5,6 +5,10 @@ layout: default
 
 # `memberlist`
 
+## Description
+
+Renvoie la liste des utilisateurs qui ont le rôle mentiionné
+
 Exécute la commande pour lister les membres ayant un rôle spécifique. Récupère les membres, formate la liste et la renvoie dans un embed.
 
 **Parameters:**

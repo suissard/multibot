@@ -5,6 +5,10 @@ layout: default
 
 # `ShareInfoCommand`
 
+## Description
+
+Récuperer les infos sur ce salon partagé
+
 Commande de gestion des shareChannel
 
 Exécute la commande pour obtenir des informations sur le groupe de partage du salon actuel.

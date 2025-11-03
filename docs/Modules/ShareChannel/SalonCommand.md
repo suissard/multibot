@@ -5,6 +5,10 @@ layout: default
 
 # `SalonCommand`
 
+## Description
+
+Définit un salon partagée de recherche de joueur ou le supprime
+
 Commande de gestion des shareChannel
 
 Exécute la commande pour ajouter le salon actuel à un groupe de partage. Valide les arguments de jeu et de catégorie avant de procéder à l'ajout.

@@ -5,6 +5,10 @@ layout: default
 
 # `restart`
 
+## Description
+
+redemarre le bot
+
 Exécute la commande pour redémarrer le bot. La commande ne peut être exécutée que par le propriétaire du bot.
 
 **Parameters:**

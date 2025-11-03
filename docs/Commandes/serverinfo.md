@@ -5,6 +5,10 @@ layout: default
 
 # `serverinfo`
 
+## Description
+
+Donne des infos sur le serveur
+
 Exécute la commande serverinfo. Génère et retourne un embed contenant les informations du serveur actuel.
 
 **Parameters:**

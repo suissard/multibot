@@ -5,6 +5,10 @@ layout: default
 
 # `privacypolicy`
 
+## Description
+
+Fournit la politique de confidentialité du bot
+
 Exécute la commande pour afficher la politique de confidentialité. Lit le fichier PRIVACY.md et retourne son contenu.
 
 **Parameters:**

@@ -5,6 +5,10 @@ layout: default
 
 # `addUserToChannel`
 
+## Description
+
+Add a user to a channel
+
 Exécute la commande pour ajouter un ou plusieurs utilisateurs à un salon.
 
 **Parameters:**

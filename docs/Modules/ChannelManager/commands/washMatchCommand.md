@@ -5,6 +5,10 @@ layout: default
 
 # `washMatchCommand`
 
+## Description
+
+Supprime les channels de matchs
+
 Exécute la commande pour déclencher manuellement le nettoyage des anciens salons de match.
 
 **Parameters:**

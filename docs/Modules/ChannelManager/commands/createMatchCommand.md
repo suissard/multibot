@@ -5,6 +5,10 @@ layout: default
 
 # `createMatchCommand`
 
+## Description
+
+Create match channels
+
 Exécute la commande pour créer manuellement les salons pour un match spécifique.
 
 **Parameters:**

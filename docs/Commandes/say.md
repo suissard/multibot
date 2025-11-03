@@ -5,6 +5,10 @@ layout: default
 
 # `say`
 
+## Description
+
+Fait parler le bot.
+
 Exécute la commande pour faire parler le bot.
 
 **Parameters:**

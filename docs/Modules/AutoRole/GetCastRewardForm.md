@@ -5,6 +5,10 @@ layout: default
 
 # `GetCastRewardForm`
 
+## Description
+
+Renvoit un url personnalisé pour réclamer une récompense de cast OAFO
+
 Génère une URL personnalisée pour le formulaire de récompense de cast.
 
 **Parameters:**

@@ -1,8 +1,8 @@
 ---
-title: get-user
+title: validatorClass
 layout: default
 ---
 
-# `get-user`
+# `validatorClass`
 
 *No JSDoc comments or static properties found in this file.*

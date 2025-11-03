@@ -5,6 +5,10 @@ layout: default
 
 # `SharePromoCommand`
 
+## Description
+
+Partager un message format embed sur ce salon partagé
+
 Commande de gestion des shareChannel
 
 Exécute la commande pour envoyer un message promotionnel à un groupe de partage. Le message est envoyé sous forme d'embed et peut contenir une image.

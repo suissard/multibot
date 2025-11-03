@@ -5,6 +5,10 @@ layout: default
 
 # `help`
 
+## Description
+
+Permet d\
+
 Construit et retourne une liste de noms de commandes à afficher. Filtre les commandes qui ne sont pas censées être affichées dans l'aide, sauf pour les développeurs.
 
 **Returns:** `Array<string>` - tableau trié des noms de commandes.

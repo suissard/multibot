@@ -5,6 +5,10 @@ layout: default
 
 # `ping`
 
+## Description
+
+Répond pong
+
 Exécute la commande ping. Répond "Pong" et peut inclure un texte ou mentionner un utilisateur si fourni en argument.
 
 **Parameters:**

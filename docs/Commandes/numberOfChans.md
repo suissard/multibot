@@ -5,6 +5,10 @@ layout: default
 
 # `numberOfChans`
 
+## Description
+
+Donne le nombre de channel du serveur
+
 Exécute la commande pour obtenir le nombre de salons sur le serveur.
 
 **Parameters:**

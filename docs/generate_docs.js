@@ -35,6 +35,7 @@ function generateDocs() {
     const sitemap = generateSitemap(rootDir, '');
     writeSitemap(sitemap);
     writeNavigation(sitemap);
+    writeModuleAndCommandLists(sitemap);
     console.log('Documentation generation finished.');
 }
 
@@ -93,6 +94,13 @@ layout: default
 
 `;
 
+    // Extract static properties from the class
+    const staticDescriptionMatch = fileContent.match(/static description = '([\s\S]*?)'/);
+
+    if (staticDescriptionMatch) {
+        content += `## Description\n\n${staticDescriptionMatch[1]}\n\n`;
+    }
+
     if (parsed.length > 0) {
         parsed.forEach(block => {
             if (block.tags.some(tag => tag.tag === 'class')) {
@@ -123,8 +131,8 @@ layout: default
                 }
             }
         });
-    } else {
-        content += `*No JSDoc comments found in this file.*\n`;
+    } else if (!staticDescriptionMatch) {
+        content += `*No JSDoc comments or static properties found in this file.*\n`;
     }
 
     fs.writeFileSync(docPath, content);
@@ -190,6 +198,53 @@ function generateNavigationHtml(sitemap, level) {
         }
     }
     return html;
+}
+
+function writeModuleAndCommandLists(sitemap) {
+    const modules = [];
+    const commands = [];
+
+    function findModulesAndCommands(sitemap) {
+        for (const item of sitemap) {
+            if (item.path.startsWith('Modules')) {
+                modules.push(item);
+            }
+            if (item.path.startsWith('Commandes')) {
+                commands.push(item);
+            }
+        }
+    }
+
+    findModulesAndCommands(sitemap);
+
+    generateListPage('Modules', modules, 'modules-list.md');
+    generateListPage('Commandes', commands, 'commands-list.md');
+}
+
+function generateListPage(title, items, filename) {
+    const filePath = path.join(outputDir, filename);
+    let content = `---
+title: Liste des ${title}
+layout: default
+---
+
+# Liste des ${title}
+
+`;
+
+    content += generateLinksMarkdown(items);
+
+    fs.writeFileSync(filePath, content);
+    console.log(`Generated ${filename}`);
+}
+
+function generateLinksMarkdown(items) {
+    let markdown = '';
+    for (const item of items) {
+        const docPath = `./${item.path.replace('.js', '.md')}`;
+        markdown += `* [${item.name}](${docPath})\n`;
+    }
+    return markdown;
 }
 
 generateDocs();

@@ -5,6 +5,10 @@ layout: default
 
 # `register-slash-commands`
 
+## Description
+
+Registers slash commands with Discord.
+
 Executes the command to manually (re)create one or all slash commands. Searches for a command by its name in the CommandManager and calls its \`createSlashCommand\` method to register or update it with the Discord API. If no command name is specified, it registers all commands.
 
 **Parameters:**

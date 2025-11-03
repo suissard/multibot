@@ -5,6 +5,10 @@ layout: default
 
 # `ShareStopCommand`
 
+## Description
+
+Retirer un salon du systeme de partage
+
 Commande de gestion des shareChannel
 
 Exécute la commande pour retirer le salon actuel de son groupe de partage.

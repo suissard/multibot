@@ -5,6 +5,10 @@ layout: default
 
 # `setactivity`
 
+## Description
+
+change le status du bot
+
 Exécute la commande pour changer l'activité du bot.
 
 **Parameters:**
