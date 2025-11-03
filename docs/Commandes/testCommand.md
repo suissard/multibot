@@ -5,12 +5,6 @@ layout: default
 
 # `testCommand`
 
-## Narrative
-
-
-- Cette commande sert à lancer des tests automatisés pour d'autres commandes du bot.
-- **Sécurité :** L'exécution est réservée au propriétaire du bot (\
-
 Exécute la commande de test pour d'autres commandes. Peut tester une seule commande ou une liste de commandes.
 
 **Parameters:**

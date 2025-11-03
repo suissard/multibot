@@ -5,12 +5,6 @@ layout: default
 
 # `mute`
 
-## Narrative
-
-
-- Cette commande permet de rendre un utilisateur muet sur le serveur.
-- Elle nécessite la permission "Bannir des membres" (\
-
 Exécute la commande pour rendre un utilisateur muet sur le serveur. Applique un rôle "mute" à l'utilisateur, ce qui restreint son accès aux salons, et lui donne accès à un salon spécial pour communiquer avec les modérateurs. Crée le rôle et le salon s'ils n'existent pas.
 
 **Parameters:**

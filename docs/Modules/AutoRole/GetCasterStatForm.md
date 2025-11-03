@@ -5,15 +5,6 @@ layout: default
 
 # `GetCasterStatForm`
 
-## Narrative
-
-
-- Cette commande a pour but de générer et d'envoyer un lien vers un formulaire pré-rempli pour que les casters (diffuseurs) puissent soumettre leurs statistiques après un match.
-- Elle nécessite l'ID du match concerné.
-
-- **Fonctionnement :**
-    1.  La commande prend en argument l'ID d'un match (\
-
 Génère une URL pré-remplie pour le formulaire de statistiques de caster.
 
 **Parameters:**

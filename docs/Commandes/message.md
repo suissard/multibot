@@ -5,12 +5,6 @@ layout: default
 
 # `message`
 
-## Narrative
-
-
-- Cette commande permet d'envoyer un message privé (DM) à un ou plusieurs utilisateurs.
-- Elle nécessite la permission "Bannir des membres" (\
-
 Exécute la commande pour envoyer un message privé à des utilisateurs. Cible les utilisateurs via une mention directe, un rôle, ou une chaîne de mentions multiples. Peut également transférer le message au "secrétariat" pour archivage.
 
 **Parameters:**
