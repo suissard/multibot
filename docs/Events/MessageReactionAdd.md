@@ -5,6 +5,10 @@ layout: default
 
 # `MessageReactionAdd`
 
+## Description
+
+Gère l\
+
 Gère l'événement `messageReactionAdd`. Transmet l'événement au `EmoteMessageManager` pour qu'il le traite, ce qui permet de gérer les systèmes de rôles par réaction.
 
 **Parameters:**

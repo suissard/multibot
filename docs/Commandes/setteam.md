@@ -5,6 +5,12 @@ layout: default
 
 # `setteam`
 
+## Narrative
+
+
+- Cette commande permet de créer une nouvelle équipe sur le serveur.
+- Elle nécessite la permission "Gérer les rôles" (\
+
 Exécute la commande de création d'équipe. Lance le processus de création de rôle et de salon, puis envoie un message de confirmation.
 
 **Parameters:**

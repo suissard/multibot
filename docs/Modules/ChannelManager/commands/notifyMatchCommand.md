@@ -5,6 +5,12 @@ layout: default
 
 # `notifyMatchCommand`
 
+## Narrative
+
+
+- Cette commande permet d'envoyer manuellement une notification de match dans le salon où la commande est exécutée, en utilisant simplement l'ID du match.
+- Elle nécessite la permission "Gérer les salons" (\
+
 Exécute la commande pour envoyer une notification de match à partir d'un ID.
 
 **Parameters:**

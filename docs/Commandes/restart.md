@@ -5,6 +5,16 @@ layout: default
 
 # `restart`
 
+## Description
+
+redemarre le bot
+
+## Narrative
+
+
+- Cette commande est conçue pour redémarrer le bot.
+- **Sécurité :** L'exécution est strictement réservée au propriétaire du bot, dont l'ID est défini dans la configuration (\
+
 Exécute la commande pour redémarrer le bot. La commande ne peut être exécutée que par le propriétaire du bot.
 
 **Parameters:**
