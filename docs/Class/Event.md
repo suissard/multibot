@@ -5,10 +5,6 @@ layout: default
 
 # `Event`
 
-## Description
-
-N/A
-
 
 
 L'instance du bot pour lequel cet événement est enregistré.

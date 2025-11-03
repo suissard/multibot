@@ -5,10 +5,6 @@ layout: default
 
 # `DebugEvent`
 
-## Description
-
-Affiche les informations de débogage de discord.js.
-
 Gère l'événement 'debug' de discord.js. Affiche les informations de débogage dans la console.
 
 **Parameters:**

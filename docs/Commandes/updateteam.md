@@ -5,16 +5,6 @@ layout: default
 
 # `updateteam`
 
-## Description
-
-Met à jour une équipe
-
-## Narrative
-
-
-- Cette commande permet de modifier les informations d'une équipe existante.
-- Elle nécessite la permission "Gérer les rôles" (\
-
 Exécute la commande pour mettre à jour les informations d'une équipe. Permet de changer le nom de l'équipe, le capitaine, le BattleTag et le classement (elo).
 
 **Parameters:**

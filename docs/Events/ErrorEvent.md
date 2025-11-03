@@ -5,10 +5,6 @@ layout: default
 
 # `ErrorEvent`
 
-## Description
-
-Affiche les erreurs de discord.js.
-
 Gère l'événement 'error' de discord.js. Affiche l'erreur dans la console.
 
 **Parameters:**
