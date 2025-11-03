@@ -35,6 +35,7 @@ function generateDocs() {
     const sitemap = generateSitemap(rootDir, '');
     writeSitemap(sitemap);
     writeNavigation(sitemap);
+	generateModuleAndCommandLists();
     console.log('Documentation generation finished.');
 }
 
@@ -190,6 +191,45 @@ function generateNavigationHtml(sitemap, level) {
         }
     }
     return html;
+}
+
+function generateModuleAndCommandLists() {
+    const modulesDir = path.join(rootDir, 'Modules');
+    const commandsDir = path.join(rootDir, 'Commandes');
+
+    const modules = fs.readdirSync(modulesDir).filter(item => fs.statSync(path.join(modulesDir, item)).isDirectory());
+    const commands = fs.readdirSync(commandsDir).filter(item => item.endsWith('.js'));
+
+    let modulesListContent = `---
+title: Liste des Modules
+layout: default
+---
+
+# Liste des Modules
+
+`;
+    modules.forEach(module => {
+        const docPath = `./Modules/${module}/index.md`;
+        modulesListContent += `* [${module}](${docPath})\\n`;
+    });
+    fs.writeFileSync(path.join(outputDir, 'modules-list.md'), modulesListContent);
+    console.log('Generated modules-list.md');
+
+    let commandsListContent = `---
+title: Liste des Commandes
+layout: default
+---
+
+# Liste des Commandes
+
+`;
+    commands.forEach(command => {
+        const commandName = path.basename(command, '.js');
+        const docPath = `./Commandes/${commandName}.md`;
+        commandsListContent += `* [${commandName}](${docPath})\\n`;
+    });
+    fs.writeFileSync(path.join(outputDir, 'commands-list.md'), commandsListContent);
+    console.log('Generated commands-list.md');
 }
 
 generateDocs();
