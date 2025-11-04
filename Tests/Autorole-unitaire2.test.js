@@ -159,7 +159,7 @@ describe('getAllTeamsFromChallenge', () => {
 		const bot = {
 			olympe: {
 				api: {
-					GET: vi
+					get: vi
 						.fn()
 						.mockResolvedValueOnce({ pools: [{ id: 'pool1' }] })
 						.mockResolvedValueOnce(['team1', 'team2']),

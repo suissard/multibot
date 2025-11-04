@@ -22,7 +22,7 @@ describe('Check if match is started soon', () => {
 
 		const consoleSpy = vi.spyOn(console, 'error');
 		isMatchStartedSoon('invalid');
-		expect(consoleSpy).toHaveBeenCalledWith('Invalid timestamp provided.');
+		expect(consoleSpy).toHaveBeenCalledWith('isMatchStartedSoon : Invalid args provided.');
 	});
 
 	it('should return true if the match starts soon (within 2 hours)', () => {
@@ -30,7 +30,7 @@ describe('Check if match is started soon', () => {
 		vi.setSystemTime(mockNow);
 
 		const futureTime = new Date((mockNow.getTime() / 1000) + 60 * 60); // 1 hour ahead
-		expect(isMatchStartedSoon(futureTime.getTime())).toBe(true);
+		expect(isMatchStartedSoon(futureTime.getTime(), 2)).toBe(true);
 	});
 
 	it('should return false if the match starts too late (beyond the 2-hour window)', () => {
@@ -38,7 +38,7 @@ describe('Check if match is started soon', () => {
 		vi.setSystemTime(mockNow);
 
 		const futureTime = new Date((mockNow.getTime() / 1000) + 3 * 60 * 60); // 3 hours ahead
-		expect(isMatchStartedSoon(futureTime.getTime())).toBe(false);
+		expect(isMatchStartedSoon(futureTime.getTime(), 2)).toBe(false);
 	});
 
 	it('should return false if the match is already over', () => {
@@ -71,7 +71,7 @@ describe('Check if match is already played', () => {
 
 		const consoleSpy = vi.spyOn(console, 'error');
 		isMatchAlreadyPlayed('invalid');
-		expect(consoleSpy).toHaveBeenCalledWith('Invalid timestamp provided.');
+		expect(consoleSpy).toHaveBeenCalledWith('isMatchAlreadyPlayed : Invalid args provided.');
 	});
 
 	it('should return true for a timestamp more than MAXIMUM_MATCH_DURATION hours in the past', () => {
@@ -79,7 +79,7 @@ describe('Check if match is already played', () => {
 		vi.setSystemTime(mockNow);
 
 		const pastTimestamp = Math.floor(new Date('2024-11-28T06:00:00Z').getTime() / 1000);
-		expect(isMatchAlreadyPlayed(pastTimestamp)).toBe(true);
+		expect(isMatchAlreadyPlayed(pastTimestamp, 2)).toBe(true);
 	});
 
 	it('should return false for a timestamp within MAXIMUM_MATCH_DURATION hours', () => {
@@ -87,7 +87,7 @@ describe('Check if match is already played', () => {
 		vi.setSystemTime(mockNow);
 
 		const recentTimestamp = Math.floor(new Date('2024-11-28T11:00:00Z').getTime() / 1000);
-		expect(isMatchAlreadyPlayed(recentTimestamp)).toBe(false);
+		expect(isMatchAlreadyPlayed(recentTimestamp, 2)).toBe(false);
 	});
 
 	it('should return false for a future timestamp', () => {

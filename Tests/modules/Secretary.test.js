@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import Secretary from '../../Modules/Secretary/Secretary.js';
 
 const { ChannelType, Colors } = require('discord.js');
