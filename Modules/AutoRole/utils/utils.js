@@ -129,7 +129,7 @@ const changeDiscordRole = async (
 				.concat(team.membersLent.map((m) => m.member))
 				.find((member) => member.user.id === olympeMemberId);
 			rolesToAdd =
-				guild.client.olympe.users[olympeMember.user.thirdparties.discord.discordID]?.[
+				guild.client.olympe?.users[olympeMember.user.thirdparties.discord.discordID]?.[
 					team.name
 				]?.roles || []; //! testReecriture getRoleToAdd(olympeMember); // Donne les role pour une team
 			realRole = realRole.concat(
@@ -205,7 +205,7 @@ const getRoleToAdd = (olympeMember) => {
  * @returns {Array<Discord.Role>}
  */
 const getRealRole = (listRole, guild, segments, challengesRolesId, olympeMember) => {
-	const captain = olympeMember.roles.includes('captain');
+	const captain = olympeMember.roles.includes('captain'); 
 	try {
 		let realRole = [];
 		let segmentName, challengeRole;

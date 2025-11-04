@@ -21,7 +21,7 @@ vi.mock('../Class/EmoteMessageManager.js');
 vi.mock('../SelfApi/Api.js');
 
 
-describe.skip("BotManager Class", () => {
+describe("BotManager Class", () => {
   let botManager;
 
   beforeEach(() => {

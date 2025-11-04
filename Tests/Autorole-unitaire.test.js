@@ -49,6 +49,7 @@ const mockGuild = {
             get: vi.fn((id) => ({ id })),
         },
     },
+    client: {error:console.error}
 }
 
 const mockOlympeMember = {
@@ -67,6 +68,7 @@ const mockTeam = {
     name: 'TeamOne',
     segments: [{ id: 'segment1', name: 'Segment 1' }],
     members: [mockOlympeMember],
+    membersLent: [],
 }
 
 // Tests unitaires pour chaque fonction
@@ -152,7 +154,6 @@ describe('changeDiscordRole', () => {
         const result = await changeDiscordRole(
             mockOlympeMember.user.id,
             mockGuild,
-            mockTeam.segments,
             mockDiscordUser,
             [mockTeam],
             mockChallengesRolesId,
@@ -192,9 +193,9 @@ describe('getRealRole', () => {
             listRole,
             mockGuild,
             mockTeam.segments,
-            false,
+            // false,
             mockChallengesRolesId,
-            mockRolesCompetId
+            mockOlympeMember
         )
 
         expect(realRoles).toBeInstanceOf(Array)
