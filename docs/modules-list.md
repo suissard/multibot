@@ -5,4 +5,10 @@ layout: default
 
 # Liste des Modules
 
-* [AutoRole](./Modules/AutoRole/index.md)\n* [ChannelManager](./Modules/ChannelManager/index.md)\n* [GetiJsonToDataBase](./Modules/GetiJsonToDataBase/index.md)\n* [MatchNotifier](./Modules/MatchNotifier/index.md)\n* [Secretary](./Modules/Secretary/index.md)\n* [ShareChannel](./Modules/ShareChannel/index.md)\n* [VocalDuplicate](./Modules/VocalDuplicate/index.md)\n
+* [AutoRole](./Modules/AutoRole/index.html)
+* [ChannelManager](./Modules/ChannelManager/index.html)
+* [GetiJsonToDataBase](./Modules/GetiJsonToDataBase/index.html)
+* [MatchNotifier](./Modules/MatchNotifier/index.html)
+* [Secretary](./Modules/Secretary/index.html)
+* [ShareChannel](./Modules/ShareChannel/index.html)
+* [VocalDuplicate](./Modules/VocalDuplicate/index.html)

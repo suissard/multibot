@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>megarole</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">megarole</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/">Accueil</a>
+            <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+            <a class="mdl-navigation__link" href="https://github.com/suissard/multibot" target="_blank">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+    <a class="mdl-navigation__link" href="/">Accueil</a>
+    <a class="mdl-navigation__link" href="/modules-list.html">Modules</a>
+    <a class="mdl-navigation__link" href="/commands-list.html">Commandes</a>
+    <a class="mdl-navigation__link" href="/classes-list.html">Classes</a>
+    <a class="mdl-navigation__link" href="/events-list.html">Events</a>
+    <div class="mdl-layout-spacer"></div>
+    <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+</nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="megarole"><code class="language-plaintext highlighter-rouge">megarole</code></h1>
+
+<h2 id="narrative">Narrative</h2>
+
+<ul>
+  <li>Cette commande permet d’ajouter ou de supprimer un ou plusieurs rôles à <strong>tous les membres</strong> du serveur en une seule fois.</li>
+  <li>
+    <p>Elle nécessite la permission “Gérer les rôles” (`ManageRoles`) pour être utilisée.</p>
+  </li>
+  <li><strong>Arguments :</strong>
+    <ul>
+      <li>`del` (booléen, requis) : Détermine l’action. `true` pour supprimer les rôles, `false` pour les ajouter.</li>
+      <li>`role` (rôle, optionnel) : Un rôle unique à traiter.</li>
+      <li>`multipleroles` (texte, optionnel) : Une chaîne de texte contenant les mentions de plusieurs rôles.</li>
+    </ul>
+  </li>
+  <li><strong>Fonctionnement :</strong>
+    <ol>
+      <li>La commande commence par récupérer la liste complète de tous les membres du serveur.</li>
+      <li>Elle collecte les rôles à traiter à partir des arguments `role` et/ou `multipleroles`.</li>
+      <li>En fonction de la valeur de l’argument `del`, elle parcourt la liste de <strong>tous les membres</strong> :
+        <ul>
+          <li>Si `del` est `true`, elle tente de <strong>supprimer</strong> les rôles spécifiés à chaque membre.</li>
+          <li>Si `del` est `false`, elle tente d’<strong>ajouter</strong> les rôles spécifiés à chaque membre.</li>
+        </ul>
+      </li>
+      <li>Une barre de chargement visuelle est affichée pendant l’opération.</li>
+      <li>Après l’opération, si des erreurs se sont produites (par exemple, permissions insuffisantes pour modifier un membre avec un rôle plus élevé), elles sont listées dans un message.</li>
+      <li>Un message final confirme que la commande a été exécutée.</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="arguments">Arguments</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">del</code></td>
+      <td><code class="language-plaintext highlighter-rouge">BOOLEAN</code></td>
+      <td>True = Supprimer les rôles / False = Ajouter les rôles</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">role</code></td>
+      <td><code class="language-plaintext highlighter-rouge">ROLE</code></td>
+      <td>Role à supprimer</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">multipleroles</code></td>
+      <td><code class="language-plaintext highlighter-rouge">STRING</code></td>
+      <td>Mettre plusieurs roles à supprimer</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Exécute la commande “megarole”. Prépare la liste des rôles et des utilisateurs, puis lance l’opération d’ajout ou de suppression de masse.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- Les arguments de la commande.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args.del</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td>- <code class="language-plaintext highlighter-rouge">true</code> pour supprimer les rôles, <code class="language-plaintext highlighter-rouge">false</code> pour les ajouter.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args.role</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- L’ID d’un rôle unique à traiter.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args.multipleroles</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Une chaîne contenant les mentions de plusieurs rôles.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;string&gt;</code> - message de confirmation ou d’erreur.</p>
+
+<p>Extrait les ID de rôle à partir d’une chaîne de mentions de rôles.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- La chaîne contenant les mentions de rôles.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;Array&lt;string&gt;&gt;</code> - tableau d’IDs de rôles.</p>
+
+<p>Ajoute ou supprime en masse une liste de rôles pour une liste d’utilisateurs. Le nom de la fonction est trompeur, car elle gère à la fois l’ajout et la suppression.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">user</code></td>
+      <td><code class="language-plaintext highlighter-rouge">import('discord.js').Collection&lt;string, import('discord.js').GuildMember&gt;</code></td>
+      <td>- La collection des membres du serveur.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">role</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array&lt;string&gt;</code></td>
+      <td>- Un tableau d’IDs de rôles à ajouter ou supprimer.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- Les arguments de la commande, principalement <code class="language-plaintext highlighter-rouge">args.del</code> pour déterminer l’action.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;string&gt;</code> - message de résumé de l’opération.</p>
+
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

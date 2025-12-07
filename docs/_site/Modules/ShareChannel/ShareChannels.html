@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>ShareChannels</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">ShareChannels</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/">Accueil</a>
+            <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+            <a class="mdl-navigation__link" href="https://github.com/suissard/multibot" target="_blank">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+    <a class="mdl-navigation__link" href="/">Accueil</a>
+    <a class="mdl-navigation__link" href="/modules-list.html">Modules</a>
+    <a class="mdl-navigation__link" href="/commands-list.html">Commandes</a>
+    <a class="mdl-navigation__link" href="/classes-list.html">Classes</a>
+    <a class="mdl-navigation__link" href="/events-list.html">Events</a>
+    <div class="mdl-layout-spacer"></div>
+    <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+</nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="sharechannels"><code class="language-plaintext highlighter-rouge">ShareChannels</code></h1>
+
+<h2 id="class">Class:</h2>
+
+<p>Représente un groupe de salons partagés. Gère la configuration (jeu, catégorie, pattern), la liste des salons, et la logique de partage des messages entre eux.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- Les données de configuration pour le groupe de salons partagés.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data.id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- L’identifiant unique du groupe (ex: “overwatch-scrim”).</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data.game</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Le jeu associé.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data.categorie</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- La catégorie du partage.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data.pattern</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- L’expression régulière pour valider les messages à partager.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data.channels</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array&lt;string&gt;</code></td>
+      <td>- Une liste d’IDs de salons à inclure initialement.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Ajouter un message comme ayant été partagé</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">message</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.Message</code></td>
+      <td>le message discord qui a été partagé</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">ShareMessage</code> - message partagée au format shareMessage</p>
+
+<p>Recuperer une message de la collection</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td>Par convention, l’identifiant discord de l’auteur du message</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">ShareMessage</code> - message partagée au format shareMessage</p>
+
+<p>Supprimer une message de la collection</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td>Par convention, l’identifiant discord de l’auteur du message</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">ShareMessage</code> - message partagée au format shareMessage</p>
+
+<p>Initialise la collection de messages partagés. (Note: Cette fonction semble boguée ou inachevée, elle itère sur <code class="language-plaintext highlighter-rouge">this._messages</code> qui est déjà une Map et tente de la reconstruire).</p>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;Map&lt;string, ShareMessage&gt;&gt;</code> - collection de messages initialisée.</p>
+
+<p>Ajouter un channel dans la liste de partage</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">message</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.Message</code></td>
+      <td>le message discord qui a été partagé</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Discord.Channel</code> - channel qui a été ajouté</p>
+
+<p>Enregistre un nouveau salon dans la base de données.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">channel</code></td>
+      <td><code class="language-plaintext highlighter-rouge">import('discord.js').TextChannel</code></td>
+      <td>- Le salon à enregistrer.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Supprimer une channel de la collection</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td>Par convention, l’identifiant discord du channel</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Initialise la liste des salons pour ce groupe de partage.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">channels</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array&lt;string&gt;</code></td>
+      <td>- Une liste d’IDs de salons.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;Array&lt;import('discord.js').TextChannel&gt;&gt;</code> - liste des objets Channel initialisés.</p>
+
+<p>Function de prise en charge des messages</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">message</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.message</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Permet d’obtenir els info du channela renvoier a l’utilisateur</p>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">String</code> - d’information sur le channel</p>
+
+<p>Renvoie un embed sur le modele du message fournit</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">message</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.Message</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">MultiBotMessageEmbed</code> - au format embed</p>
+
+<p>Verification des message précedent de l’auteur et qu’il respecte les usages du partage</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">message</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.Message</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Boolean</code> - si l’utilisateur respect les usage ou “false” si ce n’est pas le cas</p>
+
+<p>Envoie le embed dans les differents salons partagées</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">message</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.Message</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Renvoie un embed sur le modele du message fournit</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">message</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.Message</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">MultiBotMessageEmbed</code> - au format embed</p>
+
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

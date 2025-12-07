@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>EmoteMessage</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">EmoteMessage</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/">Accueil</a>
+            <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+            <a class="mdl-navigation__link" href="https://github.com/suissard/multibot" target="_blank">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+    <a class="mdl-navigation__link" href="/">Accueil</a>
+    <a class="mdl-navigation__link" href="/modules-list.html">Modules</a>
+    <a class="mdl-navigation__link" href="/commands-list.html">Commandes</a>
+    <a class="mdl-navigation__link" href="/classes-list.html">Classes</a>
+    <a class="mdl-navigation__link" href="/events-list.html">Events</a>
+    <div class="mdl-layout-spacer"></div>
+    <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+</nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="emotemessage"><code class="language-plaintext highlighter-rouge">EmoteMessage</code></h1>
+
+<p>Représente un message sur Discord qui attribue des rôles en fonction des réactions des utilisateurs. Étend StrapiObject pour interagir avec une base de données Strapi.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string|number</code></td>
+      <td>- L’ID de l’objet Strapi.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">type</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Le type de l’objet Strapi.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- Les données de l’objet.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">collection</code></td>
+      <td><code class="language-plaintext highlighter-rouge">import('suissard-strapi-client').StrapiCollection</code></td>
+      <td>- La collection Strapi à laquelle cet objet appartient.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">bots</code></td>
+      <td><code class="language-plaintext highlighter-rouge">import('./BotManager')</code></td>
+      <td>- Le gestionnaire de bots pour accéder aux instances de bot.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Initialise le message à réaction. Vérifie que le bot a accès au serveur, au salon et au message, et que les rôles sont accessibles. Ajoute les réactions initiales au message.</p>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;boolean&gt;</code> - si l’initialisation réussit, sinon <code class="language-plaintext highlighter-rouge">false</code>.</p>
+
+<p>Vérifie que les rôles configurés pour les réactions sont accessibles par le bot sur le serveur.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">bot</code></td>
+      <td><code class="language-plaintext highlighter-rouge">import('./Bot')</code></td>
+      <td>- L’instance du bot qui gère ce message.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">message</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.Message</code></td>
+      <td>- Le message Discord concerné.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Reagit avec toutes les emotes sur le message fournit</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">message</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.Message</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Vérifie si un message donné correspond à ce message à réaction (même salon et même serveur).</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">message</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.Message</code></td>
+      <td>- Le message à vérifier.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">this|false</code> - de EmoteMessage si elle correspond, sinon <code class="language-plaintext highlighter-rouge">false</code>.</p>
+
+<p>Gère l’ajout d’une réaction sur le message. Attribue le rôle correspondant à l’utilisateur si configuré.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">reaction</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.MessageReaction</code></td>
+      <td>- La réaction ajoutée.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">user</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.User</code></td>
+      <td>- L’utilisateur qui a réagi.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;boolean&gt;</code> - si le rôle a été géré, <code class="language-plaintext highlighter-rouge">false</code> sinon.</p>
+
+<p>Gère la suppression d’une réaction sur le message. Retire le rôle correspondant à l’utilisateur si configuré.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">reaction</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.MessageReaction</code></td>
+      <td>- La réaction retirée.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">user</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.User</code></td>
+      <td>- L’utilisateur dont la réaction a été retirée.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;boolean&gt;</code> - si le rôle a été géré, <code class="language-plaintext highlighter-rouge">false</code> sinon.</p>
+
+<p>Décode les URI des clés et des valeurs d’un objet provenant de la base de données. Utile pour les données qui ont été encodées pour le stockage.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">value</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- L’objet à décoder.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">object</code> - avec les clés et valeurs décodées.</p>
+
+<p>Encode les URI des clés et des valeurs d’un objet pour le stockage en base de données.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">value</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- L’objet à encoder.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">object</code> - avec les clés et valeurs encodées.</p>
+
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

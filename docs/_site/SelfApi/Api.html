@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Api</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">Api</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/">Accueil</a>
+            <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+            <a class="mdl-navigation__link" href="https://github.com/suissard/multibot" target="_blank">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+    <a class="mdl-navigation__link" href="/">Accueil</a>
+    <a class="mdl-navigation__link" href="/modules-list.html">Modules</a>
+    <a class="mdl-navigation__link" href="/commands-list.html">Commandes</a>
+    <a class="mdl-navigation__link" href="/classes-list.html">Classes</a>
+    <a class="mdl-navigation__link" href="/events-list.html">Events</a>
+    <div class="mdl-layout-spacer"></div>
+    <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+</nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="api"><code class="language-plaintext highlighter-rouge">Api</code></h1>
+
+<p>Class permettant de gerer l’API du bot</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">configs</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Object</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">discord</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Object</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">BOTS</code></td>
+      <td><code class="language-plaintext highlighter-rouge">BotManager</code></td>
+      <td>Instance de gestionnaire de bot</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">saltRounds</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Number</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Récupère l’instance du bot à partir de la requête.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">req</code></td>
+      <td><code class="language-plaintext highlighter-rouge">import('express').Request</code></td>
+      <td>- L’objet de la requête Express.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">import('../Class/Bot.js')</code> - du bot.</p>
+
+<p>Convertit le corps de la requête API en objets Discord.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">req</code></td>
+      <td><code class="language-plaintext highlighter-rouge">import('express').Request</code></td>
+      <td>- L’objet de la requête Express.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">command</code></td>
+      <td><code class="language-plaintext highlighter-rouge">import('../Class/Command.js')</code></td>
+      <td>- La commande à exécuter.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;object&gt;</code> - arguments transposés.</p>
+
+<p>Ajoute plusieurs utilisateurs à partir d’un tableau de configuration.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">users</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array&lt;{token: string, discordId: string}&gt;</code></td>
+      <td>- Un tableau d’objets utilisateur.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Ajoute un utilisateur et son token d’API au cache d’authentification. Le token est hashé avant d’être stocké.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">token</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Le token d’API brut de l’utilisateur.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">discordId</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- L’ID Discord de l’utilisateur.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Extrait le token Bearer d’une requête et retourne son hash.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">req</code></td>
+      <td><code class="language-plaintext highlighter-rouge">import('express').Request</code></td>
+      <td>- L’objet de la requête Express.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;string|false&gt;</code> - hash du token, ou <code class="language-plaintext highlighter-rouge">false</code> si aucun token n’est trouvé.</p>
+
+<p>Extrait le code d’autorisation Discord des paramètres de la requête.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">req</code></td>
+      <td><code class="language-plaintext highlighter-rouge">import('express').Request</code></td>
+      <td>- L’objet de la requête Express.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">string</code> - code d’autorisation.</p>
+
+<p>Génère un token d’API unique en utilisant UUID v4.</p>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">string</code> - token généré.</p>
+
+<p>Échange un code d’autorisation Discord contre un jeton d’accès.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">code</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Le code d’autorisation obtenu via OAuth2.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;string&gt;</code> - jeton d’accès de l’utilisateur.</p>
+
+<p>Récupère l’ID Discord d’un utilisateur en utilisant son jeton d’accès.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">token</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Le jeton d’accès OAuth2 de l’utilisateur.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;string&gt;</code> - Discord de l’utilisateur.</p>
+
+<p>TODO Creer un utilisateru dans le cache</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">req</code></td>
+      <td><code class="language-plaintext highlighter-rouge">*</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">res</code></td>
+      <td><code class="language-plaintext highlighter-rouge">*</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> `` -</p>
+
+<p>Gère l’authentification d’une requête API.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">req</code></td>
+      <td><code class="language-plaintext highlighter-rouge">import('express').Request</code></td>
+      <td>- L’objet de la requête Express.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">res</code></td>
+      <td><code class="language-plaintext highlighter-rouge">import('express').Response</code></td>
+      <td>- L’objet de la réponse Express.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;{bot: Bot, user: import('discord.js').User}&gt;</code> - du bot et de l’utilisateur.</p>
+
+<p>Extrait l’ID du bot des paramètres de la requête.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">req</code></td>
+      <td><code class="language-plaintext highlighter-rouge">import('express').Request</code></td>
+      <td>- L’objet de la requête Express.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">string</code> - du bot.</p>
+
+<p>Hashe une chaîne de caractères en utilisant le sel de l’instance.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">password</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- La chaîne à hasher.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;string&gt;</code> - hash résultant.</p>
+
+<p>Construit et retourne l’URL d’autorisation OAuth2 de Discord.</p>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">string</code> - d’autorisation.</p>
+
+<p>Remonte une donnée depuis un objet, en se basant sur une url</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Object</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">url</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">delStr</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Renvoie la documentation des route dipsonible de l’api</p>
+
+<p><strong>Returns:</strong> `` -</p>
+
+<p>Définit la route racine qui retourne la documentation</p>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Route</code> -</p>
+
+<p>Définit la route <code class="language-plaintext highlighter-rouge">/auth</code> pour la création d’utilisateur via le flux OAuth2.</p>
+
+<p>Paramétrer plusieur routes dans l’api</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">routes</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Enregistre une nouvelle route dans le routeur Express. Ajoute un wrapper pour gérer l’authentification et les erreurs de manière centralisée.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">path</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Le chemin de la route (ex: ‘/commands’).</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">method</code></td>
+      <td><code class="language-plaintext highlighter-rouge">'get'|'post'|'put'|'delete'</code></td>
+      <td>- La méthode HTTP.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">handler</code></td>
+      <td><code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>- La fonction de gestion de la route.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Initialise toutes les routes définies dans le répertoire <code class="language-plaintext highlighter-rouge">routes</code>.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">routesArg</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- Arguments supplémentaires à passer au créateur de routes.</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Architecture</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">Architecture</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/">Accueil</a>
+            <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+            <a class="mdl-navigation__link" href="https://github.com/suissard/multibot" target="_blank">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+    <a class="mdl-navigation__link" href="/">Accueil</a>
+    <a class="mdl-navigation__link" href="/modules-list.html">Modules</a>
+    <a class="mdl-navigation__link" href="/commands-list.html">Commandes</a>
+    <a class="mdl-navigation__link" href="/classes-list.html">Classes</a>
+    <a class="mdl-navigation__link" href="/events-list.html">Events</a>
+    <div class="mdl-layout-spacer"></div>
+    <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+</nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="architecture-du-projet">Architecture du Projet</h1>
+
+<p>Ce document décrit l’architecture de haut niveau du projet MultiBot. La compréhension de ces concepts est essentielle pour développer de nouvelles fonctionnalités.</p>
+
+<h2 id="concepts-fondamentaux">Concepts Fondamentaux</h2>
+
+<p>Le framework est construit autour de quelques classes et gestionnaires principaux qui interagissent pour faire fonctionner les bots.</p>
+
+<h3 id="botmanager-gestionnaire-de-bots"><code class="language-plaintext highlighter-rouge">BotManager</code> (Gestionnaire de Bots)</h3>
+
+<ul>
+  <li><strong>Fichier</strong> : <code class="language-plaintext highlighter-rouge">Class/BotManager.js</code> (instancié dans <code class="language-plaintext highlighter-rouge">Class/BOTS.js</code>)</li>
+  <li><strong>Rôle</strong> : C’est le cerveau de l’application. <code class="language-plaintext highlighter-rouge">BotManager</code> est une classe singleton qui gère l’ensemble des instances de bots.</li>
+  <li><strong>Responsabilités</strong> :
+    <ul>
+      <li>Initialiser et démarrer toutes les instances de <code class="language-plaintext highlighter-rouge">Bot</code> sur la base des données de configuration.</li>
+      <li>Charger l’ensemble des commandes (<code class="language-plaintext highlighter-rouge">CommandManager</code>) et des événements (<code class="language-plaintext highlighter-rouge">EventManager</code>) disponibles dans l’application.</li>
+      <li>Charger les <code class="language-plaintext highlighter-rouge">Modules</code> pour chaque bot qui les a activés.</li>
+      <li>Fournir des méthodes utilitaires pour gérer les bots (redémarrage, arrêt).</li>
+      <li>Lancer l’API interne (<code class="language-plaintext highlighter-rouge">SelfApi</code>).</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="bot-instance-de-bot"><code class="language-plaintext highlighter-rouge">Bot</code> (Instance de Bot)</h3>
+
+<ul>
+  <li><strong>Fichier</strong> : <code class="language-plaintext highlighter-rouge">Class/Bot.js</code></li>
+  <li><strong>Rôle</strong> : Représente une connexion unique à l’API Discord, c’est-à-dire un bot individuel.</li>
+  <li><strong>Responsabilités</strong> :
+    <ul>
+      <li>Hérite de la classe <code class="language-plaintext highlighter-rouge">Discord.Client</code> de <code class="language-plaintext highlighter-rouge">discord.js</code>.</li>
+      <li>Contient sa propre configuration : nom, token, préfixe, modules activés, permissions spécifiques, etc.</li>
+      <li>Maintient sa propre connexion à Discord et gère son état (en ligne, activité, etc.).</li>
+      <li>Fournit des méthodes de journalisation (<code class="language-plaintext highlighter-rouge">log</code>, <code class="language-plaintext highlighter-rouge">error</code>) préfixées par le nom du bot pour un débogage facile.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="commandmanager-et-eventmanager"><code class="language-plaintext highlighter-rouge">CommandManager</code> et <code class="language-plaintext highlighter-rouge">EventManager</code></h3>
+
+<ul>
+  <li><strong>Fichiers</strong> : <code class="language-plaintext highlighter-rouge">Class/CommandManager.js</code>, <code class="language-plaintext highlighter-rouge">Class/EventManager.js</code></li>
+  <li><strong>Rôle</strong> : Ces gestionnaires sont responsables du chargement et de la distribution des commandes et des événements.</li>
+  <li><strong>Fonctionnement</strong> :
+    <ul>
+      <li>Au démarrage, ils parcourent les dossiers <code class="language-plaintext highlighter-rouge">Commandes/</code> et <code class="language-plaintext highlighter-rouge">Events/</code> pour charger toutes les classes de commandes et d’événements disponibles.</li>
+      <li><code class="language-plaintext highlighter-rouge">CommandManager</code> est utilisé pour trouver et exécuter une commande lorsqu’elle est appelée (par interaction, message ou API).</li>
+      <li><code class="language-plaintext highlighter-rouge">EventManager</code> attache les écouteurs d’événements à chaque instance de <code class="language-plaintext highlighter-rouge">Bot</code>, en s’assurant que les bots réagissent aux événements Discord pertinents.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="cycle-de-vie-de-lapplication-démarrage">Cycle de Vie de l’Application (Démarrage)</h2>
+
+<p>Voici ce qui se passe lorsque vous exécutez <code class="language-plaintext highlighter-rouge">npm start</code> (<code class="language-plaintext highlighter-rouge">node main.js</code>) :</p>
+
+<ol>
+  <li><strong><code class="language-plaintext highlighter-rouge">main.js</code></strong> : Le point d’entrée de l’application est exécuté.</li>
+  <li><strong>Chargement de la configuration</strong> : Le mode (<code class="language-plaintext highlighter-rouge">DEV</code> ou <code class="language-plaintext highlighter-rouge">PROD</code>) est lu depuis <code class="language-plaintext highlighter-rouge">botMode.json</code>. Les données de configuration des bots sont chargées (soit depuis la base de données en mode <code class="language-plaintext highlighter-rouge">PROD</code>, soit depuis <code class="language-plaintext highlighter-rouge">configs.json</code> en mode <code class="language-plaintext highlighter-rouge">DEV</code>).</li>
+  <li><strong>Initialisation du <code class="language-plaintext highlighter-rouge">BotManager</code></strong> : <code class="language-plaintext highlighter-rouge">BOTS.start(botsData)</code> est appelé.</li>
+  <li><strong>Création des Bots</strong> : <code class="language-plaintext highlighter-rouge">BotManager</code> parcourt les données de configuration et crée une nouvelle instance de <code class="language-plaintext highlighter-rouge">Bot</code> pour chaque bot actif. Chaque bot se connecte à Discord.</li>
+  <li><strong>Chargement des Commandes/Événements</strong> : <code class="language-plaintext highlighter-rouge">BotManager</code> demande au <code class="language-plaintext highlighter-rouge">CommandManager</code> et à l’<code class="language-plaintext highlighter-rouge">EventManager</code> de charger toutes les commandes et tous les événements des dossiers <code class="language-plaintext highlighter-rouge">Commandes/</code> et <code class="language-plaintext highlighter-rouge">Events/</code>.</li>
+  <li><strong>Attachement des Événements</strong> : L’<code class="language-plaintext highlighter-rouge">EventManager</code> attache les écouteurs d’événements à chaque instance de <code class="language-plaintext highlighter-rouge">Bot</code>.</li>
+  <li><strong>Chargement des Modules</strong> : Pour chaque <code class="language-plaintext highlighter-rouge">Bot</code>, <code class="language-plaintext highlighter-rouge">BotManager</code> parcourt la liste des modules activés dans sa configuration. Il charge le code du module (depuis <code class="language-plaintext highlighter-rouge">Modules/&lt;nom-du-module&gt;/index.js</code>) et l’initialise en lui passant l’instance du <code class="language-plaintext highlighter-rouge">Bot</code>. Le module peut alors enregistrer ses propres commandes/événements ou démarrer sa propre logique.</li>
+  <li><strong>Prêt</strong> : À ce stade, tous les bots sont en ligne, les commandes sont enregistrées et les événements sont écoutés. L’application est pleinement opérationnelle.</li>
+</ol>
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

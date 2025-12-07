@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Système de Rôles par Réaction (EmoteMessage)</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">Système de Rôles par Réaction (EmoteMessage)</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/">Accueil</a>
+            <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+            <a class="mdl-navigation__link" href="https://github.com/suissard/multibot" target="_blank">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+    <a class="mdl-navigation__link" href="/">Accueil</a>
+    <a class="mdl-navigation__link" href="/modules-list.html">Modules</a>
+    <a class="mdl-navigation__link" href="/commands-list.html">Commandes</a>
+    <a class="mdl-navigation__link" href="/classes-list.html">Classes</a>
+    <a class="mdl-navigation__link" href="/events-list.html">Events</a>
+    <div class="mdl-layout-spacer"></div>
+    <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+</nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="système-de-rôles-par-réaction-emotemessage">Système de Rôles par Réaction (EmoteMessage)</h1>
+
+<p>Le système <code class="language-plaintext highlighter-rouge">EmoteMessage</code> est une fonctionnalité de base du bot qui permet aux utilisateurs d’obtenir ou de se retirer des rôles en réagissant à un message spécifique avec des émoticônes. Ce n’est pas un module activable, mais une fonctionnalité centrale gérée par le bot.</p>
+
+<h2 id="cas-dusage">Cas d’Usage</h2>
+
+<p>Cette fonctionnalité est idéale pour :</p>
+<ul>
+  <li>Permettre aux utilisateurs de choisir les notifications qu’ils souhaitent recevoir (par exemple, réagir avec 📢 pour le rôle “Annonces”).</li>
+  <li>Laisser les membres s’auto-attribuer des rôles liés à des jeux ou des centres d’intérêt.</li>
+  <li>Créer un message d’acceptation des règles où les utilisateurs doivent réagir pour accéder au reste du serveur.</li>
+</ul>
+
+<h2 id="comment-ça-fonctionne-">Comment ça fonctionne ?</h2>
+
+<ol>
+  <li><strong>Configuration</strong> : Un administrateur configure un <code class="language-plaintext highlighter-rouge">EmoteMessage</code> via une base de données (probablement Strapi). Cette configuration inclut :
+    <ul>
+      <li>L’ID du serveur (guild).</li>
+      <li>L’ID du salon (channel).</li>
+      <li>L’ID du message sur lequel les utilisateurs réagiront.</li>
+      <li>Un dictionnaire qui associe une émoticône (standard ou personnalisée) à un ID de rôle.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Initialisation</strong> : Au démarrage, le bot charge ces configurations. Il vérifie qu’il a accès au serveur, au salon et au message, puis il ajoute toutes les émoticônes configurées comme réactions sur le message cible.</p>
+  </li>
+  <li><strong>Gestion des Réactions</strong> :
+    <ul>
+      <li><strong>Ajout d’une réaction</strong> : Lorsqu’un utilisateur ajoute une réaction au message, le bot vérifie si cette émoticône est dans la configuration. Si c’est le cas, il attribue le rôle correspondant à l’utilisateur.</li>
+      <li><strong>Retrait d’une réaction</strong> : Si un utilisateur retire sa réaction, le bot lui retire le rôle correspondant.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Le bot envoie également un message privé à l’utilisateur pour l’informer que le rôle a été ajouté ou retiré.</p>
+
+<h2 id="configuration-requise">Configuration Requise</h2>
+
+<p>La configuration des <code class="language-plaintext highlighter-rouge">EmoteMessage</code> se fait en dehors du fichier <code class="language-plaintext highlighter-rouge">configs.json</code>, généralement dans une base de données externe connectée au bot. Chaque entrée doit contenir :</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">guild</code>: L’ID du serveur Discord.</li>
+  <li><code class="language-plaintext highlighter-rouge">channel</code>: L’ID du salon où se trouve le message.</li>
+  <li><code class="language-plaintext highlighter-rouge">message</code>: L’ID du message.</li>
+  <li><code class="language-plaintext highlighter-rouge">emotes</code>: Un objet où les clés sont les émoticônes (soit le caractère, soit l’ID de l’émoticône personnalisée) et les valeurs sont l’ID du rôle à attribuer, préfixé par <code class="language-plaintext highlighter-rouge">ROLE:</code>.</li>
+</ul>
+
+<p><strong>Exemple de structure de données :</strong></p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"guild"</span><span class="p">:</span><span class="w"> </span><span class="s2">"879413285455679528"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1022444927167778816"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1156554527188734023"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"emotes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"👍"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ROLE:1022443629383323709"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"🚀"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ROLE:1022443682572627998"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="points-techniques">Points Techniques</h2>
+
+<ul>
+  <li>La logique est gérée par la classe <code class="language-plaintext highlighter-rouge">EmoteMessage</code> (<code class="language-plaintext highlighter-rouge">Class/EmoteMessage.js</code>) et le manager <code class="language-plaintext highlighter-rouge">EmoteMessageManager</code> (<code class="language-plaintext highlighter-rouge">Class/EmoteMessageManager.js</code>).</li>
+  <li>Les événements <code class="language-plaintext highlighter-rouge">messageReactionAdd</code> et <code class="language-plaintext highlighter-rouge">messageReactionRemove</code> sont écoutés globalement par le bot pour déclencher cette fonctionnalité.</li>
+  <li>Il est crucial que le bot ait les permissions nécessaires pour voir le salon, lire l’historique des messages, ajouter des réactions et gérer les rôles. Si un rôle est plus élevé dans la hiérarchie que le rôle du bot, l’attribution échouera.</li>
+</ul>
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>
