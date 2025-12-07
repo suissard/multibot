@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>BotManager</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">BotManager</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/">Accueil</a>
+            <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+            <a class="mdl-navigation__link" href="https://github.com/suissard/multibot" target="_blank">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+    <a class="mdl-navigation__link" href="/">Accueil</a>
+    <a class="mdl-navigation__link" href="/modules-list.html">Modules</a>
+    <a class="mdl-navigation__link" href="/commands-list.html">Commandes</a>
+    <a class="mdl-navigation__link" href="/classes-list.html">Classes</a>
+    <a class="mdl-navigation__link" href="/events-list.html">Events</a>
+    <div class="mdl-layout-spacer"></div>
+    <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+</nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="botmanager"><code class="language-plaintext highlighter-rouge">BotManager</code></h1>
+
+<p>Configure les gestionnaires de commandes, événements, et messages d’émote.</p>
+
+<p>Émetteur d’événements pour gérer les événements globaux du BotManager.</p>
+
+<p>Gestionnaire de commandes pour l’ensemble des bots, gère les commandes et leur exécution.</p>
+
+<p>Gestionnaire d’événements, initialisé avec une référence au BotManager. Configure les événements pour chaque bot.</p>
+
+<p>Gestionnaire des messages d’émotes, permettant de configurer les réponses d’émote pour chaque bot. Initialisé avec une référence au BotManager.</p>
+
+<p>Initialise et démarre tous les bots. Cette fonction crée toutes les instances de bot, configure les commandes et les événements, puis charge les modules associés à chaque bot.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">botsData</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Map&lt;string, object&gt;</code></td>
+      <td>- Une map contenant les données de configuration de chaque bot.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Détermine le bot “maître” pour une ressource Discord donnée, en priorité celui dont le “home” correspond au serveur.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">guildId</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- L’ID du serveur.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">channelId</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- L’ID du salon.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">messageId</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- L’ID du message.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;{bot: Bot, guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}|undefined&gt;</code> - de données d’accès du bot maître, ou undefined si aucun bot n’a accès.</p>
+
+<p>Charge les modules pour tout les bots</p>
+
+<p><strong>Returns:</strong> `` -</p>
+
+<p>Charge un module pour un bot définit</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">bot</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Bot</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">module</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Object || Boolean</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Crée et enregistre une nouvelle instance de bot.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- Données de configuration pour le bot.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">BOTS</code></td>
+      <td><code class="language-plaintext highlighter-rouge">BotManager</code></td>
+      <td>- L’instance du gestionnaire de bots.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Bot</code> - du bot créé.</p>
+
+<p>Crée toutes les instances de bot à partir de leurs données de configuration. Seuls les bots marqués comme “actifs” sont créés.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">botsData</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Map&lt;string, object&gt;</code></td>
+      <td>- Une map contenant les données de configuration de chaque bot.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Arrete le bot indiqué par l’identifiant</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td>Identifiant de bot</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Redemarre le bot indiqué par l’identifiant</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td>Identifiant de bot</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Permettre l’usage a l’intégralité des bots, d’un evenement ou d’une commande</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Command || Event</code></td>
+      <td>une class heritant des commands ou des events</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">bot</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Bot</code></td>
+      <td>instance de bot auquel rattaché l’evenement (si undefined, tout les bots )</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Vérifie quels bots ont accès à une ressource Discord spécifique.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">guildId</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- L’ID du serveur.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">channelId</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- L’ID du salon.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">messageId</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- L’ID du message.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;Array&lt;{bot: Bot, guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}&gt;&gt;</code> - tableau d’objets contenant le bot et les ressources accessibles.</p>
+
+<p>Lance l’api du gestionnaire de bot</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">configs</code></td>
+      <td><code class="language-plaintext highlighter-rouge">configs</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">discord</code></td>
+      <td><code class="language-plaintext highlighter-rouge">configs</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">saltRounds</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Number</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Met la référence et le contenu au bon format</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">content</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String || Error</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">reference</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> `` -</p>
+
+<p>Diffuse un log</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">content</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">reference</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Diffuse une erreur</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">content</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String || Error</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">reference</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

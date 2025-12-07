@@ -17,3 +17,16 @@ Ce module est responsable de la gestion automatisée des salons de match. Il uti
 
 Une fois le bot prêt, ce gestionnaire configure et lance la tâche planifiée pour la gestion automatique des salons.
 
+## Commandes du Module
+
+* [addUserToChannel](./commands/addUserToChannel.html)
+* [autoChannelCommand](./commands/autoChannelCommand.html)
+* [createMatchCommand](./commands/createMatchCommand.html)
+* [notifyMatchCommand](./commands/notifyMatchCommand.html)
+* [removeUserFromChannel](./commands/removeUserFromChannel.html)
+* [washMatchCommand](./commands/washMatchCommand.html)
+
+## Événements du Module
+
+* [NewGuildMember](./events/NewGuildMember.html)
+

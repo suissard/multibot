@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>test</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">test</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/">Accueil</a>
+            <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+            <a class="mdl-navigation__link" href="https://github.com/suissard/multibot" target="_blank">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+    <a class="mdl-navigation__link" href="/">Accueil</a>
+    <a class="mdl-navigation__link" href="/modules-list.html">Modules</a>
+    <a class="mdl-navigation__link" href="/commands-list.html">Commandes</a>
+    <a class="mdl-navigation__link" href="/classes-list.html">Classes</a>
+    <a class="mdl-navigation__link" href="/events-list.html">Events</a>
+    <div class="mdl-layout-spacer"></div>
+    <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+</nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="test"><code class="language-plaintext highlighter-rouge">test</code></h1>
+
+<p>Test une commande ou serie de commandes</p>
+
+<h2 id="narrative">Narrative</h2>
+
+<ul>
+  <li>Cette commande est un outil de développement conçu pour tester la manière dont le bot reçoit et interprète différents types d’arguments de commandes slash.</li>
+  <li>
+    <p>Elle accepte une large gamme de types d’arguments : texte, entier, booléen, utilisateur, salon, rôle, mention, et pièce jointe.</p>
+  </li>
+  <li><strong>Fonctionnement :</strong>
+    <ol>
+      <li>Lorsqu’elle est exécutée, la commande reçoit un objet `args` contenant toutes les valeurs des arguments fournis par l’utilisateur.</li>
+      <li>Elle convertit cet objet `args` en une chaîne de caractères au format JSON.</li>
+      <li>Elle retourne une réponse qui inclut le texte “test OK” suivi de la chaîne JSON des arguments, formatée dans un bloc de code pour une lecture facile.</li>
+      <li>Cela permet à un développeur de vérifier rapidement que tous les types de données sont correctement reçus et formatés.</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="arguments">Arguments</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><code class="language-plaintext highlighter-rouge">STRING</code></td>
+      <td>un texte</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">integer</code></td>
+      <td><code class="language-plaintext highlighter-rouge">INTEGER</code></td>
+      <td>un chiffre</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td><code class="language-plaintext highlighter-rouge">BOOLEAN</code></td>
+      <td>un boolean</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">user</code></td>
+      <td><code class="language-plaintext highlighter-rouge">USER</code></td>
+      <td>un utilisateur</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">channel</code></td>
+      <td><code class="language-plaintext highlighter-rouge">CHANNEL</code></td>
+      <td>un channel</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">role</code></td>
+      <td><code class="language-plaintext highlighter-rouge">ROLE</code></td>
+      <td>un role</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">mentionable</code></td>
+      <td><code class="language-plaintext highlighter-rouge">MENTIONABLE</code></td>
+      <td>une mention</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">attachement</code></td>
+      <td><code class="language-plaintext highlighter-rouge">ATTACHMENT</code></td>
+      <td>une piece jointe</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Exécute la commande de test. Cette commande est conçue pour tester la réception de différents types d’arguments. Elle retourne les arguments reçus sous forme de chaîne JSON.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- Les arguments de la commande.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;string&gt;</code> - chaîne de caractères contenant “test OK” et les arguments en format JSON.</p>
+
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

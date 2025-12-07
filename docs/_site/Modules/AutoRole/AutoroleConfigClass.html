@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>AutoroleConfigClass</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">AutoroleConfigClass</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/">Accueil</a>
+            <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+            <a class="mdl-navigation__link" href="https://github.com/suissard/multibot" target="_blank">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+    <a class="mdl-navigation__link" href="/">Accueil</a>
+    <a class="mdl-navigation__link" href="/modules-list.html">Modules</a>
+    <a class="mdl-navigation__link" href="/commands-list.html">Commandes</a>
+    <a class="mdl-navigation__link" href="/classes-list.html">Classes</a>
+    <a class="mdl-navigation__link" href="/events-list.html">Events</a>
+    <div class="mdl-layout-spacer"></div>
+    <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+</nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="autoroleconfigclass"><code class="language-plaintext highlighter-rouge">AutoroleConfigClass</code></h1>
+
+<h2 id="class">Class:</h2>
+
+<p>Represents an authentication object.</p>
+
+<p>The authentication token.</p>
+
+<p>The validity period of the token.</p>
+
+<p>Creates an instance of Auth.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">token</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- The authentication token.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">validity</code></td>
+      <td><code class="language-plaintext highlighter-rouge">number</code></td>
+      <td>- The validity period of the token.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="class-1">Class:</h2>
+
+<p>Represents a Guild ID with an associated challenge ID.</p>
+
+<p>The ID of the guild.</p>
+
+<p>The challenge ID associated with the guild.</p>
+
+<p>Creates an instance of GuildIdChallenge.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- The ID of the guild.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">challengeID</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- The challenge ID.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="class-2">Class:</h2>
+
+<p>Represents a parameter for the AutoRole configuration.</p>
+
+<p>An array of guild IDs and their challenge IDs.</p>
+
+<p>The authentication details.</p>
+
+<p>The cron schedule string.</p>
+
+<p>The domain.</p>
+
+<p>The organization.</p>
+
+<p>Creates an instance of Param.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">paramData</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- The raw parameter data from JSON.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">paramData.guildIds</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array&lt;{id: string, challengeID: string}&gt;</code></td>
+      <td>- Guild ID and challenge ID pairs.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">paramData.auth</code></td>
+      <td><code class="language-plaintext highlighter-rouge">{token: string, validity: number}</code></td>
+      <td>- Authentication data.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">paramData.cronSchedule</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Cron schedule.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">paramData.domain</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Domain.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">paramData.organization</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Organization.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="class-3">Class:</h2>
+
+<p>Represents details of a special role.</p>
+
+<p>The name of the special role.</p>
+
+<p>The ID of the special role.</p>
+
+<p>Whether the role allows renaming.</p>
+
+<p>Whether renaming has priority.</p>
+
+<p>Creates an instance of SpecialRoleDetail.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- The name of the role.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- The ID of the role.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">rename</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td>- Allows renaming.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">priorityRename</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td>- Renaming has priority.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="class-4">Class:</h2>
+
+<p>Represents information about a role.</p>
+
+<p>The name of the role.</p>
+
+<p>The ID of the role, can be null.</p>
+
+<p>Creates an instance of RoleInfo.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- The name of the role.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">?string</code></td>
+      <td>- The ID of the role.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="class-5">Class:</h2>
+
+<p>Represents a mapping between a list of source roles and a target RoleInfo. This is a tuple-like structure [string[], RoleInfo].</p>
+
+<p>An array of source role names.</p>
+
+<p>The target role information.</p>
+
+<p>Creates an instance of RoleMapping.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sourceRoles</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string[]</code></td>
+      <td>- Array of source role names.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">targetRole</code></td>
+      <td><code class="language-plaintext highlighter-rouge">RoleInfo</code></td>
+      <td>- Target role information.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="class-6">Class:</h2>
+
+<p>Represents a division.</p>
+
+<p>The name of the division.</p>
+
+<p>The ID of the division, can be null.</p>
+
+<p>Creates an instance of Division.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- The name of the division.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">?string</code></td>
+      <td>- The ID of the division.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="class-7">Class:</h2>
+
+<p>Represents tags including game roles.</p>
+
+<p>Mappings for game roles.</p>
+
+<p>Creates an instance of Tags.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tagsData</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- The raw tags data from JSON.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tagsData.gameRoles</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array&lt;[string[], {name: string, id: ?string}]&gt;</code></td>
+      <td>- Game roles mappings.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tagsData.divisions</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array&lt;{name: string, id: ?string}&gt;</code></td>
+      <td>- Divisions.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="class-8">Class:</h2>
+
+<p>Represents divisions.</p>
+
+<p>An array of divisions.</p>
+
+<p>Creates an instance of Tags.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tagsData</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- The raw tags data from JSON.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tagsData.gameRoles</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array&lt;[string[], {name: string, id: ?string}]&gt;</code></td>
+      <td>- Game roles mappings.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tagsData.divisions</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array&lt;{name: string, id: ?string}&gt;</code></td>
+      <td>- Divisions.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="class-9">Class:</h2>
+
+<p>Represents details for a specific guild.</p>
+
+<p>A record of special roles.</p>
+
+<p>An array of role mappings.</p>
+
+<p>Tags for the guild.</p>
+
+<p>Creates an instance of GuildDetail.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">guildData</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- The raw guild data from JSON.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">guildData.specialRoles</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Record&lt;string, {name: string, id: string, rename: boolean, priorityRename: boolean}&gt;</code></td>
+      <td>- Special roles.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">guildData.roles</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array&lt;[string[], {name: string, id: ?string}]&gt;</code></td>
+      <td>- Role mappings.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">guildData.tags</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- Tags data.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="class-10">Class:</h2>
+
+<p>Represents roles for a specific competition.</p>
+
+<p>Role IDs for ‘club’ category, keyed by division name or ‘ALL’.</p>
+
+<p>Role IDs for ‘coach’ category, keyed by division name.</p>
+
+<p>Role IDs for ‘player’ category, keyed by division name.</p>
+
+<p>Role IDs for ‘manager’ category, keyed by division name.</p>
+
+<p>Creates an instance of CompetitionRoles.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">competitionData</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- The raw competition roles data from JSON.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">competitionData.club</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Record&lt;string, string&gt;</code></td>
+      <td>- Club roles.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">competitionData.coach</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Record&lt;string, string&gt;</code></td>
+      <td>- Coach roles.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">competitionData.player</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Record&lt;string, string&gt;</code></td>
+      <td>- Player roles.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">competitionData.manager</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Record&lt;string, string&gt;</code></td>
+      <td>- Manager roles.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="class-11">Class:</h2>
+
+<p>Represents the structure for role IDs, including general and competition-specific roles.</p>
+
+<p>Default role ID for ‘ALL’.</p>
+
+<p>Role ID for ‘captain’.</p>
+
+<p>A record of competition-specific roles, keyed by competition ID.</p>
+
+<p>Creates an instance of RoleIds.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">roleIdsData</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- The raw role IDs data from JSON.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">roleIdsData.ALL</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- ‘ALL’ role ID.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">roleIdsData.captain</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- ‘captain’ role ID.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">roleIdsData.competitions</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Record&lt;string, object&gt;</code></td>
+      <td>- Competition roles data.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="class-12">Class:</h2>
+
+<p>Represents Olympe authentication details.</p>
+
+<p>The authentication value.</p>
+
+<p>Creates an instance of OlympeAuth.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">value</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- The authentication value.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="class-13">Class:</h2>
+
+<p>Main class for the AutoRole configuration. 🤖</p>
+
+<p>An array of parameters.</p>
+
+<p>A record of guild details, keyed by guild ID.</p>
+
+<p>An array of organization role IDs.</p>
+
+<p>The structure for role IDs.</p>
+
+<p>Olympe authentication details.</p>
+
+<p>Interval in hours for a recurring task.</p>
+
+<p>The Olympe domain.</p>
+
+<p>The organization identifier.</p>
+
+<p>The organization identifier.</p>
+
+<p>Creates an instance of AutoRoleConfig.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jsonData</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- The raw JSON data for AutoRole configuration.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jsonData.params</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array&lt;object&gt;</code></td>
+      <td>- Parameters data.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jsonData.guilds</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Record&lt;string, object&gt;</code></td>
+      <td>- Guilds data.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jsonData.orgaRoleIds</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string[]</code></td>
+      <td>- Organization role IDs.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jsonData.roleIds</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- Role IDs data.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jsonData.olympeAuth</code></td>
+      <td><code class="language-plaintext highlighter-rouge">{value: string}</code></td>
+      <td>- Olympe authentication data.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jsonData.everyXhours</code></td>
+      <td><code class="language-plaintext highlighter-rouge">number</code></td>
+      <td>- Interval in hours.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jsonData.olympeDomain</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Olympe domain.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jsonData.organization</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Organization identifier.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">bot</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Bot</code></td>
+      <td>- bot discord</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Retrieves all unique role identifiers (ID or name) from the configuration. C’est comme une chasse au trésor pour les identifiants de rôles (ID ou nom) ! 🗺️💎🏷️</p>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Array&lt;({id: string} | {name: string})&gt;</code> - array of unique role identifier objects.</p>
+
+<p>Supprime les paramètres de configuration liés à un ID de guilde spécifique.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">guildId</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- L’ID de la guilde à supprimer de la configuration.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Vérifie l’accessibilité de toutes les guildes configurées. Si une guilde n’est pas accessible, elle est retirée de la configuration.</p>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Array&lt;import('discord.js').Guild&gt;</code> - liste des objets Guild accessibles.</p>
+
+<p>Itère sur toutes les guildes configurées et lance le processus de récupération ou de création des rôles pour chacune d’entre elles.</p>
+
+<p>Fetches or creates Discord roles based on the provided identifiers. C’est notre majordome Discord, il trouve ou crée les rôles pour nous ! 🤵‍♂️✨</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">identifiers</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array&lt;({id: string} | {name: string})&gt;</code></td>
+      <td>- An array of role identifiers from getAllRoleIdentifiers().</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">guild</code></td>
+      <td><code class="language-plaintext highlighter-rouge">import('discord.js').Guild</code></td>
+      <td>- The discord.js Guild object.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">options</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- Options for role creation.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">options.creationReason</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Reason for role creation.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;Array&lt;import('discord.js').Role|null&gt;&gt;</code> - promise that resolves to an array of Role objects or null if a role couldn’t be fetched/created.</p>
+
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

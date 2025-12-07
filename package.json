@@ -25,7 +25,8 @@
 	"scripts": {
 		"test": "vitest",
 		"start": "node main.js",
-		"coverage": "vitest run --coverage"
+		"coverage": "vitest run --coverage",
+		"docs:serve": "bash serve_docs.sh"
 	},
 	"repository": {
 		"type": "git",

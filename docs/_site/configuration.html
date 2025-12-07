@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Configuration</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">Configuration</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/">Accueil</a>
+            <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+            <a class="mdl-navigation__link" href="https://github.com/suissard/multibot" target="_blank">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+    <a class="mdl-navigation__link" href="/">Accueil</a>
+    <a class="mdl-navigation__link" href="/modules-list.html">Modules</a>
+    <a class="mdl-navigation__link" href="/commands-list.html">Commandes</a>
+    <a class="mdl-navigation__link" href="/classes-list.html">Classes</a>
+    <a class="mdl-navigation__link" href="/events-list.html">Events</a>
+    <div class="mdl-layout-spacer"></div>
+    <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+</nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="configuration-des-bots">Configuration des Bots</h1>
+
+<p>Ce document détaille comment configurer les instances de bot, que ce soit pour le développement local ou pour la production.</p>
+
+<h2 id="mode-de-fonctionnement-botmodejson">Mode de Fonctionnement (<code class="language-plaintext highlighter-rouge">botMode.json</code>)</h2>
+
+<p>À la racine du projet se trouve un fichier <code class="language-plaintext highlighter-rouge">botMode.json</code>. Ce fichier contient une seule chaîne de caractères qui détermine le mode de fonctionnement du bot :</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">"PROD"</code> : Mode de production. Les configurations des bots sont chargées depuis la base de données.</li>
+  <li><code class="language-plaintext highlighter-rouge">"DEV"</code> : Mode de développement. Les configurations sont chargées depuis le fichier <code class="language-plaintext highlighter-rouge">configs.json</code> local.</li>
+</ul>
+
+<p><strong>Exemple de <code class="language-plaintext highlighter-rouge">botMode.json</code> :</strong></p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"DEV"</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="fichier-de-configuration-de-développement-configsjson">Fichier de Configuration de Développement (<code class="language-plaintext highlighter-rouge">configs.json</code>)</h2>
+
+<p>Lorsque le bot est en mode <code class="language-plaintext highlighter-rouge">"DEV"</code>, il utilise le fichier <code class="language-plaintext highlighter-rouge">configs.json</code> à la racine pour charger les configurations. Ce fichier n’est généralement pas suivi par git, vous devrez peut-être le créer à partir d’un exemple.</p>
+
+<p>Ce fichier contient un tableau <code class="language-plaintext highlighter-rouge">botsData</code>, où chaque objet représente la configuration d’un bot.</p>
+
+<p><strong>Exemple de <code class="language-plaintext highlighter-rouge">configs.json</code> :</strong></p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"botsData"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VOTRE_TOKEN_DE_BOT_DISCORD_ICI"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MonBotDeTest"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"activity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Joue à être développé"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"ownerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VOTRE_ID_UTILISATEUR_DISCORD"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"home"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ID_DU_SERVEUR_DISCORD_PRINCIPAL"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"prefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"!"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"devMode"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"admin"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"AUTRE_ID_ADMIN_SI_BESOIN"</span><span class="p">],</span><span class="w">
+            </span><span class="nl">"modules"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"AutoRole"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"everyXhours"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"guilds"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"ID_DU_SERVEUR_DISCORD_PRINCIPAL"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"teamSheetUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"URL_FEUILLE_DE_CALCUL_EQUIPES"</span><span class="w">
+                        </span><span class="p">}</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"unauthorizedEvents"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="nl">"unauthorizedCommands"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="nl">"commandInDev"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="structure-de-lobjet-de-configuration-dun-bot-botdata">Structure de l’Objet de Configuration d’un Bot (<code class="language-plaintext highlighter-rouge">botData</code>)</h2>
+
+<p>Chaque bot est configuré par un objet avec les propriétés suivantes :</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> (String) : Un identifiant unique pour le bot (peut être un simple numéro en dev).</li>
+  <li><code class="language-plaintext highlighter-rouge">active</code> (Boolean) : Si <code class="language-plaintext highlighter-rouge">true</code>, le bot sera démarré. Si <code class="language-plaintext highlighter-rouge">false</code>, il sera ignoré.</li>
+  <li><code class="language-plaintext highlighter-rouge">token</code> (String) : Le token d’authentification du bot fourni par le portail des développeurs Discord. <strong>C’est la clé la plus sensible.</strong></li>
+  <li><code class="language-plaintext highlighter-rouge">name</code> (String) : Le nom du bot, utilisé principalement pour les logs.</li>
+  <li><code class="language-plaintext highlighter-rouge">activity</code> (String) : Le texte d’activité qui apparaît sous le nom du bot dans Discord (par exemple, “Joue à…”).</li>
+  <li><code class="language-plaintext highlighter-rouge">ownerId</code> (String) : L’ID utilisateur Discord du propriétaire du bot. Cette personne a tous les droits sur le bot.</li>
+  <li><code class="language-plaintext highlighter-rouge">home</code> (String) : L’ID du serveur (guild) Discord principal du bot. Requis pour les commandes <code class="language-plaintext highlighter-rouge">home: true</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">prefix</code> (String) : Le préfixe pour les anciennes commandes basées sur les messages (aujourd’hui, les commandes slash sont privilégiées).</li>
+  <li><code class="language-plaintext highlighter-rouge">devMode</code> (Boolean) : Un indicateur pour le mode développement (actuellement peu utilisé, mais requis).</li>
+  <li><code class="language-plaintext highlighter-rouge">admin</code> (Array<String>) : Une liste d'ID utilisateurs Discord qui ont des privilèges d'administrateur sur le bot (le `ownerId` est automatiquement ajouté).</String></li>
+  <li><code class="language-plaintext highlighter-rouge">modules</code> (Object) : Un objet pour activer et configurer les modules pour ce bot.
+    <ul>
+      <li>La clé est le nom du module (nom du dossier dans <code class="language-plaintext highlighter-rouge">Modules/</code>).</li>
+      <li>La valeur est soit <code class="language-plaintext highlighter-rouge">true</code> pour l’activer avec sa configuration par défaut, soit un objet de configuration spécifique au module. Si un module n’est pas listé ou si sa valeur est <code class="language-plaintext highlighter-rouge">false</code>, il ne sera pas chargé pour ce bot.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">unauthorizedEvents</code> (Array<String>) : Une liste d'ID d'événements (ceux définis dans les classes `Event`) que ce bot ne doit pas écouter.</String></li>
+  <li><code class="language-plaintext highlighter-rouge">unauthorizedCommands</code> (Array<String>) : Une liste d'ID de commandes que ce bot ne doit pas exécuter.</String></li>
+  <li><code class="language-plaintext highlighter-rouge">commandInDev</code> (Array<String>) : (Usage en développement) Liste des commandes à instancier spécifiquement. Laisser vide (`[]`) en général.</String></li>
+</ul>
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>setteam</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">setteam</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/">Accueil</a>
+            <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+            <a class="mdl-navigation__link" href="https://github.com/suissard/multibot" target="_blank">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+    <a class="mdl-navigation__link" href="/">Accueil</a>
+    <a class="mdl-navigation__link" href="/modules-list.html">Modules</a>
+    <a class="mdl-navigation__link" href="/commands-list.html">Commandes</a>
+    <a class="mdl-navigation__link" href="/classes-list.html">Classes</a>
+    <a class="mdl-navigation__link" href="/events-list.html">Events</a>
+    <div class="mdl-layout-spacer"></div>
+    <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+</nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="setteam"><code class="language-plaintext highlighter-rouge">setteam</code></h1>
+
+<h2 id="narrative">Narrative</h2>
+
+<ul>
+  <li>Cette commande permet de créer une nouvelle équipe sur le serveur.</li>
+  <li>
+    <p>Elle nécessite la permission “Gérer les rôles” (`ManageRoles`).</p>
+  </li>
+  <li><strong>Arguments requis :</strong>
+    <ul>
+      <li>`teamname` : Le nom de la nouvelle équipe.</li>
+      <li>`btag` : Le BattleTag du capitaine.</li>
+      <li>`capitaine` : La mention de l’utilisateur qui sera le capitaine.</li>
+      <li>`elo` : Le niveau de classement (elo) de l’équipe.</li>
+    </ul>
+  </li>
+  <li><strong>Processus de création :</strong>
+    <ol>
+      <li>La commande commence par envoyer un message temporaire “Team en cours d’ajout…”.</li>
+      <li>Elle crée un nouveau rôle pour l’équipe, dont le nom est formaté (par exemple, “Team [NomDeLequipe]”).</li>
+      <li>Elle recherche le rôle “🎉 Capitaine”. Si ce rôle n’existe pas, il est créé.</li>
+      <li>Elle crée un nouveau salon textuel privé pour l’équipe. Seuls les membres ayant le rôle de l’équipe peuvent y accéder.</li>
+      <li>Elle assigne le rôle de l’équipe et le rôle “🎉 Capitaine” à l’utilisateur désigné comme capitaine.</li>
+      <li>Elle enregistre les informations de l’équipe (nom, capitaine, elo, btag) dans une base de données ou un système de stockage.</li>
+      <li>Une fois toutes les opérations terminées, elle envoie un message “embed” final pour confirmer la création de l’équipe avec tous ses détails.</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="arguments">Arguments</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">teamname</code></td>
+      <td><code class="language-plaintext highlighter-rouge">STRING</code></td>
+      <td>Nom de la team</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">btag</code></td>
+      <td><code class="language-plaintext highlighter-rouge">STRING</code></td>
+      <td>Btag Du capitaine</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">capitaine</code></td>
+      <td><code class="language-plaintext highlighter-rouge">USER</code></td>
+      <td>Capitaine de la team</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">elo</code></td>
+      <td><code class="language-plaintext highlighter-rouge">STRING</code></td>
+      <td>Rank de la team</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Exécute la commande de création d’équipe. Lance le processus de création de rôle et de salon, puis envoie un message de confirmation.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- Les arguments de la commande.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args.teamname</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Le nom de l’équipe.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args.capitaine</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- L’ID de l’utilisateur capitaine.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args.elo</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- L’elo de l’équipe.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args.btag</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Le BattleTag du capitaine.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">string</code> - message indiquant que la création est en cours.</p>
+
+<p>Récupère ou crée les rôles nécessaires pour l’équipe. Crée un rôle spécifique pour l’équipe et trouve le rôle de “Capitaine”.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- Les arguments de la commande, principalement <code class="language-plaintext highlighter-rouge">args.teamname</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;{roleteam: import('discord.js').Role, rolecap: import('discord.js').Role}&gt;</code> - objet contenant le rôle de l’équipe et le rôle de capitaine.</p>
+
+<p>Crée le salon de l’équipe, assigne les rôles au capitaine et enregistre les données de l’équipe.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- Les arguments de la commande.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">roleteam</code></td>
+      <td><code class="language-plaintext highlighter-rouge">import('discord.js').Role</code></td>
+      <td>- Le rôle de l’équipe.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">rolecap</code></td>
+      <td><code class="language-plaintext highlighter-rouge">import('discord.js').Role</code></td>
+      <td>- Le rôle de capitaine.</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

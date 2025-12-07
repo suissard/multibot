@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Command</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">Command</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/">Accueil</a>
+            <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+            <a class="mdl-navigation__link" href="https://github.com/suissard/multibot" target="_blank">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+    <a class="mdl-navigation__link" href="/">Accueil</a>
+    <a class="mdl-navigation__link" href="/modules-list.html">Modules</a>
+    <a class="mdl-navigation__link" href="/commands-list.html">Commandes</a>
+    <a class="mdl-navigation__link" href="/classes-list.html">Classes</a>
+    <a class="mdl-navigation__link" href="/events-list.html">Events</a>
+    <div class="mdl-layout-spacer"></div>
+    <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+</nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="command"><code class="language-plaintext highlighter-rouge">Command</code></h1>
+
+<p>Instance du bot Discord qui initie la commande.</p>
+
+<p>Serveur (guild) où la commande est exécutée. Défini lors de l’exécution, peut être <code class="language-plaintext highlighter-rouge">undefined</code> si la commande est utilisée en message privé.</p>
+
+<p>Canal où la commande est exécutée. Défini lors de l’exécution, contient le canal texte de la commande.</p>
+
+<p>Utilisateur discord qui a exécuté la commande. Défini lors de l’exécution, contient les informations de l’utilisateur émetteur.</p>
+
+<p>Utilisateur au format GuildMember, en fonction du serveur ayant exécuté la commande. Défini si la commande est utilisée dans un serveur, peut être <code class="language-plaintext highlighter-rouge">undefined</code> en message privé.</p>
+
+<p>Indique si la commande est en phase de test. Utilisé pour activer certaines conditions spécifiques de test.</p>
+
+<p>Identifiant unique de la commande.</p>
+
+<p>Indique si la commande est réservée à l’administrateur principal (devBoss).</p>
+
+<p>Identifiant du serveur de base (home) pour la commande. Utilisé pour limiter l’exécution de la commande à un serveur spécifique.</p>
+
+<p>Permissions nécessaires pour que l’utilisateur puisse exécuter la commande. Tableau des permissions Discord requises.</p>
+
+<p>Permissions nécessaires pour que le bot puisse exécuter la commande. Tableau des permissions Discord requises.</p>
+
+<p>Description de la commande, utilisée pour afficher des informations aux utilisateurs.</p>
+
+<p>! Variable deprécié avec l’instauration des interactions Est ce qeu la commande apparait dans la commande help. Contient des instructions ou des conseils.</p>
+
+<p>Instructions sur la façon d’utiliser la commande. Donne des exemples d’utilisation ou des arguments acceptés.</p>
+
+<p>Quel element pour tester cette commande via la fonction “testProcess”</p>
+
+<p>Liste des arguments pour exécuter la commande.</p>
+
+<p>Renvoie un object compactible avec la base de donnée strapi</p>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Object</code> -</p>
+
+<p>Methode de lancement de la commande via un message</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">message</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.Message</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Methode de lancement de la commande via une interaction</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">interaction</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.Interaction</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Methode de lancement de la commande via l’api</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">req</code></td>
+      <td><code class="language-plaintext highlighter-rouge">*</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">res</code></td>
+      <td><code class="language-plaintext highlighter-rouge">*</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">user</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Object</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> `` -</p>
+
+<p>Function lancé par handleMessage, handleApiRequest et handleInteraction</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Object</code></td>
+      <td>Argument de la méthode au format objet {name:value}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Définit les elements pour communiquer avec l’utilisateur</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">guild</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.Guild</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">channel</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.Channel</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">user</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.User</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">member</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.GuildMember</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Verification des permissions pour l’usage de la commande</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">member</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.GuildMember</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">guild</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.Guild</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> `` -</p>
+
+<p>Enregistre les données de log TODO adapter pour une provenance depuis l’api</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">message</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.Message</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> `` -</p>
+
+<p>Fonction de retour à l’utilisateur ayant instancié la commande</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td>Donnée a envoyer a l’utilisateur</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Discord.Message</code> - la promesse d’un message discord</p>
+
+<p>Affiche un message se mettant a jour en fonction de l’avancée de la commande</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">liste</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">mapFunction</code></td>
+      <td><code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>Fonction a utiliser sur chaque entrée du Array fournit</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">errorFunc</code></td>
+      <td><code class="language-plaintext highlighter-rouge">function</code></td>
+      <td>Fonction a utiliser sur les erreurs</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>receptionne les erreurs issue de la commande</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">error</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Error</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">noSend</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td>Envoie ou pas l’erreur a l’utilisateur</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Demande confirmation par une emote, de continuer la commande TODO ! Possibilité d’uiliser le systeme de bouton discord</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">message</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Discord.Message</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">texte</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Protocole de test de la commande afin de s’assurer de son bon fonctionnement</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">botID</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">userID</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">channelID</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> `` -</p>
+
+<p>Permet l’integration d’une commande au format interaction (aide a l’utilisateur , definition, arguments, préremplissage et…)</p>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Discord.SlashCommandBuilder</code> -</p>
+
+<p>Enrichi une slash command avec les options de la commande</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">slashCommand</code></td>
+      <td><code class="language-plaintext highlighter-rouge">SlashCommandBuilder</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">option</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Object</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">option.type:</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td>SUB_COMMAND, SUB_COMMAND_GROUP, STRING, INTEGER, NUMBER, BOOLEAN, USER, CHANNEL, ROLE, MENTIONABLE</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">option.name:</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td>Nom de l’option</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">option.description:</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td>Description de l’option</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">option.required:</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Boolean</code></td>
+      <td>Si l’option est requise ou non</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">option.choices:</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array</code></td>
+      <td>Choix possible pour l’option =&gt; {name: “”, value: “”}</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">option.autocomplete:</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Boolean</code></td>
+      <td>Si l’option peut être complétée automatiquement</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">option.channelTypes:</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array</code></td>
+      <td>Types de channel autorisés pour l’option * GUILD_TEXT - a guild text channel * DM - a DM channel * GUILD_VOICE - a guild voice channel * GROUP_DM - a group DM channel * GUILD_CATEGORY - a guild category channel * GUILD_NEWS - a guild news channel * GUILD_STORE - a guild store channel * Store channels are deprecated and will be removed from Discord in March 2022. See Self-serve Game Selling Deprecation  for more information. * GUILD_NEWS_THREAD - a guild news channel’s public thread channel * GUILD_PUBLIC_THREAD - a guild text channel’s public thread channel * GUILD_PRIVATE_THREAD - a guild text channel’s private thread channel * GUILD_STAGE_VOICE - a guild stage voice channel * UNKNOWN - a generic channel of unknown type, could be Channel or GuildChannel</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">option.minValue:</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Number</code></td>
+      <td>Valeur minimum autorisée pour l’option</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">option.maxValue:</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Number</code></td>
+      <td>Valeur maximum autorisée pour l’option</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Ajout les données d’une option</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">option</code></td>
+      <td><code class="language-plaintext highlighter-rouge">*</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">optionData</code></td>
+      <td><code class="language-plaintext highlighter-rouge">*</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> `` -</p>
+
+<p>Permet l’enregistrement d’une commande slash (création ou mise à jour). Cette méthode vérifie si la commande existe déjà. Si c’est le cas, elle la met à jour. Sinon, elle la crée.</p>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;Discord.ApplicationCommand&gt;</code> - commande créée ou mise à jour.</p>
+
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

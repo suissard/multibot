@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>SalonCommand</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">SalonCommand</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/">Accueil</a>
+            <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+            <a class="mdl-navigation__link" href="https://github.com/suissard/multibot" target="_blank">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+    <a class="mdl-navigation__link" href="/">Accueil</a>
+    <a class="mdl-navigation__link" href="/modules-list.html">Modules</a>
+    <a class="mdl-navigation__link" href="/commands-list.html">Commandes</a>
+    <a class="mdl-navigation__link" href="/classes-list.html">Classes</a>
+    <a class="mdl-navigation__link" href="/events-list.html">Events</a>
+    <div class="mdl-layout-spacer"></div>
+    <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+</nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="saloncommand"><code class="language-plaintext highlighter-rouge">SalonCommand</code></h1>
+
+<p>Définit un salon partagée de recherche de joueur ou le supprime</p>
+
+<h2 id="narrative">Narrative</h2>
+
+<ul>
+  <li>Cette commande permet de désigner le salon actuel comme faisant partie d’un “groupe de partage”.</li>
+  <li>Un groupe de partage est défini par un jeu et une catégorie (par exemple, “overwatch-scrim”). Tous les messages postés dans un salon d’un groupe sont répliqués dans tous les autres salons du même groupe, même s’ils sont sur des serveurs différents.</li>
+  <li>
+    <p>Elle nécessite la permission “Gérer les salons” (`MANAGE_CHANNELS`).</p>
+  </li>
+  <li><strong>Arguments requis :</strong>
+    <ul>
+      <li>`game` : Le jeu auquel le salon est dédié (ex: “overwatch”, “lol”).</li>
+      <li>`catégorie` : La catégorie du salon (ex: “scrim”, “team”).</li>
+    </ul>
+  </li>
+  <li><strong>Fonctionnement :</strong>
+    <ol>
+      <li>La commande valide que le jeu et la catégorie fournis en argument font partie des listes prédéfinies dans la configuration (`gamePattern`, `categoryPattern`).</li>
+      <li>Si les arguments sont valides, elle recherche le groupe de partage correspondant (ex: “overwatch-scrim”).</li>
+      <li>Si le groupe de partage existe, elle ajoute le salon actuel à ce groupe.</li>
+      <li>Elle renvoie un message de confirmation. Ce message inclut un avertissement si le serveur a moins de 50 membres, indiquant que la diffusion des messages ne sera activée qu’au-delà de ce seuil.</li>
+      <li>Si le jeu, la catégorie, ou le groupe de partage n’existent pas, une erreur est renvoyée.</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="arguments">Arguments</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">game</code></td>
+      <td><code class="language-plaintext highlighter-rouge">STRING</code></td>
+      <td>A quel jeu est dédié ce channel : overwatch, tekken, lol ou valorant</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">catégorie</code></td>
+      <td><code class="language-plaintext highlighter-rouge">STRING</code></td>
+      <td>A quel catégorie est dédié ce channel : scrim, team, player ou staff</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Commande de gestion des shareChannel</p>
+
+<p>Exécute la commande pour ajouter le salon actuel à un groupe de partage. Valide les arguments de jeu et de catégorie avant de procéder à l’ajout.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- Les arguments de la commande.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args.game</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Le nom du jeu pour ce groupe de partage.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args.catégorie</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Le nom de la catégorie pour ce groupe.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;string&gt;</code> - message de confirmation ou d’erreur.</p>
+
+<p>Ajoute le salon actuel au groupe de partage spécifié.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">categorie</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- La catégorie du groupe de partage.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">game</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Le jeu du groupe de partage.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;string&gt;</code> - message de confirmation.</p>
+
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

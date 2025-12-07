@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Bot</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">Bot</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/">Accueil</a>
+            <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+            <a class="mdl-navigation__link" href="https://github.com/suissard/multibot" target="_blank">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+    <a class="mdl-navigation__link" href="/">Accueil</a>
+    <a class="mdl-navigation__link" href="/modules-list.html">Modules</a>
+    <a class="mdl-navigation__link" href="/commands-list.html">Commandes</a>
+    <a class="mdl-navigation__link" href="/classes-list.html">Classes</a>
+    <a class="mdl-navigation__link" href="/events-list.html">Events</a>
+    <div class="mdl-layout-spacer"></div>
+    <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+</nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="bot"><code class="language-plaintext highlighter-rouge">Bot</code></h1>
+
+<p>Initialise un nouveau bot avec les données spécifiées. Gère les options de connexion, les intentions d’accès, et divers paramètres de configuration du bot.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data</code></td>
+      <td><code class="language-plaintext highlighter-rouge">StrapiObject</code></td>
+      <td>- Objet contenant les informations nécessaires pour configurer le bot.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data.getID</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Function</code></td>
+      <td>- Fonction pour obtenir un identifiant unique pour le bot.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data.name</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Nom du bot, obligatoire.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data.ownerId</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- ID de l’utilisateur propriétaire du bot, obligatoire.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data.home</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Identifiant du serveur Discord considéré comme la “maison” du bot, obligatoire.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data.devMode</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td>- Indicateur du mode développement, obligatoire.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data.prefix</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Préfixe des commandes du bot, par défaut “!!”.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data.admin</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array&lt;string&gt;</code></td>
+      <td>- Liste des IDs d’administrateurs autorisés, ajoute automatiquement le propriétaire.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data.activity</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Activité par défaut du bot affichée aux utilisateurs.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data.modules</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Object</code></td>
+      <td>- Modules supplémentaires du bot.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data.unauthorizedEvents</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array&lt;string&gt;</code></td>
+      <td>- Liste d’événements non autorisés par le bot.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data.unauthorizedCommands</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array&lt;string&gt;</code></td>
+      <td>- Liste de commandes non autorisées par le bot.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data.commandInDev</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array&lt;string&gt;</code></td>
+      <td>- Liste des commandes en cours de développement.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">data.token</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Jeton d’authentification du bot pour se connecter à l’API Discord.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">BOTS</code></td>
+      <td><code class="language-plaintext highlighter-rouge">BotManager</code></td>
+      <td>- gestionnaire de bots.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Identifiant unique du bot</p>
+
+<p>Nom usuel du bot</p>
+
+<p>ID du propriétaire du bot</p>
+
+<p>Serveur principal (“maison”) du bot</p>
+
+<p>Indicateur du mode développement</p>
+
+<p>Préfixe des commandes, par défaut “!!”</p>
+
+<p>Liste des administrateurs du bot, inclut le propriétaire</p>
+
+<p>Activité affichée du bot, vide par défaut</p>
+
+<p>Modules additionnels du bot</p>
+
+<p>Liste d’événements non autorisés</p>
+
+<p>Liste des commandes non autorisées</p>
+
+<p>Liste des commandes en cours de développement</p>
+
+<p>Connexion du bot à l’API Discord avec le token fourni</p>
+
+<p>Redémarrrer le bot</p>
+
+<p>Vérifie l’accès à des éléments Discord (serveur, salon, message) et les retourne si trouvés. Au moins un <code class="language-plaintext highlighter-rouge">guildId</code> ou <code class="language-plaintext highlighter-rouge">channelId</code> doit être fourni.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">guildId</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- L’ID du serveur Discord à vérifier.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">channelId</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- L’ID du salon Discord à vérifier.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">messageId</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- L’ID du message Discord à vérifier.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;false|{guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}&gt;</code> - objet contenant les éléments trouvés, ou <code class="language-plaintext highlighter-rouge">false</code> si un élément requis n’est pas accessible.</p>
+
+<p>Met la référence et le contenu au bon format</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">content</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String || Error</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">reference</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> `` -</p>
+
+<p>Diffuse un log</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">content</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">reference</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Diffuse une erreur</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">content</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String || Error</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">reference</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>
