@@ -207,11 +207,11 @@ const washOldChannels = async (guild, exceptionName = [], forceWash) => {
  * @param {Discord.Guild} guild
  */
 const washEmptyCategory = async (bot, guild) => {
-	for (challengeId in bot.modules.AutoRole.roleIds.competitions) {
+	for (const challengeId in bot.modules.AutoRole.roleIds.competitions) {
 		const divisionNames = Object.keys(
 			bot.modules.AutoRole.roleIds.competitions[challengeId].player
 		);
-		for (divisionName of divisionNames) {
+		for (const divisionName of divisionNames) {
 			const gradinsName = getGradinsName(divisionName);
 			for (let [, category] of guild.channels.cache.filter(
 				(c) => c.name.includes(divisionName) && c.type === ChannelType.GuildCategory

@@ -645,4 +645,6 @@ module.exports = {
 	getRealRole,
 	processCasterUsers,
 	getCasterTeam,
+    processTeam,
+    processTeamMember
 };

@@ -51,14 +51,14 @@ module.exports = (bot) => {
 
 			await instanciateOlympe(bot, challengesRolesId);
 
-			for (guildId in bot.modules.AutoRole.guilds) {
+			for (const guildId in bot.modules.AutoRole.guilds) {
 				const guild = await bot.guilds.fetch(bot.home).catch((_) => null);
 				await guild.roles.fetch();
 				await guild.members.fetch();
 			}
 
 			const autoroleFn = () => {
-				for (guildId in bot.modules.AutoRole.guilds) autoRole(bot, guildId);
+				for (const guildId in bot.modules.AutoRole.guilds) autoRole(bot, guildId);
 			};
 			autoroleFn(); // .then(() => deleteAllRole(bot));
 			setInterval(autoroleFn, bot.modules.AutoRole.everyXhours * 60 * 60 * 1000);
