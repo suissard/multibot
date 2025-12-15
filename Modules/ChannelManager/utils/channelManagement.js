@@ -101,6 +101,7 @@ const findOrCreateCategory = async (guild, divisionName) => {
 	const categories = guild.channels.cache.filter(
 		(c) => c.name.includes(divisionName) && c.type === ChannelType.GuildCategory
 	);
+	// console.log('Categories found:', categories, 'Is mock?', categories.find && categories.find._isMockFunction);
 	const category =
 		categories.find((chan) => chan.children.cache.size < 40) ||
 		(await guild.channels.create({
@@ -148,7 +149,7 @@ const findOrCreateGradins = async (category, divisionName, bot) => {
 	let divisionRoleId,
 		casterRoleId = bot.modules.AutoRole.guilds[category.guild.id].specialRoles.caster.id;
 	const competitionRolesId = channel.client.modules.AutoRole.roleIds.competitions;
-	for (challengeId in competitionRolesId) {
+	for (const challengeId in competitionRolesId) {
 		//TODO s'arrete au premeri challenge => pas souple
 		divisionRoleId = competitionRolesId[challengeId].player[divisionName];
 		break;
