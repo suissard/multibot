@@ -1,4 +1,4 @@
-const mode = require('./botMode.json'); // "PROD", "PREPROD" OU "DEV"
+const mode = process.env.BOT_MODE || 'DEV'; // "PROD", "PREPROD" OU "DEV"
 
 console.log(`🤖 Démarrage des bots en mode ${mode}...`);
 

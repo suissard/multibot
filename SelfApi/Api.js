@@ -346,7 +346,7 @@ module.exports = class SelfApi {
 	setRoute(path, method, handler) {
 		this.routes.set(`${method}--${path}`, { path, method, handler });
 		try {
-			this.router.route(path)[method](async (req, res) => {
+			this.router.route(path)[method.toLowerCase()](async (req, res) => {
 				try {
 					let { user, bot } = (await this.authentication(req, res)) || {};
 					return handler(req, res, bot, user, this);
@@ -365,7 +365,11 @@ module.exports = class SelfApi {
 	 * Démarrage du serveur API
 	 */
 	start() {
-		this.app.use(this.router);
+		if (process.env.BOT_MODE === 'PROD') {
+			const path = require('path');
+			this.app.use(express.static(path.join(__dirname, '../Front/app/dist')));
+		}
+		this.app.use('/api', this.router);
 		this.server = this.app.listen(this.port, this.hostname, () => {
 			console.log('📡 API démarrée à : http://' + this.hostname + ':' + this.port);
 		});
