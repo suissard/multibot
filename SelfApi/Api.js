@@ -1,7 +1,7 @@
 // #############################################################
 // ##    Fonctions pour communiquer avec le bot via un api    ##
 // #############################################################
-const BotManager = require('../Class/BotManager.js');
+// const BotManager = require('../Class/BotManager.js'); // Removed to avoid circular dependency and unused
 const { routes, createAllRoutes } = require('./routes');
 const { transformApiArgsToDiscordObjects } = require('./discord-object-transformer.js');
 
@@ -20,21 +20,27 @@ module.exports = class SelfApi {
 	 * @param {Object} discord
 	 * @param {BotManager} BOTS Instance de gestionnaire de bot
 	 * @param {Number} saltRounds
+     * @param {Object} libs Dépendances injectées (express, bcrypt, fetch)
 	 */
-	constructor(configs, discord, BOTS, saltRounds = 12) {
+	constructor(configs, discord, BOTS, saltRounds = 12, libs = {}) {
 		this.token = configs.token;
 		this.hostname = configs.hostname || 'localhost';
 		this.port = configs.port || 3000;
 		this.discord = discord;
 		this.BOTS = BOTS;
 
-		this.salt = bcrypt.genSaltSync(saltRounds);
+        // Dependency Injection
+        this.express = express;
+        this.bcrypt = bcrypt;
+        this.fetch = fetch;
+
+		this.salt = this.bcrypt.genSaltSync(saltRounds);
 
 		this.routes = new Map();
 		this.hashUsers = new Map();
 
-		this.router = express.Router();
-		this.app = express();
+		this.router = this.express.Router();
+		this.app = this.express();
 		this.app.use(bodyParser.urlencoded({ extended: false }));
 		this.app.use(bodyParser.json());
 		this.app.use(cors());
@@ -48,7 +54,9 @@ module.exports = class SelfApi {
 			next();
 		});
 
-		this.startRouter();
+        // Initialize routes but do not start server yet
+		this.setAuthRoute();
+        this.setHomeRoute();
 	}
 
 	/**
@@ -96,7 +104,7 @@ module.exports = class SelfApi {
 		const oldHash = Array.from(this.hashUsers).find(([hash, id]) => id == discordId);
 		if (oldHash) this.hashUsers.delete(oldHash[0]);
 
-		const hash = await bcrypt.hash(token, this.salt); //hash the token
+		const hash = await this.bcrypt.hash(token, this.salt); //hash the token
 		this.hashUsers.set(hash, discordId); // Ajouter le hash et le discordId a ala table de correspondance
 	}
 
@@ -109,7 +117,7 @@ module.exports = class SelfApi {
 		const token = req.headers?.authorization?.replace('Bearer ', '');
 		if (!token) return false;
 
-		const hash = await bcrypt.hash(token, this.salt);
+		const hash = await this.bcrypt.hash(token, this.salt);
 		return hash;
 	}
 
@@ -148,7 +156,7 @@ module.exports = class SelfApi {
 		body.append('redirect_uri', this.discord.redirectUrl);
 		body.append('scope', this.discord.scope);
 
-		let response = await fetch('https://discord.com/api/oauth2/token', {
+		let response = await this.fetch('https://discord.com/api/oauth2/token', {
 			method: 'POST',
 			body,
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -164,7 +172,7 @@ module.exports = class SelfApi {
 	 * @returns {Promise<string>} L'ID Discord de l'utilisateur.
 	 */
 	async getDiscordIdFromDiscordToken(token) {
-		const response = await fetch('https://discord.com/api/users/@me', {
+		const response = await this.fetch('https://discord.com/api/users/@me', {
 			headers: { Authorization: 'Bearer ' + token },
 		});
 		const discordUser = await response.json();
@@ -172,10 +180,14 @@ module.exports = class SelfApi {
 	}
 
 	/**
-	 * TODO Creer un utilisateru dans le cache
-	 * @param {*} req
-	 * @param {*} res
-	 * @returns
+	 * Créer un nouvel utilisateur dans le cache après validation OAuth2.
+	 * 1. Vérifie si la requête contient déjà un token valide.
+	 * 2. Échange le code OAuth2 contre un access token Discord.
+	 * 3. Récupère l'ID Discord l'utilisateur.
+	 * 4. Génère un nouveau token API unique et l'enregistre le cache.
+	 * @param {import('express').Request} req - La requête contenant le code d'autorisation.
+	 * @param {import('express').Response} res - La réponse pour renvoyer le nouveau token.
+	 * @returns {Promise<{token: string, discordId: string}>} Les informations de l'utilisateur créé.
 	 */
 	async createUser(req, res) {
 		//Verifier que l'utilisateur n'est pas existant
@@ -197,11 +209,14 @@ module.exports = class SelfApi {
 	}
 
 	/**
-	 * Gère l'authentification d'une requête API.
-	 * @todo La logique de cette fonction est commentée et doit être réimplémentée.
+	 * Middleware d'authentification centralisé pour les requêtes API.
+	 * Identifie l'utilisateur via son token (Header Authorization) et le bot concerné via le paramètre URL/Body.
+	 * - Si l'URL est publique (auth, discord/authurl), l'authentification est sautée.
+	 * - Un bot DOIT être spécifié (bot_id).
+	 * - Un token utilisateur valide est requis sauf pour certaines routes (ex: /commands).
 	 * @param {import('express').Request} req - L'objet de la requête Express.
 	 * @param {import('express').Response} res - L'objet de la réponse Express.
-	 * @returns {Promise<{bot: Bot, user: import('discord.js').User}>} L'instance du bot et de l'utilisateur.
+	 * @returns {Promise<{bot: import('../Class/Bot.js'), user: import('discord.js').User}>} L'instance du bot et de l'utilisateur authentifié.
 	 */
 	async authentication(req, res) {
 		const requestHash = await this.getHashFromTokenRequest(req);
@@ -241,7 +256,7 @@ module.exports = class SelfApi {
 	 * @returns {Promise<string>} Le hash résultant.
 	 */
 	hashPassword(password) {
-		return bcrypt.hash(password, this.salt);
+		return this.bcrypt.hash(password, this.salt);
 	}
 
 	/**
@@ -347,15 +362,13 @@ module.exports = class SelfApi {
 	}
 
 	/*
-	 * Démarrage du routeur
+	 * Démarrage du serveur API
 	 */
-	startRouter() {
+	start() {
 		this.app.use(this.router);
-		this.app.listen(this.port, this.hostname, () => {
+		this.server = this.app.listen(this.port, this.hostname, () => {
 			console.log('📡 API démarrée à : http://' + this.hostname + ':' + this.port);
 		});
-		this.setHomeRoute();
-		this.setAuthRoute();
 	}
 
 	/**
