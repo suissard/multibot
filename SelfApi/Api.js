@@ -98,14 +98,15 @@ module.exports = class SelfApi {
 	 * Ajoute un utilisateur et son token d'API au cache d'authentification.
 	 * Le token est hashé avant d'être stocké.
 	 * @param {string} token - Le token d'API brut de l'utilisateur.
-	 * @param {string} discordId - L'ID Discord de l'utilisateur.
+	 * @param {object} userData - Les données de l'utilisateur Discord.
+     * @param {string} accessToken - Le token d'accès Discord.
 	 */
-	async addUser(token, discordId) {
-		const oldHash = Array.from(this.hashUsers).find(([hash, id]) => id == discordId);
+	async addUser(token, userData, accessToken) {
+		const oldHash = Array.from(this.hashUsers).find(([hash, data]) => data.id == userData.id);
 		if (oldHash) this.hashUsers.delete(oldHash[0]);
 
 		const hash = await this.bcrypt.hash(token, this.salt); //hash the token
-		this.hashUsers.set(hash, discordId); // Ajouter le hash et le discordId a ala table de correspondance
+		this.hashUsers.set(hash, { id: userData.id, data: userData, accessToken }); // Ajouter le hash et le discordId a ala table de correspondance
 	}
 
 	/**
@@ -167,16 +168,16 @@ module.exports = class SelfApi {
 	}
 
 	/**
-	 * Récupère l'ID Discord d'un utilisateur en utilisant son jeton d'accès.
+	 * Récupère les données de l'utilisateur Discord en utilisant son jeton d'accès.
 	 * @param {string} token - Le jeton d'accès OAuth2 de l'utilisateur.
-	 * @returns {Promise<string>} L'ID Discord de l'utilisateur.
+	 * @returns {Promise<object>} L'objet utilisateur Discord.
 	 */
-	async getDiscordIdFromDiscordToken(token) {
+	async getDiscordUserFromToken(token) {
 		const response = await this.fetch('https://discord.com/api/users/@me', {
 			headers: { Authorization: 'Bearer ' + token },
 		});
 		const discordUser = await response.json();
-		return discordUser.id;
+		return discordUser;
 	}
 
 	/**
@@ -197,15 +198,15 @@ module.exports = class SelfApi {
 		//Recuperer discord ID
 		const dicordCode = this.getDiscordCodeFromRequest(req);
 		const accessToken = await this.getDiscordAccessTokenFromCode(dicordCode);
-		const discordId = await this.getDiscordIdFromDiscordToken(accessToken);
+		const discordUser = await this.getDiscordUserFromToken(accessToken);
 
 		//Verifier que l'id discord n'est pas existant
 
 		const token = this.generateToken(); //Creer un token
-		await this.addUser(token, discordId); //Ajouter l'utilisateur dans le cache
+		await this.addUser(token, discordUser, accessToken); //Ajouter l'utilisateur dans le cache
 
-		res.json({ token, discordId }); //Renvoyer données utilisateurs
-		return { token, discordId };
+		res.json({ token, discordId: discordUser.id }); //Renvoyer données utilisateurs
+		return { token, discordId: discordUser.id };
 	}
 
 	/**
@@ -220,23 +221,32 @@ module.exports = class SelfApi {
 	 */
 	async authentication(req, res) {
 		const requestHash = await this.getHashFromTokenRequest(req);
-		const userId = this.hashUsers.get(requestHash);
+		const userData = this.hashUsers.get(requestHash);
 
 		if (req.url.includes('/discord/authurl')) return {};
 		if (req.url.includes('/auth')) return {};
 
-		const botId = this.getBotIdFromRequest(req);
-		if (!botId) return {}; // Ne rien faire si le bot n'est pas spécifié
-		const bot = this.BOTS.get(botId);
-		if (!bot) throw new Error('Bot non trouvé');
+		let botId = this.getBotIdFromRequest(req);
+        let bot;
+        
+        if (botId) {
+		    bot = this.BOTS.get(botId);
+		    // if (!bot) throw { message: 'Bot non trouvé', status: 404 }; // Pas d'erreur fatale si bot non trouvé, on peut juste vouloir l'user
+        } else {
+             if (this.BOTS.size > 0) {
+                 bot = this.BOTS.values().next().value;
+             }
+        }
 
-		if (!userId) {
+		if (!userData) {
 			if (req.url.includes('/commands')) return { bot };
-			else throw new Error('Utilisateur non authentifié');
+			const err = new Error('Utilisateur non authentifié');
+            err.status = 401;
+            throw err;
 		}
-
-		const user = bot.users.cache.get(userId) || (await bot.users.fetch(userId));
-		if (!user) throw new Error('Utilisateur non trouvé');
+        
+        // Use stored user data directly
+        const user = userData.data;
 
 		return { bot, user };
 	}
