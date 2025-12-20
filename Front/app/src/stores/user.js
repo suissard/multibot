@@ -54,11 +54,12 @@ export const useUserStore = defineStore('user', {
       this.isAuthenticated = false;
       this.user = null;
     },
-    checkAuth() {
+    async checkAuth() {
       this.isAuthenticated = !!localStorage.getItem('api_token');
       if (this.isAuthenticated && !this.user) {
-        this.fetchUser();
+        return this.fetchUser();
       }
+      return Promise.resolve();
     }
   },
 });

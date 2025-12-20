@@ -14,6 +14,17 @@ class Route {
             return config;
         });
 
+        this.api.interceptors.response.use(
+            response => response,
+            error => {
+                if (error.response && error.response.status === 401) {
+                    localStorage.removeItem('api_token');
+                    window.location.href = '/login'; 
+                }
+                return Promise.reject(error);
+            }
+        );
+
         this.routes = {
             getCommands: async (botId) => {
                 const response = await this.api.get(`/commands?bot_id=${botId}`);
@@ -40,7 +51,9 @@ class Route {
                  return response.data.user;
             },
             login: async (code) => {
-                 const response = await this.api.get(`/auth/callback?code=${code}`);
+                 const response = await this.api.get(`/auth/callback?code=${code}`, {
+                    headers: { Authorization: '' }
+                 });
                  return response.data;
             },
             getDiscordAuthUrl: async () => {
