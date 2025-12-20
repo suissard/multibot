@@ -60,7 +60,7 @@ module.exports = class Ping extends Command {
      * @returns {Promise<string>} Un message de confirmation ou d'erreur.
      */
     async methode(args = {}) {
-        await this.guild.members.fetch();
+        await this.guild.members.fetch().catch(console.warn);
         let roles = [];
         let userlist = this.guild.members.cache;
         if (!args.role && !args.multipleroles) {

@@ -44,7 +44,7 @@ module.exports = class MemberList extends Command {
      * @returns {Promise<import('discord.js').EmbedBuilder|string>} Un embed contenant la liste des membres, ou un message si personne n'a le rôle.
      */
     async methode(args = {}) {
-        await this.guild.members.fetch();
+        await this.guild.members.fetch().catch(console.warn);
         let role = this.guild.roles.cache.get(args.role);
         if (role.members.size == 0) {
             return 'Personne n\'a ce rôle';
