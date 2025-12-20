@@ -41,6 +41,7 @@ export const useUserStore = defineStore('user', {
       }
     },
     async login(code) {
+      this.logout(); // Clear previous token
       const { token } = await callApi('login', code);
       localStorage.setItem('api_token', token);
       this.token = token;

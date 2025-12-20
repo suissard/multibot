@@ -28,7 +28,11 @@
 		"coverage": "vitest run --coverage",
 		"docs:serve": "bash serve_docs.sh",
 		"start:prod": "cd Front/app && npm install && npm run build && cd ../.. && BOT_MODE=PROD node main.js",
-		"start:dev": "concurrently \"BOT_MODE=DEV node main.js\" \"cd Front/app && npm run serve\""
+		"start:dev": "concurrently \"BOT_MODE=DEV node main.js\" \"cd Front/app && npm run serve\"",
+    "docker:up": "docker-compose up",
+    "docker:down": "docker-compose down",
+    "docker:build": "docker-compose build",
+    "docker:rebuild": "docker-compose up --build"
 	},
 	"repository": {
 		"type": "git",

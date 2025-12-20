@@ -1,11 +1,28 @@
-version: '3.8'
-
 services:
-  bot:
-    build: .
-    container_name: multibot
-    restart: unless-stopped
+  backend:
+    image: node:24
+    container_name: multibot_backend
+    working_dir: /usr/src/app
+    ports:
+      - "${BACKEND_PORT}:3000"
+    environment:
+      - BOT_MODE=${BOT_MODE}
     volumes:
-      - ./botMode.json:/usr/src/app/botMode.json
-      - ./configs.json:/usr/src/app/configs.json
-      - ./configsApi.json:/usr/src/app/configsApi.json
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    command: sh -c "npm install && node main.js"
+
+  frontend:
+    image: node:24
+    container_name: multibot_frontend
+    working_dir: /app
+    ports:
+      - "${FRONTEND_PORT}:8080"
+    environment:
+      - VUE_APP_API_URL=${VUE_APP_API_URL}
+    depends_on:
+      - backend
+    volumes:
+      - ./Front/app:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm run serve"

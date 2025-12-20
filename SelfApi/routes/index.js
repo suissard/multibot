@@ -12,10 +12,13 @@ const post = require('./post-.js');
 const putAutorole = require('./put-autorole.js');
 const getModules = require('./get-modules.js');
 const putModuleTestData = require('./put-module-test-data.js');
+const getAuthCallback = require('./get-auth-callback.js');
 const getSettings = require('./get-settings.js');
 const putSettings = require('./put-settings.js');
 
-const routes = [getCommands, postCommands, getEvents, getEvent, postEvents, getdiscordAuthurl, post, putAutorole, getModules, putModuleTestData,  getSettings, putSettings];
+const getBots = require('./get-bots.js');
+
+const routes = [getCommands, postCommands, getEvents, getEvent, postEvents, getdiscordAuthurl, post, putAutorole, getModules, putModuleTestData,  getSettings, putSettings, getAuthCallback, getBots];
 
 /**
  * Enregistre une liste de routes sur l'instance de l'API.
