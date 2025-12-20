@@ -25,6 +25,7 @@ const objectHaveEntries = require('./objectHaveEntries.js');
 
 // instancier un bot de test
 const configs = require("./testBotConfigs.json");
+configs.api.port = 3000 + Math.round(Math.random() * 1000); // Randomize port
 const botsDatas = new Map();
 const botId = configs.botsData[0].id;
 
@@ -43,6 +44,7 @@ bots.start(botsDatas);
 const discordId = '683789687504371719';
 const discordUserId = '306395745693597697';
 const api = new SelfApi(configs.api, configs.discord, bots);
+api.start();
 createAllRoutes(api);
 
 let reqResult, token, bot, user;
@@ -52,6 +54,7 @@ token = api.generateToken();
 const requestTest = {
     headers: { authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
     query: { code: 'discordCode', bot_id: botId },
+    url: '/test'
 };
 
 describe('SELFAPI : Test des routes de l\'api', () => {

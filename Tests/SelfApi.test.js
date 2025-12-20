@@ -7,8 +7,8 @@ import SelfApi from '../SelfApi/Api.js';
 const configs = {
     api: {
         token: 'ceciestuntokentemporaire',
-        hostname: 'localhost',
-        port: Math.round(Math.random() * 1000),
+        hostname: '127.0.0.1',
+        port: 3000 + Math.round(Math.random() * 1000),
     },
     discord: {
         clientId: '716968666821820497',
@@ -36,7 +36,8 @@ const createAllRoutes = (api, paths, methods) => {
 };
 
 beforeAll(() => {
-    api = new SelfApi(configs.api, configs.discord);
+    api = new SelfApi(configs.api, configs.discord, new Map());
+    api.start();
     createAllRoutes(api, paths, methods);
     token = api.generateToken();
 });
@@ -52,7 +53,7 @@ describe('API: Setup and Route Tests', () => {
 
         for (let path of paths) {
             for (let method of methods) {
-                const response = await fetch(`http://localhost:${configs.api.port}${path}`, {
+                const response = await fetch(`http://127.0.0.1:${configs.api.port}${path}`, {
                     method,
                     headers: { authorization: `Bearer ${token}` },
                 });
@@ -89,7 +90,7 @@ describe('API: Authentication Flow Tests', () => {
 
     it('should create a new user via Discord authentication', async () => {
         api.getDiscordIdFromCode = () => '12345678910';
-        const authResponse = await fetch(`http://localhost:${configs.api.port}/auth`);
+        const authResponse = await fetch(`http://127.0.0.1:${configs.api.port}/auth`);
         expect(authResponse.status).toBe(200);
 
         const { token: userToken, discordId: userDiscordId } = await api.createUser(
@@ -105,7 +106,7 @@ describe('API: Authentication Flow Tests', () => {
     it('should add another user when authenticated again', async () => {
         api.getDiscordAccessTokenFromCode = () => null;
         api.getDiscordIdFromDiscordToken = () => '10987654321';
-        const authResponse2 = await fetch(`http://localhost:${configs.api.port}/auth`);
+        const authResponse2 = await fetch(`http://127.0.0.1:${configs.api.port}/auth`);
         expect(authResponse2.status).toBe(200);
         expect(api.hashUsers.size).toBe(2);
 
@@ -114,7 +115,7 @@ describe('API: Authentication Flow Tests', () => {
         for (let user of [{ token: userToken2, discordId: userDiscordId2 }]) {
             for (let path of paths) {
                 for (let method of methods) {
-                    const response = await fetch(`http://localhost:${configs.api.port}${path}`, {
+                    const response = await fetch(`http://127.0.0.1:${configs.api.port}${path}`, {
                         method,
                         headers: { authorization: `Bearer ${user.token}` },
                     });
@@ -139,7 +140,7 @@ describe('API: Config Users Tests', () => {
         await api.addConfigUsers(users);
         expect(api.hashUsers.size).toBe(initialUserCount + 3);
 
-        const response = await fetch(`http://localhost:${configs.api.port}${paths[1]}`, {
+        const response = await fetch(`http://127.0.0.1:${configs.api.port}${paths[1]}`, {
             method: 'get',
             headers: { authorization: `Bearer ${users[0].token}` },
         });

@@ -32,7 +32,7 @@ async function start() {
 	//INSTANCIATION DES BOTS
 
 	BOTS.start(botsData);
-	BOTS.startApi(configsApi);
+	BOTS.startApi(configsApi, configsApi.discord, configsApi.saltRounds);
 	BOTS.API.listenAllRoutes();
 }
 
