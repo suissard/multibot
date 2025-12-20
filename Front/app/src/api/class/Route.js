@@ -1,59 +1,61 @@
-import commands from '../mockData/commands.json';
-import events from '../mockData/events.json';
-import modules from '../mockData/modules.json';
-import settings from '../mockData/settings.json';
+import axios from 'axios';
 
 class Route {
     constructor() {
-        this.routes = {
-            getCommands: () => commands,
-            getEvents: () => events,
-            getModules: () => modules,
-            getSettings: () => settings,
-            getUser: () => ({
-                id: '12345',
-                username: 'Test User',
-                avatar: 'avatar-hash',
-            }),
-            login: (code) => {
-                if (code) {
-                    return { token: `fake-token-for-code-${code}` };
-                }
-                throw new Error('No authorization code provided.');
-            },
-            getDiscordAuthUrl: () => {
-                return `/auth/callback?code=fake-code`;
-            },
-            getModuleTestData: (_moduleId) => {
-                console.log(`Fetching test data for module ${_moduleId}`);
-                // In a real app, you'd fetch data for the specific module.
-                // Here, we'll just return some generic test data.
-                return [
-                    { id: 'data1', content: 'Test data 1' },
-                    { id: 'data2', content: 'Test data 2' },
-                ];
-            },
-            putModuleTestData: (moduleId, dataId, updatedData) => {
-                // In a real app, you'd update the data on the server.
-                // Here, we'll just log the data to the console.
-                console.log(`Updating module ${moduleId}, data ${dataId} with`, updatedData);
-                return { success: true };
-            },
-            getEventData: (eventName) => {
-                // In a real app, you'd fetch data for the specific event.
-                // Here, we'll just return some generic event data.
-                return {
-                    name: eventName,
-                    description: 'Some event description',
-                    data: 'Some event data',
-                };
-            },
-            postEventData: (updatedData) => {
-                // In a real app, you'd update the data on the server.
-                // Here, we'll just log the data to the console.
-                console.log(`Updating event with`, updatedData);
-                return { success: true };
+        this.api = axios.create({
+            baseURL: '/api'
+        });
+
+        this.api.interceptors.request.use(config => {
+            const token = localStorage.getItem('api_token');
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
             }
+            return config;
+        });
+
+        this.routes = {
+            getCommands: async (botId) => {
+                const response = await this.api.get(`/commands?bot_id=${botId}`);
+                return response.data;
+            },
+            runCommand: async (botId, commandName, args = {}) => {
+                 const response = await this.api.post(`/commands/${commandName}?bot_id=${botId}`, { args });
+                 return response.data;
+            },
+            getEvents: async (botId) => {
+                const response = await this.api.get(`/events?bot_id=${botId}`);
+                return response.data;
+            },
+            getModules: async (botId) => {
+                const response = await this.api.get(`/modules?bot_id=${botId}`);
+                return response.data;
+            },
+            getSettings: async (botId) => {
+                 const response = await this.api.get(`/settings?bot_id=${botId}`);
+                 return response.data;
+            },
+            getUser: async () => {
+                 // Implementation depends on backend endpoint
+                 return { id: 'todo', username: 'User' };
+            },
+            login: async (code) => {
+                 const response = await this.api.get(`/auth/callback?code=${code}`);
+                 return response.data;
+            },
+            getDiscordAuthUrl: async () => {
+                 const response = await this.api.get('/discord/authurl');
+                 return response.data; 
+            },
+            getBots: async () => {
+                const response = await this.api.get('/bots');
+                return response.data;
+            },
+            // Keep mocks for others if needed or implement them
+            getModuleTestData: (_moduleId) => [], 
+            putModuleTestData: () => ({ success: true }),
+            getEventData: () => ({}),
+            postEventData: () => ({ success: true })
         };
     }
 

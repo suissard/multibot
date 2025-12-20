@@ -51,17 +51,22 @@ module.exports = (bot) => {
 
 			await instanciateOlympe(bot, challengesRolesId);
 
+			let params = false
 			for (const guildId in bot.modules.AutoRole.guilds) {
 				const guild = await bot.guilds.fetch(bot.home).catch((_) => null);
-				await guild.roles.fetch();
-				await guild.members.fetch();
+				if (guild) {
+					params = true
+					await guild.roles.fetch().catch(e => console.warn(`[AutoRole] Roles fetch failed for ${guildId}:`, e.message));
+					await guild.members.fetch().catch(e => console.warn(`[AutoRole] Members fetch failed for ${guildId}:`, e.message));
+				}
 			}
 
 			const autoroleFn = () => {
 				for (const guildId in bot.modules.AutoRole.guilds) autoRole(bot, guildId);
 			};
-			autoroleFn(); // .then(() => deleteAllRole(bot));
-			setInterval(autoroleFn, bot.modules.AutoRole.everyXhours * 60 * 60 * 1000);
+			if (params)
+				autoroleFn(); // .then(() => deleteAllRole(bot));
+				setInterval(autoroleFn, bot.modules.AutoRole.everyXhours * 60 * 60 * 1000);
 		} catch (err) {
 			bot.error(err, 'autorole');
 		}

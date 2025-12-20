@@ -10,3 +10,4 @@ dataGetibot/
 .archives
 auto_pull.sh
 .idea
+.env
