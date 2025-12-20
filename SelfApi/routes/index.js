@@ -17,8 +17,9 @@ const getSettings = require('./get-settings.js');
 const putSettings = require('./put-settings.js');
 
 const getBots = require('./get-bots.js');
+const getUser = require('./get-user.js');
 
-const routes = [getCommands, postCommands, getEvents, getEvent, postEvents, getdiscordAuthurl, post, putAutorole, getModules, putModuleTestData,  getSettings, putSettings, getAuthCallback, getBots];
+const routes = [getCommands, postCommands, getEvents, getEvent, postEvents, getdiscordAuthurl, post, putAutorole, getModules, putModuleTestData,  getSettings, putSettings, getAuthCallback, getBots, getUser];
 
 /**
  * Enregistre une liste de routes sur l'instance de l'API.
