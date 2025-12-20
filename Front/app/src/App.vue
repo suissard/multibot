@@ -40,8 +40,13 @@
 
             <div class="flex items-center">
               <button @click="toggleSettingsPanel"
-                class="p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                class="flex items-center p-2 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                 <span class="sr-only">View settings</span>
+                
+                <div v-if="isAuthenticated && user" class="flex items-center mr-2">
+                   <span class="text-sm font-medium text-gray-700 dark:text-gray-200 mr-2">{{ user.username }}</span>
+                </div>
+
                 <img v-if="isAuthenticated && profilePictureUrl" :src="profilePictureUrl" alt="User Avatar"
                   class="h-8 w-8 rounded-full">
                 <svg v-else class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -97,7 +102,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(useUserStore, ['isAuthenticated', 'profilePictureUrl', 'theme']),
+    ...mapState(useUserStore, ['isAuthenticated', 'profilePictureUrl', 'theme', 'user']),
   },
   methods: {
     ...mapActions(useUserStore, ['checkAuth', 'logout']),

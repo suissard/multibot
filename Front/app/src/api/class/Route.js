@@ -36,8 +36,8 @@ class Route {
                  return response.data;
             },
             getUser: async () => {
-                 // Implementation depends on backend endpoint
-                 return { id: 'todo', username: 'User' };
+                 const response = await this.api.get('/user');
+                 return response.data.user;
             },
             login: async (code) => {
                  const response = await this.api.get(`/auth/callback?code=${code}`);

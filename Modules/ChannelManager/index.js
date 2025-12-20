@@ -27,7 +27,7 @@ module.exports = (bot) => {
 		const guildId = bot.home;
 		const guild = bot.guilds.cache.get(guildId);
 		await guild.channels.fetch();
-		await guild.members.fetch();
+		await guild.members.fetch().catch(console.warn);
 		//! TEST =====================================================================
 		// bot.modules.ChannelManager.cronSchedule = '*/1 * * * *';
 		// const duration = 12//0.5
