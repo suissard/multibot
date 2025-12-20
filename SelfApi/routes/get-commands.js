@@ -19,6 +19,7 @@ module.exports = {
             const listCmd = Array.from(app.BOTS.Commands.__commands).map(([id, cmd]) => {
                 return {
                     id: cmd.id,
+                    name: cmd.id,
                     devBoss: cmd.devBoss,
                     home: cmd.home,
                     userPermissions: cmd.userPermissions,
@@ -36,6 +37,7 @@ module.exports = {
 
         res.json({
             id: cmd.id,
+            name: cmd.id,
             devBoss: cmd.devBoss,
             home: cmd.home,
             userPermissions: cmd.userPermissions,
