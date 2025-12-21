@@ -6,6 +6,8 @@ export const useMainStore = defineStore('main', {
     commands: [],
     events: [],
     bots: [],
+    users: [],
+    channels: [],
     selectedBotId: localStorage.getItem('selectedBotId') || null,
     selectedChannelId: localStorage.getItem('selectedChannelId') || null,
     loading: false,
@@ -14,9 +16,10 @@ export const useMainStore = defineStore('main', {
     selectBot(botId) {
         this.selectedBotId = botId;
         localStorage.setItem('selectedBotId', botId);
-        // Reset channel when bot changes
+        // Reset channel and users when bot changes
         this.selectedChannelId = null;
         localStorage.removeItem('selectedChannelId');
+        this.users = []; 
     },
     selectChannel(channelId) {
         this.selectedChannelId = channelId;
@@ -35,6 +38,16 @@ export const useMainStore = defineStore('main', {
             throw error; 
         } finally {
             this.loading = false;
+        }
+    },
+    async fetchUsers() {
+        if (!this.selectedBotId) return [];
+        try {
+            this.users = await callApi('getUsers', this.selectedBotId);
+            return this.users;
+        } catch (error) {
+            console.error('Failed to fetch users:', error);
+            return [];
         }
     },
     async fetchCommands() {
@@ -65,7 +78,9 @@ export const useMainStore = defineStore('main', {
     async fetchChannels() {
         if (!this.selectedBotId) return [];
         try {
-            return await callApi('getChannels', this.selectedBotId);
+            const channels = await callApi('getChannels', this.selectedBotId);
+            this.channels = channels;
+            return channels;
         } catch (error) {
             console.error('Failed to fetch channels:', error);
             return [];
