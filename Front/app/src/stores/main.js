@@ -7,12 +7,24 @@ export const useMainStore = defineStore('main', {
     events: [],
     bots: [],
     selectedBotId: localStorage.getItem('selectedBotId') || null,
+    selectedChannelId: localStorage.getItem('selectedChannelId') || null,
     loading: false,
   }),
   actions: {
     selectBot(botId) {
         this.selectedBotId = botId;
         localStorage.setItem('selectedBotId', botId);
+        // Reset channel when bot changes
+        this.selectedChannelId = null;
+        localStorage.removeItem('selectedChannelId');
+    },
+    selectChannel(channelId) {
+        this.selectedChannelId = channelId;
+        if (channelId) {
+             localStorage.setItem('selectedChannelId', channelId);
+        } else {
+             localStorage.removeItem('selectedChannelId');
+        }
     },
     async fetchBots() {
         this.loading = true;
@@ -50,9 +62,20 @@ export const useMainStore = defineStore('main', {
         this.loading = false;
       }
     },
-    async runBotCommand(commandName, args) {
+    async fetchChannels() {
+        if (!this.selectedBotId) return [];
+        try {
+            return await callApi('getChannels', this.selectedBotId);
+        } catch (error) {
+            console.error('Failed to fetch channels:', error);
+            return [];
+        }
+    },
+    async runBotCommand(commandName, args, channelId = null) {
         if (!this.selectedBotId) throw new Error("No bot selected");
-        return await callApi('runCommand', this.selectedBotId, commandName, args);
+        // Use provided channelId or fallback to store's selectedChannelId
+        const finalChannelId = channelId || this.selectedChannelId;
+        return await callApi('runCommand', this.selectedBotId, commandName, args, finalChannelId);
     },
   },
 });

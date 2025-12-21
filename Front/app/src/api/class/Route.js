@@ -30,8 +30,9 @@ class Route {
                 const response = await this.api.get(`/commands?bot_id=${botId}`);
                 return response.data;
             },
-            runCommand: async (botId, commandName, args = {}) => {
-                 const response = await this.api.post(`/commands/${commandName}?bot_id=${botId}`, { args });
+            runCommand: async (botId, commandName, args = {}, channelId = null) => {
+                 const body = { args, channel_id: channelId };
+                 const response = await this.api.post(`/commands/${commandName}?bot_id=${botId}`, body);
                  return response.data;
             },
             getEvents: async (botId) => {
@@ -62,6 +63,10 @@ class Route {
             },
             getBots: async () => {
                 const response = await this.api.get('/bots');
+                return response.data;
+            },
+            getChannels: async (botId) => {
+                const response = await this.api.get(`/channels?bot_id=${botId}`);
                 return response.data;
             },
             // Keep mocks for others if needed or implement them

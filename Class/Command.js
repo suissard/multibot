@@ -240,19 +240,59 @@ module.exports = class Commande {
 	async handleApiRequest(req, res, user, app) {
 		const guild = this.bot.guilds.cache.get(this.bot.home);
 		const member = guild.members.cache.get(user.id);
+        
+        // Fetch real user object to ensure we have .send() method
+        const realUser = await this.bot.users.fetch(user.id);
+
+        // Récupérer le channel contextuel s'il est fourni
+        const channelId = req.body.channel_id || req.query?.channel_id;
+        
+        let channel = realUser; // Par défaut : réponses en MP avec le vrai objet User
+        if (channelId) {
+            try {
+                const fetchedChannel = await this.bot.channels.fetch(channelId);
+                if (fetchedChannel) {
+                     channel = fetchedChannel;
+                }
+            } catch (e) {
+                console.warn(`Impossible de récupérer le channel ${channelId} pour la commande API`, e);
+            }
+        }
+
 		this.setCommunicationData(
 			guild,
-			user, // envoie directement les réponses de commande en mp
+			channel, 
 			user,
 			member
 		);
 		try {
-			this.log({ user, guild, channel: user, id: 'api' });
+			this.log({ user, guild, channel: channel, id: 'api' });
 			this.checkPermission(member, guild); //Renvoie une erreur en cas de permission inssufisante
 
 			//Lancement de la commande
 			const args = await app.convertApiBadyToDiscordObject(req, this);
+            
+            // Simuler une interaction pour les commandes API qui en ont besoin (ex: ping)
+            if (!args.interaction) {
+                args.interaction = {
+                    createdTimestamp: Date.now(),
+                    // Ajouter d'autres propriétés simulées si nécessaire
+                    user: user,
+                    guild: guild,
+                    channel: channel // Injecter le channel contexte
+                };
+            }
+
 			let result = await this.methode(args);
+            
+            // Envoyer le résultat dans le channel Discord si c'est une string ou un message
+            if (result && (typeof result === 'string' || result.embeds || result.content)) {
+                try {
+                    await channel.send(result);
+                } catch (sendError) {
+                    console.error(`[API Command] Failed to send result to channel:`, sendError);
+                }
+            }
 
 			// res.status(200).json({result});
 			return result;

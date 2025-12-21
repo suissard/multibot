@@ -1,8 +1,8 @@
-const Bot = require('../../Class/Bot');
-const BOTS = require('../../Class/BOTS.js');
+// const Bot = require('../../Class/Bot');
+// const BOTS = require('../../Class/BOTS.js');
 
 module.exports = {
-    path: /\/commands/,
+    path: /\/commands*.*/,
     method: 'post',
     /**
      * Gère la requête pour exécuter une commande via l'API.
@@ -15,7 +15,7 @@ module.exports = {
         const cmdId = req._parsedUrl.pathname.replace('/commands', '').replace('/', '');
 
         // Verifier l'authenticité de l'utilisateur
-        const result = await BOTS.Commands.handleApiRequestCommand(bot, req, res, cmdId, user, app);
+        const result = await app.BOTS.Commands.handleApiRequestCommand(bot, req, res, cmdId, user, app);
         // comparer ses droit discord et ceux requis pour la commande
 
         // executer la commande

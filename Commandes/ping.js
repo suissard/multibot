@@ -41,6 +41,13 @@ module.exports = class Ping extends Command {
      */
     methode(args = {}) {
         let result = 'Pong';
+        const { interaction } = args;
+
+        if (interaction) {
+            const latency = Date.now() - interaction.createdTimestamp;
+            result += ` 🏓 (${latency}ms)`;
+        }
+
         if (args.user) result += ' <@' + args.user + '>';
         if (args.texte) result += ` ${args.texte}`;
         return result;
