@@ -113,7 +113,7 @@
                       :class="{ 'bg-green-50/50 dark:bg-gray-700/50': selectedChannelId === channel.id }">
                       <span class="text-gray-400 text-xs mr-2">#</span>
                       <span class="text-sm font-medium text-gray-700 dark:text-gray-200 truncate">{{ channel.name
-                      }}</span>
+                        }}</span>
                       <span v-if="selectedChannelId === channel.id" class="ml-auto text-green-600 dark:text-green-400">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd"
@@ -209,13 +209,12 @@ export default {
       isSettingsPanelOpen: false,
       showHistory: false,
       showBotSelector: false,
-      showChannelSelector: false,
-      channels: []
+      showChannelSelector: false
     };
   },
   computed: {
     ...mapState(useUserStore, ['isAuthenticated', 'profilePictureUrl', 'theme', 'user']),
-    ...mapState(useMainStore, ['selectedBotId', 'bots', 'selectedChannelId']),
+    ...mapState(useMainStore, ['selectedBotId', 'bots', 'channels', 'selectedChannelId']),
     selectedBot() {
       if (!this.selectedBotId || !this.bots) return null;
       return this.bots.find(bot => bot.id === this.selectedBotId);
@@ -263,10 +262,7 @@ export default {
     },
     async loadChannels() {
       if (this.selectedBotId) {
-        this.channels = await this.fetchChannels();
-      } else {
-        // Clear channels if no bot is selected
-        this.channels = [];
+        await this.fetchChannels();
       }
     },
     async handleLogin() {
@@ -290,17 +286,27 @@ export default {
   created() {
     this.checkAuth().then(async () => {
       if (this.isAuthenticated) {
-        // fetchBots will set bots, but selectedBotId comes from localStorage (store state)
         await this.fetchBots();
-        // loadChannels will be triggered by watch if immediate or changed, but let's keep direct call or rely on watch.
-        // If we use watch immediate, we don't need this call here.
+        // Force load channels if bot is already selected (e.g. from localStorage)
+        if (this.selectedBotId) {
+          await this.loadChannels();
+        }
       }
     });
   },
   watch: {
-    selectedBotId: {
+    // Reload channels when bot changes
+    selectedBotId: 'loadChannels',
+    // Reload channels (and bots) when auth status changes to true
+    isAuthenticated: {
       immediate: true,
-      handler: 'loadChannels'
+      handler(newVal) {
+        if (newVal) {
+          this.fetchBots().then(() => {
+            if (this.selectedBotId) this.loadChannels();
+          });
+        }
+      }
     }
   }
 };

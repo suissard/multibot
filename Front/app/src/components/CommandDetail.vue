@@ -73,8 +73,23 @@
                                     </label>
                                     <p class="text-xs text-gray-500 mb-2">{{ arg.description }}</p>
 
-                                    <input v-model="formValues[arg.name]" :required="arg.required"
-                                        :placeholder="arg.type === 'user' ? '@User or ID' : 'Enter value...'"
+
+                                    <!-- User Selector -->
+                                    <div v-if="arg.type.toLowerCase() === 'user'">
+                                        <select v-model="formValues[arg.name]" :required="arg.required"
+                                            class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors">
+                                            <option value="">Select a user...</option>
+                                            <option v-for="user in users" :key="user.id" :value="user.id">
+                                                {{ user.username }} ({{ user.displayName }})
+                                            </option>
+                                        </select>
+                                        <p v-if="users.length === 0" class="text-xs text-orange-500 mt-1">No users found
+                                            or loading...</p>
+                                    </div>
+
+                                    <!-- Default Input -->
+                                    <input v-else v-model="formValues[arg.name]" :required="arg.required"
+                                        :placeholder="arg.type === 'number' ? 'Enter number...' : 'Enter value...'"
                                         :type="arg.type === 'number' ? 'number' : 'text'"
                                         class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors" />
                                 </div>
@@ -96,11 +111,12 @@
                         <div v-if="executionResult"
                             class="mt-6 p-4 rounded-lg bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800">
                             <h3 class="font-bold text-green-800 dark:text-green-300 mb-2">Result:</h3>
-                            <pre
-                                class="bg-white dark:bg-black/50 p-2 rounded text-sm font-mono whitespace-pre-wrap">{{ executionResult }}</pre>
+                            <pre class="bg-white dark:bg-black/50 p-2 rounded text-sm font-mono whitespace-pre-wrap"
+                                v-html="formattedExecutionResult"></pre>
                         </div>
                     </div>
                 </div>
+
 
                 <!-- Right Column: Permissions & Metadata -->
                 <div class="lg:col-span-1 space-y-6">
@@ -160,10 +176,43 @@ export default {
         };
     },
     computed: {
-        ...mapState(useMainStore, ['commands', 'selectedChannelId']),
+        ...mapState(useMainStore, ['commands', 'selectedChannelId', 'users', 'channels']),
+        formattedExecutionResult() {
+            if (!this.executionResult) return '';
+            let text = this.executionResult;
+
+            // Escape HTML (basic)
+            text = text.replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+            // Format User Mentions: &lt;@ID&gt; or &lt;@!ID&gt;
+            text = text.replace(/&lt;@!?(\d+)&gt;/g, (match, id) => {
+                const user = this.users.find(u => u.id === id);
+                const name = user ? `@${user.displayName || user.username}` : `@Unknown User (${id})`;
+                return `<span class="bg-[#5865F2]/10 text-[#5865F2] hover:bg-[#5865F2]/20 px-1 rounded cursor-pointer transition-colors" title="User ID: ${id}">${name}</span>`;
+            });
+
+            // Format Channel Mentions: &lt;#ID&gt;
+            text = text.replace(/&lt;#(\d+)&gt;/g, (match, id) => {
+                const channel = this.channels.find(c => c.id === id);
+                const name = channel ? `#${channel.name}` : `#Unknown Channel (${id})`;
+                return `<span class="bg-[#5865F2]/10 text-[#5865F2] hover:bg-[#5865F2]/20 px-1 rounded cursor-pointer transition-colors" title="Channel ID: ${id}">${name}</span>`;
+            });
+
+            // Format Role Mentions: &lt;@&ID&gt;
+            text = text.replace(/&lt;@&amp;(\d+)&gt;/g, (match, id) => {
+                // We assume roles are not in store yet, so just generic formatting
+                return `<span class="bg-[#5865F2]/10 text-[#5865F2] hover:bg-[#5865F2]/20 px-1 rounded cursor-pointer transition-colors" title="Role ID: ${id}">@Role (${id})</span>`;
+            });
+
+            return text;
+        }
     },
     methods: {
-        ...mapActions(useMainStore, ['fetchCommands', 'runBotCommand']),
+        ...mapActions(useMainStore, ['fetchCommands', 'runBotCommand', 'fetchUsers']),
         async loadCommand() {
             this.loading = true;
             try {
@@ -177,6 +226,12 @@ export default {
                 if (!this.command) {
                     this.error = "Command not found";
                     return;
+                }
+
+                // Check if any argument is of type 'user' and fetch users if needed
+                const hasUserArg = this.command.arguments && this.command.arguments.some(arg => arg.type.toLowerCase() === 'user');
+                if (hasUserArg && this.users.length === 0) {
+                    await this.fetchUsers();
                 }
 
                 if (this.command.arguments) {

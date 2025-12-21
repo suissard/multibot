@@ -69,6 +69,10 @@ class Route {
                 const response = await this.api.get(`/channels?bot_id=${botId}`);
                 return response.data;
             },
+            getUsers: async (botId) => {
+                const response = await this.api.get(`/users?bot_id=${botId}`);
+                return response.data;
+            },
             // Keep mocks for others if needed or implement them
             getModuleTestData: (_moduleId) => [], 
             putModuleTestData: () => ({ success: true }),
