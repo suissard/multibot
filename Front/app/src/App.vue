@@ -2,7 +2,7 @@
   <div class="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
     <NotificationContainer />
     <NotificationHistory :show="showHistory" @close="showHistory = false" />
-    <nav class="bg-white dark:bg-gray-800 shadow-md">
+    <nav class="bg-white dark:bg-gray-800 shadow-md relative z-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16 relative">
           <div class="flex items-center">
@@ -22,61 +22,116 @@
             </div>
           </div>
 
-          <!-- Centered Bot Info -->
-          <div class="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center">
-            <div @click="toggleBotSelector"
-              class="relative z-10 flex items-center bg-indigo-50 dark:bg-indigo-900/50 border border-indigo-200 dark:border-indigo-700 rounded-full py-1.5 px-4 shadow-sm cursor-pointer hover:bg-indigo-100 dark:hover:bg-indigo-800 transition-colors duration-200">
-              <div v-if="selectedBot" class="flex items-center">
-                <img v-if="selectedBot.avatar" :src="selectedBot.avatar" alt="Bot Avatar"
-                  class="h-8 w-8 rounded-full border border-indigo-200 dark:border-indigo-600 mr-2">
-                <div v-else
-                  class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold mr-2">
-                  {{ selectedBot.name.charAt(0).toUpperCase() }}
-                </div>
-                <span class="text-sm font-medium text-indigo-700 dark:text-indigo-200 hidden sm:block mr-1">{{
-                  selectedBot.name }}</span>
-                <svg class="w-4 h-4 text-indigo-500 dark:text-indigo-400 ml-1" fill="none" stroke="currentColor"
-                  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <span v-else
-                class="text-sm font-medium text-indigo-500 dark:text-indigo-400 italic hidden sm:block">Select a
-                Bot</span>
-            </div>
+          <!-- Centered Bot & Channel Info -->
+          <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center space-x-4">
 
-            <!-- Bot Dropdown -->
-            <transition name="fade">
-              <div v-if="showBotSelector"
-                class="absolute top-12 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 py-2 z-20">
-                <div v-if="bots && bots.length > 0">
-                  <div v-for="bot in bots" :key="bot.id" @click="handleBotSelection(bot)"
-                    class="flex items-center px-4 py-3 hover:bg-indigo-50 dark:hover:bg-gray-700 cursor-pointer transition-colors duration-150"
-                    :class="{ 'bg-indigo-50/50 dark:bg-gray-700/50': selectedBotId === bot.id }">
-                    <img v-if="bot.avatar" :src="bot.avatar" alt="Bot Avatar"
-                      class="h-8 w-8 rounded-full mr-3 border border-gray-200 dark:border-gray-600">
-                    <div v-else
-                      class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold mr-3 text-xs">
-                      {{ bot.name.charAt(0).toUpperCase() }}
+            <!-- Bot Selector -->
+            <div class="relative">
+              <div @click="toggleBotSelector"
+                class="relative z-10 flex items-center bg-indigo-50 dark:bg-indigo-900/50 border border-indigo-200 dark:border-indigo-700 rounded-full py-1.5 px-4 shadow-sm cursor-pointer hover:bg-indigo-100 dark:hover:bg-indigo-800 transition-colors duration-200">
+                <div v-if="selectedBot" class="flex items-center">
+                  <img v-if="selectedBot.avatar" :src="selectedBot.avatar" alt="Bot Avatar"
+                    class="h-8 w-8 rounded-full border border-indigo-200 dark:border-indigo-600 mr-2">
+                  <div v-else
+                    class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold mr-2">
+                    {{ selectedBot.name.charAt(0).toUpperCase() }}
+                  </div>
+                  <span class="text-sm font-medium text-indigo-700 dark:text-indigo-200 hidden sm:block mr-1">{{
+                    selectedBot.name }}</span>
+                  <svg class="w-4 h-4 text-indigo-500 dark:text-indigo-400 ml-1" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </div>
+                <span v-else
+                  class="text-sm font-medium text-indigo-500 dark:text-indigo-400 italic hidden sm:block">Select
+                  Bot</span>
+              </div>
+
+              <!-- Bot Dropdown -->
+              <transition name="fade">
+                <div v-if="showBotSelector"
+                  class="absolute top-12 left-0 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 py-2 z-20">
+                  <div v-if="bots && bots.length > 0">
+                    <div v-for="bot in bots" :key="bot.id" @click="handleBotSelection(bot)"
+                      class="flex items-center px-4 py-3 hover:bg-indigo-50 dark:hover:bg-gray-700 cursor-pointer transition-colors duration-150"
+                      :class="{ 'bg-indigo-50/50 dark:bg-gray-700/50': selectedBotId === bot.id }">
+                      <img v-if="bot.avatar" :src="bot.avatar" alt="Bot Avatar"
+                        class="h-8 w-8 rounded-full mr-3 border border-gray-200 dark:border-gray-600">
+                      <div v-else
+                        class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold mr-3 text-xs">
+                        {{ bot.name.charAt(0).toUpperCase() }}
+                      </div>
+                      <span class="text-sm font-medium text-gray-700 dark:text-gray-200">{{ bot.name }}</span>
+                      <span v-if="selectedBotId === bot.id" class="ml-auto text-indigo-600 dark:text-indigo-400">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"></path>
+                        </svg>
+                      </span>
                     </div>
-                    <span class="text-sm font-medium text-gray-700 dark:text-gray-200">{{ bot.name }}</span>
-                    <span v-if="selectedBotId === bot.id" class="ml-auto text-indigo-600 dark:text-indigo-400">
-                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"></path>
-                      </svg>
-                    </span>
+                  </div>
+                  <div v-else class="px-4 py-3 text-sm text-gray-500 text-center">
+                    No bots available
                   </div>
                 </div>
-                <div v-else class="px-4 py-3 text-sm text-gray-500 text-center">
-                  No bots available
+              </transition>
+            </div>
+
+            <!-- Channel Selector -->
+            <div class="relative" v-if="selectedBot">
+              <div @click="toggleChannelSelector"
+                class="relative z-10 flex items-center bg-green-50 dark:bg-green-900/50 border border-green-200 dark:border-green-700 rounded-full py-1.5 px-4 shadow-sm cursor-pointer hover:bg-green-100 dark:hover:bg-green-800 transition-colors duration-200">
+                <div v-if="selectedChannel" class="flex items-center">
+                  <span class="text-sm font-medium text-green-700 dark:text-green-200 hidden sm:block mr-1"># {{
+                    selectedChannel.name }}</span>
+                  <svg class="w-4 h-4 text-green-500 dark:text-green-400 ml-1" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
                 </div>
+                <span v-else
+                  class="text-sm font-medium text-green-500 dark:text-green-400 italic hidden sm:block">Default
+                  (DM)</span>
               </div>
-            </transition>
+
+              <!-- Channel Dropdown -->
+              <transition name="fade">
+                <div v-if="showChannelSelector"
+                  class="absolute top-12 left-0 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 py-2 z-50 max-h-96 overflow-y-auto w-max min-w-full">
+                  <div v-if="channels && channels.length > 0">
+                    <!-- Option for No Channel (DM) -->
+                    <div @click="handleChannelSelection(null)"
+                      class="flex items-center px-4 py-3 hover:bg-green-50 dark:hover:bg-gray-700 cursor-pointer transition-colors duration-150 border-b border-gray-100 dark:border-gray-700">
+                      <span class="text-sm font-medium text-gray-500 dark:text-gray-400 italic">No Channel
+                        (Default/DM)</span>
+                    </div>
+
+                    <div v-for="channel in channels" :key="channel.id" @click="handleChannelSelection(channel)"
+                      class="flex items-center px-4 py-3 hover:bg-green-50 dark:hover:bg-gray-700 cursor-pointer transition-colors duration-150"
+                      :class="{ 'bg-green-50/50 dark:bg-gray-700/50': selectedChannelId === channel.id }">
+                      <span class="text-gray-400 text-xs mr-2">#</span>
+                      <span class="text-sm font-medium text-gray-700 dark:text-gray-200 truncate">{{ channel.name
+                      }}</span>
+                      <span v-if="selectedChannelId === channel.id" class="ml-auto text-green-600 dark:text-green-400">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"></path>
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                  <div v-else class="px-4 py-3 text-sm text-gray-500 text-center">
+                    No channels available
+                  </div>
+                </div>
+              </transition>
+            </div>
 
             <!-- Backdrop for closing -->
-            <div v-if="showBotSelector" @click="showBotSelector = false"
+            <div v-if="showBotSelector || showChannelSelector" @click="toggleSettingsPanel"
               class="fixed inset-0 z-0 bg-transparent cursor-default"></div>
           </div>
           <div class="flex items-center space-x-4">
@@ -153,36 +208,66 @@ export default {
     return {
       isSettingsPanelOpen: false,
       showHistory: false,
-      showBotSelector: false
+      showBotSelector: false,
+      showChannelSelector: false,
+      channels: []
     };
   },
   computed: {
     ...mapState(useUserStore, ['isAuthenticated', 'profilePictureUrl', 'theme', 'user']),
-    ...mapState(useMainStore, ['selectedBotId', 'bots']),
+    ...mapState(useMainStore, ['selectedBotId', 'bots', 'selectedChannelId']),
     selectedBot() {
       if (!this.selectedBotId || !this.bots) return null;
       return this.bots.find(bot => bot.id === this.selectedBotId);
+    },
+    selectedChannel() {
+      if (!this.selectedChannelId || !this.channels) return null;
+      return this.channels.find(c => c.id === this.selectedChannelId);
     }
   },
   methods: {
     ...mapActions(useUserStore, ['checkAuth', 'logout']),
-    ...mapActions(useMainStore, ['fetchBots', 'selectBot']),
+    ...mapActions(useMainStore, ['fetchBots', 'selectBot', 'fetchChannels', 'selectChannel']),
     toggleSettingsPanel() {
       this.isSettingsPanelOpen = !this.isSettingsPanelOpen;
-      this.showBotSelector = false; // Close bot selector if settings opens
+      this.showBotSelector = false;
+      this.showChannelSelector = false;
     },
     toggleBotSelector() {
       this.showBotSelector = !this.showBotSelector;
-      this.isSettingsPanelOpen = false; // Close settings if bot selector opens
+      this.showChannelSelector = false;
+      this.isSettingsPanelOpen = false;
+    },
+    toggleChannelSelector() {
+      this.showChannelSelector = !this.showChannelSelector;
+      this.showBotSelector = false;
+      this.isSettingsPanelOpen = false;
     },
     async handleBotSelection(bot) {
       if (!bot) return;
-      this.selectBot(bot.id); // Call store action to set selected ID
+      this.selectBot(bot.id);
       this.showBotSelector = false;
-      // Optionally reload or re-fetch data for the new bot
-      // Since we changed the ID, we might want to refresh current view's data
-      // For simplicity, we can let individual components react to ID change, or simple reload:
+      // Refresh logic:
+      await this.loadChannels(); // Fetch channels for new bot
+      // Reload is a bit harsh if we can just react, but user asked for consistency. 
+      // Reloading ensures all components reset. 
       window.location.reload();
+    },
+    async handleChannelSelection(channel) {
+      if (!channel) {
+        this.selectChannel(null);
+      } else {
+        this.selectChannel(channel.id);
+      }
+      this.showChannelSelector = false;
+    },
+    async loadChannels() {
+      if (this.selectedBotId) {
+        this.channels = await this.fetchChannels();
+      } else {
+        // Clear channels if no bot is selected
+        this.channels = [];
+      }
     },
     async handleLogin() {
       // Redirect to Discord OAuth
@@ -203,12 +288,21 @@ export default {
 
   },
   created() {
-    this.checkAuth().then(() => {
+    this.checkAuth().then(async () => {
       if (this.isAuthenticated) {
-        this.fetchBots();
+        // fetchBots will set bots, but selectedBotId comes from localStorage (store state)
+        await this.fetchBots();
+        // loadChannels will be triggered by watch if immediate or changed, but let's keep direct call or rely on watch.
+        // If we use watch immediate, we don't need this call here.
       }
     });
   },
+  watch: {
+    selectedBotId: {
+      immediate: true,
+      handler: 'loadChannels'
+    }
+  }
 };
 </script>
 

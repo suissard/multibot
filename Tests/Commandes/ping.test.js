@@ -29,4 +29,11 @@ describe.skip('Ping Command', () => {
         const result = pingCommand.methode({ user: '123456789', texte: 'Hello' });
         expect(result).toBe('Pong <@123456789> Hello');
     });
+
+    it('should calculate and return latency when interaction is provided', () => {
+        const pingCommand = new Ping();
+        const mockInteraction = { createdTimestamp: Date.now() - 50 };
+        const result = pingCommand.methode({ interaction: mockInteraction });
+        expect(result).toMatch(/Pong 🏓 \(\d+ms\)/);
+    });
 });

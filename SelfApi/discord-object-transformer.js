@@ -12,7 +12,7 @@ async function transformApiArgsToDiscordObjects(args, command, bot) {
 
 	for (const argDef of command.arguments) {
 		const argValue = args[argDef.name];
-		if (argValue === undefined) continue;
+		if (argValue === undefined || argValue === null || argValue === '') continue;
 
 		let transformedValue;
 		switch (argDef.type) {
