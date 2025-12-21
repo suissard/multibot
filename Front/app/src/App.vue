@@ -6,6 +6,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16 relative">
           <div class="flex items-center">
+            <!-- Desktop Menu -->
             <div class="hidden md:block">
               <div class="flex items-baseline space-x-4">
                 <router-link to="/"
@@ -19,6 +20,25 @@
                 <router-link to="/settings"
                   class="text-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Settings</router-link>
               </div>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="-mr-2 flex md:hidden">
+              <button @click="isMobileMenuOpen = !isMobileMenuOpen" type="button"
+                class="bg-white dark:bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                aria-controls="mobile-menu" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <!-- Icon when menu is closed -->
+                <svg v-if="!isMobileMenuOpen" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <!-- Icon when menu is open -->
+                <svg v-else class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
           </div>
 
@@ -113,7 +133,7 @@
                       :class="{ 'bg-green-50/50 dark:bg-gray-700/50': selectedChannelId === channel.id }">
                       <span class="text-gray-400 text-xs mr-2">#</span>
                       <span class="text-sm font-medium text-gray-700 dark:text-gray-200 truncate">{{ channel.name
-                        }}</span>
+                      }}</span>
                       <span v-if="selectedChannelId === channel.id" class="ml-auto text-green-600 dark:text-green-400">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd"
@@ -172,6 +192,66 @@
       </div>
     </nav>
 
+    <!-- Mobile Menu Drawer -->
+    <div v-show="isMobileMenuOpen" class="fixed inset-0 flex z-40 md:hidden" role="dialog" aria-modal="true">
+      <!-- Overlay -->
+      <transition enter-active-class="transition-opacity ease-linear duration-300" enter-from-class="opacity-0"
+        enter-to-class="opacity-100" leave-active-class="transition-opacity ease-linear duration-300"
+        leave-from-class="opacity-100" leave-to-class="opacity-0">
+        <div v-show="isMobileMenuOpen" class="fixed inset-0 bg-gray-600 bg-opacity-75" aria-hidden="true"
+          @click="isMobileMenuOpen = false">
+        </div>
+      </transition>
+
+      <!-- Drawer Panel -->
+      <transition enter-active-class="transition ease-in-out duration-300 transform"
+        enter-from-class="-translate-x-full" enter-to-class="translate-x-0"
+        leave-active-class="transition ease-in-out duration-300 transform" leave-from-class="translate-x-0"
+        leave-to-class="-translate-x-full">
+        <div v-show="isMobileMenuOpen"
+          class="relative flex-1 flex flex-col max-w-xs w-full bg-white dark:bg-gray-800 shadow-xl h-full">
+          <div class="absolute top-0 right-0 -mr-12 pt-2">
+            <button @click="isMobileMenuOpen = false"
+              class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+              <span class="sr-only">Close sidebar</span>
+              <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
+            <div class="flex-shrink-0 flex items-center px-4 mb-5">
+              <h2 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Multibot</h2>
+            </div>
+            <nav class="mt-5 px-2 space-y-1">
+              <router-link to="/" @click="isMobileMenuOpen = false"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700">
+                Home
+              </router-link>
+              <router-link to="/commands" @click="isMobileMenuOpen = false"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700">
+                Commands
+              </router-link>
+              <router-link to="/events" @click="isMobileMenuOpen = false"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700">
+                Events
+              </router-link>
+              <router-link to="/modules" @click="isMobileMenuOpen = false"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700">
+                Modules
+              </router-link>
+              <router-link to="/settings" @click="isMobileMenuOpen = false"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700">
+                Settings
+              </router-link>
+            </nav>
+          </div>
+        </div>
+      </transition>
+    </div>
+
     <main>
       <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div class="px-4 py-6 sm:px-0">
@@ -209,7 +289,8 @@ export default {
       isSettingsPanelOpen: false,
       showHistory: false,
       showBotSelector: false,
-      showChannelSelector: false
+      showChannelSelector: false,
+      isMobileMenuOpen: false
     };
   },
   computed: {
@@ -231,6 +312,7 @@ export default {
       this.isSettingsPanelOpen = !this.isSettingsPanelOpen;
       this.showBotSelector = false;
       this.showChannelSelector = false;
+      this.isMobileMenuOpen = false;
     },
     toggleBotSelector() {
       this.showBotSelector = !this.showBotSelector;
