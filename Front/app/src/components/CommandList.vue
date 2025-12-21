@@ -41,46 +41,61 @@
     </div>
 
     <!-- Grid -->
-    <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div v-for="command in filteredCommands" :key="command.name" @click="$router.push('/commands/' + command.name)"
-        class="group bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-xl border border-gray-200 dark:border-gray-700 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden flex flex-col cursor-pointer">
-        <div class="p-6 flex-grow">
-          <div class="flex justify-between items-start mb-4">
-            <div>
-              <h3 class="text-xl font-bold text-gray-800 dark:text-white group-hover:text-indigo-600 transition-colors">
-                {{ command.name }}</h3>
-              <span v-if="command.category"
-                class="inline-block mt-1 text-xs font-semibold uppercase tracking-wider text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">{{
-                  command.category }}</span>
-            </div>
-            <div class="bg-indigo-50 dark:bg-indigo-900/30 p-2 rounded-lg text-indigo-500">
-              ⚡
-            </div>
-          </div>
-
-          <p class="text-gray-600 dark:text-gray-400 text-sm line-clamp-3 mb-4">
-            {{ command.description || 'No description provided.' }}
-          </p>
-
-          <!-- Args Preview -->
-          <div v-if="command.arguments && command.arguments.length" class="flex flex-wrap gap-1 mb-4">
-            <span v-for="arg in command.arguments.slice(0, 3)" :key="arg.name"
-              class="text-xs font-mono bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-1.5 py-0.5 rounded">
-              {{ arg.name }}
-            </span>
-            <span v-if="command.arguments.length > 3" class="text-xs text-gray-400">+{{ command.arguments.length - 3
-            }}</span>
-          </div>
-        </div>
-
-        <!-- Actions Footer -->
-        <div
-          class="bg-gray-50 dark:bg-gray-900/50 p-4 border-t border-gray-100 dark:border-gray-700 flex justify-end items-center">
-          <router-link :to="'/commands/' + command.name"
-            class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition-all transform active:scale-95">
-            Execute
-          </router-link>
-        </div>
+    <!-- Table View -->
+    <div v-else class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead class="bg-gray-50 dark:bg-gray-700">
+            <tr>
+              <th scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                Command Name
+              </th>
+              <th scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                Category
+              </th>
+              <th scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                Description
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+            <tr v-for="command in filteredCommands" :key="command.name"
+              @click="$router.push('/commands/' + command.name)"
+              class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150 cursor-pointer">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="text-sm font-bold text-gray-900 dark:text-white">
+                    {{ command.name }}
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span v-if="command.category"
+                  class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200">
+                  {{ command.category }}
+                </span>
+                <span v-else class="text-xs text-gray-400 italic">Uncategorized</span>
+              </td>
+              <td class="px-6 py-4">
+                <div class="text-sm text-gray-500 dark:text-gray-300 line-clamp-2">
+                  {{ command.description || 'No description provided.' }}
+                </div>
+                <!-- Args Preview (Optional, kept for detail) -->
+                <div v-if="command.arguments && command.arguments.length" class="flex flex-wrap gap-1 mt-1">
+                  <span v-for="arg in command.arguments.slice(0, 3)" :key="arg.name"
+                    class="text-xs font-mono bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-300 px-1 py-0.5 rounded">
+                    {{ arg.name }}
+                  </span>
+                  <span v-if="command.arguments.length > 3" class="text-xs text-gray-400">+{{ command.arguments.length -
+                    3 }}</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
