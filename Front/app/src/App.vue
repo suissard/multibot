@@ -4,23 +4,9 @@
     <NotificationHistory :show="showHistory" @close="showHistory = false" />
     <nav class="bg-white dark:bg-gray-800 shadow-md">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
+        <div class="flex items-center justify-between h-16 relative">
           <div class="flex items-center">
-            <!-- Bot Info on the Left -->
-            <div class="flex items-center space-x-4">
-              <div class="flex items-center">
-                <div v-if="selectedBot" class="flex items-center">
-                  <div
-                    class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold mr-2">
-                    {{ selectedBot.name.charAt(0).toUpperCase() }}
-                  </div>
-                  <span class="text-sm font-medium text-gray-700 dark:text-gray-200">{{ selectedBot.name }}</span>
-                </div>
-                <span v-else class="text-sm font-medium text-gray-500 dark:text-gray-400 italic">No Bot Selected</span>
-              </div>
-            </div>
-
-            <div class="hidden md:block ml-10">
+            <div class="hidden md:block">
               <div class="flex items-baseline space-x-4">
                 <router-link to="/"
                   class="text-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Home</router-link>
@@ -34,6 +20,64 @@
                   class="text-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Settings</router-link>
               </div>
             </div>
+          </div>
+
+          <!-- Centered Bot Info -->
+          <div class="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center">
+            <div @click="toggleBotSelector"
+              class="relative z-10 flex items-center bg-indigo-50 dark:bg-indigo-900/50 border border-indigo-200 dark:border-indigo-700 rounded-full py-1.5 px-4 shadow-sm cursor-pointer hover:bg-indigo-100 dark:hover:bg-indigo-800 transition-colors duration-200">
+              <div v-if="selectedBot" class="flex items-center">
+                <img v-if="selectedBot.avatar" :src="selectedBot.avatar" alt="Bot Avatar"
+                  class="h-8 w-8 rounded-full border border-indigo-200 dark:border-indigo-600 mr-2">
+                <div v-else
+                  class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold mr-2">
+                  {{ selectedBot.name.charAt(0).toUpperCase() }}
+                </div>
+                <span class="text-sm font-medium text-indigo-700 dark:text-indigo-200 hidden sm:block mr-1">{{
+                  selectedBot.name }}</span>
+                <svg class="w-4 h-4 text-indigo-500 dark:text-indigo-400 ml-1" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+              <span v-else
+                class="text-sm font-medium text-indigo-500 dark:text-indigo-400 italic hidden sm:block">Select a
+                Bot</span>
+            </div>
+
+            <!-- Bot Dropdown -->
+            <transition name="fade">
+              <div v-if="showBotSelector"
+                class="absolute top-12 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 py-2 z-20">
+                <div v-if="bots && bots.length > 0">
+                  <div v-for="bot in bots" :key="bot.id" @click="handleBotSelection(bot)"
+                    class="flex items-center px-4 py-3 hover:bg-indigo-50 dark:hover:bg-gray-700 cursor-pointer transition-colors duration-150"
+                    :class="{ 'bg-indigo-50/50 dark:bg-gray-700/50': selectedBotId === bot.id }">
+                    <img v-if="bot.avatar" :src="bot.avatar" alt="Bot Avatar"
+                      class="h-8 w-8 rounded-full mr-3 border border-gray-200 dark:border-gray-600">
+                    <div v-else
+                      class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold mr-3 text-xs">
+                      {{ bot.name.charAt(0).toUpperCase() }}
+                    </div>
+                    <span class="text-sm font-medium text-gray-700 dark:text-gray-200">{{ bot.name }}</span>
+                    <span v-if="selectedBotId === bot.id" class="ml-auto text-indigo-600 dark:text-indigo-400">
+                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+                <div v-else class="px-4 py-3 text-sm text-gray-500 text-center">
+                  No bots available
+                </div>
+              </div>
+            </transition>
+
+            <!-- Backdrop for closing -->
+            <div v-if="showBotSelector" @click="showBotSelector = false"
+              class="fixed inset-0 z-0 bg-transparent cursor-default"></div>
           </div>
           <div class="flex items-center space-x-4">
             <!-- Notification Bell -->
@@ -131,7 +175,7 @@ export default {
       this.showBotSelector = !this.showBotSelector;
       this.isSettingsPanelOpen = false; // Close settings if bot selector opens
     },
-    async selectBot(bot) {
+    async handleBotSelection(bot) {
       if (!bot) return;
       this.selectBot(bot.id); // Call store action to set selected ID
       this.showBotSelector = false;

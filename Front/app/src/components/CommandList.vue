@@ -42,8 +42,8 @@
 
     <!-- Grid -->
     <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div v-for="command in filteredCommands" :key="command.name"
-        class="group bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-xl border border-gray-200 dark:border-gray-700 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden flex flex-col">
+      <div v-for="command in filteredCommands" :key="command.name" @click="$router.push('/commands/' + command.name)"
+        class="group bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-xl border border-gray-200 dark:border-gray-700 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden flex flex-col cursor-pointer">
         <div class="p-6 flex-grow">
           <div class="flex justify-between items-start mb-4">
             <div>
@@ -75,12 +75,7 @@
 
         <!-- Actions Footer -->
         <div
-          class="bg-gray-50 dark:bg-gray-900/50 p-4 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
-          <router-link :to="'/commands/' + command.name"
-            class="text-sm font-medium text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300">
-            View Details
-          </router-link>
-
+          class="bg-gray-50 dark:bg-gray-900/50 p-4 border-t border-gray-100 dark:border-gray-700 flex justify-end items-center">
           <router-link :to="'/commands/' + command.name"
             class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition-all transform active:scale-95">
             Execute
