@@ -19,10 +19,13 @@ const {
 const { getUserById } = require('../../../services/apiService');
 const { getMatchDivisionName } = require('../../../utils/matchUtils');
 
-const { isMatchAlreadyPlayed, washOldChannels, washEmptyCategory } = require('../utils/utils');
+const { isMatchAlreadyPlayed, washOldChannels, washEmptyCategory } = require('./utils');
 const { getPastMatchs, getFutureMatchs, getMatchById } = require('../../../services/apiService');
 const { isMatchStartedSoon } = require('../../../utils/dateUtils');
 const Bot = require('../../../Class/Bot');
+
+let cachedMatches = null;
+let lastCacheUpdate = 0;
 
 /**
  * Crée tous les salons (vocaux et textuels) associés à un match spécifique.
@@ -309,17 +312,20 @@ const createTextChannel = async (
 	return [channel];
 };
 
-/**
- * Fonction principale du module : gère l'ensemble du cycle de vie des salons de match.
- * Récupère les matchs à venir et passés récents, crée les salons nécessaires,
- * et nettoie les anciens salons et les catégories vides.
- * @param {Bot} bot - L'instance du bot.
- * @param {import('discord.js').Guild} guild - La guilde à gérer.
- */
-const autoChannel = async (bot, guild) => {
-	console.log(`[${bot.name}] CHANNELMANAGER : Start`);
-	let exceptionName = [];
-	const divisionNames = [];
+const resetMatchCache = () => {
+	cachedMatches = null;
+	lastCacheUpdate = 0;
+};
+
+const getActiveMatches = async (bot) => {
+	const now = Date.now();
+	const cacheDurationMs =
+		(bot.modules.ChannelManager.matchCacheDuration || 1) * 60 * 60 * 1000;
+
+	if (cachedMatches && now - lastCacheUpdate < cacheDurationMs) {
+		return cachedMatches;
+	}
+
 	let futuresMatchs = await getFutureMatchs(bot);
 	let pastMatchs = await getPastMatchs(bot);
 
@@ -333,7 +339,25 @@ const autoChannel = async (bot, guild) => {
 		(match) =>
 			!isMatchAlreadyPlayed(match.matchDate, bot.modules.ChannelManager.maximumMatchDuration)
 	);
-	const matchs = futuresMatchs.concat(pastMatchs);
+
+	cachedMatches = futuresMatchs.concat(pastMatchs);
+	lastCacheUpdate = now;
+
+	return cachedMatches;
+};
+
+/**
+ * Fonction principale du module : gère l'ensemble du cycle de vie des salons de match.
+ * Récupère les matchs à venir et passés récents, crée les salons nécessaires,
+ * et nettoie les anciens salons et les catégories vides.
+ * @param {Bot} bot - L'instance du bot.
+ * @param {import('discord.js').Guild} guild - La guilde à gérer.
+ */
+const autoChannel = async (bot, guild) => {
+	console.log(`[${bot.name}] CHANNELMANAGER : Start`);
+	let exceptionName = [];
+	const divisionNames = [];
+	const matchs = await getActiveMatches(bot);
 
 	for (const m of matchs) {
 		try {
@@ -353,10 +377,97 @@ const autoChannel = async (bot, guild) => {
 	console.log(`[${bot.name}] CHANNELMANAGER : End`);
 };
 
+/**
+ * Synchronise les permissions d'un membre pour tous les matchs actifs.
+ * @param {Bot} bot - L'instance du bot.
+ * @param {import('discord.js').GuildMember} member - Le membre à synchroniser.
+ * @param {import('discord.js').Guild} guild - La guilde.
+ */
+const syncMemberPermissions = async (bot, member, guild) => {
+	const matches = await getActiveMatches(bot);
+	for (const m of matches) {
+		try {
+			const match = await getMatchById(bot, m.id);
+			const teamNames = getTeamNamesFromMatch(match);
+			const division = getMatchDivisionName(match);
+			const hoursMinutes = getHoursMinutesOfMatch(match.matchDate);
+
+			const teams = await getTeamsFromMatch(bot, match);
+			const castersId = getCastersId(match);
+
+			let isParticipant = false;
+			const targetChannels = [];
+
+			// Vérifier les équipes
+			for (const team of teams) {
+				const discordIds = getUsersDiscordIdFromTeam(team);
+				if (discordIds.includes(member.id)) {
+					isParticipant = true;
+					const voiceChannelName = generateVoiceChannelName(team.name, hoursMinutes);
+					const category = await findOrCreateCategory(guild, division);
+					const channel = checkIfChannelExists(
+						guild,
+						voiceChannelName,
+						category,
+						ChannelType.GuildVoice
+					);
+					if (channel) targetChannels.push(channel);
+				}
+			}
+
+			// Vérifier les casters
+			if (castersId.includes(member.id)) {
+				isParticipant = true;
+				const casters = await Promise.all(castersId.map((id) => getUserById(bot, id)));
+				const caster = casters.find((c) => getDiscordId(c) === member.id);
+				if (caster) {
+					const casterVoiceChannelName = `🎥🔴 - ${caster.castUrl.split(/\..+\//)[1]}`;
+					const category = await findOrCreateCategory(guild, division);
+					const channel = checkIfChannelExists(
+						guild,
+						casterVoiceChannelName,
+						category,
+						ChannelType.GuildVoice
+					);
+					if (channel) targetChannels.push(channel);
+				}
+			}
+
+			if (isParticipant) {
+				const textChannelName = generateMatchTextChannelName(teamNames, hoursMinutes);
+				const category = await findOrCreateCategory(guild, division);
+				const textChannel = checkIfChannelExists(
+					guild,
+					textChannelName,
+					category,
+					ChannelType.GuildText
+				);
+				if (textChannel) targetChannels.push(textChannel);
+
+				for (const channel of targetChannels) {
+					await channel.permissionOverwrites.create(member, {
+						ViewChannel: true,
+						Connect: true,
+						Speak: true,
+						SendMessages: true,
+						ReadMessageHistory: true,
+						Stream: true,
+					});
+				}
+			}
+		} catch (error) {
+			console.error('Error syncing member permissions:', error);
+		}
+	}
+};
+
 module.exports = {
 	createMatchChannels,
 	autoChannel,
 	getGradinsName,
 	findOrCreateGradins,
 	findOrCreateCategory,
+	syncMemberPermissions,
+	getActiveMatches,
+	resetMatchCache,
 };

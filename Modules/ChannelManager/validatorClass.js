@@ -10,5 +10,6 @@ module.exports = class ChannelManagerValidator extends ModuleConfigValidator {
         this.isType('cronSchedule', 'string');
         this.isType('maximumMatchDuration', 'number');
         this.isType('maximumNumberOfHoursToRetrieveFutureMatches', 'number');
+        this.isType('matchCacheDuration', 'number');
     }
 }
