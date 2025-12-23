@@ -1,5 +1,6 @@
 const Event = require('../../../Class/Event.js');
 const { processFromDiscordUserId } = require('../../AutoRole/utils/utils.js');
+const { syncMemberPermissions } = require('../utils/channelManagement.js');
 
 module.exports = class GuildMemberAddAutorole extends Event {
     static id = 'autorolenewguildmember';
@@ -16,6 +17,7 @@ module.exports = class GuildMemberAddAutorole extends Event {
         try {
 			const result = await processFromDiscordUserId(member.id, this.bot)
             if (result) this.bot.log( `Arrivé de ${member.user.username } => role de compétition mis à jour `,"autorole-newguildmember")
+            await syncMemberPermissions(this.bot, member, member.guild);
         } catch (err) {
             this.handleError(err);
         }
