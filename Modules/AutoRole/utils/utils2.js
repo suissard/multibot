@@ -62,9 +62,9 @@ const recurciveIdGet = (object, target) => {
  */
 const getAllTeamsFromChallenge = async (bot, idChallenge) => {
 	if (!idChallenge.match(/[0-9]/)) return [];
-	let pools = await bot.olympe.api.get(`challenges/${idChallenge}/pools`);
+	let pools = await bot.olympe.api.GET(`challenges/${idChallenge}/pools`);
 	if (!pools) return [];
-	return await bot.olympe.api.get(
+	return await bot.olympe.api.GET(
 		`challenges/${idChallenge}/pools/${pools.pools[pools.pools.length - 1].id}/teams/available` // TODO gere cela via des données plus fiable => derniere pool n'est pas forcement la bonne pool
 	);
 };
@@ -99,7 +99,8 @@ const autoRole = async function (bot, guildId) {
 		wipeOlympeData(bot);
 
 		// ===== DEV =====
-		if (bot.modules.AutoRole.guilds[guildId].specialRoles.caster) await processCasterUsers(bot, bot.guilds.cache.get(bot.home));
+		if (bot.modules.AutoRole.guilds[guildId].specialRoles.caster)
+			await processCasterUsers(bot, bot.guilds.cache.get(bot.home));
 
 		let teams = [];
 		for (let idChallenge in bot.olympe.challengesRolesId.competitions) {

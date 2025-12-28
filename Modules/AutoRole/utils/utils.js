@@ -339,8 +339,8 @@ const processTeamMember = async (team, member, guild, bot) => {
 		!member.user?.thirdparties.discord ||
 		member.user.thirdparties.discord.publicDiscordTag != 1
 	) {
-		member.user = await bot.olympe.api.post(
-			'users/search?fields=thirdpartiesDiscord%2CcastUrl',
+		member.user = await bot.olympe.api.POST(
+			'users/search-deprecated-bot-suissard?fields=thirdpartiesDiscord%2CcastUrl',
 			{
 				search: member.user.id,
 			}
@@ -462,6 +462,7 @@ const getProcessableTeamFromTeamMatch = async (teamFromMatch) => {
 		members: !teamFromMatch.lineup
 			? []
 			: teamFromMatch.lineup.members.concat(teamFromMatch.lineup.substitutes),
+		membersLent: [],
 	};
 	return team;
 };

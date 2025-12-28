@@ -57,9 +57,12 @@ const getTeamByName = async (bot, teamName) => {
  * @returns
  */
 const getUserById = async (bot, id) => {
-	const user = await bot.olympe.api.post('users/search?fields=thirdpartiesDiscord%2CcastUrl', {
-		search: id,
-	});
+	const user = await bot.olympe.api.POST(
+		'users/search-deprecated-bot-suissard?fields=thirdpartiesDiscord%2CcastUrl',
+		{
+			search: id,
+		}
+	);
 	if (!user) {
 		throw new Error('Error getting user');
 	}
@@ -89,7 +92,7 @@ const getMatchById = async (bot, id) => {
  * @returns {Promise<Array<object>>} Une liste d'utilisateurs.
  */
 const getACLusers = (bot) => {
-	return bot.olympe.api.get('acl?fields=thirdpartiesDiscord%2CcastUrl');
+	return bot.olympe.api.GET('acl?fields=thirdpartiesDiscord%2CcastUrl');
 };
 
 /**

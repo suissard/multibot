@@ -42,10 +42,10 @@ describe("Test de l'api", () => {
 	test('Tests requetes', () => {
 		const api = new OlympeApi(token, domain);
 
-		expect(api.get('test')).toBeInstanceOf(Promise);
-		expect(api.post('test')).toBeInstanceOf(Promise);
-		expect(api.put('test')).toBeInstanceOf(Promise);
-		expect(api.delete('test')).toBeInstanceOf(Promise);
+		expect(api.GET('test')).toBeInstanceOf(Promise);
+		expect(api.POST('test')).toBeInstanceOf(Promise);
+		expect(api.PUT('test')).toBeInstanceOf(Promise);
+		expect(api.DELETE('test')).toBeInstanceOf(Promise);
 	});
 
 	test('Tests en interaction', () => {
