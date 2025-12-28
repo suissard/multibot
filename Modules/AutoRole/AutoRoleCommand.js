@@ -58,7 +58,7 @@ module.exports = class AutoRoleCommand extends Command {
 	 */
 	async methode(args = {}) {
 		if (!args.user && !args.teamid) {
-			autoRole(this.bot).then((result) => this.answerToUser('Roles mis à jour'));
+			autoRole(this.bot, this.message.guild.id).then((result) => this.answerToUser('Roles mis à jour'));
 			return '⏳ AutoRole générale en cours...';
 		} else if (args.user) {
 			processFromDiscordUserId(args.user, this.bot).then((result) => {
