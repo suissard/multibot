@@ -35,7 +35,7 @@ module.exports = (bot) => {
 	 * Il initialise la connexion à l'API Olympe, s'assure que les données du serveur sont en cache,
 	 * puis exécute la fonction d'attribution des rôles immédiatement et à un intervalle défini.
 	 */
-	bot.on('ready', async () => {
+	bot.on('clientReady', async () => {
 		try {
 			// ===== DEV ===== TEST =====
 			// const roleCast = bot.modules.AutoRole.guilds["595557812051116052"].specialRoles.caster.id
