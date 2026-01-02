@@ -320,7 +320,7 @@ const resetMatchCache = () => {
 const getActiveMatches = async (bot) => {
 	const now = Date.now();
 	const cacheDurationMs =
-		(bot.modules.ChannelManager.matchCacheDuration || 1) * 60 * 60 * 1000;
+		(bot.modules.ChannelManager?.matchCacheDuration || 1) * 60 * 60 * 1000;
 
 	if (cachedMatches && now - lastCacheUpdate < cacheDurationMs) {
 		return cachedMatches;

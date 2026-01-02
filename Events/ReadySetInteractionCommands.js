@@ -4,12 +4,12 @@ const BOTS = require('../Class/BOTS.js');
 
 module.exports = class ReadySetInteractionCommands extends Event {
 	static id = 'setInteractionCommands';
-	static listener = 'ready';
+	static listener = 'clientReady';
 	static description = 'Enregistre les commandes slash en développement au démarrage du bot.';
-	static narrative = "Cet événement écoute l'événement `ready` et parcourt les commandes configurées comme étant en développement. Pour chaque commande, il crée ou met à jour la commande slash correspondante auprès de l'API de Discord. Cela permet de tester les commandes slash sans les déployer globalement.";
+	static narrative = "Cet événement écoute l'événement `clientReady` et parcourt les commandes configurées comme étant en développement. Pour chaque commande, il crée ou met à jour la commande slash correspondante auprès de l'API de Discord. Cela permet de tester les commandes slash sans les déployer globalement.";
 
 	/**
-	 * Gère l'événement 'ready' pour enregistrer les commandes slash "en développement".
+	 * Gère l'événement 'clientReady' pour enregistrer les commandes slash "en développement".
 	 * Pour chaque commande marquée comme étant en développement dans la configuration du bot,
 	 * cette fonction appelle la méthode pour créer ou mettre à jour la commande slash
 	 * auprès de l'API Discord.
