@@ -142,12 +142,6 @@ module.exports = class Bot extends Discord.Client {
 			: (this.unauthorizedCommands = []);
 
 		/**
-		 * Liste des commandes en cours de développement
-		 * @type {Array<string>}
-		 */
-		data.commandInDev ? (this.commandInDev = data.commandInDev) : (this.commandInDev = []);
-
-		/**
 		 * Connexion du bot à l'API Discord avec le token fourni
 		 */
 		this.login(data.token).catch((e) =>

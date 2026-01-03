@@ -1,10 +1,13 @@
-// Mocks and setup using Globals if available, or we will switch to import if needed.
-// const { describe, it, expect, beforeEach, vi, afterEach } = require('vitest'); // Failed
+import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
+import NewGuildMember from '../events/NewGuildMember.js';
+import { createMatchChannels } from '../utils/channelManagement.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-const NewGuildMember = require('../events/NewGuildMember.js');
-const { createMatchChannels } = require('../utils/channelManagement.js');
-const fs = require('fs');
-const path = require('path');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Helper to load JSON data
 const loadJson = (relativePath) => {

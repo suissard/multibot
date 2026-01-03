@@ -339,7 +339,7 @@ const processTeamMember = async (team, member, guild, bot) => {
 		!member.user?.thirdparties.discord ||
 		member.user.thirdparties.discord.publicDiscordTag != 1
 	) {
-		member.user = await bot.olympe.api.POST(
+		member.user = await bot.olympe.api.post(
 			'users/search-deprecated-bot-suissard?fields=thirdpartiesDiscord%2CcastUrl',
 			{
 				search: member.user.id,

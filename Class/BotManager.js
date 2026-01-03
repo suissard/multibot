@@ -118,7 +118,7 @@ module.exports = class BotManager extends Map {
 
             if (!validator.isValid()) {
                 const errors = validator.getErrors().join('\\n');
-                bot.error(`Invalid configuration for module ${moduleName}:\\n${errors}`, moduleName);
+                bot.error(`Configuration de modules eronnée :\n\t${errors}`, moduleName);
                 return; // Stop loading this module
             }
         } catch (e) {

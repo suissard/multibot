@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 const BOTS = require('../Class/BOTS.js');
 
 module.exports = class Message extends Commande {
-    static id = 'testCommand';
+    static id = 'test-command';
     static devBoss = true;
     static home = false;
     static userPermissions = ['BanMembers'];

@@ -562,17 +562,26 @@ module.exports = class Commande {
 	}
 
 	/**
-	 * Permet l'integration d'une commande au format interaction (aide a l'utilisateur , definition, arguments, préremplissage et...)
-	 * @returns {Discord.SlashCommandBuilder}
+	 * Creates a SlashCommandBuilder instance for this command.
+	 * @returns {SlashCommandBuilder}
 	 */
-	async createSlashCommand() {
+	async getSlashCommandBuilder() {
 		let slashCommand = new SlashCommandBuilder()
-			.setName(this.id)
+			.setName(this.id.toLowerCase())
 			.setDescription(this.description);
 
 		for (let i in this.arguments) {
 			await this.setOption(slashCommand, this.arguments[i]);
 		}
+		return slashCommand;
+	}
+
+	/**
+	 * Permet l'integration d'une commande au format interaction (aide a l'utilisateur , definition, arguments, préremplissage et...)
+	 * @returns {Discord.SlashCommandBuilder}
+	 */
+	async createSlashCommand() {
+		let slashCommand = await this.getSlashCommandBuilder();
 
 		let oldCmd = await this.bot.application.commands.cache.find((cmd) => cmd.name === this.id); // Suprression de l'ancienne commande
 		if (oldCmd) await oldCmd.delete();
@@ -582,8 +591,7 @@ module.exports = class Commande {
 		// 	await this.bot.application.commands.create(slashCommand, guild.id);
 		// }
 		await this.bot.application.commands.create(slashCommand);
-		console.log(`[${this.bot.name}] : slashCommand "${slashCommand.name}" créée`);
-
+		this.bot.log(`"${slashCommand.name}" créée`, "slashCommand");
 		return slashCommand;
 	}
 
