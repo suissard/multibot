@@ -108,10 +108,17 @@ class GetIncidentFormCommand extends Command {
 
 		var oAfoInfo = { nationality: 'FR', battlenetBtag: '', teams: [] };
 		try {
+			// TODO ASAP
+			// oAfoInfo = await this.bot.olympe.api.users.get(
+			// 	olympeId,{fields:["battlenetBtag","thirdpartiesDiscord"]}
+			// );
+
 			oAfoInfo = await this.bot.olympe.api.get(
 				`users/${olympeId}?fields=battlenetBtag%2CthirdpartiesDiscord`
 			);
-		} catch (e) {}
+		} catch (e) {
+			this.bot.error(e, "IncidentFormCMD")
+		}
 
 		const formUrl = this.getIncidentUrlForm(oAfoInfo, discordUser);
 

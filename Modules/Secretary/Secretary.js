@@ -381,7 +381,9 @@ module.exports = class Secretary extends Event {
             // embeds.push(embed);
 
             // await message.channel.send({ embeds });
-            await message.reply('Message envoyé !');
+            await message.react('✅');
+
+            // await message.reply('Message envoyé !');
             // await message.delete().catch(console.error);
         } catch (e) {
             this.handleError('MessagePrivés/answer\n' + e, message.channel);

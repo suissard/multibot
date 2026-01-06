@@ -32,7 +32,7 @@ module.exports = class Done extends Command {
         let chan = this.channel;
         if (chan.name.startsWith('✅') == false) {
             chan.setName('✅' + chan.name.replace(/❌/g, ''));
-            return 'Ticket clos ! ✅';
+            // return 'Ticket clos ! ✅';
         }
         return 'Le ticket n\'a pas pu être clos ❌';
     }

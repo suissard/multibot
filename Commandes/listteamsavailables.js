@@ -42,7 +42,7 @@ module.exports = class ListTeamsAvailables extends Command {
 
 		if (!challengeId) {
 			try {
-				const challenges = await this.bot.olympe.api.get('challenges');
+				const challenges = await this.bot.olympe.api.challenges.list();
 				if (!challenges || challenges.length === 0) {
 					return "Aucun challenge n'a été trouvé.";
 				}
