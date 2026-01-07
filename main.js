@@ -1,4 +1,5 @@
-const mode = require('./botMode.json'); // "PROD", "PREPROD" OU "DEV"
+require('dotenv').config();
+const mode = process.env.BOT_MODE || 'DEV'; // "PROD", "PREPROD" OU "DEV"
 
 console.log(`🤖 Démarrage des bots en mode ${mode}...`);
 
@@ -32,7 +33,7 @@ async function start() {
 	//INSTANCIATION DES BOTS
 
 	BOTS.start(botsData);
-	BOTS.startApi(configsApi);
+	BOTS.startApi(configsApi, configsApi.discord, configsApi.saltRounds);
 	BOTS.API.listenAllRoutes();
 }
 

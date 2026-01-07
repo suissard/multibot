@@ -5,6 +5,8 @@ layout: default
 
 # `Secretary`
 
+Gère la logique du module de secrétariat.
+
 Gère l'événement 'secretary', qui est déclenché pour les messages privés ou les réponses du staff.
 
 **Parameters:**

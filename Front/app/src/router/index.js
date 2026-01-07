@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../components/Home.vue'
 import CommandList from '../components/CommandList.vue'
+import CommandDetail from '../components/CommandDetail.vue'
 import EventsList from '../components/EventsList.vue'
 import SettingsPage from '../components/Settings.vue'
 import ModulesList from '../components/ModulesList.vue'
@@ -30,6 +31,11 @@ const routes = [
     path: '/commands',
     name: 'CommandList',
     component: CommandList
+  },
+  {
+    path: '/commands/:name',
+    name: 'CommandDetail',
+    component: CommandDetail
   },
   {
     path: '/events',

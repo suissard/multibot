@@ -41,6 +41,7 @@ export const useUserStore = defineStore('user', {
       }
     },
     async login(code) {
+      this.logout(); // Clear previous token
       const { token } = await callApi('login', code);
       localStorage.setItem('api_token', token);
       this.token = token;
@@ -53,11 +54,12 @@ export const useUserStore = defineStore('user', {
       this.isAuthenticated = false;
       this.user = null;
     },
-    checkAuth() {
+    async checkAuth() {
       this.isAuthenticated = !!localStorage.getItem('api_token');
       if (this.isAuthenticated && !this.user) {
-        this.fetchUser();
+        return this.fetchUser();
       }
+      return Promise.resolve();
     }
   },
 });

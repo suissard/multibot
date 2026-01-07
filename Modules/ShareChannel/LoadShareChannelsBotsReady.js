@@ -7,12 +7,12 @@ const { defaultGameCategory } = require('./shareChannelsConfig.js');
 
 module.exports = class LoadShareChannels extends Event {
     static id = 'loadShareChannels';
-    static listener = 'ready';
+    static listener = 'clientReady';
     static description = 'Charge et initialise la configuration des salons partagés au démarrage.';
-    static narrative = "Cet événement écoute l'événement `ready` et charge la configuration des salons partagés depuis la base de données. Il instancie ensuite les objets `ShareChannels` nécessaires pour chaque groupe de partage.";
+    static narrative = "Cet événement écoute l'événement `clientReady` et charge la configuration des salons partagés depuis la base de données. Il instancie ensuite les objets `ShareChannels` nécessaires pour chaque groupe de partage.";
 
     /**
-     * Gère l'événement 'ready' pour charger et initialiser la configuration des salons partagés.
+     * Gère l'événement 'clientReady' pour charger et initialiser la configuration des salons partagés.
      * Itère sur la configuration par défaut, filtre les salons correspondants depuis la base de données,
      * et instancie un objet `ShareChannels` pour chaque groupe, les rendant disponibles pour le module.
      */

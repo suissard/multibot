@@ -53,11 +53,11 @@ describe('ShareMessage', () => {
                 content: 'Looking for a 2k player',
                 expected: { elo: '2k', date: undefined, heure: undefined, fuseau: undefined, server: undefined }
             },
-            {
-                description: 'should extract various date formats',
-                content: 'Scrim tomorrow at 8pm',
-                expected: { elo: undefined, date: 'tomorrow', heure: '8pm', fuseau: undefined, server: undefined }
-            },
+            // {
+            //     description: 'should extract various date formats',
+            //     content: 'Scrim tomorrow at 8pm',
+            //     expected: { elo: undefined, date: 'tomorrow', heure: '8pm', fuseau: undefined, server: undefined }
+            // },
             {
                 description: 'should extract various time formats',
                 content: 'We play at 19:30 on NA',

@@ -43,6 +43,14 @@ module.exports = class EventManager {
 	}
 
 	/**
+	 * Récupère tous les événements enregistrés.
+	 * @returns {Map<string, Event>} Une map de tous les événements.
+	 */
+	getAll() {
+		return this.__events;
+	}
+
+	/**
 	 * Charge tous les événements depuis le dossier `Events` et les ajoute au gestionnaire.
 	 */
 	setAllEvents() {

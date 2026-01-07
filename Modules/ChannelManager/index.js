@@ -23,11 +23,11 @@ module.exports = (bot) => {
 	 * Une fois le bot prêt, ce gestionnaire configure et lance la tâche planifiée
 	 * pour la gestion automatique des salons.
 	 */
-	bot.on('ready', async () => {
+	bot.on('clientReady', async () => {
 		const guildId = bot.home;
 		const guild = bot.guilds.cache.get(guildId);
 		await guild.channels.fetch();
-		await guild.members.fetch();
+		await guild.members.fetch().catch(console.warn);
 		//! TEST =====================================================================
 		// bot.modules.ChannelManager.cronSchedule = '*/1 * * * *';
 		// const duration = 12//0.5

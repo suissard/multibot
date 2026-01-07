@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>GetIncidentForm</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">GetIncidentForm</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/">Accueil</a>
+            <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+            <a class="mdl-navigation__link" href="https://github.com/suissard/multibot" target="_blank">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+    <a class="mdl-navigation__link" href="/">Accueil</a>
+    <a class="mdl-navigation__link" href="/modules-list.html">Modules</a>
+    <a class="mdl-navigation__link" href="/commands-list.html">Commandes</a>
+    <a class="mdl-navigation__link" href="/classes-list.html">Classes</a>
+    <a class="mdl-navigation__link" href="/events-list.html">Events</a>
+    <div class="mdl-layout-spacer"></div>
+    <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+</nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="getincidentform"><code class="language-plaintext highlighter-rouge">GetIncidentForm</code></h1>
+
+<h2 id="narrative">Narrative</h2>
+
+<ul>
+  <li>Cette commande a pour but de fournir à un utilisateur un lien personnalisé pour déclarer un incident survenu lors de la compétition OAFO.</li>
+  <li>
+    <p>Elle peut cibler l’auteur de la commande ou un autre utilisateur si celui-ci est mentionné.</p>
+  </li>
+  <li><strong>Fonctionnement :</strong>
+    <ol>
+      <li>La commande identifie l’utilisateur Discord cible.</li>
+      <li>Elle recherche l’ID Olympe de cet utilisateur dans sa base de données locale.</li>
+      <li>Elle tente d’utiliser cet ID pour récupérer des informations supplémentaires sur l’utilisateur depuis l’API Olympe (BattleTag, équipes, etc.).</li>
+      <li>Elle utilise une URL de base de formulaire Google et la personnalise en pré-remplissant plusieurs champs avec les informations récupérées :
+        <ul>
+          <li>Langue (basée sur la nationalité), BattleTag, Tag Discord, nom de l’équipe, etc.</li>
+        </ul>
+      </li>
+      <li>Si les informations Olympe ne sont pas trouvées, elle utilise des valeurs par défaut.</li>
+      <li>Elle crée un message “embed” contenant le lien vers le formulaire pré-rempli.</li>
+      <li>Elle envoie cet embed en message privé (DM) à l’utilisateur cible.</li>
+      <li>Elle renvoie un message de confirmation, qui précise si les informations Olympe de l’utilisateur ont été trouvées ou non.</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="arguments">Arguments</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">user</code></td>
+      <td><code class="language-plaintext highlighter-rouge">USER</code></td>
+      <td>Utilisateur a qui faire parvenir le formulaire d’incident</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Génère une URL personnalisée pour le formulaire de déclaration d’incident.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">olympeUserInfo</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- Les informations de l’utilisateur provenant de l’API Olympe.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">olympeUserInfo.nationality</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- La nationalité de l’utilisateur.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">olympeUserInfo.battlenetBtag</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Le BattleTag de l’utilisateur.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">olympeUserInfo.teams</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array&lt;{name: string}&gt;</code></td>
+      <td>- Les équipes de l’utilisateur.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">discordUser</code></td>
+      <td><code class="language-plaintext highlighter-rouge">import('discord.js').User</code></td>
+      <td>- L’objet utilisateur Discord.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">string</code> - personnalisée et pré-remplie du formulaire Google.</p>
+
+<p>Exécute la commande pour envoyer un formulaire de déclaration d’incident. Récupère les informations Olympe de l’utilisateur, génère une URL de formulaire personnalisée et l’envoie en message privé.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- Les arguments de la commande.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args.user</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- L’ID de l’utilisateur à qui envoyer le formulaire.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Promise&lt;string&gt;</code> - message de confirmation.</p>
+
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

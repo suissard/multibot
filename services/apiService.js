@@ -57,7 +57,7 @@ const getTeamByName = async (bot, teamName) => {
  * @returns
  */
 const getUserById = async (bot, id) => {
-	const user = await bot.olympe.api.POST(
+	const user = await bot.olympe.api.post(
 		'users/search-deprecated-bot-suissard?fields=thirdpartiesDiscord%2CcastUrl',
 		{
 			search: id,
@@ -92,16 +92,19 @@ const getMatchById = async (bot, id) => {
  * @returns {Promise<Array<object>>} Une liste d'utilisateurs.
  */
 const getACLusers = (bot) => {
-	return bot.olympe.api.GET('acl?fields=thirdpartiesDiscord%2CcastUrl');
+	// TODO ASAP
+	// return bot.olympe.api.get('acl?fields=thirdpartiesDiscord%2CcastUrl').catch(console.error)
+
+	return bot.olympe.api.get('acl?fields=thirdpartiesDiscord%2CcastUrl').catch(console.error)
 };
 
 /**
- * Reucperer totu les utilisateur avec des droits de cast
+ * Reucperer tout les utilisateur avec des droits de cast
  * @param {Bot} bot
  */
 const getCasterUsers = async (bot) => {
-	const casters = await getACLusers(bot);
-	return casters.filter(
+	const casters = await getACLusers(bot).catch(e => bot.error(`Error getting ACL users ${e}`, 'getCasterUsers'));
+	return casters?.filter(
 		(caster) => caster.castUrl && caster.organizationRoles.includes('caster')
 	);
 };

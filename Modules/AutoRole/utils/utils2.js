@@ -62,9 +62,9 @@ const recurciveIdGet = (object, target) => {
  */
 const getAllTeamsFromChallenge = async (bot, idChallenge) => {
 	if (!idChallenge.match(/[0-9]/)) return [];
-	let pools = await bot.olympe.api.GET(`challenges/${idChallenge}/pools`);
+	let pools = await bot.olympe.api.get(`challenges/${idChallenge}/pools`);
 	if (!pools) return [];
-	return await bot.olympe.api.GET(
+	return await bot.olympe.api.get(
 		`challenges/${idChallenge}/pools/${pools.pools[pools.pools.length - 1].id}/teams/available` // TODO gere cela via des données plus fiable => derniere pool n'est pas forcement la bonne pool
 	);
 };
@@ -88,12 +88,15 @@ const deleteAllRole = async (bot, eraseAll = false) => {
 
 /**
  * Fonction principale qui gere une boucle complete pour l'ajout des roles et des noms
- * @param {*} bot
+ * @param {Bot} bot
  */
 const autoRole = async function (bot, guildId) {
 	try {
 		let guild = bot.guilds.cache.get(guildId); // ! a faire une fois au démarrage et apres c'est ok
-		if (!guild) throw new Error('guild not found');
+		if (!guild) {
+			bot.log( `Guild ${guildId} not found, skipping.`, "autorole");
+			return; 
+		}
 
 		bot.log(`start : ${bot.olympe.api.xDomain}`, 'autorole');
 		wipeOlympeData(bot);

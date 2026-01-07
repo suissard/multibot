@@ -96,7 +96,7 @@ module.exports = class BotManager extends Map {
 			// TEST =================================================================================================
 
 			for (let moduleName in bot.modules) {
-				if (!bot.modules[moduleName]) return;
+				if (!bot.modules[moduleName]) continue;
 				this.loadModule(bot, moduleName);
 			}
 		}
@@ -108,6 +108,27 @@ module.exports = class BotManager extends Map {
 	 * @param {Object || Boolean} module
 	 */
 	loadModule(bot, moduleName) {
+		const moduleConfig = bot.modules[moduleName];
+        const validatorPath = `../Modules/${moduleName}/validatorClass.js`;
+
+        try {
+            const ValidatorClass = require(validatorPath);
+            const validator = new ValidatorClass(moduleConfig);
+            validator.validate();
+
+            if (!validator.isValid()) {
+                const errors = validator.getErrors().join('\\n');
+                bot.error(`Configuration de modules eronnée :\n\t${errors}`, moduleName);
+                return; // Stop loading this module
+            }
+        } catch (e) {
+            if (e.code !== 'MODULE_NOT_FOUND') {
+                bot.error(`Error during module validation ${moduleName}: ` + e.stack, moduleName);
+                return;
+            }
+            // Validator not found, continue without validation
+        }
+
 		let botModule;
 
 		try {
@@ -211,16 +232,18 @@ module.exports = class BotManager extends Map {
 	}
 
 	/**
-	 * Lance l'api du gestionnaire de bot
-	 * @param {configs} configs
-	 * @param {configs} discord
-	 * @param {Number} saltRounds
+	 * Démarre l'API (serveur HTTP) pour interagir avec les bots.
+	 * Instancie la classe SelfApi avec les configurations fournies.
+	 * @param {Object} configs - Configuration globale de l'API (port, host, etc.).
+	 * @param {Object} discord - Configuration Discord (clientId, clientSecret, etc.) pour l'OAuth2.
+	 * @param {Number} saltRounds - Nombre de rounds pour le hachage des tokens (bcrypt).
 	 */
-	startApi(configs, discord, saltRounds) {
+	startApi(configs, discord, saltRounds=10) {
 		try {
 			this.API = new SelfApi(configs, discord, this, saltRounds);
+            this.API.start();
 		} catch (e) {
-			this.error('Erreur API Bot : '+ e.stack, 'startApi');
+			this.error('Erreur API Bot : ' + e.stack, 'startApi');
 		}
 	}
 

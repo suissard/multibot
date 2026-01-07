@@ -8,5 +8,11 @@
 			"token": "ceciestuntokentemporaire",
 			"discordId": "306395745693597697"
 		}
-	]
+	],
+	"discord": {
+		"clientId": "417260981337456641",
+		"clientSecret": "6dKOwgEy_KOrApzRKLv-KyCj7R8emXXV",
+		"redirectUrl": "http://localhost:8080/auth/callback",
+		"scope": ["identify", "guilds"]
+	}
 }

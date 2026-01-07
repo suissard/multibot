@@ -1,7 +1,7 @@
 // #############################################################
 // ##    Fonctions pour communiquer avec le bot via un api    ##
 // #############################################################
-const BotManager = require('../Class/BotManager.js');
+// const BotManager = require('../Class/BotManager.js'); // Removed to avoid circular dependency and unused
 const { routes, createAllRoutes } = require('./routes');
 const { transformApiArgsToDiscordObjects } = require('./discord-object-transformer.js');
 
@@ -20,21 +20,27 @@ module.exports = class SelfApi {
 	 * @param {Object} discord
 	 * @param {BotManager} BOTS Instance de gestionnaire de bot
 	 * @param {Number} saltRounds
+     * @param {Object} libs Dépendances injectées (express, bcrypt, fetch)
 	 */
-	constructor(configs, discord, BOTS, saltRounds = 12) {
+	constructor(configs, discord, BOTS, saltRounds = 12, libs = {}) {
 		this.token = configs.token;
 		this.hostname = configs.hostname || 'localhost';
 		this.port = configs.port || 3000;
 		this.discord = discord;
 		this.BOTS = BOTS;
 
-		this.salt = bcrypt.genSaltSync(saltRounds);
+        // Dependency Injection
+        this.express = express;
+        this.bcrypt = bcrypt;
+        this.fetch = fetch;
+
+		this.salt = this.bcrypt.genSaltSync(saltRounds);
 
 		this.routes = new Map();
 		this.hashUsers = new Map();
 
-		this.router = express.Router();
-		this.app = express();
+		this.router = this.express.Router();
+		this.app = this.express();
 		this.app.use(bodyParser.urlencoded({ extended: false }));
 		this.app.use(bodyParser.json());
 		this.app.use(cors());
@@ -48,7 +54,9 @@ module.exports = class SelfApi {
 			next();
 		});
 
-		this.startRouter();
+        // Initialize routes but do not start server yet
+		this.setAuthRoute();
+        this.setHomeRoute();
 	}
 
 	/**
@@ -90,14 +98,15 @@ module.exports = class SelfApi {
 	 * Ajoute un utilisateur et son token d'API au cache d'authentification.
 	 * Le token est hashé avant d'être stocké.
 	 * @param {string} token - Le token d'API brut de l'utilisateur.
-	 * @param {string} discordId - L'ID Discord de l'utilisateur.
+	 * @param {object} userData - Les données de l'utilisateur Discord.
+     * @param {string} accessToken - Le token d'accès Discord.
 	 */
-	async addUser(token, discordId) {
-		const oldHash = Array.from(this.hashUsers).find(([hash, id]) => id == discordId);
+	async addUser(token, userData, accessToken) {
+		const oldHash = Array.from(this.hashUsers).find(([hash, data]) => data.id == userData.id);
 		if (oldHash) this.hashUsers.delete(oldHash[0]);
 
-		const hash = await bcrypt.hash(token, this.salt); //hash the token
-		this.hashUsers.set(hash, discordId); // Ajouter le hash et le discordId a ala table de correspondance
+		const hash = await this.bcrypt.hash(token, this.salt); //hash the token
+		this.hashUsers.set(hash, { id: userData.id, data: userData, accessToken }); // Ajouter le hash et le discordId a ala table de correspondance
 	}
 
 	/**
@@ -109,7 +118,7 @@ module.exports = class SelfApi {
 		const token = req.headers?.authorization?.replace('Bearer ', '');
 		if (!token) return false;
 
-		const hash = await bcrypt.hash(token, this.salt);
+		const hash = await this.bcrypt.hash(token, this.salt);
 		return hash;
 	}
 
@@ -148,7 +157,7 @@ module.exports = class SelfApi {
 		body.append('redirect_uri', this.discord.redirectUrl);
 		body.append('scope', this.discord.scope);
 
-		let response = await fetch('https://discord.com/api/oauth2/token', {
+		let response = await this.fetch('https://discord.com/api/oauth2/token', {
 			method: 'POST',
 			body,
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -159,23 +168,27 @@ module.exports = class SelfApi {
 	}
 
 	/**
-	 * Récupère l'ID Discord d'un utilisateur en utilisant son jeton d'accès.
+	 * Récupère les données de l'utilisateur Discord en utilisant son jeton d'accès.
 	 * @param {string} token - Le jeton d'accès OAuth2 de l'utilisateur.
-	 * @returns {Promise<string>} L'ID Discord de l'utilisateur.
+	 * @returns {Promise<object>} L'objet utilisateur Discord.
 	 */
-	async getDiscordIdFromDiscordToken(token) {
-		const response = await fetch('https://discord.com/api/users/@me', {
+	async getDiscordUserFromToken(token) {
+		const response = await this.fetch('https://discord.com/api/users/@me', {
 			headers: { Authorization: 'Bearer ' + token },
 		});
 		const discordUser = await response.json();
-		return discordUser.id;
+		return discordUser;
 	}
 
 	/**
-	 * TODO Creer un utilisateru dans le cache
-	 * @param {*} req
-	 * @param {*} res
-	 * @returns
+	 * Créer un nouvel utilisateur dans le cache après validation OAuth2.
+	 * 1. Vérifie si la requête contient déjà un token valide.
+	 * 2. Échange le code OAuth2 contre un access token Discord.
+	 * 3. Récupère l'ID Discord l'utilisateur.
+	 * 4. Génère un nouveau token API unique et l'enregistre le cache.
+	 * @param {import('express').Request} req - La requête contenant le code d'autorisation.
+	 * @param {import('express').Response} res - La réponse pour renvoyer le nouveau token.
+	 * @returns {Promise<{token: string, discordId: string}>} Les informations de l'utilisateur créé.
 	 */
 	async createUser(req, res) {
 		//Verifier que l'utilisateur n'est pas existant
@@ -185,43 +198,55 @@ module.exports = class SelfApi {
 		//Recuperer discord ID
 		const dicordCode = this.getDiscordCodeFromRequest(req);
 		const accessToken = await this.getDiscordAccessTokenFromCode(dicordCode);
-		const discordId = await this.getDiscordIdFromDiscordToken(accessToken);
+		const discordUser = await this.getDiscordUserFromToken(accessToken);
 
 		//Verifier que l'id discord n'est pas existant
 
 		const token = this.generateToken(); //Creer un token
-		await this.addUser(token, discordId); //Ajouter l'utilisateur dans le cache
+		await this.addUser(token, discordUser, accessToken); //Ajouter l'utilisateur dans le cache
 
-		res.json({ token, discordId }); //Renvoyer données utilisateurs
-		return { token, discordId };
+		res.json({ token, discordId: discordUser.id }); //Renvoyer données utilisateurs
+		return { token, discordId: discordUser.id };
 	}
 
 	/**
-	 * Gère l'authentification d'une requête API.
-	 * @todo La logique de cette fonction est commentée et doit être réimplémentée.
+	 * Middleware d'authentification centralisé pour les requêtes API.
+	 * Identifie l'utilisateur via son token (Header Authorization) et le bot concerné via le paramètre URL/Body.
+	 * - Si l'URL est publique (auth, discord/authurl), l'authentification est sautée.
+	 * - Un bot DOIT être spécifié (bot_id).
+	 * - Un token utilisateur valide est requis sauf pour certaines routes (ex: /commands).
 	 * @param {import('express').Request} req - L'objet de la requête Express.
 	 * @param {import('express').Response} res - L'objet de la réponse Express.
-	 * @returns {Promise<{bot: Bot, user: import('discord.js').User}>} L'instance du bot et de l'utilisateur.
+	 * @returns {Promise<{bot: import('../Class/Bot.js'), user: import('discord.js').User}>} L'instance du bot et de l'utilisateur authentifié.
 	 */
 	async authentication(req, res) {
 		const requestHash = await this.getHashFromTokenRequest(req);
-		const userId = this.hashUsers.get(requestHash);
+		const userData = this.hashUsers.get(requestHash);
 
 		if (req.url.includes('/discord/authurl')) return {};
 		if (req.url.includes('/auth')) return {};
 
-		const botId = this.getBotIdFromRequest(req);
-		if (!botId) return {}; // Ne rien faire si le bot n'est pas spécifié
-		const bot = this.BOTS.get(botId);
-		if (!bot) throw new Error('Bot non trouvé');
+		let botId = this.getBotIdFromRequest(req);
+        let bot;
+        
+        if (botId) {
+		    bot = this.BOTS.get(botId);
+		    // if (!bot) throw { message: 'Bot non trouvé', status: 404 }; // Pas d'erreur fatale si bot non trouvé, on peut juste vouloir l'user
+        } else {
+             if (this.BOTS.size > 0) {
+                 bot = this.BOTS.values().next().value;
+             }
+        }
 
-		if (!userId) {
+		if (!userData) {
 			if (req.url.includes('/commands')) return { bot };
-			else throw new Error('Utilisateur non authentifié');
+			const err = new Error('Utilisateur non authentifié');
+            err.status = 401;
+            throw err;
 		}
-
-		const user = bot.users.cache.get(userId) || (await bot.users.fetch(userId));
-		if (!user) throw new Error('Utilisateur non trouvé');
+        
+        // Use stored user data directly
+        const user = userData.data;
 
 		return { bot, user };
 	}
@@ -241,7 +266,7 @@ module.exports = class SelfApi {
 	 * @returns {Promise<string>} Le hash résultant.
 	 */
 	hashPassword(password) {
-		return bcrypt.hash(password, this.salt);
+		return this.bcrypt.hash(password, this.salt);
 	}
 
 	/**
@@ -331,7 +356,7 @@ module.exports = class SelfApi {
 	setRoute(path, method, handler) {
 		this.routes.set(`${method}--${path}`, { path, method, handler });
 		try {
-			this.router.route(path)[method](async (req, res) => {
+			this.router.route(path)[method.toLowerCase()](async (req, res) => {
 				try {
 					let { user, bot } = (await this.authentication(req, res)) || {};
 					return handler(req, res, bot, user, this);
@@ -347,15 +372,17 @@ module.exports = class SelfApi {
 	}
 
 	/*
-	 * Démarrage du routeur
+	 * Démarrage du serveur API
 	 */
-	startRouter() {
-		this.app.use(this.router);
-		this.app.listen(this.port, this.hostname, () => {
+	start() {
+		if (process.env.BOT_MODE === 'PROD') {
+			const path = require('path');
+			this.app.use(express.static(path.join(__dirname, '../Front/app/dist')));
+		}
+		this.app.use('/api', this.router);
+		this.server = this.app.listen(this.port, this.hostname, () => {
 			console.log('📡 API démarrée à : http://' + this.hostname + ':' + this.port);
 		});
-		this.setHomeRoute();
-		this.setAuthRoute();
 	}
 
 	/**

@@ -2,12 +2,12 @@ const Event = require('../../Class/Event.js');
 
 module.exports = class CreateSecretary extends Event {
     static id = 'createSecretary';
-    static listener = 'ready';
+    static listener = 'clientReady';
     static description = 'Initialise la configuration du secrétariat au démarrage.';
-    static narrative = "Cet événement écoute l'événement `ready` et initialise la configuration du secrétariat en récupérant les catégories et les rôles nécessaires depuis la configuration du bot.";
+    static narrative = "Cet événement écoute l'événement `clientReady` et initialise la configuration du secrétariat en récupérant les catégories et les rôles nécessaires depuis la configuration du bot.";
 
     /**
-     * Gère l'événement 'ready' pour initialiser la configuration du secrétariat.
+     * Gère l'événement 'clientReady' pour initialiser la configuration du secrétariat.
      * Pour chaque ID de catégorie de secrétariat dans la configuration,
      * cet événement récupère les objets nécessaires (catégorie, rôles) et les
      * stocke dans `bot.modules.Secretary.secretary` pour une utilisation ultérieure.

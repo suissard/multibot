@@ -245,7 +245,7 @@ const mentionUsersInChannel = (textChannel, timestamp, teams, casters = null, ma
 	const gradinChannel = textChannel.parent.children.cache.find(c => c.name.startsWith("Gradins"))
 		message +=
 		'⚠️ **Pas d\'accés au channel vocal ? :** Tu peux déplacer tes teammates depuis <#'+gradinChannel+'> vers le channel d\'équipe\n';
-	message +=
+	// message +=
 	//	'⚠️ **Remplissez votre lineup** sur le site olympe pour ne pas offrir une win gratuite à vos opposants !!!\n';
 	// message += [...teamsChannels.map(chan=>`<#${chan.id}>`), ...castersChannels.map(chan=>`<#${chan.id}>`)].join(' ');
 

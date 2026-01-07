@@ -159,7 +159,7 @@ describe('getAllTeamsFromChallenge', () => {
 		const bot = {
 			olympe: {
 				api: {
-					GET: vi
+					get: vi
 						.fn()
 						.mockResolvedValueOnce({ pools: [{ id: 'pool1' }] })
 						.mockResolvedValueOnce(['team1', 'team2']),
@@ -171,8 +171,8 @@ describe('getAllTeamsFromChallenge', () => {
 		const result = await getAllTeamsFromChallenge(bot, idChallenge);
 
 		expect(result).toEqual(['team1', 'team2']);
-		expect(bot.olympe.api.GET).toHaveBeenCalledWith('challenges/123/pools');
-		expect(bot.olympe.api.GET).toHaveBeenCalledWith(
+		expect(bot.olympe.api.get).toHaveBeenCalledWith('challenges/123/pools');
+		expect(bot.olympe.api.get).toHaveBeenCalledWith(
 			'challenges/123/pools/pool1/teams/available'
 		);
 	});

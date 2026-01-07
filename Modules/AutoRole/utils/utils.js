@@ -129,7 +129,7 @@ const changeDiscordRole = async (
 				.concat(team.membersLent.map((m) => m.member))
 				.find((member) => member.user.id === olympeMemberId);
 			rolesToAdd =
-				guild.client.olympe.users[olympeMember.user.thirdparties.discord.discordID]?.[
+				guild.client.olympe?.users[olympeMember.user.thirdparties.discord.discordID]?.[
 					team.name
 				]?.roles || []; //! testReecriture getRoleToAdd(olympeMember); // Donne les role pour une team
 			realRole = realRole.concat(
@@ -205,7 +205,7 @@ const getRoleToAdd = (olympeMember) => {
  * @returns {Array<Discord.Role>}
  */
 const getRealRole = (listRole, guild, segments, challengesRolesId, olympeMember) => {
-	const captain = olympeMember.roles.includes('captain');
+	const captain = olympeMember.roles.includes('captain'); 
 	try {
 		let realRole = [];
 		let segmentName, challengeRole;
@@ -339,7 +339,7 @@ const processTeamMember = async (team, member, guild, bot) => {
 		!member.user?.thirdparties.discord ||
 		member.user.thirdparties.discord.publicDiscordTag != 1
 	) {
-		member.user = await bot.olympe.api.POST(
+		member.user = await bot.olympe.api.post(
 			'users/search-deprecated-bot-suissard?fields=thirdpartiesDiscord%2CcastUrl',
 			{
 				search: member.user.id,
@@ -585,7 +585,8 @@ const generateTeamFromOlympeMembers = (name, members = [], segments = []) => {
  */
 const getCasterTeam = async (bot, guild) => {
 	let casters = await getCasterUsers(bot);
-	casters = casters.map((olympeUser) => generateMemberFromOlympeUser(olympeUser));
+	casters = casters?.map((olympeUser) => generateMemberFromOlympeUser(olympeUser)) || [];
+	if(!casters.length) return;
 
 	const segment = bot.olympe.segments[0];
 	const casterTeamName = bot.modules.AutoRole.guilds[guild.id]?.specialRoles.caster.name;
@@ -646,4 +647,6 @@ module.exports = {
 	getRealRole,
 	processCasterUsers,
 	getCasterTeam,
+    processTeam,
+    processTeamMember
 };

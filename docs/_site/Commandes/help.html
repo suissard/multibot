@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>help</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">help</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/">Accueil</a>
+            <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+            <a class="mdl-navigation__link" href="https://github.com/suissard/multibot" target="_blank">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+    <a class="mdl-navigation__link" href="/">Accueil</a>
+    <a class="mdl-navigation__link" href="/modules-list.html">Modules</a>
+    <a class="mdl-navigation__link" href="/commands-list.html">Commandes</a>
+    <a class="mdl-navigation__link" href="/classes-list.html">Classes</a>
+    <a class="mdl-navigation__link" href="/events-list.html">Events</a>
+    <div class="mdl-layout-spacer"></div>
+    <a class="mdl-navigation__link" href="/sitemap.html">Plan du site</a>
+</nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content"><h1 id="help"><code class="language-plaintext highlighter-rouge">help</code></h1>
+
+<p>Permet d'obtenir le détail des commandes</p>
+
+<h2 id="narrative">Narrative</h2>
+
+<ul>
+  <li>Cette commande a deux modes de fonctionnement :
+    <ol>
+      <li><strong>Afficher la liste de toutes les commandes :</strong> Si aucun nom de commande spécifique n’est fourni.</li>
+      <li><strong>Afficher les détails d’une commande :</strong> Si un nom de commande est passé en argument.</li>
+    </ol>
+  </li>
+  <li><strong>Mode Liste :</strong>
+    <ul>
+      <li>La commande récupère la liste de toutes les commandes enregistrées dans le bot.</li>
+      <li>Elle filtre les commandes qui ne sont pas destinées à être affichées publiquement (celles avec `help = false`), à moins que l’utilisateur ne soit un développeur.</li>
+      <li>Elle construit un ou plusieurs messages “embed” pour afficher la liste. Si la liste est trop longue (plus de 20 commandes), elle est automatiquement divisée en plusieurs messages.</li>
+      <li>Chaque commande dans la liste est affichée avec son nom et sa description.</li>
+    </ul>
+  </li>
+  <li><strong>Mode Détail :</strong>
+    <ul>
+      <li>Si l’utilisateur fournit un nom de commande valide, la commande recherche cette commande spécifique.</li>
+      <li>Elle génère un message “embed” détaillé qui inclut :
+        <ul>
+          <li>Le nom de la commande.</li>
+          <li>Sa description.</li>
+          <li>Des instructions sur comment l’utiliser (`howTo`), en remplaçant les placeholders comme ‘PREFIX’ par la configuration actuelle du bot.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Construit et retourne une liste de noms de commandes à afficher. Filtre les commandes qui ne sont pas censées être affichées dans l’aide, sauf pour les développeurs.</p>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Array&lt;string&gt;</code> - tableau trié des noms de commandes.</p>
+
+<p>Crée un ou plusieurs <code class="language-plaintext highlighter-rouge">EmbedBuilder</code> à partir d’une liste de noms de commandes. Sépare les commandes en plusieurs embeds si la liste dépasse 20 champs.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">arrayHelp</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Array&lt;string&gt;</code></td>
+      <td>- Un tableau contenant les noms des commandes à afficher.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Array&lt;Discord.EmbedBuilder&gt;</code> - tableau d’objets EmbedBuilder prêts à être envoyés.</p>
+
+<p>Crée un <code class="language-plaintext highlighter-rouge">EmbedBuilder</code> pour afficher l’aide détaillée d’une commande spécifique.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">command</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>- Le nom de la commande pour laquelle afficher les détails.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Returns:</strong> <code class="language-plaintext highlighter-rouge">Discord.EmbedBuilder</code> - objet EmbedBuilder avec les détails de la commande.</p>
+
+<p>Exécute la commande d’aide. Affiche l’aide détaillée si un nom de commande est fourni, sinon affiche la liste de toutes les commandes.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">options</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>- Les options de l’interaction (non utilisé ici, semble basé sur un ancien système d’args).</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

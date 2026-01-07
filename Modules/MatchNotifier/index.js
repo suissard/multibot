@@ -95,7 +95,7 @@ module.exports = (bot) => {
 	 * Une fois le bot prêt, ce gestionnaire configure et lance la tâche planifiée
 	 * pour l'envoi des notifications de match.
 	 */
-	bot.on('ready', async () => {
+	bot.on('clientReady', async () => {
 		const guild = bot.guilds.cache.get(bot.home);
 
 		instanciateMatchNotifier(bot);
