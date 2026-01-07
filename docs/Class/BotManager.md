@@ -104,15 +104,15 @@ Vérifie quels bots ont accès à une ressource Discord spécifique.
 
 **Returns:** `Promise<Array<{bot: Bot, guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}>>` - tableau d'objets contenant le bot et les ressources accessibles.
 
-Lance l'api du gestionnaire de bot
+Démarre l'API (serveur HTTP) pour interagir avec les bots. Instancie la classe SelfApi avec les configurations fournies.
 
 **Parameters:**
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| `configs` | `configs` |  |
-| `discord` | `configs` |  |
-| `saltRounds` | `Number` |  |
+| `configs` | `Object` | - Configuration globale de l'API (port, host, etc.). |
+| `discord` | `Object` | - Configuration Discord (clientId, clientSecret, etc.) pour l'OAuth2. |
+| `saltRounds` | `Number` | - Nombre de rounds pour le hachage des tokens (bcrypt). |
 
 Met la référence et le contenu au bon format
 

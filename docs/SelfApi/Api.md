@@ -15,6 +15,7 @@ Class permettant de gerer l'API du bot
 | `discord` | `Object` |  |
 | `BOTS` | `BotManager` | Instance de gestionnaire de bot |
 | `saltRounds` | `Number` |  |
+| `libs` | `Object` | Dépendances injectées (express, bcrypt, fetch) |
 
 Récupère l'instance du bot à partir de la requête.
 
@@ -52,7 +53,8 @@ Ajoute un utilisateur et son token d'API au cache d'authentification. Le token e
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | `token` | `string` | - Le token d'API brut de l'utilisateur. |
-| `discordId` | `string` | - L'ID Discord de l'utilisateur. |
+| `userData` | `object` | - Les données de l'utilisateur Discord. |
+| `accessToken` | `string` | - Le token d'accès Discord. |
 
 Extrait le token Bearer d'une requête et retourne son hash.
 
@@ -88,7 +90,7 @@ Génère un token d'API unique en utilisant UUID v4.
 
 **Returns:** `Promise<string>` - jeton d'accès de l'utilisateur.
 
-Récupère l'ID Discord d'un utilisateur en utilisant son jeton d'accès.
+Récupère les données de l'utilisateur Discord en utilisant son jeton d'accès.
 
 **Parameters:**
 
@@ -96,20 +98,20 @@ Récupère l'ID Discord d'un utilisateur en utilisant son jeton d'accès.
 | ---- | ---- | ----------- |
 | `token` | `string` | - Le jeton d'accès OAuth2 de l'utilisateur. |
 
-**Returns:** `Promise<string>` - Discord de l'utilisateur.
+**Returns:** `Promise<object>` - utilisateur Discord.
 
-TODO Creer un utilisateru dans le cache
+Créer un nouvel utilisateur dans le cache après validation OAuth2. 1. Vérifie si la requête contient déjà un token valide. 2. Échange le code OAuth2 contre un access token Discord. 3. Récupère l'ID Discord l'utilisateur. 4. Génère un nouveau token API unique et l'enregistre le cache.
 
 **Parameters:**
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| `req` | `*` |  |
-| `res` | `*` |  |
+| `req` | `import('express').Request` | - La requête contenant le code d'autorisation. |
+| `res` | `import('express').Response` | - La réponse pour renvoyer le nouveau token. |
 
-**Returns:** `` - 
+**Returns:** `Promise<{token: string, discordId: string}>` - informations de l'utilisateur créé.
 
-Gère l'authentification d'une requête API.
+Middleware d'authentification centralisé pour les requêtes API. Identifie l'utilisateur via son token (Header Authorization) et le bot concerné via le paramètre URL/Body. - Si l'URL est publique (auth, discord/authurl), l'authentification est sautée. - Un bot DOIT être spécifié (bot_id). - Un token utilisateur valide est requis sauf pour certaines routes (ex: /commands).
 
 **Parameters:**
 
@@ -118,7 +120,7 @@ Gère l'authentification d'une requête API.
 | `req` | `import('express').Request` | - L'objet de la requête Express. |
 | `res` | `import('express').Response` | - L'objet de la réponse Express. |
 
-**Returns:** `Promise<{bot: Bot, user: import('discord.js').User}>` - du bot et de l'utilisateur.
+**Returns:** `Promise<{bot: import('../Class/Bot.js'), user: import('discord.js').User}>` - du bot et de l'utilisateur authentifié.
 
 Extrait l'ID du bot des paramètres de la requête.
 

@@ -15,3 +15,17 @@ Le module "ShareChannel" permet de synchroniser des messages entre plusieurs sal
 
 **Returns:** `object` - objet contenant les classes du module.
 
+## Commandes du Module
+
+* [SalonCommand](./SalonCommand.html)
+* [ShareGetiCommand](./ShareGetiCommand.html)
+* [ShareInfoCommand](./ShareInfoCommand.html)
+* [SharePromoCommand](./SharePromoCommand.html)
+* [ShareStopCommand](./ShareStopCommand.html)
+
+## Configuration
+
+Ce module contient des fichiers de configuration spécifiques. Cliquez ci-dessous pour voir les détails des classes et options.
+
+* [shareChannelsConfig](./shareChannelsConfig.html)
+

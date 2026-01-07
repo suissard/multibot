@@ -161,6 +161,10 @@ Protocole de test de la commande afin de s'assurer de son bon fonctionnement
 
 **Returns:** `` - 
 
+Creates a SlashCommandBuilder instance for this command.
+
+**Returns:** `SlashCommandBuilder` - 
+
 Permet l'integration d'une commande au format interaction (aide a l'utilisateur , definition, arguments, préremplissage et...)
 
 **Returns:** `Discord.SlashCommandBuilder` - 

@@ -116,7 +116,6 @@ layout: default
   * [Api.js](./SelfApi/Api.html)
   * [Route.js](./SelfApi/Route.html)
   * **routes**
-    * [get-user.js](./SelfApi/routes/get-user.html)
     * [index.js](./SelfApi/routes/index.html)
 * **Tools**
   * [MultiBotMessageEmbed.js](./Tools/MultiBotMessageEmbed.html)

@@ -40,6 +40,10 @@ Charge une classe d'événement depuis un fichier et l'ajoute au gestionnaire.
 | ---- | ---- | ----------- |
 | `path` | `string` | - Le chemin vers le fichier de l'événement. |
 
+Récupère tous les événements enregistrés.
+
+**Returns:** `Map<string, Event>` - map de tous les événements.
+
 Charge tous les événements depuis le dossier `Events` et les ajoute au gestionnaire.
 
 Crée et attache un écouteur d'événement pour un bot spécifique.

@@ -51,8 +51,6 @@ Liste d'événements non autorisés
 
 Liste des commandes non autorisées
 
-Liste des commandes en cours de développement
-
 Connexion du bot à l'API Discord avec le token fourni
 
 Redémarrrer le bot

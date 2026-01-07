@@ -19,3 +19,14 @@ AutoRole : { "everyXhours": 8, "olympeAuth": { "value": "token", }, olympeDomain
 
 Une fois le bot prêt, ce gestionnaire configure et lance le processus d'attribution automatique des rôles. Il initialise la connexion à l'API Olympe, s'assure que les données du serveur sont en cache, puis exécute la fonction d'attribution des rôles immédiatement et à un intervalle défini.
 
+## Commandes du Module
+
+* [AutoRoleCommand](./AutoRoleCommand.html)
+* [GiveCasterRoleCommand](./GiveCasterRoleCommand.html)
+
+## Configuration
+
+Ce module contient des fichiers de configuration spécifiques. Cliquez ci-dessous pour voir les détails des classes et options.
+
+* [AutoroleConfigClass](./AutoroleConfigClass.html)
+
