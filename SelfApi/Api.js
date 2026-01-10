@@ -381,7 +381,7 @@ module.exports = class SelfApi {
 		}
 		this.app.use('/api', this.router);
 		this.server = this.app.listen(this.port, this.hostname, () => {
-			console.log('📡 API démarrée à : http://' + this.hostname + ':' + this.port);
+			this.BOTS.log('démarrée à : http://' + this.hostname + ':' + this.port, '📡 API');
 		});
 	}
 

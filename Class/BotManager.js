@@ -54,7 +54,7 @@ module.exports = class BotManager extends Map {
 	async start(botsData) {
 		this.createAllBot(botsData);
 
-		this.Commands.setAllCommands();
+		this.Commands.setAllCommands(this);
 		this.Events.setAllEvents();
 
 		this.event.on('botsReady', () => {
@@ -109,25 +109,25 @@ module.exports = class BotManager extends Map {
 	 */
 	loadModule(bot, moduleName) {
 		const moduleConfig = bot.modules[moduleName];
-        const validatorPath = `../Modules/${moduleName}/validatorClass.js`;
+		const validatorPath = `../Modules/${moduleName}/validatorClass.js`;
 
-        try {
-            const ValidatorClass = require(validatorPath);
-            const validator = new ValidatorClass(moduleConfig);
-            validator.validate();
+		try {
+			const ValidatorClass = require(validatorPath);
+			const validator = new ValidatorClass(moduleConfig);
+			validator.validate();
 
-            if (!validator.isValid()) {
-                const errors = validator.getErrors().join('\\n');
-                bot.error(`Configuration de modules eronnée :\n\t${errors}`, moduleName);
-                return; // Stop loading this module
-            }
-        } catch (e) {
-            if (e.code !== 'MODULE_NOT_FOUND') {
-                bot.error(`Error during module validation ${moduleName}: ` + e.stack, moduleName);
-                return;
-            }
-            // Validator not found, continue without validation
-        }
+			if (!validator.isValid()) {
+				const errors = validator.getErrors().join('\n\t');
+				bot.error(`Configuration de modules eronnée :\n\t${errors}`, moduleName);
+				return; // Stop loading this module
+			}
+		} catch (e) {
+			if (e.code !== 'MODULE_NOT_FOUND') {
+				bot.error(`Error during module validation ${moduleName}: ` + e.stack, moduleName);
+				return;
+			}
+			// Validator not found, continue without validation
+		}
 
 		let botModule;
 
@@ -161,14 +161,37 @@ module.exports = class BotManager extends Map {
 	 * @param {Map<string, object>} botsData - Une map contenant les données de configuration de chaque bot.
 	 */
 	createAllBot(botsData) {
+		const colors = [
+			'32', // Green
+			'33', // Yellow
+			'34', // Blue
+			'35', // Magenta
+			'36', // Cyan
+			'92', // Bright Green
+			'93', // Bright Yellow
+			'94', // Bright Blue
+			'95', // Bright Magenta
+			'96', // Bright Cyan
+			'38;5;208', // Orange
+			'38;5;141', // Lilac/Purple
+			'38;5;80', // Turquoise
+			'38;5;220', // Gold
+			'38;5;154', // Lime
+		];
+		let colorIndex = 0;
+
 		for (let [id, botData] of botsData) {
 			try {
-				if (botData.active) this.createBot(botData, this);
+				if (botData.active) {
+					botData.color = colors[colorIndex % colors.length];
+					this.createBot(botData, this);
+					colorIndex++;
+				}
 			} catch (e) {
 				this.error(
 					`Les données fournit n'ont pas permis de creer un bot` +
-						JSON.stringify(botData) +
-						e.stack,
+					JSON.stringify(botData) +
+					e.stack,
 					'createAllBot'
 				);
 			}
@@ -238,10 +261,10 @@ module.exports = class BotManager extends Map {
 	 * @param {Object} discord - Configuration Discord (clientId, clientSecret, etc.) pour l'OAuth2.
 	 * @param {Number} saltRounds - Nombre de rounds pour le hachage des tokens (bcrypt).
 	 */
-	startApi(configs, discord, saltRounds=10) {
+	startApi(configs, discord, saltRounds = 10) {
 		try {
 			this.API = new SelfApi(configs, discord, this, saltRounds);
-            this.API.start();
+			this.API.start();
 		} catch (e) {
 			this.error('Erreur API Bot : ' + e.stack, 'startApi');
 		}
@@ -251,11 +274,15 @@ module.exports = class BotManager extends Map {
 	 * Met la référence et le contenu au bon format
 	 * @param {String || Error} content
 	 * @param {String} reference
+	 * @param {Boolean} isError
 	 * @returns
 	 */
-	formatLog(content, reference) {
-		if (content instanceof Error) content = '❌ ' + content.stack;
-		return `[BOTMANAGER] ${reference ? reference.toUpperCase() + ' ' : ''}| ${content}`;
+	formatLog(content, reference, isError = false) {
+		if (content instanceof Error || isError) content = '❌ ' + content;
+		const color = '\x1b[31m'; // Red for error, Magenta for normal
+		const reset = '\x1b[0m';
+		return `${color}[BOTMANAGER]${reset} ${reference ? reference.toUpperCase() + ' ' : ''
+			}| ${content}`;
 	}
 
 	/**
@@ -264,7 +291,7 @@ module.exports = class BotManager extends Map {
 	 * @param {String} reference
 	 */
 	log(content, reference) {
-		console.log(this.formatLog(content, reference));
+		console.log(this.formatLog(content, reference, false));
 	}
 
 	/**
@@ -273,6 +300,6 @@ module.exports = class BotManager extends Map {
 	 * @param {String} reference
 	 */
 	error(content, reference) {
-		console.error(this.formatLog(content, reference));
+		console.error(this.formatLog(content, reference, true));
 	}
 };

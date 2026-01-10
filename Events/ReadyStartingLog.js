@@ -12,15 +12,15 @@ module.exports = class StartingLog extends Event {
      */
     handleEvent() {
         try {
-            console.log(
-                `🤖 [${this.bot.name}] ready avec ${this.bot.guilds.cache.size} guildes pour ${this.bot.users.cache.size} utilisateurs`,
-            );
+            this.bot.log(
+                `${this.bot.guilds.cache.size} guildes, ${this.bot.users.cache.size} utilisateurs`,
+                "ready");
             const commandCount = this.bot.BOTS.Commands.getAll().size - this.bot.unauthorizedCommands.length;
             const eventCount = this.bot.BOTS.Events.getAll().size - this.bot.unauthorizedEvents.length;
             const moduleNames = Object.keys(this.bot.modules).join(', ');
-            console.log(
-                `    [${this.bot.name}] Commandes : ${commandCount} | Events : ${eventCount} | Modules : ${moduleNames}`,
-            );
+            this.bot.log(
+                `Commandes : ${commandCount} | Events : ${eventCount} | Modules : ${moduleNames}`,
+                "ready");
             this.bot.user.setActivity(this.bot.activity);
         } catch (err) {
             this.handleError(err);

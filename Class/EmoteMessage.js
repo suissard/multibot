@@ -39,8 +39,10 @@ module.exports =
 				let data =
 					dataFromBot.find((d) => d.bot.home == d.message.guild.id) || dataFromBot[0];
 
-				if (!data?.message)
-					throw new Error(`No access to emoteMessage ${this.message.Message}`);
+				if (!data?.message) {
+					this.bots.error(`No access to emoteMessage ${this.message.Message}`, 'emoteMessage');
+					return false;
+				}
 
 				// Verifier les roles
 				this.checkRolesAccess(data.bot, data.message);
@@ -52,11 +54,11 @@ module.exports =
 				this.channel = data.channel;
 				this.guild = data.guild;
 
-				console.log(
-					`✅ EmoteMessages ${this.getID()} ${
-						data.message.guild.name
-					} : EmoteMessages chargés`
-				);
+				// console.log(
+				// 	`✅ EmoteMessages ${this.getID()} ${
+				// 		data.message.guild.name
+				// 	} : EmoteMessages chargés`
+				// );
 				return true;
 			} catch (e) {
 				console.error(e.message);
@@ -162,8 +164,8 @@ module.exports =
 				} else {
 					user.send(
 						'✅ Le role **' +
-							message.guild.roles.cache.get(roles)?.name +
-							"** t'as été attribué"
+						message.guild.roles.cache.get(roles)?.name +
+						"** t'as été attribué"
 					);
 					return true;
 				}
@@ -212,8 +214,7 @@ module.exports =
 						.catch((e) => {
 							bot.bigError(`handleMessageReactionAdd`, `${e.stack}`);
 							user.send(
-								`❌ Je n'ai pas reussi a te retirer le role ${
-									message.guild.roles.cache.get(roles).name
+								`❌ Je n'ai pas reussi a te retirer le role ${message.guild.roles.cache.get(roles).name
 								}, prévient un modérateur`
 							);
 							return false;
@@ -223,8 +224,8 @@ module.exports =
 
 				user.send(
 					'✅ Le role **' +
-						message.guild.roles.cache.get(roles).name +
-						"** t'as été retiré"
+					message.guild.roles.cache.get(roles).name +
+					"** t'as été retiré"
 				);
 				return true;
 			}

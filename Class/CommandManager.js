@@ -77,18 +77,24 @@ module.exports = class CommandeManager {
 		// if (data.howTo === undefined) error.push("howTo");
 		if (data.test === undefined) error.push('test');
 
-		if (error.length != 0) console.error(`La command "${data.id}" doit avoir ${error.join(', ')}`);
+		if (error.length != 0) throw new Error(`La command "${data.id}" doit avoir ${error.join(', ')}`);
 
 		this.add(data.id, data);
 	}
 
 	/**
 	 * Charge toutes les commandes des bots
+	 * 
+	 * @param {BotManager} botManager 
 	 */
-	setAllCommands() {
+	setAllCommands(botManager) {
 		let files = fs.readdirSync('./Commandes');
 		for (let i in files) {
-			this.setCommand('../Commandes/' + files[i]);
+			try {
+				this.setCommand('../Commandes/' + files[i]);
+			} catch (e) {
+				botManager.error(e.message)
+			};
 		}
 	}
 

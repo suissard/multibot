@@ -68,9 +68,10 @@ module.exports = class ReadySetInteractionCommands extends Event {
 					`Synchronisation terminée : ${created} créées, ${updated} mises à jour, ${deleted} supprimées.`,
 					"SlashCommand"
 				);
-			} else {
-				bot.log("Aucune modification de commande nécessaire.", "SlashCommand");
-			}
+			};
+			// } else {
+			// 	bot.log("Aucune modification de commande nécessaire.", "SlashCommand");
+			// }
 
 		} catch (err) {
 			this.handleError(err);

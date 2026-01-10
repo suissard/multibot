@@ -142,6 +142,12 @@ module.exports = class Bot extends Discord.Client {
 			: (this.unauthorizedCommands = []);
 
 		/**
+		 * Couleur de log du bot
+		 * @type {string}
+		 */
+		this.color = data.color;
+
+		/**
 		 * Connexion du bot à l'API Discord avec le token fourni
 		 */
 		this.login(data.token).catch((e) =>
@@ -184,20 +190,28 @@ module.exports = class Bot extends Discord.Client {
 	}
 
 	/**
-	 * Met la référence et le contenu au bon format
-	 * @param {String || Error} content
-	 * @param {String} reference
-	 * @returns
+	 * Génère une couleur ANSI basée sur le nom du bot
+	 * @param {string} name
+	 * @returns {string} Code couleur ANSI
 	 */
-	formatLog(content, reference) {
-		if (content instanceof Error) content = '❌ ' + content.stack;
-		return `[${this.name}] ${reference ? reference.toUpperCase() + ' ' : ''}| ${content}`;
+	formatLog(content, reference, isError = false) {
+		if (content instanceof Error || isError) content = '❌ ' + content;
+		const colorCode = this.color || '37'; // Default to white if undefined
+		const color = `\x1b[${colorCode}m`;
+		const reset = '\x1b[0m';
+		return `${color}[${this.name}]${reset} ${reference ? reference.toUpperCase() + ' ' : ''
+			}| ${content}`;
 	}
 
 	/**
 	 * Diffuse un log
 	 * @param {String} content
 	 * @param {String} reference
+	 */
+	/**
+	 * Diffuse un log
+	 * @param {string} content
+	 * @param {string} reference
 	 */
 	log(content, reference) {
 		console.log(this.formatLog(content, reference));
@@ -209,6 +223,6 @@ module.exports = class Bot extends Discord.Client {
 	 * @param {String} reference
 	 */
 	error(content, reference) {
-		console.error(this.formatLog(content, reference));
+		console.error(this.formatLog(content, reference, true));
 	}
 };

@@ -7,6 +7,7 @@ const {
 	getOwnerUsers,
 } = require('../../../services/apiService');
 const simultaneousRequest = require('../../../Tools/simultaneousRequest.js');
+const ProgressBar = require('../../../Tools/progressBar.js');
 const ChallengesRolesId = require('../models/ChallengesRolesId.js');
 
 const clubRolesList = [
@@ -20,6 +21,7 @@ const clubRolesList = [
 ];
 const managerRolesList = ['manager', 'assistant manager'];
 const coachRolesList = ['head coach', 'mental coach'];
+const progressBarRefreshRate = 5000;
 
 /**
  * Ajoute les données olympe des utilisateurs avec un discordId valable, à un objet global stocké dans le bot concerné (bot.olympe.users)
@@ -29,7 +31,6 @@ const coachRolesList = ['head coach', 'mental coach'];
  */
 const addOlympeUserData = (olympeMember, team, bot) => {
 	if (!bot.olympe.users[olympeMember.user.thirdparties.discord.discordID]) {
-		//usage des models ?
 		bot.olympe.users[olympeMember.user.thirdparties.discord.discordID] = {
 			id: olympeMember.user.id,
 			username: olympeMember.user.username,
@@ -44,10 +45,8 @@ const addOlympeUserData = (olympeMember, team, bot) => {
 		valideSegment = bot.olympe.segments.find((seg) => seg.id === valideSegment);
 		team.segments = [valideSegment];
 	}
-	// if (valideSegment) {
-	//utile au secretrariat (Secretary.js > getMessageFooterFromUser)
+
 	bot.olympe.users[olympeMember.user.thirdparties.discord.discordID][team.name] = {
-		// roles: valideSegment ? getRoleToAdd(olympeMember) : [],
 		roles: getRoleToAdd(olympeMember),
 		segmentName: valideSegment?.name,
 		segmentId: valideSegment?.id,
@@ -62,8 +61,8 @@ const addOlympeUserData = (olympeMember, team, bot) => {
  * Renvoie un nom en fonction des arguments
  * @param {OlympeUser} olympeUser
  * @param {Discord.User} discordUser
- * @param {String} teamName
- * @returns {String} name
+ * @param {string} teamName
+ * @returns {string} name
  */
 const getName = (olympeUser, discordUser, teamName) => {
 	let username = olympeUser.username || discordUser.user.tag;
@@ -79,7 +78,7 @@ const getName = (olympeUser, discordUser, teamName) => {
 /**
  * Renomme un utilisateur discord en fonction des données olympe
  * @param {OlympeMember} olympeMember
- * @param {String} teamName
+ * @param {string} teamName
  * @param {Object} discordUser same update or error
  * @param {Bot} bot
  * @returns {Promise<string>}
@@ -98,19 +97,18 @@ const renameDiscordUserWithOlympeData = async (olympeMember, teamName, discordUs
 		await discordUser.setNickname(name);
 		return 'update';
 	} catch (error) {
-		bot.error(error.message, 'autorole - rename');
-		return 'error';
+		return error.message;
 	}
 };
 
 /**
  * Donne les roles discord à un utilisateur en fonction des rôles olympe
- * @param {String} olympeMemberId
+ * @param {string} olympeMemberId
  * @param {Discord.Guild} guild
  * @param {Discord.User} discordUser
  * @param {OlympeTeam} teams
  * @param {ChallengesRolesId} challengesRolesId
- * @param {Array<String>} rolesCompetId
+ * @param {Array<string>} rolesCompetId
  * @returns
  */
 const changeDiscordRole = async (
@@ -131,7 +129,7 @@ const changeDiscordRole = async (
 			rolesToAdd =
 				guild.client.olympe?.users[olympeMember.user.thirdparties.discord.discordID]?.[
 					team.name
-				]?.roles || []; //! testReecriture getRoleToAdd(olympeMember); // Donne les role pour une team
+				]?.roles || [];
 			realRole = realRole.concat(
 				getRealRole(rolesToAdd, guild, team.segments, challengesRolesId, olympeMember)
 			);
@@ -158,15 +156,14 @@ const changeDiscordRole = async (
 
 		return [roleIdToAdd, rolesIdToRemove];
 	} catch (e) {
-		guild.client.error(e, 'autorole - changeDiscordRole');
-		return false;
+		return e.message;
 	}
 };
 
 /**
  * Obtient la liste des rôles à donner en fonction des données olympe et des rôles fournis en config
  * @param {OlympeMember} olympeMember
- * @returns {Array<String>} player, club, manager, coach, caster
+ * @returns {Array<string>} player, club, manager, coach, caster
  */
 const getRoleToAdd = (olympeMember) => {
 	let roleToAdd = [];
@@ -197,7 +194,7 @@ const getRoleToAdd = (olympeMember) => {
 
 /**
  * Récupère les rôles au format discord en fonction des rôles olympe
- * @param {Array<String>} listRole
+ * @param {Array<string>} listRole
  * @param {Discord.Guild} guild
  * @param {Array<Object>} segments
  * @param {ChallengesRolesId} challengesRolesId
@@ -205,7 +202,7 @@ const getRoleToAdd = (olympeMember) => {
  * @returns {Array<Discord.Role>}
  */
 const getRealRole = (listRole, guild, segments, challengesRolesId, olympeMember) => {
-	const captain = olympeMember.roles.includes('captain'); 
+	const captain = olympeMember.roles.includes('captain');
 	try {
 		let realRole = [];
 		let segmentName, challengeRole;
@@ -262,29 +259,30 @@ const getRealRole = (listRole, guild, segments, challengesRolesId, olympeMember)
 const processAllTeams = async (teams, guild, bot) => {
 	const requestTeamsArray = [];
 	const olympeTeams = bot.olympe.teams;
-	for (let i in teams) {
+	let bar = new ProgressBar(teams.length, 20, progressBarRefreshRate);
+	for (let i = 0; i < teams.length; i++) {
 		const team = teams[i];
 		requestTeamsArray.push(async () => {
 			await processTeam(team, olympeTeams, bot);
-			if (i % 40 == 0 || i == teams.length || i == 1)
-				bot.log(`loading team ${olympeTeams.length}/${teams.length}`, 'autorole'); // DEBUG
+			const log = bar.next();
+			if (log) {
+				bot.log(`processAllTeam ${log}`, 'autorole'); // DEBUG
+			}
 		});
 	}
 
 	await simultaneousRequest(requestTeamsArray);
 
 	const requestTeamMembersArray = [];
-	let ii = 1;
+	let membersBar = new ProgressBar(olympeTeams.length, 20, progressBarRefreshRate);
+
 	for (let team of olympeTeams) {
 		requestTeamMembersArray.push(async () => {
 			await processTeamMembers(team, guild, bot);
-
-			if (ii % 20 == 0 || ii == olympeTeams.length || ii == 1)
-				bot.log(
-					// `team N°${ii++}/${olympeTeams.length} - ${team.name}`,
-					`team ${ii++}/${olympeTeams.length}`,
-					'autorole - processteam'
-				);
+			const log = membersBar.next();
+			if (log) {
+				bot.log(`processTeam - members ${log}`, 'autorole');
+			}
 		});
 	}
 	await simultaneousRequest(requestTeamMembersArray);
@@ -298,13 +296,14 @@ const processAllTeams = async (teams, guild, bot) => {
  * @param {Bot} bot
  */
 const processTeam = async (team, olympeTeams, bot) => {
-	if (!olympeTeams.find((t) => t.id == team.id))
+	const existingTeamIndex = olympeTeams.findIndex((t) => t.id == team.id);
+	if (existingTeamIndex === -1)
 		olympeTeams.push(
 			await bot.olympe.api.teams.get(team.id, {
 				userFields: ['thirdpartiesDiscord', 'castUrl'],
 			})
 		);
-	else olympeTeams[olympeTeams.indexOf(team.id)] = team; // Si la team est déjà enregistré, alors il la remplace
+	else olympeTeams[existingTeamIndex] = team; // Si la team est déjà enregistré, alors il la remplace
 };
 /**
  * Traite les membres d'une équipe : ajout des donnée dans la cache Olympe (bot.olympe.users)
@@ -388,12 +387,15 @@ const processTeamMember = async (team, member, guild, bot) => {
 const processAllUsers = async (users, guild, bot) => {
 	const requestUsersArray = [];
 	// const users = Object.entries(bot.olympe.users);
-	let i = 1;
+	let bar = new ProgressBar(users.length, 20, progressBarRefreshRate);
+
 	users.forEach((user) => {
 		let request = async () => {
 			await processUser(user[1], guild, bot);
-			if (i % 200 == 0 || i == users.length || i == 1)
-				bot.log(`users N°${i++}/ ${users.length}`, 'autorole - processusers');
+			const log = bar.next();
+			if (log) {
+				bot.log(`processusers ${log}`, 'autorole');
+			}
 		};
 		requestUsersArray.push(request);
 	});
@@ -418,32 +420,29 @@ const processUser = async (user, guild, bot) => {
 	let renameResult = 'same',
 		addRoleResult;
 
-	try {
-		renameResult = await renameDiscordUserWithOlympeData(
-			olympeMember,
-			teams.length > 1 ? 'multiteam' : teams[0].name.trim(),
-			discordUser,
-			bot
-		);
-	} catch (e) {
-		bot.error(e, `[${bot.name}] AUTOROLE : renameResult`, e.message);
-	}
+	renameResult = await renameDiscordUserWithOlympeData(
+		olympeMember,
+		teams.length > 1 ? 'multiteam' : teams[0].name.trim(),
+		discordUser,
+		bot
+	);
 
-	try {
-		addRoleResult = (await changeDiscordRole(
-			olympeMember.user.id,
-			guild,
-			discordUser,
-			teams,
-			bot.olympe.challengesRolesId,
-			bot.olympe.challengesRolesId.getAllIds()
-		)) || [[], []];
-	} catch (e) {
-		console.error(`[${bot.name}] AUTOROLE : addRoleResult`, e.message);
-	}
-	if (renameResult !== 'same' || addRoleResult[0].length + addRoleResult[1].length) {
+
+	addRoleResult = (await changeDiscordRole(
+		olympeMember.user.id,
+		guild,
+		discordUser,
+		teams,
+		bot.olympe.challengesRolesId,
+		bot.olympe.challengesRolesId.getAllIds()
+	));
+
+	renameResult = renameResult === 'same' ? '' : renameResult === "update" ? renameResult : '❌ ' + renameResult;
+	addRoleResult = addRoleResult[0].length + addRoleResult[1].length ? '❌ ' + addRoleResult : '';
+
+	if (renameResult || addRoleResult) {
 		bot.log(
-			`changeUsername (${renameResult}) changeRole (+${addRoleResult[0].length}/-${addRoleResult[1].length}) pour ${olympeMember.user.username} (${discordUser.user.tag})`,
+			`${olympeMember.user.username} (${discordUser.user.tag}) : ${renameResult ? 'rename (' + renameResult + ')' : ''} ${addRoleResult ? 'addRole (' + addRoleResult + ')' : ''}`,
 			'autorole'
 		);
 		return true;
@@ -491,7 +490,7 @@ const processMatch = async (match, bot) => {
 
 /**
  * Donne les roles et rename pour les membres d'une équipe
- * @param {String} teamId
+ * @param {string} teamId
  * @param {Bot} bot
  * @returns
  */
@@ -518,7 +517,7 @@ const processFromOlympeTeamId = async (teamId, bot) => {
 
 /**
  * Donne les roles et rename pour un utilisateur olympe
- * @param {String} olympeUserId
+ * @param {string} olympeUserId
  * @param {Bot} bot
  * @returns
  */
@@ -534,7 +533,7 @@ const processFromOlympeUserId = async (olympeUserId, bot) => {
 
 /**
  * Donne les roles et rename pour un utilisateur discord (nécessite une présence dans le cache : processTeamMember)
- * @param {String} discordUserId
+ * @param {string} discordUserId
  * @param {Bot} bot
  * @returns
  */
@@ -548,8 +547,8 @@ const processFromDiscordUserId = async (discordUserId, bot) => {
 /**
  * Transpoise un utilisateur olympe pour en faire un membre qui peut etre processTeamMember
  * @param {OlympeUser} olympeUser
- * @param {Array<String>} roles
- * @param {Array<String>} gameRoles
+ * @param {Array<string>} roles
+ * @param {Array<string>} gameRoles
  * @returns {OlympeMember}
  */
 const generateMemberFromOlympeUser = (olympeUser, roles = [], gameRoles = []) => {
@@ -563,7 +562,7 @@ const generateMemberFromOlympeUser = (olympeUser, roles = [], gameRoles = []) =>
 
 /**
  * Transpose des membres olympe (generateMemberFromOlympeUser) pour en faire une équipe qui peut etre processTeams
- * @param {String} name
+ * @param {string} name
  * @param {OlympeMember} olympeUser
  * @param {Array<Object>} segments
  * @returns {OlympeTeam}
@@ -586,7 +585,7 @@ const generateTeamFromOlympeMembers = (name, members = [], segments = []) => {
 const getCasterTeam = async (bot, guild) => {
 	let casters = await getCasterUsers(bot);
 	casters = casters?.map((olympeUser) => generateMemberFromOlympeUser(olympeUser)) || [];
-	if(!casters.length) return;
+	if (!casters.length) return;
 
 	const segment = bot.olympe.segments[0];
 	const casterTeamName = bot.modules.AutoRole.guilds[guild.id]?.specialRoles.caster.name;
@@ -600,13 +599,13 @@ const getCasterTeam = async (bot, guild) => {
  * @returns {OlympeTeam}
  */
 const processCasterUsers = async (bot, guild) => {
-	bot.log('start', 'autorole - processCasterUsers');
+	// bot.log('start', 'autorole - processCasterUsers');
 	const team = await getCasterTeam(bot, guild);
 	await processTeamMembers(team, guild, bot);
 
 	const users = Object.entries(bot.olympe.users);
 	await processAllUsers(users, guild, bot);
-	bot.log('end', 'autorole - processCasterUsers');
+	// bot.log('end', 'autorole - processCasterUsers');
 
 	return team;
 };
@@ -617,14 +616,14 @@ const processCasterUsers = async (bot, guild) => {
  * @param {import('discord.js').Guild} guild - La guilde concernée.
  * @returns {Promise<void>}
  */
-const getOwnerTeam = async (bot, guild) => {};
+const getOwnerTeam = async (bot, guild) => { };
 /**
  * Traite les utilisateurs "Owners" pour leur attribuer les rôles et le nom. (Non implémenté)
  * @param {Bot} bot - L'instance du bot.
  * @param {string} guildId - L'ID de la guilde concernée.
  * @returns {Promise<void>}
  */
-const processOwnerUsers = async (bot, guildId) => {};
+const processOwnerUsers = async (bot, guildId) => { };
 
 module.exports = {
 	processTeamMembers,
@@ -647,6 +646,6 @@ module.exports = {
 	getRealRole,
 	processCasterUsers,
 	getCasterTeam,
-    processTeam,
-    processTeamMember
+	processTeam,
+	processTeamMember
 };
