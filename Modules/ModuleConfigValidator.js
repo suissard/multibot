@@ -2,7 +2,10 @@ module.exports = class ModuleConfigValidator {
     constructor(config, moduleName) {
         this.config = config;
         this.moduleName = moduleName;
-        this.errors = [];
+        this.errors = {
+            missing: [],
+            invalid: []
+        };
     }
 
     validate() {
@@ -11,7 +14,7 @@ module.exports = class ModuleConfigValidator {
 
     hasProperty(property) {
         if (this.config[property] === undefined) {
-            this.errors.push(`Missing property: ${property}`);
+            this.errors.missing.push(property);
             return false;
         }
         return true;
@@ -20,7 +23,7 @@ module.exports = class ModuleConfigValidator {
     isType(property, type) {
         if (this.hasProperty(property)) {
             if (typeof this.config[property] !== type) {
-                this.errors.push(`Property '${property}' must be of type '${type}'`);
+                this.errors.invalid.push(`Property '${property}' must be of type '${type}'`);
                 return false;
             }
             return true;
@@ -31,7 +34,7 @@ module.exports = class ModuleConfigValidator {
     isArray(property) {
         if (this.hasProperty(property)) {
             if (!Array.isArray(this.config[property])) {
-                this.errors.push(`Property '${property}' must be an array`);
+                this.errors.invalid.push(`Property '${property}' must be an array`);
                 return false;
             }
             return true;
@@ -42,7 +45,7 @@ module.exports = class ModuleConfigValidator {
     isObject(property) {
         if (this.hasProperty(property)) {
             if (typeof this.config[property] !== 'object' || this.config[property] === null) {
-                this.errors.push(`Property '${property}' must be an object`);
+                this.errors.invalid.push(`Property '${property}' must be an object`);
                 return false;
             }
             return true;
@@ -55,6 +58,6 @@ module.exports = class ModuleConfigValidator {
     }
 
     isValid() {
-        return this.errors.length === 0;
+        return this.errors.missing.length === 0 && this.errors.invalid.length === 0;
     }
 }

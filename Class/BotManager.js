@@ -117,8 +117,19 @@ module.exports = class BotManager extends Map {
 			validator.validate();
 
 			if (!validator.isValid()) {
-				const errors = validator.getErrors().join('\n\t');
-				bot.error(`Configuration de modules eronnée :\n\t${errors}`, moduleName);
+				const { missing, invalid } = validator.getErrors();
+				let finalMessage = '';
+
+				if (missing.length > 0) {
+					finalMessage += `Missing properties: ${missing.join(', ')}`;
+				}
+
+				if (invalid.length > 0) {
+					if (finalMessage) finalMessage += ' | ';
+					finalMessage += invalid.join(' | ');
+				}
+
+				bot.error(`Configuration de modules eronnée : ${finalMessage}`, moduleName);
 				return; // Stop loading this module
 			}
 		} catch (e) {
