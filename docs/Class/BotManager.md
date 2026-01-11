@@ -122,6 +122,7 @@ Met la référence et le contenu au bon format
 | ---- | ---- | ----------- |
 | `content` | `String || Error` |  |
 | `reference` | `String` |  |
+| `isError` | `Boolean` |  |
 
 **Returns:** `` - 
 

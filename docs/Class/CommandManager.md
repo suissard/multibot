@@ -53,6 +53,12 @@ Charger la commande
 
 Charge toutes les commandes des bots
 
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `botManager` | `BotManager` |  |
+
 Réagit a un commande initié depuis une interaction
 
 **Parameters:**

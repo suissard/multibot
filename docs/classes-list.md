@@ -5,6 +5,7 @@ layout: default
 
 # Liste des Classes
 
+* [ApiCallQueue](./Class/ApiCallQueue.html)
 * [BOTS](./Class/BOTS.html)
 * [Bot](./Class/Bot.html)
 * [BotManager](./Class/BotManager.html)

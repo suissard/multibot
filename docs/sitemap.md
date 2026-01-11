@@ -6,6 +6,7 @@ layout: default
 # Plan du site
 
 * **Class**
+  * [ApiCallQueue.js](./Class/ApiCallQueue.html)
   * [Bot.js](./Class/Bot.html)
   * [BotManager.js](./Class/BotManager.html)
   * [Command.js](./Class/Command.html)
@@ -120,4 +121,5 @@ layout: default
 * **Tools**
   * [MultiBotMessageEmbed.js](./Tools/MultiBotMessageEmbed.html)
   * [findRoleFromName.js](./Tools/findRoleFromName.html)
+  * [progressBar.js](./Tools/progressBar.html)
   * [teamManager.js](./Tools/teamManager.html)
