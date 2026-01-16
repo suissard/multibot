@@ -11,11 +11,6 @@ module.exports = {
      * @param {import('../Api')} app
      */
     handler: async (req, res, bot, user, app) => {
-        try {
-            await app.createUser(req, res);
-        } catch (e) {
-            console.error('Error in auth callback:', e);
-            res.status(500).send({ message: e.message });
-        }
+        await app.createUser(req, res);
     },
 };

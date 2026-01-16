@@ -1,9 +1,37 @@
-import Command from "../Class/Command.js";
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, beforeAll, vi } from "vitest";
+
+let Command, TestCommand;
+
+beforeAll(async () => {
+    vi.resetModules();
+    process.env.STRAPI_URL = 'http://localhost:1337';
+    process.env.STRAPI_TOKEN = 'dummy_token';
+
+    vi.doMock('suissard-strapi-client', () => ({
+        StrapiApi: class { constructor() { } },
+        StrapiCollections: class { },
+        StrapiObject: class { }
+    }));
+
+    const module = await import("../Class/Command.js");
+    Command = module.default;
+
+    TestCommand = class extends Command {
+        static id = "test";
+        static description = "A test command";
+        static userPermissions = [];
+        static botPermissions = [];
+
+        methode(args) {
+            return "Hello from test command";
+        }
+    }
+});
 
 // Mock Bot
 const mockBot = {
     ownerId: 'owner-id',
+    log: vi.fn(),
     guilds: {
         cache: {
             get: vi.fn().mockReturnValue({ name: 'Test Guild' })
@@ -11,18 +39,8 @@ const mockBot = {
     }
 };
 
-class TestCommand extends Command {
-    static id = "test";
-    static description = "A test command";
-    static userPermissions = [];
-    static botPermissions = [];
 
-    methode(args) {
-        return "Hello from test command";
-    }
-}
-
-describe.skip("Command Class", () => {
+describe("Command Class", () => {
     let command;
     let mockMessage;
 

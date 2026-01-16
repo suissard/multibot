@@ -1,8 +1,5 @@
 const Bot = require('../../Class/Bot.js');
-const {
-	processFromOlympeTeamId,
-	processFromOlympeUserId,
-} = require('../../Modules/AutoRole/utils/utils.js');
+const utils = require('../../Modules/AutoRole/utils/utils.js');
 /**
  * Route permettant de déclencerh des fonctions de l'autorole
  */
@@ -18,7 +15,7 @@ module.exports = {
 	 * @param {import('../Api')} app - L'instance de l'API principale.
 	 */
 	handler: (req, res, botArg, user, app) => {
-		console.log('AUTOROLE API DEBUG');
+		app.debug('AUTOROLE API DEBUG', 'PUT_AUTOROLE');
 		// retrouver dans app.BOTS (Map) celui qui a les bonne option dans ses configs
 		req.body.organization;
 		const bots = [];
@@ -27,14 +24,14 @@ module.exports = {
 		}
 
 		// lancer la fonction autorole lié a une team ou un utilisateur
-		if (req.body.teamIDs) bots.forEach((bot) => processFromOlympeTeamId(req.body.teamIds, bot));
+		if (req.body.teamIDs) bots.forEach((bot) => utils.processFromOlympeTeamId(req.body.teamIds, bot));
 		else if (req.body.userIDs)
-			bots.forEach((bot) => processFromOlympeUserId(req.body.userIDs, bot));
-		else console.log("No OlympeID's provided")
+			bots.forEach((bot) => utils.processFromOlympeUserId(req.body.userIDs, bot));
+		else app.warn("No OlympeID's provided", 'PUT_AUTOROLE');
 
 		// Répondre
-		res.json({
+		return {
 			message: 'Data received',
-		});
+		};
 	},
 };

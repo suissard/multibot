@@ -20,8 +20,9 @@ const getBots = require('./get-bots.js');
 const getUser = require('./get-user.js');
 const getChannels = require('./get-channels.js');
 const getUsers = require('./get-users.js'); // Added import for getUsers
+const getRoles = require('./get-roles.js');
 
-const routes = [getCommands, postCommands, getEvents, getEvent, postEvents, getdiscordAuthurl, post, putAutorole, getModules, putModuleTestData,  getSettings, putSettings, getAuthCallback, getBots, getUser, getChannels, getUsers]; // Added getUsers to the routes array
+const routes = [getCommands, postCommands, getEvents, getEvent, postEvents, getdiscordAuthurl, post, putAutorole, getModules, putModuleTestData, getSettings, putSettings, getAuthCallback, getBots, getUser, getChannels, getUsers, getRoles]; // Added getUsers to the routes array
 
 /**
  * Enregistre une liste de routes sur l'instance de l'API.
@@ -30,6 +31,6 @@ const routes = [getCommands, postCommands, getEvents, getEvent, postEvents, getd
  */
 const createAllRoutes = (api, routesArg) => {
     if (!routesArg) routesArg = routes;
-	for (const { path, method, handler } of routesArg) new Route(api, path, method, handler);
+    for (const { path, method, handler } of routesArg) new Route(api, path, method, handler);
 };
 module.exports = { routes, createAllRoutes };

@@ -1,8 +1,3 @@
-const BOTS = require('../../Class/BOTS.js');
-
-/**
- * Route to get information about all events.
- */
 module.exports = {
     path: '/events',
     method: 'get',
@@ -10,9 +5,15 @@ module.exports = {
      * Handles the request to get information about events.
      * @param {import('express').Request} req - The Express request object.
      * @param {import('express').Response} res - The Express response object.
+     * @param {*} bot
+     * @param {*} user
+     * @param {import('../Api')} app
      */
-    handler: (req, res) => {
-        const listEvents = Array.from(BOTS.Events.__events).map(([name, event]) => {
+    handler: (req, res, bot, user, app) => {
+        if (!app.BOTS?.Events?.__events) {
+            return [];
+        }
+        const listEvents = Array.from(app.BOTS.Events.__events).map(([name, event]) => {
             return {
                 name: event.name,
                 description: event.description,
@@ -22,6 +23,6 @@ module.exports = {
                 config: event.config
             };
         });
-        return res.json(listEvents);
+        return listEvents;
     },
 };

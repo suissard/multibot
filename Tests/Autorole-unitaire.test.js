@@ -1,13 +1,32 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, beforeAll } from 'vitest';
 import Discord from 'discord.js';
-import {
-	addOlympeUserData,
+
+let addOlympeUserData,
 	getName,
 	renameDiscordUserWithOlympeData,
 	changeDiscordRole,
 	getRoleToAdd,
-	getRealRole,
-} from '../Modules/AutoRole/utils/utils.js'; // Remplacez par le bon chemin vers votre module
+	getRealRole;
+
+// Mocks et setup d'environnement doit se faire avant les imports qui utilisent DataBase
+beforeAll(async () => {
+	vi.resetModules();
+	process.env.STRAPI_URL = 'http://localhost:1337';
+	process.env.STRAPI_TOKEN = 'dummy_token';
+	vi.doMock('suissard-strapi-client', () => ({
+		StrapiApi: class { constructor() { } },
+		StrapiCollections: class { },
+		StrapiObject: class { }
+	}));
+
+	const utils = await import('../Modules/AutoRole/utils/utils.js');
+	addOlympeUserData = utils.addOlympeUserData;
+	getName = utils.getName;
+	renameDiscordUserWithOlympeData = utils.renameDiscordUserWithOlympeData;
+	changeDiscordRole = utils.changeDiscordRole;
+	getRoleToAdd = utils.getRoleToAdd;
+	getRealRole = utils.getRealRole;
+});
 
 // Mocks et setup
 const mockChallengesRolesId = {

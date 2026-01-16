@@ -98,6 +98,23 @@ describe('SELFAPI : Test des routes de l\'api', () => {
         const json2 = await request2.json();
         expect(objectHaveEntries(json2, cmdPattern)).toBeTruthy();
     }, 20000);
+
+    test('test de route get-roles', async () => {
+        let request = await fetch(
+            `http://${configs.api.hostname}:${configs.api.port}/roles?bot_id=${botId}`,
+            { ...requestTest, method: 'GET' },
+        );
+        const json = await request.json();
+
+        // Since we are using a mock guild, we expect an empty array or specific mock roles
+        // Assuming the mock guild in tests might not have roles populated, or we can check array type
+        expect(json).toBeInstanceOf(Array);
+        if (json.length > 0) {
+            expect(json[0]).toHaveProperty('id');
+            expect(json[0]).toHaveProperty('name');
+            expect(json[0]).toHaveProperty('color');
+        }
+    }, 20000);
 });
 
 describe('SELFAPI : Test des routes de l\'api', () => {

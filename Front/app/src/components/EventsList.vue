@@ -5,7 +5,8 @@
     <div v-if="error" class="text-red-500">{{ error }}</div>
     <ul v-if="events.length" class="space-y-4">
       <li v-for="event in events" :key="event.name">
-        <router-link :to="`/events/${event.name}/test-data`" class="block p-4 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700">
+        <router-link :to="`/events/${event.name}/test-data`"
+          class="block p-4 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700">
           <h2 class="text-xl font-semibold">{{ event.name }}</h2>
           <p class="text-gray-600 dark:text-gray-400">{{ event.description }}</p>
         </router-link>
@@ -16,6 +17,7 @@
 
 <script>
 import { callApi } from '@/services/callApi';
+import { useMainStore } from '../stores/main';
 
 export default {
   name: 'EventsList',
@@ -28,7 +30,10 @@ export default {
   },
   async created() {
     try {
-      this.events = await callApi('getEvents');
+      const store = useMainStore();
+      if (store.selectedBotId) {
+        this.events = await callApi('getEvents', store.selectedBotId);
+      }
     } catch (err) {
       this.error = 'Failed to load events.';
       console.error(err);

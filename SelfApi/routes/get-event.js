@@ -26,19 +26,19 @@ module.exports = {
                     config: event.config
                 };
             });
-            return res.json(listEvents);
+            return listEvents;
         }
 
         const event = BOTS.Events.get(eventName);
         if (!event) throw { message: `Event ${eventName} not found`, status: 404 };
 
-        res.json({
+        return {
             name: event.name,
             description: event.description,
             active: event.active,
             intents: event.intents,
             options: event.options,
             config: event.config
-        });
+        };
     },
 };

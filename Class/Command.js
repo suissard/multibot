@@ -240,28 +240,28 @@ module.exports = class Commande {
 	async handleApiRequest(req, res, user, app) {
 		const guild = this.bot.guilds.cache.get(this.bot.home);
 		const member = guild.members.cache.get(user.id);
-        
-        // Fetch real user object to ensure we have .send() method
-        const realUser = await this.bot.users.fetch(user.id);
 
-        // Récupérer le channel contextuel s'il est fourni
-        const channelId = req.body.channel_id || req.query?.channel_id;
-        
-        let channel = realUser; // Par défaut : réponses en MP avec le vrai objet User
-        if (channelId) {
-            try {
-                const fetchedChannel = await this.bot.channels.fetch(channelId);
-                if (fetchedChannel) {
-                     channel = fetchedChannel;
-                }
-            } catch (e) {
-                console.warn(`Impossible de récupérer le channel ${channelId} pour la commande API`, e);
-            }
-        }
+		// Fetch real user object to ensure we have .send() method
+		const realUser = await this.bot.users.fetch(user.id);
+
+		// Récupérer le channel contextuel s'il est fourni
+		const channelId = req.body.channel_id || req.query?.channel_id;
+
+		let channel = realUser; // Par défaut : réponses en MP avec le vrai objet User
+		if (channelId) {
+			try {
+				const fetchedChannel = await this.bot.channels.fetch(channelId);
+				if (fetchedChannel) {
+					channel = fetchedChannel;
+				}
+			} catch (e) {
+				console.warn(`Impossible de récupérer le channel ${channelId} pour la commande API`, e);
+			}
+		}
 
 		this.setCommunicationData(
 			guild,
-			channel, 
+			channel,
 			user,
 			member
 		);
@@ -271,28 +271,28 @@ module.exports = class Commande {
 
 			//Lancement de la commande
 			const args = await app.convertApiBadyToDiscordObject(req, this);
-            
-            // Simuler une interaction pour les commandes API qui en ont besoin (ex: ping)
-            if (!args.interaction) {
-                args.interaction = {
-                    createdTimestamp: Date.now(),
-                    // Ajouter d'autres propriétés simulées si nécessaire
-                    user: user,
-                    guild: guild,
-                    channel: channel // Injecter le channel contexte
-                };
-            }
+
+			// Simuler une interaction pour les commandes API qui en ont besoin (ex: ping)
+			if (!args.interaction) {
+				args.interaction = {
+					createdTimestamp: Date.now(),
+					// Ajouter d'autres propriétés simulées si nécessaire
+					user: user,
+					guild: guild,
+					channel: channel // Injecter le channel contexte
+				};
+			}
 
 			let result = await this.methode(args);
-            
-            // Envoyer le résultat dans le channel Discord si c'est une string ou un message
-            if (result && (typeof result === 'string' || result.embeds || result.content)) {
-                try {
-                    await channel.send(result);
-                } catch (sendError) {
-                    console.error(`[API Command] Failed to send result to channel:`, sendError);
-                }
-            }
+
+			// Envoyer le résultat dans le channel Discord si c'est une string ou un message
+			if (result && (typeof result === 'string' || result.embeds || result.content)) {
+				try {
+					await channel.send(result);
+				} catch (sendError) {
+					console.error(`[API Command] Failed to send result to channel:`, sendError);
+				}
+			}
 
 			// res.status(200).json({result});
 			return result;
@@ -342,8 +342,7 @@ module.exports = class Commande {
 		// Home autorisation
 		if (this.home && guild.id != this.bot.home)
 			throw Error(
-				`Permissions insuffisantes :\nCette commande est réservé au serveur **${
-					this.bot.guilds.cache.get(this.bot.home).name
+				`Permissions insuffisantes :\nCette commande est réservé au serveur **${this.bot.guilds.cache.get(this.bot.home).name
 				}**`
 			);
 
@@ -368,12 +367,10 @@ module.exports = class Commande {
 		if (this.isAtest) return console.log(`Test de la commande ${this.id.toUpperCase()}`);
 		else if (!message.guild) return console.log(`Commande executé dans un channel privé`);
 		else
-			console.log(
-				`[${this.bot.name}] Commande ${this.id.toUpperCase()} : ${
-					message.user ? message.user.username : message.author.username
-				} dans https://discordapp.com/channels/${message.guild.id}/${message.channel.id}/${
-					message.id
-				}`
+			this.bot.log(
+				`${message.user ? message.user.username : message.author.username
+				} dans https://discordapp.com/channels/${message.guild.id}/${message.channel.id}/${message.id
+				}`, `CMD ${this.id.toUpperCase()}`
 			);
 	}
 
@@ -383,9 +380,9 @@ module.exports = class Commande {
 	 * @returns {Discord.Message} renvoie la promesse d'un message discord
 	 */
 	answerToUser(data) {
-		if (!this.channel) return console.error("Impossible de répondre a l'utilisateur");
+		if (!this.channel) return this.bot.error("Impossible de répondre a l'utilisateur", `CMD ${this.id.toUpperCase()}`);
 		return this.channel.send(data).catch((err) => {
-			console.error(`[${this.bot.name}] Erreur d'envoie ${err}`, err);
+			this.bot.error(`Erreur d'envoie ${err}`, `CMD ${this.id.toUpperCase()}`);
 		});
 	}
 
@@ -447,11 +444,10 @@ module.exports = class Commande {
 			await requestFunction(5);
 			clearInterval(interval);
 			await msgUpdate.edit(
-				`✅ **Commande ${this.id.toUpperCase()} terminée (${liste.length - numError}/${
-					liste.length
+				`✅ **Commande ${this.id.toUpperCase()} terminée (${liste.length - numError}/${liste.length
 				})**\n` +
-					emptyProgress.replace(/ /g, 'I') +
-					` et **${numError}** erreur${numError > 1 ? 's' : ''}`
+				emptyProgress.replace(/ /g, 'I') +
+				` et **${numError}** erreur${numError > 1 ? 's' : ''}`
 			);
 
 			res(msgUpdate);

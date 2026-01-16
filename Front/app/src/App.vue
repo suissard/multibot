@@ -132,15 +132,29 @@
                       class="flex items-center px-4 py-3 hover:bg-green-50 dark:hover:bg-gray-700 cursor-pointer transition-colors duration-150"
                       :class="{ 'bg-green-50/50 dark:bg-gray-700/50': selectedChannelId === channel.id }">
                       <span class="text-gray-400 text-xs mr-2">#</span>
-                      <span class="text-sm font-medium text-gray-700 dark:text-gray-200 truncate">{{ channel.name
-                      }}</span>
-                      <span v-if="selectedChannelId === channel.id" class="ml-auto text-green-600 dark:text-green-400">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clip-rule="evenodd"></path>
-                        </svg>
-                      </span>
+                      <span class="text-sm font-medium text-gray-700 dark:text-gray-200 truncate">{{ channel.name }}</span>
+                      
+                      <!-- Default Channel Star -->
+                      <div class="ml-auto flex items-center space-x-2">
+                        <button 
+                          @click.stop="toggleDefaultChannel(channel.id)" 
+                          class="focus:outline-none transition-transform hover:scale-110"
+                          :title="isDefaultChannel(channel.id) ? 'Unset Default' : 'Set as Default'"
+                        >
+                          <svg v-if="isDefaultChannel(channel.id)" class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                          </svg>
+                          <svg v-else class="w-4 h-4 text-gray-300 hover:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                          </svg>
+                        </button>
+
+                        <span v-if="selectedChannelId === channel.id" class="text-green-600 dark:text-green-400">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        </span>
+                      </div>
                     </div>
                   </div>
                   <div v-else class="px-4 py-3 text-sm text-gray-500 text-center">
@@ -290,7 +304,8 @@ export default {
       showHistory: false,
       showBotSelector: false,
       showChannelSelector: false,
-      isMobileMenuOpen: false
+      isMobileMenuOpen: false,
+      currentBotDefaultChannelId: null
     };
   },
   computed: {
@@ -307,7 +322,7 @@ export default {
   },
   methods: {
     ...mapActions(useUserStore, ['checkAuth', 'logout']),
-    ...mapActions(useMainStore, ['fetchBots', 'selectBot', 'fetchChannels', 'selectChannel']),
+    ...mapActions(useMainStore, ['fetchBots', 'selectBot', 'fetchChannels', 'selectChannel', 'setDefaultChannel']),
     toggleSettingsPanel() {
       this.isSettingsPanelOpen = !this.isSettingsPanelOpen;
       this.showBotSelector = false;
@@ -345,7 +360,23 @@ export default {
     async loadChannels() {
       if (this.selectedBotId) {
         await this.fetchChannels();
+        this.currentBotDefaultChannelId = localStorage.getItem(`default_channel_${this.selectedBotId}`);
       }
+    },
+    isDefaultChannel(channelId) {
+        return this.currentBotDefaultChannelId === channelId;
+    },
+    toggleDefaultChannel(channelId) {
+        if (!this.selectedBotId) return;
+        if (this.isDefaultChannel(channelId)) {
+            // Unset
+            this.setDefaultChannel(this.selectedBotId, null);
+            this.currentBotDefaultChannelId = null;
+        } else {
+            // Set
+            this.setDefaultChannel(this.selectedBotId, channelId);
+            this.currentBotDefaultChannelId = channelId;
+        }
     },
     async handleLogin() {
       // Redirect to Discord OAuth

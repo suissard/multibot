@@ -19,7 +19,7 @@ class Route {
             error => {
                 if (error.response && error.response.status === 401) {
                     localStorage.removeItem('api_token');
-                    window.location.href = '/login'; 
+                    window.location.href = '/login';
                 }
                 return Promise.reject(error);
             }
@@ -31,9 +31,9 @@ class Route {
                 return response.data;
             },
             runCommand: async (botId, commandName, args = {}, channelId = null) => {
-                 const body = { args, channel_id: channelId };
-                 const response = await this.api.post(`/commands/${commandName}?bot_id=${botId}`, body);
-                 return response.data;
+                const body = { args, channel_id: channelId };
+                const response = await this.api.post(`/commands/${commandName}?bot_id=${botId}`, body);
+                return response.data;
             },
             getEvents: async (botId) => {
                 const response = await this.api.get(`/events?bot_id=${botId}`);
@@ -44,22 +44,22 @@ class Route {
                 return response.data;
             },
             getSettings: async (botId) => {
-                 const response = await this.api.get(`/settings?bot_id=${botId}`);
-                 return response.data;
+                const response = await this.api.get(`/settings?bot_id=${botId}`);
+                return response.data;
             },
             getUser: async () => {
-                 const response = await this.api.get('/user');
-                 return response.data.user;
+                const response = await this.api.get('/user');
+                return response.data.user;
             },
             login: async (code) => {
-                 const response = await this.api.get(`/auth/callback?code=${code}`, {
+                const response = await this.api.get(`/auth/callback?code=${code}`, {
                     headers: { Authorization: '' }
-                 });
-                 return response.data;
+                });
+                return response.data;
             },
             getDiscordAuthUrl: async () => {
-                 const response = await this.api.get('/discord/authurl');
-                 return response.data; 
+                const response = await this.api.get('/discord/authurl');
+                return response.data;
             },
             getBots: async () => {
                 const response = await this.api.get('/bots');
@@ -73,8 +73,12 @@ class Route {
                 const response = await this.api.get(`/users?bot_id=${botId}`);
                 return response.data;
             },
+            getRoles: async (botId) => {
+                const response = await this.api.get(`/roles?bot_id=${botId}`);
+                return response.data;
+            },
             // Keep mocks for others if needed or implement them
-            getModuleTestData: (_moduleId) => [], 
+            getModuleTestData: (_moduleId) => [],
             putModuleTestData: () => ({ success: true }),
             getEventData: () => ({}),
             postEventData: () => ({ success: true })

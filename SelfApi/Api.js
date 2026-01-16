@@ -9,6 +9,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 const uuidv4 = require('uuid').v4;
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const Route = require('./Route.js');
 const fetch = require('node-fetch');
 const cors = require('cors');
@@ -20,7 +21,7 @@ module.exports = class SelfApi {
 	 * @param {Object} discord
 	 * @param {BotManager} BOTS Instance de gestionnaire de bot
 	 * @param {Number} saltRounds
-     * @param {Object} libs Dépendances injectées (express, bcrypt, fetch)
+	 * @param {Object} libs Dépendances injectées (express, bcrypt, fetch)
 	 */
 	constructor(configs, discord, BOTS, saltRounds = 12, libs = {}) {
 		this.token = configs.token;
@@ -29,10 +30,10 @@ module.exports = class SelfApi {
 		this.discord = discord;
 		this.BOTS = BOTS;
 
-        // Dependency Injection
-        this.express = express;
-        this.bcrypt = bcrypt;
-        this.fetch = fetch;
+		// Dependency Injection
+		this.express = libs.express || express;
+		this.bcrypt = libs.bcrypt || bcrypt;
+		this.fetch = libs.fetch || fetch;
 
 		this.salt = this.bcrypt.genSaltSync(saltRounds);
 
@@ -54,9 +55,9 @@ module.exports = class SelfApi {
 			next();
 		});
 
-        // Initialize routes but do not start server yet
+		// Initialize routes but do not start server yet
 		this.setAuthRoute();
-        this.setHomeRoute();
+		this.setHomeRoute();
 	}
 
 	/**
@@ -99,14 +100,10 @@ module.exports = class SelfApi {
 	 * Le token est hashé avant d'être stocké.
 	 * @param {string} token - Le token d'API brut de l'utilisateur.
 	 * @param {object} userData - Les données de l'utilisateur Discord.
-     * @param {string} accessToken - Le token d'accès Discord.
+	 * @param {string} accessToken - Le token d'accès Discord.
 	 */
 	async addUser(token, userData, accessToken) {
-		const oldHash = Array.from(this.hashUsers).find(([hash, data]) => data.id == userData.id);
-		if (oldHash) this.hashUsers.delete(oldHash[0]);
-
-		const hash = await this.bcrypt.hash(token, this.salt); //hash the token
-		this.hashUsers.set(hash, { id: userData.id, data: userData, accessToken }); // Ajouter le hash et le discordId a ala table de correspondance
+		// Deprecated: In-memory storage removed in favor of stateless tokens
 	}
 
 	/**
@@ -136,11 +133,50 @@ module.exports = class SelfApi {
 	}
 
 	/**
-	 * Génère un token d'API unique en utilisant UUID v4.
-	 * @returns {string} Le token généré.
+	 * Génère un token signé contenant les données de l'utilisateur.
+	 * @param {object} userData - Les données de l'utilisateur.
+	 * @param {string} accessToken - Le token d'accès Discord.
+	 * @returns {string} Le token signé (base64.signature).
 	 */
-	generateToken() {
-		return uuidv4() + uuidv4();
+	signToken(userData, accessToken) {
+		const payload = JSON.stringify({
+			id: userData.id,
+			data: userData,
+			accessToken,
+			timestamp: Date.now()
+		});
+		const base64Payload = Buffer.from(payload).toString('base64');
+		const signature = crypto
+			.createHmac('sha256', this.token || 'default_secret')
+			.update(base64Payload)
+			.digest('hex');
+		return `${base64Payload}.${signature}`;
+	}
+
+	/**
+	 * Vérifie un token signé et retourne son payload si valide.
+	 * @param {string} token - Le token signé.
+	 * @returns {object|null} Le payload décodé ou null si invalide.
+	 */
+	verifyToken(token) {
+		if (!token) return null;
+		const [base64Payload, signature] = token.split('.');
+		if (!base64Payload || !signature) return null;
+
+		const expectedSignature = crypto
+			.createHmac('sha256', this.token || 'default_secret') // Ensure same secret is used
+			.update(base64Payload)
+			.digest('hex');
+
+		if (signature !== expectedSignature) return null;
+
+		try {
+			const payload = JSON.parse(Buffer.from(base64Payload, 'base64').toString('utf8'));
+			return payload;
+		} catch (e) {
+			console.error('Invalid token payload', e);
+			return null;
+		}
 	}
 
 	/**
@@ -201,9 +237,9 @@ module.exports = class SelfApi {
 		const discordUser = await this.getDiscordUserFromToken(accessToken);
 
 		//Verifier que l'id discord n'est pas existant
+		// Stateless: No need to check existing ID in memory
 
-		const token = this.generateToken(); //Creer un token
-		await this.addUser(token, discordUser, accessToken); //Ajouter l'utilisateur dans le cache
+		const token = this.signToken(discordUser, accessToken); // Create signed token
 
 		res.json({ token, discordId: discordUser.id }); //Renvoyer données utilisateurs
 		return { token, discordId: discordUser.id };
@@ -220,33 +256,40 @@ module.exports = class SelfApi {
 	 * @returns {Promise<{bot: import('../Class/Bot.js'), user: import('discord.js').User}>} L'instance du bot et de l'utilisateur authentifié.
 	 */
 	async authentication(req, res) {
-		const requestHash = await this.getHashFromTokenRequest(req);
-		const userData = this.hashUsers.get(requestHash);
+		const token = req.headers?.authorization?.replace('Bearer ', '');
+		const tokenData = this.verifyToken(token); // Verify and extract payload
 
 		if (req.url.includes('/discord/authurl')) return {};
 		if (req.url.includes('/auth')) return {};
 
 		let botId = this.getBotIdFromRequest(req);
-        let bot;
-        
-        if (botId) {
-		    bot = this.BOTS.get(botId);
-		    // if (!bot) throw { message: 'Bot non trouvé', status: 404 }; // Pas d'erreur fatale si bot non trouvé, on peut juste vouloir l'user
-        } else {
-             if (this.BOTS.size > 0) {
-                 bot = this.BOTS.values().next().value;
-             }
-        }
+		let bot;
 
-		if (!userData) {
-			if (req.url.includes('/commands')) return { bot };
-			const err = new Error('Utilisateur non authentifié');
-            err.status = 401;
-            throw err;
+		if (botId && botId !== 'undefined' && botId !== 'null') {
+			bot = this.BOTS.get(botId);
+			if (!bot) {
+				const err = new Error('Bot introuvable');
+				err.status = 404;
+				throw err;
+			}
+		} else {
+			if (this.BOTS.size > 0) {
+				bot = this.BOTS.values().next().value;
+			} else {
+				const err = new Error('Aucun bot disponible');
+				err.status = 404;
+				throw err;
+			}
 		}
-        
-        // Use stored user data directly
-        const user = userData.data;
+
+		if (!tokenData) {
+			if (req.url.includes('/commands')) return { bot };
+			const err = new Error('Utilisateur non authentifié ou session expirée');
+			err.status = 401;
+			throw err;
+		}
+
+		const user = tokenData.data;
 
 		return { bot, user };
 	}
@@ -275,10 +318,8 @@ module.exports = class SelfApi {
 	 */
 	getDiscordAuthUrl() {
 		return encodeURI(
-			`https://discord.com/api/oauth2/authorize?client_id=${
-				this.discord.clientId
-			}&redirect_uri=${
-				this.discord.redirectUrl
+			`https://discord.com/api/oauth2/authorize?client_id=${this.discord.clientId
+			}&redirect_uri=${this.discord.redirectUrl
 			}&response_type=code&scope=${this.discord.scope.join(' ')}`
 		);
 	}
@@ -361,14 +402,14 @@ module.exports = class SelfApi {
 					let { user, bot } = (await this.authentication(req, res)) || {};
 					return handler(req, res, bot, user, this);
 				} catch (e) {
-					console.error(`BUG API ${e.message}\n${e.stack}`);
+					this.error(`BUG API ${e.message}\n${e.stack}`);
 					res.status(e.status || 500);
 					res.send({ message: e.message });
 				}
 			});
 		} catch (e) {
-			console.error(`BUG API Instanciation ${path}${method} \n${e.message}\n${e.stack}`);
-		} 
+			this.error(`BUG API Instanciation ${path}${method} \n${e.message}\n${e.stack}`);
+		}
 	}
 
 	/*
@@ -381,7 +422,7 @@ module.exports = class SelfApi {
 		}
 		this.app.use('/api', this.router);
 		this.server = this.app.listen(this.port, this.hostname, () => {
-			this.BOTS.log('démarrée à : http://' + this.hostname + ':' + this.port, '📡 API');
+			this.log('démarrée à : http://' + this.hostname + ':' + this.port);
 		});
 	}
 
@@ -391,5 +432,64 @@ module.exports = class SelfApi {
 	 */
 	listenAllRoutes(routesArg) {
 		createAllRoutes(this, routesArg);
+	}
+
+	/**
+	 * Formate un message de log avec une référence et une couleur spécifique.
+	 * @param {string} content - Le message à logger.
+	 * @param {string} reference - La référence du log (ex: NOM_DE_ROUTE).
+	 * @param {string} [color='\x1b[36m'] - Code couleur ANSI (défaut: cyan).
+	 * @param {string} [prefix='API'] - Préfixe du log.
+	 * @returns {string} Le message formaté.
+	 */
+	formatLog(content, reference, color = '\x1b[36m', prefix = 'API') {
+		const reset = '\x1b[0m';
+		return `${color}[${prefix}]${reset} ${reference ? reference.toUpperCase() + ' ' : ''}| ${content}`;
+	}
+
+	/**
+	 * Log un message d'information.
+	 * @param {string} content - Le message à logger.
+	 * @param {string} [reference=''] - La référence du log.
+	 */
+	log(content, reference = '') {
+		console.log(this.formatLog(content, reference, '\x1b[36m')); // Cyan
+	}
+
+	/**
+	 * Log un message de stuccès.
+	 * @param {string} content - Le message à logger.
+	 * @param {string} [reference=''] - La référence du log.
+	 */
+	success(content, reference = '') {
+		console.log(this.formatLog(content, reference, '\x1b[32m')); // Green
+	}
+
+	/**
+	 * Log une erreur.
+	 * @param {string|Error} content - L'erreur à logger.
+	 * @param {string} [reference=''] - La référence du log.
+	 */
+	error(content, reference = '') {
+		const message = content instanceof Error ? content.stack : content;
+		console.error(this.formatLog('❌ ' + message, reference, '\x1b[31m')); // Red
+	}
+
+	/**
+	 * Log un avertissement.
+	 * @param {string} content - L'avertissement à logger.
+	 * @param {string} [reference=''] - La référence du log.
+	 */
+	warn(content, reference = '') {
+		console.warn(this.formatLog('⚠️ ' + content, reference, '\x1b[33m')); // Yellow
+	}
+
+	/**
+	 * Log un message de debug.
+	 * @param {string} content - Le message de debug.
+	 * @param {string} [reference=''] - La référence du log.
+	 */
+	debug(content, reference = '') {
+		console.log(this.formatLog('🐛 ' + content, reference, '\x1b[35m')); // Magenta
 	}
 };
