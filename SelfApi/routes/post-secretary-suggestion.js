@@ -1,4 +1,5 @@
 const GeminiService = require('../../services/geminiService');
+const { formatConversation } = require('../../utils/conversationFormatter');
 
 // Initialize service lazily or statically if env is ready. 
 // Ideally should be injected or initialized in main App but here we instantiate it.
@@ -22,12 +23,8 @@ module.exports = {
             throw { message: 'Valid messages history required', status: 400 };
         }
 
-        // Format history for the service
-        // Assuming messages are ordered [oldest, ..., newest]
-        const context = messages.slice(-50).map(msg => ({
-            role: msg.author.bot ? 'Organisateur' : 'Utilisateur',
-            content: msg.content
-        }));
+        // Format history using the dedicated utility
+        const context = formatConversation(messages);
 
         try {
             const suggestion = await geminiService.generateResponse(context, config);

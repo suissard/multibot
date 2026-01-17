@@ -14,6 +14,50 @@ class GeminiService {
     }
 
     /**
+     * Formate un message individuel pour l'historique
+     * @param {{role: string, content: string}} message 
+     * @returns {string} Message formaté (ex: "Utilisateur: [il y a 2h] Bonjour")
+     */
+    /**
+     * Formate un message individuel pour l'historique
+     * @param {{role: string, content: string, timeAgo: string}} message 
+     * @returns {string} Message formaté (ex: "Utilisateur [il y a 2h]: Bonjour")
+     */
+    formatMessage(message) {
+        // Handle legacy format or missing timeAgo
+        const timeInfo = message.timeAgo ? ` ${message.timeAgo}` : '';
+        return `${message.role}${timeInfo}: ${message.content}`;
+    }
+
+    /**
+     * Formate l'historique complet pour le prompt
+     * @param {Array<{role: string, content: string}>} history 
+     * @returns {string} Historique formaté en chaîne de caractères
+     */
+    formatHistory(history) {
+        return history.map(msg => this.formatMessage(msg)).join('\n');
+    }
+
+    /**
+     * Construit le prompt pour l'API Gemini
+     * @param {Array<{role: string, content: string}>} history 
+     * @returns {string} Le prompt formaté
+     */
+    constructPrompt(history) {
+        return `
+        Tu es un organisateur de compétition de la compétition e-sport "Overwatch AllForOne", et tu gères un secrétariat sur Discord.
+        .
+        
+        Tu réponds de manière pertinente a la suite de la conversation suivante.
+        La réponse doit être concise, avec de l'humour, des emojis.
+        
+        Note: "Utilisateur" est la personne qui pose des questions ou demande de l'aide. "Organisateur" représente les réponses précédentes du staff/bot.
+        
+        Historique de la conversation:
+        ${this.formatHistory(history)}`;
+    }
+
+    /**
      * Génère une suggestion de réponse pour le secrétariat
      * @param {Array<{role: string, content: string}>} history - Historique des messages
      * @param {Object} [options] - Configuration spécifique (apiKey, model, temperature)
@@ -36,19 +80,7 @@ class GeminiService {
             throw new Error('Gemini API not configured');
         }
 
-        const prompt = `
-        Tu es un assistant virtuel serviable pour un secrétariat de bot Discord.
-        Le bot est principalement dédié à la gestion et au support de la compétition e-sport "Overwatch AllForOne".
-        
-        Ton but est de suggérer une réponse pertinente a la suite de la conversation suivante.
-        Utilise le contexte de la compétition e-sport "Overwatch AllForOne" pour orienter tes réponses si pertinent.
-        La réponse doit être concise, avec de l'humour, des emojis et prête a etre envoyée.
-        Note: "Utilisateur" est la personne qui pose des questions ou demande de l'aide. "Organisateur" représente les réponses précédentes du staff/bot.
-        
-        Historique de la conversation:
-        ${history.map(msg => `${msg.role}: ${msg.content}`).join('\n')}
-        
-        Suggestion de réponse:`;
+        const prompt = this.constructPrompt(history);
 
         try {
             const generationConfig = {};
