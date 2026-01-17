@@ -17,6 +17,8 @@
                   class="text-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Events</router-link>
                 <router-link to="/modules"
                   class="text-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Modules</router-link>
+                <router-link to="/secretary"
+                  class="text-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Secretary</router-link>
                 <router-link to="/settings"
                   class="text-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Settings</router-link>
               </div>
@@ -255,6 +257,10 @@
               <router-link to="/modules" @click="isMobileMenuOpen = false"
                 class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700">
                 Modules
+              </router-link>
+              <router-link to="/secretary" @click="isMobileMenuOpen = false"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700">
+                Secretary
               </router-link>
               <router-link to="/settings" @click="isMobileMenuOpen = false"
                 class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700">

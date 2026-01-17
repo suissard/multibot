@@ -77,6 +77,26 @@ class Route {
                 const response = await this.api.get(`/roles?bot_id=${botId}`);
                 return response.data;
             },
+            // Secretary Routes
+            getSecretaryConversations: async (botId) => {
+                const response = await this.api.get(`/secretary/conversations?bot_id=${botId}`);
+                return response.data;
+            },
+            getSecretaryMessages: async (botId, channelId) => {
+                const response = await this.api.get(`/secretary/conversations/${channelId}?bot_id=${botId}`);
+                return response.data;
+            },
+            replyToSecretaryMessage: async (botId, channelId, content) => {
+                const body = { channelId, content };
+                const response = await this.api.post(`/secretary/reply?bot_id=${botId}`, body);
+                return response.data;
+            },
+            getSecretarySuggestion: async (botId, messages, config) => {
+                const body = { messages, config };
+                const response = await this.api.post(`/secretary/suggestion?bot_id=${botId}`, body);
+                return response.data;
+            },
+
             // Keep mocks for others if needed or implement them
             getModuleTestData: (_moduleId) => [],
             putModuleTestData: () => ({ success: true }),

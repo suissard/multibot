@@ -19,10 +19,38 @@ const putSettings = require('./put-settings.js');
 const getBots = require('./get-bots.js');
 const getUser = require('./get-user.js');
 const getChannels = require('./get-channels.js');
-const getUsers = require('./get-users.js'); // Added import for getUsers
+const getUsers = require('./get-users.js');
 const getRoles = require('./get-roles.js');
 
-const routes = [getCommands, postCommands, getEvents, getEvent, postEvents, getdiscordAuthurl, post, putAutorole, getModules, putModuleTestData, getSettings, putSettings, getAuthCallback, getBots, getUser, getChannels, getUsers, getRoles]; // Added getUsers to the routes array
+const getSecretaryConversations = require('./get-secretary-conversations.js');
+const getSecretaryMessages = require('./get-secretary-messages.js');
+const postSecretaryReply = require('./post-secretary-reply.js');
+const postSecretarySuggestion = require('./post-secretary-suggestion.js');
+
+const routes = [
+    getCommands,
+    postCommands,
+    getEvents,
+    getEvent,
+    postEvents,
+    getdiscordAuthurl,
+    post,
+    putAutorole,
+    getModules,
+    putModuleTestData,
+    getSettings,
+    putSettings,
+    getAuthCallback,
+    getBots,
+    getUser,
+    getChannels,
+    getUsers,
+    getRoles,
+    getSecretaryConversations,
+    getSecretaryMessages,
+    postSecretaryReply,
+    postSecretarySuggestion
+];
 
 /**
  * Enregistre une liste de routes sur l'instance de l'API.

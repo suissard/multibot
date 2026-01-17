@@ -10,6 +10,7 @@ import ModuleSettings from '../components/ModuleSettings.vue'
 import EventData from '../components/EventData.vue'
 import LoginAuth from '../components/LoginAuth.vue'
 import AuthCallback from '../components/AuthCallback.vue'
+import SecretaryView from '../components/SecretaryView.vue'
 
 const routes = [
   {
@@ -66,6 +67,11 @@ const routes = [
     path: '/module/:id/settings',
     name: 'ModuleSettings',
     component: ModuleSettings
+  },
+  {
+    path: '/secretary',
+    name: 'Secretary',
+    component: SecretaryView
   }
 ]
 
