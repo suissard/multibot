@@ -1,6 +1,7 @@
 const MessageCheckSecretary = require('./MessageCheckSecretary.js');
 const ReadyCreateSecretary = require('./ReadyCreateSecretary.js');
 const Secretary = require('./Secretary.js');
+const BackupSecretaryCommand = require('./BackupSecretaryCommand.js');
 
 /**
  * Le module "Secretary" met en place un système de support par message privé.
@@ -18,5 +19,6 @@ module.exports = (bot) => {
         MessageCheckSecretary,
         ReadyCreateSecretary,
         Secretary,
+        BackupSecretaryCommand
     };
 };

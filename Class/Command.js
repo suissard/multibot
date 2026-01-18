@@ -200,7 +200,8 @@ module.exports = class Commande {
 			interaction.guild,
 			interaction.channel,
 			interaction.user,
-			interaction.member
+			interaction.member,
+			interaction
 		);
 		try {
 			this.log(interaction);
@@ -214,16 +215,31 @@ module.exports = class Commande {
 				options[interaction.options.data[i].name] = interaction.options.data[i].value;
 
 			let response = await this.methode(options);
-			if (!interaction.isRepliable()) return this.answerToUser(response);
-			if (response?.data) {
-				interaction
-					.reply({ embeds: [response], ephemeral: false })
-					.catch((e) => this.handleError(e));
+
+			// Normalisation de la réponse
+			if (!response) return; // Si pas de réponse, on ne fait rien (ex: géré par la commande)
+
+			const payload = response?.data
+				? { embeds: [response] }
+				: (typeof response === 'object' && (response.content || response.files || response.embeds)
+					? response
+					: { content: response ? response : '✅ Done' });
+
+			// Tentative de réponse via l'interaction
+			if (interaction.replied || interaction.deferred) {
+				await interaction.editReply(payload).catch(async (e) => {
+					// Fallback : Si l'interaction a expiré ou échoué, on envoie dans le channel
+					console.warn(`[Command ${this.id}] Interaction editReply failed, falling back to answerToUser:`, e.message);
+					await this.answerToUser(payload);
+				});
 			} else {
-				interaction
-					.reply({ content: response ? response : '✅ Done', ephemeral: false })
-					.catch((e) => this.handleError(e));
+				await interaction.reply({ ...payload, ephemeral: false }).catch(async (e) => {
+					// Fallback
+					console.warn(`[Command ${this.id}] Interaction reply failed, falling back to answerToUser:`, e.message);
+					await this.answerToUser(payload);
+				});
 			}
+
 			return response;
 		} catch (e) {
 			this.handleError(e);
@@ -316,11 +332,12 @@ module.exports = class Commande {
 	 * @param {Discord.User} user
 	 * @param {Discord.GuildMember} member
 	 */
-	setCommunicationData(guild, channel, user, member) {
+	setCommunicationData(guild, channel, user, member, interaction = null) {
 		this.guild = guild;
 		this.channel = channel;
 		this.user = user;
 		this.member = member;
+		this.interaction = interaction;
 	}
 
 	/**
@@ -403,15 +420,23 @@ module.exports = class Commande {
 			let progressSize = 30,
 				updateInterval = 5000,
 				emptyProgress = `**[**-${' '.repeat(progressSize)}-**]**`, //20 espaces
-				msgUpdate = await this.answerToUser(
-					`⏳ **Commande ${this.id.toUpperCase()} en court**\n${emptyProgress}`
-				),
-				numError = 0,
+				baseContent = `⏳ **Commande ${this.id.toUpperCase()} en cours**\n`;
+
+			let msgUpdate;
+			let content = baseContent + emptyProgress;
+
+			if (this.interaction && (this.interaction.replied || this.interaction.deferred)) {
+				msgUpdate = await this.interaction.editReply(content);
+			} else {
+				msgUpdate = await this.answerToUser(content);
+			}
+
+			let numError = 0,
 				num = 0,
 				barreNbr = 0,
 				numUpdate = progressSize / copy.length;
 
-			if (!msgUpdate) msgUpdate = { edit: console.log, content: '' };
+			if (!msgUpdate && !this.interaction) msgUpdate = { edit: console.log, content: '' };
 
 			let requestFunction = (simultaneaous) => {
 				return new Promise(async (res) => {
@@ -432,23 +457,30 @@ module.exports = class Commande {
 
 			//mettre a jour le message d'update de maniere réguliere
 			let interval = setInterval(() => {
-				msgUpdate.edit(
-					msgUpdate.content.replace(
-						/\[\*\*\-.+\-\*\*\]/,
-						`[**-${'I'.repeat(barreNbr) + ' '.repeat(progressSize - barreNbr)}-**]`
-					)
-				);
+				let progressBar = `[**-${'I'.repeat(barreNbr) + ' '.repeat(progressSize - barreNbr)}-**]`;
+				let newContent = baseContent + progressBar;
+
+				if (this.interaction && (this.interaction.replied || this.interaction.deferred)) {
+					this.interaction.editReply(newContent).catch(console.error);
+				} else if (msgUpdate && msgUpdate.edit) {
+					msgUpdate.edit(newContent).catch(console.error);
+				}
 			}, updateInterval);
 
 			//Lancement de la boucle
 			await requestFunction(5);
 			clearInterval(interval);
-			await msgUpdate.edit(
-				`✅ **Commande ${this.id.toUpperCase()} terminée (${liste.length - numError}/${liste.length
+
+			let finalContent = `✅ **Commande ${this.id.toUpperCase()} terminée (${liste.length - numError}/${liste.length
 				})**\n` +
 				emptyProgress.replace(/ /g, 'I') +
-				` et **${numError}** erreur${numError > 1 ? 's' : ''}`
-			);
+				` et **${numError}** erreur${numError > 1 ? 's' : ''}`;
+
+			if (this.interaction && (this.interaction.replied || this.interaction.deferred)) {
+				await this.interaction.editReply(finalContent);
+			} else if (msgUpdate && msgUpdate.edit) {
+				await msgUpdate.edit(finalContent);
+			}
 
 			res(msgUpdate);
 		});
