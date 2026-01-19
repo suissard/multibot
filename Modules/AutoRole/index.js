@@ -56,8 +56,8 @@ module.exports = (bot) => {
 				const guild = await bot.guilds.fetch(bot.home).catch((_) => null);
 				if (guild) {
 					params = true
-					await guild.roles.fetch().catch(e => console.warn(`[AutoRole] Roles fetch failed for ${guildId}:`, e.message));
-					await guild.members.fetch().catch(e => console.warn(`[AutoRole] Members fetch failed for ${guildId}:`, e.message));
+					await guild.roles.fetch().catch(e => bot.error(`Roles fetch failed for ${guildId}: ${e.message}`, "AutoRole"));
+					await guild.members.fetch().catch(e => bot.error(`Members fetch failed for ${guildId}: ${e.message}`, "AutoRole"));
 				}
 			}
 
