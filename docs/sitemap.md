@@ -92,6 +92,7 @@ layout: default
     * [validatorClass.js](./Modules/MatchNotifier/validatorClass.html)
   * [ModuleConfigValidator.js](./Modules/ModuleConfigValidator.html)
   * **Secretary**
+    * [BackupSecretaryCommand.js](./Modules/Secretary/BackupSecretaryCommand.html)
     * [MessageCheckSecretary.js](./Modules/Secretary/MessageCheckSecretary.html)
     * [ReadyCreateSecretary.js](./Modules/Secretary/ReadyCreateSecretary.html)
     * [Secretary.js](./Modules/Secretary/Secretary.html)
@@ -123,3 +124,5 @@ layout: default
   * [findRoleFromName.js](./Tools/findRoleFromName.html)
   * [progressBar.js](./Tools/progressBar.html)
   * [teamManager.js](./Tools/teamManager.html)
+* **services**
+  * [geminiService.js](./services/geminiService.html)

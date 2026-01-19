@@ -15,3 +15,7 @@ Le module "Secretary" met en place un système de support par message privé. Lo
 
 **Returns:** `object` - objet contenant les classes du module.
 
+## Commandes du Module
+
+* [BackupSecretaryCommand](./BackupSecretaryCommand.html)
+
