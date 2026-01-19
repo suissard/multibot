@@ -29,13 +29,13 @@ module.exports = {
                     arguments: cmd.arguments,
                 };
             });
-            return res.json(listCmd);
+            return listCmd;
         }
         // const cmdId = req.query.cmd_id;
         const cmd = app.BOTS.Commands.get(cmdId);
         if (!cmd) throw { message: `Commande ${cmdId} introuvable`, status: 404 };
 
-        res.json({
+        return {
             id: cmd.id,
             name: cmd.id,
             devBoss: cmd.devBoss,
@@ -45,6 +45,6 @@ module.exports = {
             description: cmd.description,
             help: cmd.help,
             arguments: cmd.arguments,
-        });
+        };
     },
 };

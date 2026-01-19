@@ -263,18 +263,19 @@ class ShareChannels {
                     .then((msg) => shareMessage.addTarget(msg))
                     .catch((err) => {
                         if (err.message == 'Missing Access')
-                            console.error(
+                            message.client.error(
                                 `Pas d'acces au channel ${channel.guild.name}/${channel.name} (${channel.id})`,
+                                "ShareChannel",
                             );
                         else
-                            console.error(
-                                `ShareChannel ${this.id}`,
+                            message.client.error(
                                 `Erreur d'envoi pour le channel ${channel.guild.name}/${channel.name} (${channel.id})\n` +
                                 err.stack,
+                                "ShareChannel",
                             );
                     });
             } catch (e) {
-                console.error(`ShareChannel ${this.id}`, `Erreur majeur\n` + err.stack);
+                message.client.error(`ShareChannel ${this.id}`, `Erreur majeur\n` + err.stack);
             }
         }
         // Confirmation pour l'utilisateur que son message a été diffusé

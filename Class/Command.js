@@ -200,7 +200,8 @@ module.exports = class Commande {
 			interaction.guild,
 			interaction.channel,
 			interaction.user,
-			interaction.member
+			interaction.member,
+			interaction
 		);
 		try {
 			this.log(interaction);
@@ -214,16 +215,31 @@ module.exports = class Commande {
 				options[interaction.options.data[i].name] = interaction.options.data[i].value;
 
 			let response = await this.methode(options);
-			if (!interaction.isRepliable()) return this.answerToUser(response);
-			if (response?.data) {
-				interaction
-					.reply({ embeds: [response], ephemeral: false })
-					.catch((e) => this.handleError(e));
+
+			// Normalisation de la réponse
+			if (!response) return; // Si pas de réponse, on ne fait rien (ex: géré par la commande)
+
+			const payload = response?.data
+				? { embeds: [response] }
+				: (typeof response === 'object' && (response.content || response.files || response.embeds)
+					? response
+					: { content: response ? response : '✅ Done' });
+
+			// Tentative de réponse via l'interaction
+			if (interaction.replied || interaction.deferred) {
+				await interaction.editReply(payload).catch(async (e) => {
+					// Fallback : Si l'interaction a expiré ou échoué, on envoie dans le channel
+					console.warn(`[Command ${this.id}] Interaction editReply failed, falling back to answerToUser:`, e.message);
+					await this.answerToUser(payload);
+				});
 			} else {
-				interaction
-					.reply({ content: response ? response : '✅ Done', ephemeral: false })
-					.catch((e) => this.handleError(e));
+				await interaction.reply({ ...payload, ephemeral: false }).catch(async (e) => {
+					// Fallback
+					console.warn(`[Command ${this.id}] Interaction reply failed, falling back to answerToUser:`, e.message);
+					await this.answerToUser(payload);
+				});
 			}
+
 			return response;
 		} catch (e) {
 			this.handleError(e);
@@ -240,28 +256,28 @@ module.exports = class Commande {
 	async handleApiRequest(req, res, user, app) {
 		const guild = this.bot.guilds.cache.get(this.bot.home);
 		const member = guild.members.cache.get(user.id);
-        
-        // Fetch real user object to ensure we have .send() method
-        const realUser = await this.bot.users.fetch(user.id);
 
-        // Récupérer le channel contextuel s'il est fourni
-        const channelId = req.body.channel_id || req.query?.channel_id;
-        
-        let channel = realUser; // Par défaut : réponses en MP avec le vrai objet User
-        if (channelId) {
-            try {
-                const fetchedChannel = await this.bot.channels.fetch(channelId);
-                if (fetchedChannel) {
-                     channel = fetchedChannel;
-                }
-            } catch (e) {
-                console.warn(`Impossible de récupérer le channel ${channelId} pour la commande API`, e);
-            }
-        }
+		// Fetch real user object to ensure we have .send() method
+		const realUser = await this.bot.users.fetch(user.id);
+
+		// Récupérer le channel contextuel s'il est fourni
+		const channelId = req.body.channel_id || req.query?.channel_id;
+
+		let channel = realUser; // Par défaut : réponses en MP avec le vrai objet User
+		if (channelId) {
+			try {
+				const fetchedChannel = await this.bot.channels.fetch(channelId);
+				if (fetchedChannel) {
+					channel = fetchedChannel;
+				}
+			} catch (e) {
+				console.warn(`Impossible de récupérer le channel ${channelId} pour la commande API`, e);
+			}
+		}
 
 		this.setCommunicationData(
 			guild,
-			channel, 
+			channel,
 			user,
 			member
 		);
@@ -271,28 +287,28 @@ module.exports = class Commande {
 
 			//Lancement de la commande
 			const args = await app.convertApiBadyToDiscordObject(req, this);
-            
-            // Simuler une interaction pour les commandes API qui en ont besoin (ex: ping)
-            if (!args.interaction) {
-                args.interaction = {
-                    createdTimestamp: Date.now(),
-                    // Ajouter d'autres propriétés simulées si nécessaire
-                    user: user,
-                    guild: guild,
-                    channel: channel // Injecter le channel contexte
-                };
-            }
+
+			// Simuler une interaction pour les commandes API qui en ont besoin (ex: ping)
+			if (!args.interaction) {
+				args.interaction = {
+					createdTimestamp: Date.now(),
+					// Ajouter d'autres propriétés simulées si nécessaire
+					user: user,
+					guild: guild,
+					channel: channel // Injecter le channel contexte
+				};
+			}
 
 			let result = await this.methode(args);
-            
-            // Envoyer le résultat dans le channel Discord si c'est une string ou un message
-            if (result && (typeof result === 'string' || result.embeds || result.content)) {
-                try {
-                    await channel.send(result);
-                } catch (sendError) {
-                    console.error(`[API Command] Failed to send result to channel:`, sendError);
-                }
-            }
+
+			// Envoyer le résultat dans le channel Discord si c'est une string ou un message
+			if (result && (typeof result === 'string' || result.embeds || result.content)) {
+				try {
+					await channel.send(result);
+				} catch (sendError) {
+					console.error(`[API Command] Failed to send result to channel:`, sendError);
+				}
+			}
 
 			// res.status(200).json({result});
 			return result;
@@ -316,11 +332,12 @@ module.exports = class Commande {
 	 * @param {Discord.User} user
 	 * @param {Discord.GuildMember} member
 	 */
-	setCommunicationData(guild, channel, user, member) {
+	setCommunicationData(guild, channel, user, member, interaction = null) {
 		this.guild = guild;
 		this.channel = channel;
 		this.user = user;
 		this.member = member;
+		this.interaction = interaction;
 	}
 
 	/**
@@ -342,8 +359,7 @@ module.exports = class Commande {
 		// Home autorisation
 		if (this.home && guild.id != this.bot.home)
 			throw Error(
-				`Permissions insuffisantes :\nCette commande est réservé au serveur **${
-					this.bot.guilds.cache.get(this.bot.home).name
+				`Permissions insuffisantes :\nCette commande est réservé au serveur **${this.bot.guilds.cache.get(this.bot.home).name
 				}**`
 			);
 
@@ -368,12 +384,10 @@ module.exports = class Commande {
 		if (this.isAtest) return console.log(`Test de la commande ${this.id.toUpperCase()}`);
 		else if (!message.guild) return console.log(`Commande executé dans un channel privé`);
 		else
-			console.log(
-				`[${this.bot.name}] Commande ${this.id.toUpperCase()} : ${
-					message.user ? message.user.username : message.author.username
-				} dans https://discordapp.com/channels/${message.guild.id}/${message.channel.id}/${
-					message.id
-				}`
+			this.bot.log(
+				`${message.user ? message.user.username : message.author.username
+				} dans https://discordapp.com/channels/${message.guild.id}/${message.channel.id}/${message.id
+				}`, `CMD ${this.id.toUpperCase()}`
 			);
 	}
 
@@ -383,9 +397,9 @@ module.exports = class Commande {
 	 * @returns {Discord.Message} renvoie la promesse d'un message discord
 	 */
 	answerToUser(data) {
-		if (!this.channel) return console.error("Impossible de répondre a l'utilisateur");
+		if (!this.channel) return this.bot.error("Impossible de répondre a l'utilisateur", `CMD ${this.id.toUpperCase()}`);
 		return this.channel.send(data).catch((err) => {
-			console.error(`[${this.bot.name}] Erreur d'envoie ${err}`, err);
+			this.bot.error(`Erreur d'envoie ${err}`, `CMD ${this.id.toUpperCase()}`);
 		});
 	}
 
@@ -406,15 +420,23 @@ module.exports = class Commande {
 			let progressSize = 30,
 				updateInterval = 5000,
 				emptyProgress = `**[**-${' '.repeat(progressSize)}-**]**`, //20 espaces
-				msgUpdate = await this.answerToUser(
-					`⏳ **Commande ${this.id.toUpperCase()} en court**\n${emptyProgress}`
-				),
-				numError = 0,
+				baseContent = `⏳ **Commande ${this.id.toUpperCase()} en cours**\n`;
+
+			let msgUpdate;
+			let content = baseContent + emptyProgress;
+
+			if (this.interaction && (this.interaction.replied || this.interaction.deferred)) {
+				msgUpdate = await this.interaction.editReply(content);
+			} else {
+				msgUpdate = await this.answerToUser(content);
+			}
+
+			let numError = 0,
 				num = 0,
 				barreNbr = 0,
 				numUpdate = progressSize / copy.length;
 
-			if (!msgUpdate) msgUpdate = { edit: console.log, content: '' };
+			if (!msgUpdate && !this.interaction) msgUpdate = { edit: console.log, content: '' };
 
 			let requestFunction = (simultaneaous) => {
 				return new Promise(async (res) => {
@@ -435,24 +457,30 @@ module.exports = class Commande {
 
 			//mettre a jour le message d'update de maniere réguliere
 			let interval = setInterval(() => {
-				msgUpdate.edit(
-					msgUpdate.content.replace(
-						/\[\*\*\-.+\-\*\*\]/,
-						`[**-${'I'.repeat(barreNbr) + ' '.repeat(progressSize - barreNbr)}-**]`
-					)
-				);
+				let progressBar = `[**-${'I'.repeat(barreNbr) + ' '.repeat(progressSize - barreNbr)}-**]`;
+				let newContent = baseContent + progressBar;
+
+				if (this.interaction && (this.interaction.replied || this.interaction.deferred)) {
+					this.interaction.editReply(newContent).catch(console.error);
+				} else if (msgUpdate && msgUpdate.edit) {
+					msgUpdate.edit(newContent).catch(console.error);
+				}
 			}, updateInterval);
 
 			//Lancement de la boucle
 			await requestFunction(5);
 			clearInterval(interval);
-			await msgUpdate.edit(
-				`✅ **Commande ${this.id.toUpperCase()} terminée (${liste.length - numError}/${
-					liste.length
+
+			let finalContent = `✅ **Commande ${this.id.toUpperCase()} terminée (${liste.length - numError}/${liste.length
 				})**\n` +
-					emptyProgress.replace(/ /g, 'I') +
-					` et **${numError}** erreur${numError > 1 ? 's' : ''}`
-			);
+				emptyProgress.replace(/ /g, 'I') +
+				` et **${numError}** erreur${numError > 1 ? 's' : ''}`;
+
+			if (this.interaction && (this.interaction.replied || this.interaction.deferred)) {
+				await this.interaction.editReply(finalContent);
+			} else if (msgUpdate && msgUpdate.edit) {
+				await msgUpdate.edit(finalContent);
+			}
 
 			res(msgUpdate);
 		});

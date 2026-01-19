@@ -8,6 +8,6 @@ module.exports = {
      * @param {import('express').Response} res - L'objet de la réponse Express.
      */
     handler: (req, res, bot, user, app) => {
-        res.send('post-events');
+        return ('post-events');
     },
 };

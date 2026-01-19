@@ -3,12 +3,12 @@ import { expect, test } from 'vitest';
 const { StrapiApi } = require('suissard-strapi-client');
 const { StrapiCollections } = require('suissard-strapi-client');
 const { StrapiObject } = require('suissard-strapi-client');
+require('dotenv').config();
 
 // Config de strapi
-const baseURL = "https://strapi.xekkcorp.eu";
+const baseURL = process.env.STRAPI_URL;
 const collections = ["botsdatas", "teams", "sharechannels", "emotemessages"];
-const token =
-    '5aa2793b442e3f7ed3398707c4e3c0c44c9ad34c55bd2ff320ab00d4e7e724106ed79e3e7be241f6a2ca1cd8109e217533656be59f249fd49a28045bdf361bd9a34f0219e429f21247de87404ed1604a85883987fc06666c1ab5ba706825bfb08bc9c5960ba972b6fdce6e6c72349d4e137b9c2cda09dcd048c0c32dc7116249';
+const token = process.env.STRAPI_TOKEN;
 const prefix = 'api';
 
 const strapi = new StrapiApi(baseURL, collections, token, prefix);

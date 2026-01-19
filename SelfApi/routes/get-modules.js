@@ -12,16 +12,11 @@ module.exports = {
 
         if (!moduleId) {
             // /modules - List all modules
-            try {
-                const moduleDirs = await fs.promises.readdir(modulesPath, { withFileTypes: true });
-                const modules = moduleDirs
-                    .filter(dirent => dirent.isDirectory())
-                    .map(dirent => ({ id: dirent.name, name: dirent.name }));
-                return res.json(modules);
-            } catch (error) {
-                console.error("Error reading modules directory:", error);
-                return res.status(500).json({ message: "Error reading modules directory" });
-            }
+            const moduleDirs = await fs.promises.readdir(modulesPath, { withFileTypes: true });
+            const modules = moduleDirs
+                .filter(dirent => dirent.isDirectory())
+                .map(dirent => ({ id: dirent.name, name: dirent.name }));
+            return modules;
         }
 
         const modulePath = path.join(modulesPath, moduleId);
@@ -29,34 +24,41 @@ module.exports = {
 
         if (!dataId) {
             // /modules/:moduleId/test-data - List all test data for a module
-            try {
-                const dataFiles = await fs.promises.readdir(dataTestPath);
-                const jsonDataFiles = dataFiles.filter(file => file.endsWith('.json'));
+            const dataFiles = await fs.promises.readdir(dataTestPath);
+            const jsonDataFiles = dataFiles.filter(file => file.endsWith('.json'));
 
-                const testData = await Promise.all(jsonDataFiles.map(async file => {
-                    const filePath = path.join(dataTestPath, file);
-                    const fileContent = await fs.promises.readFile(filePath, 'utf-8');
-                    return {
-                        id: path.basename(file, '.json'),
-                        ...JSON.parse(fileContent)
-                    };
-                }));
+            const testData = await Promise.all(jsonDataFiles.map(async file => {
+                const filePath = path.join(dataTestPath, file);
+                const fileContent = await fs.promises.readFile(filePath, 'utf-8');
+                return {
+                    id: path.basename(file, '.json'),
+                    ...JSON.parse(fileContent)
+                };
+            }));
 
-                return res.json(testData);
-            } catch (error) {
-                console.error(`Error reading test data for module ${moduleId}:`, error);
-                return res.status(500).json({ message: `Error reading test data for module ${moduleId}` });
-            }
+            return testData;
         }
 
         // /modules/:moduleId/test-data/:dataId - Get a specific test data item
+        const filePath = path.join(dataTestPath, `${dataId}.json`);
+        // If file doesn't exist, fs.promises.readFile will throw an error, which Route.js will catch.
+        // If we want a 404 specifically for file not found, we might rely on the auto error handler or check existence.
+        // For simplicity and matching user request "retire les try catch inutile", we let it bubble up.
+        // However, the original code had a 404 message. 
+        // Route.js sends 500 on error. If 404 is desired for business logic (file not found), we can check explicitly.
+
         try {
-            const filePath = path.join(dataTestPath, `${dataId}.json`);
-            const fileContent = await fs.promises.readFile(filePath, 'utf-8');
-            return res.json(JSON.parse(fileContent));
-        } catch (error) {
-            console.error(`Error reading test data item ${dataId} for module ${moduleId}:`, error);
-            return res.status(404).json({ message: `Test data item ${dataId} not found for module ${moduleId}` });
+            await fs.promises.access(filePath);
+        } catch {
+            // File doesn't exist
+            const err = new Error(`Test data item ${dataId} not found for module ${moduleId}`);
+            err.status = 404; // Route.js doesn't use this yet but good practice.
+            // Actually Route.js sends 500 unless we change it.
+            // But the user asked to remove "useless" try-catch.
+            throw err;
         }
+
+        const fileContent = await fs.promises.readFile(filePath, 'utf-8');
+        return JSON.parse(fileContent);
     },
 };

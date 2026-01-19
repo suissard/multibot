@@ -6,6 +6,46 @@
     <div v-if="settings">
       <DataEditor :data="settings" @save="handleSave" />
     </div>
+
+    <!-- Local Settings Section -->
+    <div class="mt-8 border-t border-gray-200 dark:border-gray-700 pt-6">
+      <h2 class="text-2xl font-bold mb-4">Local Settings (Browser)</h2>
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Gemini API Key</label>
+            <input type="password" v-model="localSettings.geminiApiKey" placeholder="Start with API Key..."
+              class="mt-1 block w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <p class="text-xs text-gray-500 mt-1">Stored only in your browser. Leave empty to use server default.</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Model Name</label>
+            <select v-model="localSettings.geminiModel"
+              class="mt-1 block w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+              <option value="gemini-flash-latest">Gemini Flash Latest (Recommended)</option>
+              <option value="gemini-pro-latest">Gemini Pro Latest</option>
+              <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+              <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+              <option value="gemini-3-pro-preview">Gemini 3 Pro Preview</option>
+              <option value="gemini-3-flash-preview">Gemini 3 Flash Preview</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Temperature ({{
+              localSettings.geminiTemperature }})</label>
+            <input type="range" v-model="localSettings.geminiTemperature" min="0" max="1" step="0.1"
+              class="mt-1 block w-full">
+            <div class="flex justify-between text-xs text-gray-500">
+              <span>Precise (0.0)</span>
+              <span>Creative (1.0)</span>
+            </div>
+          </div>
+          <button @click="saveLocalSettings"
+            class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition">Save Local
+            Settings</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -23,6 +63,11 @@ export default {
       settings: null,
       loading: true,
       error: null,
+      localSettings: {
+        geminiApiKey: '',
+        geminiModel: 'gemini-flash-latest',
+        geminiTemperature: 0.7
+      }
     };
   },
   async created() {
@@ -63,6 +108,23 @@ export default {
         alert('Error saving settings.');
       }
     },
+    loadLocalSettings() {
+      const stored = localStorage.getItem('user_gemini_config');
+      if (stored) {
+        try {
+          this.localSettings = { ...this.localSettings, ...JSON.parse(stored) };
+        } catch (e) {
+          console.error('Failed to parse local settings', e);
+        }
+      }
+    },
+    saveLocalSettings() {
+      localStorage.setItem('user_gemini_config', JSON.stringify(this.localSettings));
+      alert('Local settings saved!');
+    }
   },
+  mounted() {
+    this.loadLocalSettings();
+  }
 };
 </script>

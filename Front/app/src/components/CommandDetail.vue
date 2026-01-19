@@ -76,15 +76,30 @@
 
                                     <!-- User Selector -->
                                     <div v-if="arg.type.toLowerCase() === 'user'">
-                                        <select v-model="formValues[arg.name]" :required="arg.required"
-                                            class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors">
-                                            <option value="">Select a user...</option>
-                                            <option v-for="user in users" :key="user.id" :value="user.id">
-                                                {{ user.username }} ({{ user.displayName }})
-                                            </option>
-                                        </select>
+                                        <SearchableSelect v-model="formValues[arg.name]"
+                                            :options="users.map(u => ({ id: u.id, label: `${u.username} (${u.displayName})` }))"
+                                            placeholder="Select a user..." />
                                         <p v-if="users.length === 0" class="text-xs text-orange-500 mt-1">No users found
                                             or loading...</p>
+                                    </div>
+
+                                    <!-- Role Selector -->
+                                    <div v-else-if="arg.type.toLowerCase() === 'role'">
+                                        <SearchableSelect v-model="formValues[arg.name]"
+                                            :options="roles.map(r => ({ id: r.id, label: r.name }))"
+                                            placeholder="Select a role..." />
+                                        <p v-if="roles.length === 0" class="text-xs text-orange-500 mt-1">No roles found
+                                            or loading...</p>
+                                    </div>
+
+                                    <!-- Boolean Selector -->
+                                    <div v-else-if="arg.type.toLowerCase() === 'boolean'">
+                                        <select v-model="formValues[arg.name]" :required="arg.required"
+                                            class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors">
+                                            <option value="">Select value...</option>
+                                            <option :value="true">True</option>
+                                            <option :value="false">False</option>
+                                        </select>
                                     </div>
 
                                     <!-- Default Input -->
@@ -163,9 +178,11 @@
 <script>
 import { useMainStore } from '../stores/main';
 import { mapState, mapActions } from 'pinia';
+import SearchableSelect from './SearchableSelect.vue';
 
 export default {
     name: 'CommandDetail',
+    components: { SearchableSelect },
     data() {
         return {
             loading: true,
@@ -176,7 +193,7 @@ export default {
         };
     },
     computed: {
-        ...mapState(useMainStore, ['commands', 'selectedChannelId', 'users', 'channels']),
+        ...mapState(useMainStore, ['commands', 'selectedChannelId', 'users', 'roles', 'channels']),
         formattedExecutionResult() {
             if (!this.executionResult) return '';
             let text = this.executionResult;
@@ -212,7 +229,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(useMainStore, ['fetchCommands', 'runBotCommand', 'fetchUsers']),
+        ...mapActions(useMainStore, ['fetchCommands', 'runBotCommand', 'fetchUsers', 'fetchRoles']),
         async loadCommand() {
             this.loading = true;
             try {
@@ -232,6 +249,12 @@ export default {
                 const hasUserArg = this.command.arguments && this.command.arguments.some(arg => arg.type.toLowerCase() === 'user');
                 if (hasUserArg && this.users.length === 0) {
                     await this.fetchUsers();
+                }
+
+                // Check if any argument is of type 'role' and fetch roles if needed
+                const hasRoleArg = this.command.arguments && this.command.arguments.some(arg => arg.type.toLowerCase() === 'role');
+                if (hasRoleArg && this.roles.length === 0) {
+                    await this.fetchRoles();
                 }
 
                 if (this.command.arguments) {

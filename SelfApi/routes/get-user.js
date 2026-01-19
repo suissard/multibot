@@ -15,7 +15,7 @@ module.exports = {
      */
     handler: (req, res, bot, user, app) => {
         if (!user) {
-             return res.status(401).json({ message: 'User not authenticated' });
+            return res.status(401).json({ message: 'User not authenticated' });
         }
 
         const userData = {
@@ -24,7 +24,7 @@ module.exports = {
             discriminator: user.discriminator,
             avatar: user.avatar,
         };
-        
-        res.json({ user: userData });
+
+        return { user: userData };
     },
 };

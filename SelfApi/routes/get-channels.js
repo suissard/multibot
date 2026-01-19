@@ -7,15 +7,15 @@ module.exports = {
      * @param {import('express').Response} res - L'objet de la réponse Express.
      * @param {import('../../Class/Bot')} bot - L'instance du bot.
      */
-    handler: (req, res, bot) => {
+    handler: (req, res, bot, user, app) => {
         if (!bot) return res.status(404).json({ message: 'Bot non trouvé' });
-        
+
         const guildId = bot.home;
         const guild = bot.guilds.cache.get(guildId);
-        
+
         if (!guild) {
-             console.warn(`[get-channels] Guild not found in cache for ID: ${guildId}.`);
-             return res.json([]);
+            app.warn(`Guild not found in cache for ID: ${guildId}.`, 'GET_CHANNELS');
+            return [];
         }
 
         // Filter text channels
@@ -30,6 +30,6 @@ module.exports = {
                 type: c.type
             }));
 
-        res.json(channels);
+        return channels;
     },
 };

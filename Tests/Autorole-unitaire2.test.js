@@ -1,9 +1,25 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import {
-	wipeOlympeData,
+import { describe, it, expect, vi, beforeEach, beforeAll } from 'vitest';
+
+let wipeOlympeData,
 	recurciveIdGet,
-	getAllTeamsFromChallenge,
-} from './../Modules/AutoRole/utils/utils2.js';
+	getAllTeamsFromChallenge;
+
+beforeAll(async () => {
+	vi.resetModules();
+	process.env.STRAPI_URL = 'http://localhost:1337';
+	process.env.STRAPI_TOKEN = 'dummy_token';
+
+	vi.doMock('suissard-strapi-client', () => ({
+		StrapiApi: class { constructor() { } },
+		StrapiCollections: class { },
+		StrapiObject: class { }
+	}));
+
+	const utils2 = await import('./../Modules/AutoRole/utils/utils2.js');
+	wipeOlympeData = utils2.wipeOlympeData;
+	recurciveIdGet = utils2.recurciveIdGet;
+	getAllTeamsFromChallenge = utils2.getAllTeamsFromChallenge;
+});
 
 const mockUser1 = {
 	user: {

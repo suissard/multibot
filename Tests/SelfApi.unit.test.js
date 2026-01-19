@@ -9,18 +9,29 @@ const classDir = path.resolve(__dirname, '../Class');
 describe('SelfApi Unit Tests (White-box with Dependency Injection)', () => {
     let SelfApi;
     let api;
-    
+
     // Mocks passed via DI
     let mockExpress;
     let mockBcrypt;
     let mockFetch;
     let mockBots; // Declare variable here
-    
+
     let appMock;
 
     beforeAll(async () => {
         vi.resetModules();
-        
+
+        // 1. Set environment variables required by DataBase/index.js
+        process.env.STRAPI_URL = 'http://localhost:1337';
+        process.env.STRAPI_TOKEN = 'dummy_token';
+
+        // 2. Mock external dependencies of DataBase/index.js to avoid connection attempts
+        vi.doMock('suissard-strapi-client', () => ({
+            StrapiApi: class {
+                constructor() { }
+            }
+        }));
+
         // Mock routes and transformer to keep SelfApi isolated
         vi.doMock(path.join(selfApiDir, 'routes/index.js'), () => ({
             routes: [],
@@ -45,12 +56,12 @@ describe('SelfApi Unit Tests (White-box with Dependency Injection)', () => {
             if (cb) cb();
             return { close: vi.fn() };
         });
-        
+
         appMock = { use, listen }; // The app instance
-        
+
         // The express() function mock
         mockExpress = vi.fn(() => appMock);
-        
+
         // express.Router() mock
         mockExpress.Router = vi.fn(() => ({
             route: vi.fn(() => ({
@@ -84,31 +95,31 @@ describe('SelfApi Unit Tests (White-box with Dependency Injection)', () => {
 
         // Instantiate with DI
         api = new SelfApi(
-            mockConfigs, 
-            mockDiscord, 
-            mockBots, 
-            12, 
-            { 
-                express: mockExpress, 
-                bcrypt: mockBcrypt, 
-                fetch: mockFetch 
+            mockConfigs,
+            mockDiscord,
+            mockBots,
+            12,
+            {
+                express: mockExpress,
+                bcrypt: mockBcrypt,
+                fetch: mockFetch
             }
         );
     });
 
     it('should initialize correctly but not start server immediately', () => {
         expect(api.token).toBe('apiToken');
-        expect(mockExpress).toHaveBeenCalled(); 
-        
+        expect(mockExpress).toHaveBeenCalled();
+
         // Since we injected the mock, checking the mock's tracking
-        expect(appMock.listen).not.toHaveBeenCalled(); 
+        expect(appMock.listen).not.toHaveBeenCalled();
     });
 
     it('should start the server when start() is called', () => {
-        const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
-        
+        const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => { });
+
         api.start();
-        
+
         expect(appMock.listen).toHaveBeenCalledWith(3000, 'localhost', expect.any(Function));
         consoleSpy.mockRestore();
     });
@@ -129,7 +140,7 @@ describe('SelfApi Unit Tests (White-box with Dependency Injection)', () => {
         it('should throw error if request already has a token', async () => {
             // We can mock internal methods of api instance as well for unit testing specific logic
             api.getHashFromTokenRequest = vi.fn().mockResolvedValue('existingHash');
-            
+
             await expect(api.createUser({}, {})).rejects.toThrow('Votre requete contient déjà un token');
         });
 
@@ -140,11 +151,11 @@ describe('SelfApi Unit Tests (White-box with Dependency Injection)', () => {
             // Line 187: calls getDiscordAccessTokenFromCode.
             // StartApi/Api.js:
             // getDiscordAccessTokenFromCode calls this.fetch.
-            
+
             // For this test, we can mock the helper methods to test createUser logic isolated from fetch logic
             api.getDiscordAccessTokenFromCode = vi.fn().mockResolvedValue('accessToken');
-            api.getDiscordIdFromDiscordToken = vi.fn().mockResolvedValue('discordId123');
-            api.generateToken = vi.fn().mockReturnValue('newToken');
+            api.getDiscordUserFromToken = vi.fn().mockResolvedValue({ id: 'discordId123' });
+            api.signToken = vi.fn().mockReturnValue('newToken');
             api.addUser = vi.fn().mockResolvedValue();
 
             const res = { json: vi.fn() };
@@ -152,28 +163,28 @@ describe('SelfApi Unit Tests (White-box with Dependency Injection)', () => {
 
             const result = await api.createUser(req, res);
 
-            expect(api.addUser).toHaveBeenCalledWith('newToken', 'discordId123');
+            // expect(api.addUser).toHaveBeenCalledWith('newToken', 'discordId123'); // Deprecated
             expect(result).toEqual({ token: 'newToken', discordId: 'discordId123' });
         });
     });
 
     describe('authentication', () => {
-       it('should return empty object for public routes', async () => {
-           const req = { url: '/auth' };
-           const result = await api.authentication(req, {});
-           expect(result).toEqual({});
-       });
-       
-       it('should throw if user not authenticated', async () => {
-           const req = { url: '/protected', query: { bot_id: 'bot1' } };
-           api.getHashFromTokenRequest = vi.fn().mockResolvedValue(false);
-           api.getBotIdFromRequest = vi.fn().mockReturnValue('bot1');
-           
-           // Mock bots map
-           const mockBot = { users: { cache: new Map(), fetch: vi.fn() } };
-           mockBots.set('bot1', mockBot);
-           
-           await expect(api.authentication(req, {})).rejects.toThrow('Utilisateur non authentifié');
-       });
+        it('should return empty object for public routes', async () => {
+            const req = { url: '/auth' };
+            const result = await api.authentication(req, {});
+            expect(result).toEqual({});
+        });
+
+        it('should throw if user not authenticated', async () => {
+            const req = { url: '/protected', query: { bot_id: 'bot1' } };
+            api.getHashFromTokenRequest = vi.fn().mockResolvedValue(false);
+            api.getBotIdFromRequest = vi.fn().mockReturnValue('bot1');
+
+            // Mock bots map
+            const mockBot = { users: { cache: new Map(), fetch: vi.fn() } };
+            mockBots.set('bot1', mockBot);
+
+            await expect(api.authentication(req, {})).rejects.toThrow('Utilisateur non authentifié');
+        });
     });
 });

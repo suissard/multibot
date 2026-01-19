@@ -19,6 +19,6 @@ module.exports = {
         // comparer ses droit discord et ceux requis pour la commande
 
         // executer la commande
-        res.json({ result });
+        return { result };
     },
 };
