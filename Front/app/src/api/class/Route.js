@@ -39,6 +39,10 @@ class Route {
                 const response = await this.api.get(`/events?bot_id=${botId}`);
                 return response.data;
             },
+            getEvent: async (eventName) => {
+                const response = await this.api.get(`/events/${eventName}`);
+                return response.data;
+            },
             getModules: async (botId) => {
                 const response = await this.api.get(`/modules?bot_id=${botId}`);
                 return response.data;
@@ -65,16 +69,30 @@ class Route {
                 const response = await this.api.get('/bots');
                 return response.data;
             },
-            getChannels: async (botId) => {
-                const response = await this.api.get(`/channels?bot_id=${botId}`);
+            getGuilds: async (botId) => {
+                const response = await this.api.get(`/guilds?bot_id=${botId}`);
                 return response.data;
             },
-            getUsers: async (botId) => {
-                const response = await this.api.get(`/users?bot_id=${botId}`);
+            getChannels: async (botId, guildId = null) => {
+                let url = `/channels?bot_id=${botId}`;
+                if (guildId) url += `&guild_id=${guildId}`;
+                const response = await this.api.get(url);
                 return response.data;
             },
-            getRoles: async (botId) => {
-                const response = await this.api.get(`/roles?bot_id=${botId}`);
+            getUsers: async (botId, guildId = null) => {
+                let url = `/users?bot_id=${botId}`;
+                if (guildId) url += `&guild_id=${guildId}`;
+                const response = await this.api.get(url);
+                return response.data;
+            },
+            getRoles: async (botId, guildId = null) => {
+                let url = `/roles?bot_id=${botId}`;
+                if (guildId) url += `&guild_id=${guildId}`;
+                const response = await this.api.get(url);
+                return response.data;
+            },
+            getMessages: async (botId, channelId, limit = 50) => {
+                const response = await this.api.get(`/messages?bot_id=${botId}&channel_id=${channelId}&limit=${limit}`);
                 return response.data;
             },
             // Secretary Routes
@@ -101,7 +119,12 @@ class Route {
             getModuleTestData: (_moduleId) => [],
             putModuleTestData: () => ({ success: true }),
             getEventData: () => ({}),
-            postEventData: () => ({ success: true })
+            postEventData: () => ({ success: true }),
+            triggerEvent: async (botId, eventName, payload) => {
+                const body = { eventName, payload };
+                const response = await this.api.post(`/events/trigger?bot_id=${botId}`, body);
+                return response.data;
+            }
         };
     }
 
