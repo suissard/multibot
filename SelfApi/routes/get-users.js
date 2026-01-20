@@ -10,7 +10,7 @@ module.exports = {
     handler: async (req, res, bot, user, app) => {
         if (!bot) return res.status(404).json({ message: 'Bot non trouvé' });
 
-        const guildId = bot.home;
+        const guildId = req.query.guild_id || bot.home;
         const guild = bot.guilds.cache.get(guildId);
 
         if (!guild) {

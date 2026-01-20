@@ -1,5 +1,5 @@
 const Event = require('../../Class/Event.js');
-const { ChannelType } = require('discord.js');
+const { ChannelType, PermissionFlagsBits } = require('discord.js');
 const Discord = require('discord.js');
 const { Colors } = require('discord.js');
 
@@ -84,9 +84,9 @@ module.exports = class Secretary extends Event {
                         .setTitle(message.author.tag)
                         .setThumbnail(message.author.avatarURL())
                         .setColor(Colors.DarkGrey);
-                        if (videoUrl.length > 0) {
-                            embed.setDescription("Des vidéos ou des images ont été envoyées, veuillez les consulter ci-dessous")
-                        }
+                    if (videoUrl.length > 0) {
+                        embed.setDescription("Des vidéos ou des images ont été envoyées, veuillez les consulter ci-dessous")
+                    }
                 } else {
                     embed
                         .setTitle(message.author.tag)
@@ -107,8 +107,8 @@ module.exports = class Secretary extends Event {
                 if (this.bot.olympe && this.bot.olympe.users[message.author.id])
                     embed.setFooter({
                         text: this.getMessageFooterFromUser(this.bot, message.author),
-                        iconURL: 'https://playallforone.com/assets/OA_2021_LOGO_FavIcon_V01.png',
-                    }); //signature avec les données AFO
+                        iconURL: 'https://cdn-icons-png.flaticon.com/512/708/708906.png',
+                    }); //signature avec les données Olympe
                 embeds.unshift(embed);
 
                 if (imageUrl.length > 0) {
@@ -170,15 +170,13 @@ module.exports = class Secretary extends Event {
                 if (teamName == 'userData') continue;
 
                 let role = olympeUserInfo[teamName].roles;
-                competInfo += `+ ${teamName} (${role.join(', ') || 'NoRole'} - ${
-                    olympeUserInfo[teamName]?.segmentName || 'No segment'
-                // } - ${
-                //     olympeUserInfo[teamName]?.poolName || 'No pool'
-                })\n`;
+                competInfo += `+ ${teamName} (${role.join(', ') || 'NoRole'} - ${olympeUserInfo[teamName]?.segmentName || 'No segment'
+                    // } - ${
+                    //     olympeUserInfo[teamName]?.poolName || 'No pool'
+                    })\n`;
             }
-            return `AFO : ${olympeUserInfo.username}\n${competInfo}\n${
-                bot.olympe.api.xDomain
-            }/profile/${encodeURIComponent(olympeUserInfo.username)}`;
+            return `Olympe : ${olympeUserInfo.username}\n${competInfo}\n${bot.olympe.api.xDomain
+                }/profile/${encodeURIComponent(olympeUserInfo.username)}`;
         } catch (e) {
             return 'Données irrécupérables\n' + e.message;
         }
@@ -208,17 +206,21 @@ module.exports = class Secretary extends Event {
             let dataChannel = [
                 {
                     id: serv.guild.id, //droits pour everyone : invisible
-                    deny: ['ViewChannel'],
+                    deny: [PermissionFlagsBits.ViewChannel],
                 },
             ];
             if (serv.idRoleAdmin) {
                 for (let i in serv.idRoleAdmin) {
                     dataChannel.push({
                         id: serv.idRoleAdmin[i],
-                        allow: ['ViewChannel'],
+                        allow: [PermissionFlagsBits.ViewChannel],
                     });
                 }
             }
+
+            // Ensure IDs are valid string IDs to prevent "Supplied parameter is not a cached User or Role" error
+            // This error actually occurs when PermissionOverwrites.resolve receives an invalid ID or object.
+            // We ensure strict structure.
 
             let newSecretaryChannel = await serv.guild.channels.create({
                 name: `❌${message.author.username}-${message.author.id}`,
@@ -246,7 +248,7 @@ module.exports = class Secretary extends Event {
             let dataChannel = [
                 {
                     id: serv.guild.id, //droits pour everyone : invisible
-                    deny: ['ViewChannel'],
+                    deny: [PermissionFlagsBits.ViewChannel],
                 },
             ];
 
@@ -254,7 +256,7 @@ module.exports = class Secretary extends Event {
                 for (let i in serv.idRoleAdmin) {
                     dataChannel.push({
                         id: serv.idRoleAdmin[i],
-                        allow: ['ViewChannel'],
+                        allow: [PermissionFlagsBits.ViewChannel],
                     });
                 }
             }

@@ -21,11 +21,14 @@ const getUser = require('./get-user.js');
 const getChannels = require('./get-channels.js');
 const getUsers = require('./get-users.js');
 const getRoles = require('./get-roles.js');
+const getGuilds = require('./get-guilds.js');
+const getMessages = require('./get-messages.js');
 
 const getSecretaryConversations = require('./get-secretary-conversations.js');
 const getSecretaryMessages = require('./get-secretary-messages.js');
 const postSecretaryReply = require('./post-secretary-reply.js');
 const postSecretarySuggestion = require('./post-secretary-suggestion.js');
+const triggerEvent = require('./trigger-event.js');
 
 const routes = [
     getCommands,
@@ -46,10 +49,13 @@ const routes = [
     getChannels,
     getUsers,
     getRoles,
+    getGuilds,
+    getMessages,
     getSecretaryConversations,
     getSecretaryMessages,
     postSecretaryReply,
-    postSecretarySuggestion
+    postSecretarySuggestion,
+    triggerEvent
 ];
 
 /**
