@@ -31,21 +31,28 @@
                 </div>
             </div>
 
+            <!-- Narrative / About -->
+            <div v-if="command.narrative" class="mb-8 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-800 overflow-hidden">
+                <button @click="toggleNarrative" class="w-full px-6 py-4 flex justify-between items-center text-left focus:outline-none hover:bg-blue-100/50 dark:hover:bg-blue-800/30 transition-colors">
+                    <h2 class="text-xl font-bold flex items-center text-blue-800 dark:text-blue-300">
+                        <span class="mr-2">📖</span> About this Command
+                    </h2>
+                    <span class="transform transition-transform duration-200" :class="{ 'rotate-180': isNarrativeOpen }">
+                        ▼
+                    </span>
+                </button>
+                <div v-show="isNarrativeOpen" class="px-6 pb-6">
+                    <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300" v-html="parsedNarrative"></div>
+                </div>
+            </div>
+
             <!-- Main Layout -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
                 <!-- Left Column: Info & Help -->
                 <div class="lg:col-span-2 space-y-8">
 
-                    <!-- Usage -->
-                    <div v-if="command.howTo" class="bg-gray-50 dark:bg-gray-900 rounded-xl p-6 shadow-inner">
-                        <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white flex items-center">
-                            <span class="mr-2">📝</span> Usage
-                        </h2>
-                        <code class="block bg-black text-green-400 p-4 rounded-lg font-mono text-sm overflow-x-auto">
-                      {{ command.howTo }}
-                  </code>
-                    </div>
+                    <!-- Usage removed -->
 
                     <!-- Help Text -->
                     <div v-if="command.help" class="prose dark:prose-invert max-w-none">
@@ -66,12 +73,25 @@
                             <!-- Dynamic Arguments -->
                             <div v-if="command.arguments && command.arguments.length > 0" class="space-y-4 mb-6">
                                 <div v-for="arg in command.arguments" :key="arg.name">
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                    <label class="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                         {{ arg.name }}
-                                        <span v-if="arg.required" class="text-red-500">*</span>
+                                        <span v-if="arg.required" class="text-red-500 ml-1">*</span>
                                         <span class="text-xs text-gray-500 ml-2">({{ arg.type }})</span>
+                                        
+                                        <!-- Tooltip -->
+                                        <div v-if="arg.description" class="group relative ml-2">
+                                            <span class="cursor-help text-indigo-500 hover:text-indigo-600">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                            </span>
+                                            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-64 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+                                                {{ arg.description }}
+                                                <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 border-4 border-transparent border-t-gray-900"></div>
+                                            </div>
+                                        </div>
                                     </label>
-                                    <p class="text-xs text-gray-500 mb-2">{{ arg.description }}</p>
+                                    <!-- Description removed (now in tooltip) -->
 
 
                                     <!-- User Selector -->
@@ -179,6 +199,7 @@
 import { useMainStore } from '../stores/main';
 import { mapState, mapActions } from 'pinia';
 import SearchableSelect from './SearchableSelect.vue';
+import { marked } from 'marked';
 
 export default {
     name: 'CommandDetail',
@@ -189,11 +210,16 @@ export default {
             error: null,
             formValues: {}, // Stores argument inputs
             executing: false,
-            executionResult: null
+            executionResult: null,
+            isNarrativeOpen: false
         };
     },
     computed: {
         ...mapState(useMainStore, ['commands', 'selectedChannelId', 'users', 'roles', 'channels']),
+        parsedNarrative() {
+            if (!this.command || !this.command.narrative) return '';
+            return marked.parse(this.command.narrative);
+        },
         formattedExecutionResult() {
             if (!this.executionResult) return '';
             let text = this.executionResult;
@@ -230,6 +256,9 @@ export default {
     },
     methods: {
         ...mapActions(useMainStore, ['fetchCommands', 'runBotCommand', 'fetchUsers', 'fetchRoles']),
+        toggleNarrative() {
+            this.isNarrativeOpen = !this.isNarrativeOpen;
+        },
         async loadCommand() {
             this.loading = true;
             try {

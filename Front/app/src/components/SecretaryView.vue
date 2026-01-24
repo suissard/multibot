@@ -192,6 +192,8 @@
 import { callApi } from '../services/callApi';
 import { useMainStore } from '../stores/main';
 import { mapState } from 'pinia';
+import SocketService from '../services/socket';
+
 
 export default {
     name: 'SecretaryView',
@@ -320,25 +322,39 @@ export default {
             });
         }
     },
-    mounted() {
-        this.refreshInterval = setInterval(() => {
-            if (this.selectedConversation) {
-                // Silent refresh
-                callApi('getSecretaryMessages', this.selectedBotId, this.selectedConversation.channelId)
-                    .then(msgs => {
-                        // Ideally merge to avoid scroll jump, but full replace for now
-                        // Only replace if count changed to avoid flickering if possible, or simple diff
-                        if (msgs.length !== this.messages.length || msgs[msgs.length - 1]?.id !== this.messages[this.messages.length - 1]?.id) {
-                            this.messages = msgs;
-                            // Only scroll if we were at bottom? 
-                        }
-                    })
-                    .catch(e => console.error('Silent refresh failed', e));
+    async mounted() {
+        // Initialize socket connection
+        SocketService.connect();
+
+        // Listen for new messages
+        SocketService.on('secretaryMessage', (data) => {
+            console.log('[SecretaryView] ws event received:', data);
+            if (data.botId !== this.selectedBotId) return;
+
+            // Update messages if conversation is open
+            if (this.selectedConversation && this.selectedConversation.channelId === data.channelId) {
+                console.log('[SecretaryView] Updating conversation messages');
+                // Avoid duplication if message ID already exists (e.g. from optimistic update)
+                // Note: Messages from backend might have different ID structure initially or temporary IDs
+                const exists = this.messages.some(m => m.id === data.message.id);
+                if (!exists) {
+                     this.messages.push(data.message);
+                     this.scrollToBottom();
+                } else {
+                     console.log('[SecretaryView] Message already exists');
+                }
+            } else {
+                console.log('[SecretaryView] Conversation not open or channel mismatch', this.selectedConversation?.channelId, data.channelId);
             }
-        }, 5000);
+            
+            // Refresh conversation list to show new activity/unread (if we had unread status specific logic)
+            // For now, just re-fetching conversations is safe and ensures top sorting if backend sorts by recency
+            this.loadConversations();
+        });
     },
     beforeUnmount() {
-        if (this.refreshInterval) clearInterval(this.refreshInterval);
+        SocketService.off('secretaryMessage');
+        // We might want to keep the socket connected globally, but removing listener is good practice
     }
 };
 </script>

@@ -11,7 +11,7 @@ const {
 	SlashCommandMentionableOption,
 	SlashCommandAttachmentOption,
 } = require('@discordjs/builders');
-const BOTS = require('../Class/BOTS.js');
+// const BOTS = require('../Class/BOTS.js');
 const Bot = require('./Bot.js');
 
 const simultaneousRequest = require('../Tools/simultaneousRequest.js');
@@ -229,13 +229,13 @@ module.exports = class Commande {
 			if (interaction.replied || interaction.deferred) {
 				await interaction.editReply(payload).catch(async (e) => {
 					// Fallback : Si l'interaction a expiré ou échoué, on envoie dans le channel
-					console.warn(`[Command ${this.id}] Interaction editReply failed, falling back to answerToUser:`, e.message);
+					this.bot.error(`Interaction editReply failed, falling back to answerToUser:${e.message}`, `Command - ${this.id}`);
 					await this.answerToUser(payload);
 				});
 			} else {
 				await interaction.reply({ ...payload, ephemeral: false }).catch(async (e) => {
 					// Fallback
-					console.warn(`[Command ${this.id}] Interaction reply failed, falling back to answerToUser:`, e.message);
+					this.bot.error(`Interaction reply failed, falling back to answerToUser: ${e.message}`, `Command - ${this.id}`);
 					await this.answerToUser(payload);
 				});
 			}
@@ -581,6 +581,7 @@ module.exports = class Commande {
 				react: console.log,
 			};
 
+			const BOTS = require('../Class/BOTS.js');
 			let Command = BOTS.Commands.__commands.get(this.id);
 			let cmd = new Command(bot);
 
