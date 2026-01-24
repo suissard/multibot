@@ -10,7 +10,7 @@ module.exports = {
      * @param {import('express').Response} res
      * @param {import('../../Class/Bot')} bot
      */
-    handler: async (req, res, bot) => {
+    handler: async (req, res, bot, user) => {
         const channelId = req.params.channelId;
         if (!channelId) throw { message: 'Channel ID required', status: 400 };
 
@@ -22,19 +22,28 @@ module.exports = {
             throw { message: 'Invalid secretary channel format', status: 403 };
         }
 
+        // Permission check
+        const member = await channel.guild.members.fetch(user.id).catch(() => null);
+        if (!member) throw { message: 'User not found in guild', status: 403 };
+
+        const { PermissionsBitField } = require('discord.js');
+        if (!channel.permissionsFor(member).has(PermissionsBitField.Flags.ViewChannel)) {
+            throw { message: 'Missing permissions to view this channel', status: 403 };
+        }
+
         // Extract User ID from channel name (format: STATUS-USERNAME-USERID)
         // Taking the last part ensures we get the ID even if username has hyphens
         const userId = channel.name.split('-').pop();
 
-        let user;
+        let targetUser;
         try {
-            user = await bot.users.fetch(userId);
+            targetUser = await bot.users.fetch(userId);
         } catch (e) {
             throw { message: 'User not found or invalid ID', status: 404 };
         }
 
         // Fetch DM Channel
-        const dmChannel = await user.createDM();
+        const dmChannel = await targetUser.createDM();
 
         // Fetch messages from DM
         const messages = await dmChannel.messages.fetch({ limit: 50 });

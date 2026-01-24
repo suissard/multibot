@@ -1,3 +1,4 @@
+
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import SecretaryManager from '../../Modules/Secretary/SecretaryManager.js';
 import { EmbedBuilder, Colors } from 'discord.js';
@@ -10,7 +11,7 @@ vi.mock('discord.js', () => {
         Colors: { Green: 123456, DarkGrey: 654321, Blue: 111111 },
         EmbedBuilder: class {
             constructor() {
-                this.data = { footer: {} };
+                this.data = { footer: {}, image: {}, author: {} };
             }
             setAuthor(author) { this.data.author = author; return this; }
             setDescription(desc) { this.data.description = desc; return this; }
@@ -18,6 +19,7 @@ vi.mock('discord.js', () => {
             setTimestamp() { return this; }
             setFooter(footer) { this.data.footer = footer; return this; }
             setImage(url) { this.data.image = { url }; return this; }
+            toJSON() { return this.data; }
         }
     };
 });
@@ -28,9 +30,9 @@ describe('SecretaryManager', () => {
     let mockSocketIo;
 
     beforeEach(() => {
-        // Suppress console.error/log during tests
-        vi.spyOn(console, 'error').mockImplementation(() => { });
+        // Suppress console.log, allow error
         vi.spyOn(console, 'log').mockImplementation(() => { });
+        // vi.spyOn(console, 'error').mockImplementation(() => { });
 
         mockSocketIo = {
             to: vi.fn().mockReturnThis(),
@@ -55,8 +57,9 @@ describe('SecretaryManager', () => {
             users: {
                 fetch: vi.fn()
             },
+            channels: { fetch: vi.fn() },
             log: vi.fn(),
-            olympe: { users: {} } // Add olympe structure to avoid crashes
+            olympe: { users: {} }
         };
 
         manager = new SecretaryManager(mockBot);
@@ -64,7 +67,7 @@ describe('SecretaryManager', () => {
 
     describe('formatSecretaryEmbed', () => {
         it('should use staffEmbedColor and add staff footer when source is not User', () => {
-            const message = { content: 'Hello Staff', attachments: { size: 0 } };
+            const message = { content: 'Hello Staff', attachments: new Map() };
             const author = { username: 'StaffUser', displayAvatarURL: () => 'url' };
 
             const { embeds } = manager.formatSecretaryEmbed(message, 'Discord', author);
@@ -74,7 +77,7 @@ describe('SecretaryManager', () => {
         });
 
         it('should use userEmbedColor when source is User', () => {
-            const message = { content: 'Hello User', attachments: { size: 0 } };
+            const message = { content: 'Hello User', attachments: new Map() };
             const author = { username: 'NormalUser', id: '123', displayAvatarURL: () => 'url' };
 
             // Mock olympe data helper to avoid error in getMessageFooterFromUser
@@ -87,29 +90,51 @@ describe('SecretaryManager', () => {
     });
 
     describe('emitSocketMessage', () => {
-        it('should emit socket event to the correct channel room with isStaff flag', () => {
+        it('should emit socket event only to authorized users', async () => {
             const message = {
                 content: 'Test Msg',
                 author: { id: '1', username: 'u', displayAvatarURL: () => '' },
-                attachments: [] // Map logic needs real map or array, here manager expects .map? No, in emit it expects array? Check code. 
-                // In emitSocketMessage: originalMessage.attachments.map
-                // We need to pass an object that has .map or is an array if the code expects it. 
-                // Code: attachments: originalMessage.attachments.map(...)
+                attachments: [],
+                embeds: []
             };
-            // Allow attachments to be mocked as array with map
-            message.attachments = [];
-            // Mock embeds
-            message.embeds = [];
 
-            manager.emitSocketMessage(message, 'channel_123', 'msg_123', true);
+            const mockChannel = {
+                guild: {
+                    members: {
+                        fetch: vi.fn()
+                    }
+                },
+                permissionsFor: vi.fn()
+            };
+            mockBot.channels.fetch.mockResolvedValue(mockChannel);
 
-            expect(mockSocketIo.to).toHaveBeenCalledWith('channel_123');
-            expect(mockSocketIo.emit).toHaveBeenCalledWith('secretaryMessage', expect.objectContaining({
-                message: expect.objectContaining({
-                    isStaff: true,
-                    content: 'Test Msg'
-                })
-            }));
+            // Setup API sockets
+            const userSockets = new Map();
+            userSockets.set('user1', new Set(['socket1']));
+            userSockets.set('user2', new Set(['socket2']));
+            mockBot.BOTS.API.userSockets = userSockets;
+            mockBot.BOTS.API.getUserSockets = (id) => userSockets.get(id);
+
+            // Mock permissions
+            // User 1 has permission
+            mockChannel.guild.members.fetch.mockImplementation(async (id) => {
+                if (id === 'user1') return { id: 'user1' };
+                if (id === 'user2') return { id: 'user2' };
+                return null;
+            });
+            mockChannel.permissionsFor.mockImplementation((member) => {
+                if (member.id === 'user1') return { has: () => true };
+                return { has: () => false };
+            });
+
+            await manager.emitSocketMessage(message, 'channel_123', 'msg_123', true);
+
+            // Verify authorized user got message
+            expect(mockSocketIo.to).toHaveBeenCalledWith('socket1');
+            expect(mockSocketIo.emit).toHaveBeenCalledWith('secretaryMessage', expect.anything());
+
+            // Verify unauthorized user did NOT get message
+            expect(mockSocketIo.to).not.toHaveBeenCalledWith('socket2');
         });
     });
 
@@ -119,13 +144,16 @@ describe('SecretaryManager', () => {
             mockBot.users.fetch.mockResolvedValue(mockUser);
 
             const mockChannel = {
+                id: 'channel_123', // ID needed for emit
                 name: '❌Username-999999',
                 send: vi.fn().mockResolvedValue({ id: 'staff_msg_id' })
             };
 
+            // Ensure channel fetch works for the internal call in emitSocketMessage
+            mockBot.channels.fetch.mockResolvedValue(mockChannel);
+
             const author = { username: 'Staff', displayAvatarURL: () => '' };
 
-            // Spy on emitSocketMessage
             const emitSpy = vi.spyOn(manager, 'emitSocketMessage');
 
             await manager.sendStaffResponse(mockChannel, 'Response Content', author);

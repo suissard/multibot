@@ -75,10 +75,14 @@ module.exports = class SecretaryManager {
         return { embeds, extraContent };
     }
 
-    emitSocketMessage(originalMessage, channelId, finalId, isStaff = false) {
+    async emitSocketMessage(originalMessage, channelId, finalId, isStaff = false) {
         if (this.bot.BOTS.API && this.bot.BOTS.API.io) {
             try {
-                this.bot.BOTS.API.io.emit('secretaryMessage', {
+                const api = this.bot.BOTS.API;
+                const channel = await this.bot.channels.fetch(channelId).catch(() => null);
+                if (!channel) return;
+
+                const messagePayload = {
                     botId: this.bot.id,
                     channelId: channelId,
                     message: {
@@ -95,8 +99,36 @@ module.exports = class SecretaryManager {
                         embeds: originalMessage.embeds,
                         isStaff: isStaff
                     }
-                });
-                this.bot.log(`[SOCKET] Emitted ${isStaff ? 'Staff' : 'User'} message to ${channelId}`, 'SecretaryManager');
+                };
+
+                // Helper to check perm and emit
+                const checkAndEmit = async (userId) => {
+                    try {
+                        let member = await channel.guild.members.fetch(userId).catch(() => null);
+                        if (!member) return;
+
+                        if (channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)) {
+                            const socketIds = api.getUserSockets(userId);
+                            if (socketIds) {
+                                for (const socketId of socketIds) {
+                                    api.io.to(socketId).emit('secretaryMessage', messagePayload);
+                                }
+                                // this.bot.log(`[SOCKET] Sent to user ${userId} (${socketIds.size} sockets)`, 'SecretaryManager');
+                            }
+                        }
+                    } catch (e) {
+                        // Ignore individual errors to avoid stopping the loop
+                    }
+                };
+
+                // Iterate over all connected API users
+                if (api.userSockets) {
+                    for (const userId of api.userSockets.keys()) {
+                        await checkAndEmit(userId);
+                    }
+                }
+
+                this.bot.log(`[SOCKET] Emitted ${isStaff ? 'Staff' : 'User'} message to ${channelId} (Filtered)`, 'SecretaryManager');
             } catch (e) {
                 console.error('[SOCKET] Failed to emit secretary message', e);
             }
