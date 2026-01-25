@@ -35,12 +35,35 @@ module.exports = {
                     c.name.match(/-[0-9]+$/) // Checks for ID suffix
             });
 
+            const usersToFetch = new Set();
+            const channelUserMap = [];
+
             for (const [id, channel] of channels) {
                 const parts = channel.name.split('-');
                 const userId = parts.pop();
+
+                // Keep track of which channel maps to which user ID
+                channelUserMap.push({
+                    channel,
+                    userId,
+                    guild
+                });
+
+                if (!bot.users.cache.has(userId)) {
+                    usersToFetch.add(userId);
+                }
+            }
+
+            // Fetch missing users
+            if (usersToFetch.size > 0) {
+                await Promise.allSettled(Array.from(usersToFetch).map(id => bot.users.fetch(id)));
+            }
+
+            for (const { channel, userId, guild } of channelUserMap) {
+                const parts = channel.name.split('-');
+                parts.pop(); // Remove ID
                 const userNamePart = parts.join('-').substring(1); // Remove emoji
 
-                // Try to get cached user or just basic info
                 const user = bot.users.cache.get(userId);
 
                 conversations.push({
@@ -50,7 +73,7 @@ module.exports = {
                     userId: userId,
                     username: user ? user.username : userNamePart,
                     avatar: user ? user.displayAvatarURL() : null,
-                    lastMessageTimestamp: channel.lastMessageId ? channel.createdTimestamp : null // Approximate if msg not cached, but we can refine
+                    lastMessageTimestamp: channel.lastMessageId ? channel.createdTimestamp : null
                 });
             }
         }

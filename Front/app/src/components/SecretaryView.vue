@@ -21,7 +21,7 @@
                         <div class="flex items-center space-x-4">
                             <div class="flex-shrink-0">
                                 <img class="h-10 w-10 rounded-full bg-indigo-500" :src="conversation.avatar" alt=""
-                                    @error="$event.target.src = 'https://ui-avatars.com/api/?name=' + conversation.username">
+                                    @error="handleImageError($event, conversation.username)">
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
@@ -45,7 +45,7 @@
                     class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-white dark:bg-gray-800 shadow-sm z-10">
                     <div class="flex items-center space-x-3">
                         <img class="h-10 w-10 rounded-full" :src="selectedConversation.avatar" alt=""
-                            @error="$event.target.src = 'https://ui-avatars.com/api/?name=' + selectedConversation.username">
+                            @error="handleImageError($event, selectedConversation.username)">
                         <div>
                             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                                 {{ selectedConversation.username }}
@@ -65,10 +65,21 @@
                 </div>
 
                 <!-- Messages Area -->
-                <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-900" ref="messagesContainer">
-                    <div v-if="loadingMessages" class="flex justify-center p-10">
-                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500"></div>
+                <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-900 scroll-smooth"
+                    ref="messagesContainer">
+                    <!-- Skeleton Loader -->
+                    <div v-if="loadingMessages" class="space-y-4 animate-pulse">
+                        <div v-for="i in 5" :key="i" class="flex flex-col"
+                            :class="i % 2 === 0 ? 'items-end' : 'items-start'">
+                            <div class="flex items-end space-x-2"
+                                :class="i % 2 === 0 ? 'flex-row-reverse space-x-reverse' : ''">
+                                <div class="h-8 w-8 rounded-full bg-gray-300 dark:bg-gray-700"></div>
+                                <div class="max-w-[70%] rounded-lg px-4 py-3 bg-gray-200 dark:bg-gray-800 h-16 w-48">
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                     <div v-for="message in messages" :key="message.id" class="flex flex-col"
                         :class="{ 'items-end': message.author.bot, 'items-start': !message.author.bot }">
                         <div class="max-w-[70%] rounded-lg px-4 py-2 shadow-sm relative group"
@@ -82,7 +93,7 @@
                             <div v-if="message.attachments && message.attachments.length > 0" class="mt-2 space-y-2">
                                 <div v-for="(attachment, idx) in message.attachments" :key="idx">
                                     <img v-if="attachment.type && attachment.type.startsWith('image/')"
-                                        :src="attachment.url"
+                                        :src="attachment.url" @error="handleImageError($event, 'Attachment')"
                                         class="max-w-full rounded-md max-h-60 object-contain bg-black/10" />
                                     <a v-else :href="attachment.url" target="_blank"
                                         class="text-xs underline opacity-75 hover:opacity-100 flex items-center">
@@ -103,7 +114,8 @@
                                     <!-- Simple embed rendering -->
                                     <p v-if="embed.title" class="font-bold">{{ embed.title }}</p>
                                     <p v-if="embed.description">{{ embed.description }}</p>
-                                    <img v-if="embed.image" :src="embed.image.url" class="mt-1 rounded max-h-40" />
+                                    <img v-if="embed.image" :src="embed.image.url"
+                                        @error="handleImageError($event, 'Embed')" class="mt-1 rounded max-h-40" />
                                 </div>
                             </div>
 
@@ -320,6 +332,14 @@ export default {
                     container.scrollTop = container.scrollHeight;
                 }
             });
+        },
+        handleImageError(event, fallbackName) {
+            // Prevent infinite loop if fallback fails
+            if (event.target.dataset.error) return;
+            event.target.dataset.error = true;
+
+            // Use UI Avatars as robust fallback
+            event.target.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(fallbackName || 'User') + '&background=random';
         }
     },
     async mounted() {
@@ -338,15 +358,15 @@ export default {
                 // Note: Messages from backend might have different ID structure initially or temporary IDs
                 const exists = this.messages.some(m => m.id === data.message.id);
                 if (!exists) {
-                     this.messages.push(data.message);
-                     this.scrollToBottom();
+                    this.messages.push(data.message);
+                    this.scrollToBottom();
                 } else {
-                     console.log('[SecretaryView] Message already exists');
+                    console.log('[SecretaryView] Message already exists');
                 }
             } else {
                 console.log('[SecretaryView] Conversation not open or channel mismatch', this.selectedConversation?.channelId, data.channelId);
             }
-            
+
             // Refresh conversation list to show new activity/unread (if we had unread status specific logic)
             // For now, just re-fetching conversations is safe and ensures top sorting if backend sorts by recency
             this.loadConversations();
