@@ -1,5 +1,5 @@
 const { OlympeApi } = require('olympe-client-api');
-const { processCasterUsers, getCasterTeam, processAllUsers, processAllTeams } = require('./utils');
+const { processCasterUsers, getCasterTeam, processAllUsers, processAllTeams, processTeamMembers } = require('./utils');
 const simultaneousRequest = require('../../../Tools/simultaneousRequest.js');
 
 /**
@@ -102,8 +102,11 @@ const autoRole = async function (bot, guildId) {
 		wipeOlympeData(bot);
 
 		// ===== DEV =====
-		if (bot.modules.AutoRole.guilds[guildId].specialRoles.caster)
-			await processCasterUsers(bot, bot.guilds.cache.get(bot.home));
+		if (bot.modules.AutoRole.guilds[guildId].specialRoles.caster) {
+			const team = await getCasterTeam(bot, guild);
+			await processTeamMembers(team, guild, bot); 
+			// await processCasterUsers(bot, bot.guilds.cache.get(bot.home));
+		}
 
 		let teams = [];
 		for (let idChallenge in bot.olympe.challengesRolesId.competitions) {

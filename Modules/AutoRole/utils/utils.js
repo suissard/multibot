@@ -121,8 +121,8 @@ const getRoleToAddFromOlympe = (guild, olympeMember, teamName) => {
  * @returns {Array<Discord.Role>}
  */
 const getDistinctRealRoles = (teams, olympeMemberId, guild, challengesRolesId) => {
-	let realRole = [];
-	let lastOlympeMember, lastRolesToAdd;
+	let realRole = []; 
+	// let lastOlympeMember = null;
 
 	teams.forEach((team) => {
 		const olympeMember = team.members
@@ -134,14 +134,10 @@ const getDistinctRealRoles = (teams, olympeMemberId, guild, challengesRolesId) =
 			realRole = realRole.concat(
 				getRealRole(rolesToAdd, guild, team.segments, challengesRolesId, olympeMember)
 			);
-			lastOlympeMember = olympeMember;
-			lastRolesToAdd = rolesToAdd;
+			// lastOlympeMember = olympeMember;
 		}
 	});
 
-	if (lastOlympeMember && lastOlympeMember.user.username.startsWith("G4S")) {
-		console.log(lastOlympeMember, lastRolesToAdd);
-	}
 
 	const uniqueRoles = [];
 	const seenIds = new Set();
@@ -151,6 +147,9 @@ const getDistinctRealRoles = (teams, olympeMemberId, guild, challengesRolesId) =
 			uniqueRoles.push(role);
 		}
 	}
+
+	// if (teams.length > 1)
+	// 	console.log(lastOlympeMember.user.username, uniqueRoles.map((role) => role.name));
 	return uniqueRoles;
 };
 
