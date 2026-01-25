@@ -102,6 +102,59 @@ const renameDiscordUserWithOlympeData = async (olympeMember, teamName, discordUs
 };
 
 /**
+ * Récupère les rôles à ajouter depuis le cache Olympe
+ * @param {Discord.Guild} guild
+ * @param {OlympeMember} olympeMember
+ * @param {string} teamName
+ * @returns {Array<string>}
+ */
+const getRoleToAddFromOlympe = (guild, olympeMember, teamName) => {
+	return guild.client.olympe?.users[olympeMember.user.thirdparties.discord.discordID]?.[teamName]?.roles || [];
+};
+
+/**
+ * Récupère la liste des vrais rôles Discord (dédublonnés) pour un membre donné au travers de ses équipes
+ * @param {Array<OlympeTeam>} teams
+ * @param {string} olympeMemberId
+ * @param {Discord.Guild} guild
+ * @param {ChallengesRolesId} challengesRolesId
+ * @returns {Array<Discord.Role>}
+ */
+const getDistinctRealRoles = (teams, olympeMemberId, guild, challengesRolesId) => {
+	let realRole = [];
+	let lastOlympeMember, lastRolesToAdd;
+
+	teams.forEach((team) => {
+		const olympeMember = team.members
+			.concat(team.membersLent.map((m) => m.member))
+			.find((member) => member.user.id === olympeMemberId);
+
+		if (olympeMember) {
+			const rolesToAdd = getRoleToAddFromOlympe(guild, olympeMember, team.name);
+			realRole = realRole.concat(
+				getRealRole(rolesToAdd, guild, team.segments, challengesRolesId, olympeMember)
+			);
+			lastOlympeMember = olympeMember;
+			lastRolesToAdd = rolesToAdd;
+		}
+	});
+
+	if (lastOlympeMember && lastOlympeMember.user.username.startsWith("G4S")) {
+		console.log(lastOlympeMember, lastRolesToAdd);
+	}
+
+	const uniqueRoles = [];
+	const seenIds = new Set();
+	for (const role of realRole) {
+		if (role && !seenIds.has(role.id)) {
+			seenIds.add(role.id);
+			uniqueRoles.push(role);
+		}
+	}
+	return uniqueRoles;
+};
+
+/**
  * Donne les roles discord à un utilisateur en fonction des rôles olympe
  * @param {string} olympeMemberId
  * @param {Discord.Guild} guild
@@ -120,22 +173,8 @@ const changeDiscordRole = async (
 	rolesCompetId
 ) => {
 	try {
-		let realRole = [];
-		let olympeMember, rolesToAdd;
-		teams.forEach((team) => {
-			olympeMember = team.members
-				.concat(team.membersLent.map((m) => m.member))
-				.find((member) => member.user.id === olympeMemberId);
-			rolesToAdd =
-				guild.client.olympe?.users[olympeMember.user.thirdparties.discord.discordID]?.[
-					team.name
-				]?.roles || [];
-			realRole = realRole.concat(
-				getRealRole(rolesToAdd, guild, team.segments, challengesRolesId, olympeMember)
-			);
-		});
-
-		let roleIdToAdd = [...new Set(realRole.map((role) => role.id))];
+		const realRoles = getDistinctRealRoles(teams, olympeMemberId, guild, challengesRolesId);
+		let roleIdToAdd = realRoles.map((role) => role.id);
 		let rolesIdToRemove = rolesCompetId.filter(
 			(id) =>
 				discordUser.roles.cache.find((role) => role.id === id) &&
@@ -420,9 +459,15 @@ const processUser = async (user, guild, bot) => {
 	let renameResult = 'same',
 		addRoleResult;
 
+	//Creer une exception pour les casters pour qu'il n esoit pas renommer masi qu'dn
+	const casterTeamName = bot.modules.AutoRole.guilds[guild.id]?.specialRoles.caster.name;
+	let teamName = teams.length > 1 ? 'multiteam' : teams[0].name.trim()
+	if (casterTeamName && teams.find((t) => t.name === casterTeamName))
+		teamName = casterTeamName
+
 	renameResult = await renameDiscordUserWithOlympeData(
 		olympeMember,
-		teams.length > 1 ? 'multiteam' : teams[0].name.trim(),
+		teamName,
 		discordUser,
 		bot
 	);
@@ -647,5 +692,7 @@ module.exports = {
 	processCasterUsers,
 	getCasterTeam,
 	processTeam,
-	processTeamMember
+	processTeamMember,
+	getRoleToAddFromOlympe,
+	getDistinctRealRoles,
 };
