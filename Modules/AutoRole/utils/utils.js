@@ -9,18 +9,8 @@ const {
 const simultaneousRequest = require('../../../Tools/simultaneousRequest.js');
 const ProgressBar = require('../../../Tools/progressBar.js');
 const ChallengesRolesId = require('../models/ChallengesRolesId.js');
+const { roleCategories, clubRolesList, managerRolesList, coachRolesList } = require('./constants');
 
-const clubRolesList = [
-	'owner',
-	'president',
-	'vice president',
-	'staff',
-	'communication',
-	'esport director',
-	'video analyst',
-];
-const managerRolesList = ['manager', 'assistant manager'];
-const coachRolesList = ['head coach', 'mental coach'];
 const progressBarRefreshRate = 5000;
 
 /**
@@ -121,7 +111,7 @@ const getRoleToAddFromOlympe = (guild, olympeMember, teamName) => {
  * @returns {Array<Discord.Role>}
  */
 const getDistinctRealRoles = (teams, olympeMemberId, guild, challengesRolesId) => {
-	let realRole = []; 
+	let realRole = [];
 	// let lastOlympeMember = null;
 
 	teams.forEach((team) => {
@@ -173,6 +163,9 @@ const changeDiscordRole = async (
 ) => {
 	try {
 		const realRoles = getDistinctRealRoles(teams, olympeMemberId, guild, challengesRolesId);
+
+
+
 		let roleIdToAdd = realRoles.map((role) => role.id);
 		let rolesIdToRemove = rolesCompetId.filter(
 			(id) =>
@@ -207,25 +200,25 @@ const getRoleToAdd = (olympeMember) => {
 	let roleToAdd = [];
 
 	olympeMember.roles.forEach((role) => {
-		if (clubRolesList.includes(role) && !roleToAdd.includes('club')) {
-			roleToAdd.push('club');
+		if (clubRolesList.includes(role) && !roleToAdd.includes(roleCategories.club)) {
+			roleToAdd.push(roleCategories.club);
 		}
-		if (managerRolesList.includes(role) && !roleToAdd.includes('manager')) {
-			roleToAdd.push('manager');
+		if (managerRolesList.includes(role) && !roleToAdd.includes(roleCategories.manager)) {
+			roleToAdd.push(roleCategories.manager);
 		}
-		if (coachRolesList.includes(role) && !roleToAdd.includes('coach')) {
-			roleToAdd.push('coach');
+		if (coachRolesList.includes(role) && !roleToAdd.includes(roleCategories.coach)) {
+			roleToAdd.push(roleCategories.coach);
 		}
 	});
-	if (olympeMember.user.castUrl && !roleToAdd.includes('caster')) {
-		roleToAdd.push('caster');
+	if (olympeMember.user.castUrl && !roleToAdd.includes(roleCategories.caster)) {
+		roleToAdd.push(roleCategories.caster);
 	}
 	if (olympeMember.tags.gameRoles.length > 0) {
-		roleToAdd.push('player');
+		roleToAdd.push(roleCategories.player);
 	}
 	if (roleToAdd.length === 0) {
 		// Si pas de role doit au moins avoir le role club
-		roleToAdd.push('club');
+		roleToAdd.push(roleCategories.club);
 	}
 	return roleToAdd;
 };
@@ -241,17 +234,11 @@ const getRoleToAdd = (olympeMember) => {
  */
 const getRealRole = (listRole, guild, segments, challengesRolesId, olympeMember) => {
 	const captain = olympeMember.roles.includes('captain');
+
+
+
 	try {
 		let realRole = [];
-		let segmentName, challengeRole;
-
-		for (const segment of segments) {
-			if (challengesRolesId.competitions[segment?.challengeID]) {
-				segmentName = segment.name;
-				challengeRole = challengesRolesId.competitions[segment?.challengeID]; // s'arrête au premier segment trouvé
-				break;
-			}
-		}
 
 		let globRole = guild.roles.cache.get(challengesRolesId.ALL);
 		realRole.push(globRole);
@@ -259,24 +246,33 @@ const getRealRole = (listRole, guild, segments, challengesRolesId, olympeMember)
 			let globCaptainRole = guild.roles.cache.get(challengesRolesId.captain);
 			realRole.push(globCaptainRole);
 		}
-		if (listRole.includes('caster'))
+		if (listRole.includes(roleCategories.caster))
 			realRole.push(guild.roles.cache.get(challengesRolesId.caster));
-		if (challengeRole) {
-			for (const role of listRole) {
-				if (
-					(!challengeRole[role] || !challengeRole[role][segmentName]) &&
-					!challengesRolesId[role]
-				) {
-					continue;
-				}
 
-				let discordRole = guild.roles.cache.get(
-					challengesRolesId[role] || challengeRole[role][segmentName]
-				);
-				realRole.push(discordRole);
-				if (role === 'club') {
-					let globClubRole = guild.roles.cache.get(challengeRole.club.ALL);
-					realRole.push(globClubRole);
+		for (const segment of segments) {
+			if (challengesRolesId.competitions[segment?.challengeID]) {
+				const segmentName = segment.name;
+				const challengeRole = challengesRolesId.competitions[segment?.challengeID];
+
+				for (const role of listRole) {
+
+
+					if (
+						(!challengeRole[role] || !challengeRole[role][segmentName]) &&
+						!challengesRolesId[role]
+					) {
+						continue;
+					}
+
+					let discordRole = guild.roles.cache.get(
+						challengesRolesId[role] || challengeRole[role][segmentName]
+					);
+
+					realRole.push(discordRole);
+					if (role === roleCategories.club && challengeRole.club && challengeRole.club.ALL) {
+						let globClubRole = guild.roles.cache.get(challengeRole.club.ALL);
+						realRole.push(globClubRole);
+					}
 				}
 			}
 		}
@@ -393,7 +389,7 @@ const processTeamMember = async (team, member, guild, bot) => {
 		discordUser = await guild.members
 			.fetch(member.user.thirdparties.discord.discordID)
 			.catch((_) => null);
-		if (!discordUser) return;
+		if (!discordUser) return
 	}
 
 	let userData = bot.olympe.users[discordUser.id].userData;
@@ -453,6 +449,8 @@ const processUser = async (user, guild, bot) => {
 		return;
 	}
 	let discordUser = user.userData.discordUser;
+
+	if (discordUser.id === bot.user.id) return;
 	let olympeMember = user.userData.olympeMember;
 	let teams = user.userData.teams;
 	let renameResult = 'same',
@@ -460,6 +458,9 @@ const processUser = async (user, guild, bot) => {
 
 	//Creer une exception pour les casters pour qu'il n esoit pas renommer masi qu'dn
 	const casterTeamName = bot.modules.AutoRole.guilds[guild.id]?.specialRoles.caster.name;
+
+
+
 	let teamName = teams.length > 1 ? 'multiteam' : teams[0].name.trim()
 	if (casterTeamName && teams.find((t) => t.name === casterTeamName))
 		teamName = casterTeamName
@@ -470,7 +471,6 @@ const processUser = async (user, guild, bot) => {
 		discordUser,
 		bot
 	);
-
 
 	addRoleResult = (await changeDiscordRole(
 		olympeMember.user.id,
