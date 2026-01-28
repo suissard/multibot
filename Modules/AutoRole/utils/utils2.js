@@ -1,6 +1,7 @@
 const { OlympeApi } = require('olympe-client-api');
-const { processCasterUsers, getCasterTeam, processAllUsers, processAllTeams } = require('./utils');
+const { processCasterUsers, getCasterTeam, processAllUsers, processAllTeams, processTeamMembers } = require('./utils');
 const simultaneousRequest = require('../../../Tools/simultaneousRequest.js');
+const checkConfigMatch = require('./checkConfig');
 
 /**
  * Initialise la connexion à l'API Olympe et la stocke dans l'objet bot.
@@ -94,16 +95,19 @@ const autoRole = async function (bot, guildId) {
 	try {
 		let guild = bot.guilds.cache.get(guildId); // ! a faire une fois au démarrage et apres c'est ok
 		if (!guild) {
-			bot.log( `Guild ${guildId} not found, skipping.`, "autorole");
-			return; 
+			bot.log(`Guild ${guildId} not found, skipping.`, "autorole");
+			return;
 		}
 
 		bot.log(`start : ${bot.olympe.api.xDomain}`, 'autorole');
 		wipeOlympeData(bot);
 
 		// ===== DEV =====
-		if (bot.modules.AutoRole.guilds[guildId].specialRoles.caster)
-			await processCasterUsers(bot, bot.guilds.cache.get(bot.home));
+		if (bot.modules.AutoRole.guilds[guildId].specialRoles.caster) {
+			const team = await getCasterTeam(bot, guild);
+			await processTeamMembers(team, guild, bot);
+			// await processCasterUsers(bot, bot.guilds.cache.get(bot.home));
+		}
 
 		let teams = [];
 		for (let idChallenge in bot.olympe.challengesRolesId.competitions) {
@@ -111,6 +115,9 @@ const autoRole = async function (bot, guildId) {
 			let segments = await bot.olympe.api.segments.list(idChallenge);
 			bot.olympe.segments = bot.olympe.segments.concat(segments);
 		}
+
+		checkConfigMatch(bot, bot.olympe.segments, bot.olympe.challengesRolesId);
+
 		await processAllTeams(teams, guild, bot);
 
 		bot.log(`check pseudo & roles`, 'autorole');

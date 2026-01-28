@@ -1,8 +1,9 @@
 const { OlympeApi } = require('olympe-client-api');
 const ApiCallQueue = require('../Class/ApiCallQueue');
+const { apiQueueConfig } = require('../Modules/AutoRole/utils/constants');
 
 // On instancie la queue (utilisera les valeurs par défaut si non instanciée avant)
-const queue = new ApiCallQueue(150, 5);
+const queue = new ApiCallQueue(apiQueueConfig.delay, apiQueueConfig.concurrency);
 
 // Sauvegarde de la méthode originale
 const originalMakeRequest = OlympeApi.prototype.makeRequest;

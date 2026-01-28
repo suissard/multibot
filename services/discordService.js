@@ -19,8 +19,7 @@ const createChannel = async (bot, category, guild, channelName, channelType) => 
 			permissionOverwrites: [],
 		});
 		console.log(
-			`[${bot.name}] AUTOCHANNEL : Creation de channel ${
-				channelType == 2 ? 'voc' : 'txt'
+			`[${bot.name}] AUTOCHANNEL : Creation de channel ${channelType == 2 ? 'voc' : 'txt'
 			} : ${channelName}`
 		);
 		return channel;
@@ -218,13 +217,12 @@ const getWebsiteUrl = (bot) => {
  */
 const getOlympeMention = (user, guild) => {
 	const userIsPresent = guild.members.cache.get(user.thirdparties?.discord?.discordID);
-	return `<@${
-		userIsPresent
+	return `<@${userIsPresent
 			? userIsPresent.id
 			: !user.thirdparties?.discord?.discordID
-			? 'noDiscordSync'
-			: 'NotPresentInGuild'
-	}>`;
+				? 'noDiscordSync'
+				: 'NotPresentInGuild'
+		}>`;
 };
 /**
  * Mention users in a channel with specific information
@@ -235,42 +233,45 @@ const getOlympeMention = (user, guild) => {
  * @param casters
  * @param castersChannels
  */
-const mentionUsersInChannel = (textChannel, timestamp, teams, casters = null, matchID) => {
+/**
+ * Génère le contenu et les embeds pour le message de match.
+ * @param {TextChannel} textChannel
+ * @param timestamp
+ * @param teams
+ * @param casters
+ * @param matchID
+ * @returns {object} { content: string, embeds: Array<EmbedBuilder> }
+ */
+const generateMatchMessagePayload = (textChannel, timestamp, teams, casters = null, matchID) => {
 	let embeds = [];
-	let message = `Hey !\nLe match entre **${teams[0].name} ⚔️ ${
-		teams[1].name
-	}**\nse déroule **<t:${timestamp}:R>**\n[Lien vers le match](${getWebsiteUrl(
-		textChannel.client
-	)}/matchs/${matchID})\n\n`;
+	let message = `Hey !\nLe match entre **${teams[0].name} ⚔️ ${teams[1].name
+		}**\nse déroule **<t:${timestamp}:R>**\n[Lien vers le match](${getWebsiteUrl(
+			textChannel.client
+		)}/matchs/${matchID})\n\n`;
 	const gradinChannel = textChannel.parent.children.cache.find(c => c.name.startsWith("Gradins"))
-		message +=
-		'⚠️ **Pas d\'accés au channel vocal ? :** Tu peux déplacer tes teammates depuis <#'+gradinChannel+'> vers le channel d\'équipe\n';
-	// message +=
-	//	'⚠️ **Remplissez votre lineup** sur le site olympe pour ne pas offrir une win gratuite à vos opposants !!!\n';
-	// message += [...teamsChannels.map(chan=>`<#${chan.id}>`), ...castersChannels.map(chan=>`<#${chan.id}>`)].join(' ');
+	message +=
+		'⚠️ **Pas d\'accés au channel vocal ? :** Tu peux déplacer tes teammates depuis <#' + gradinChannel + '> vers le channel d\'équipe\n';
 
 	for (const team of teams) {
 		let description = '';
 
-		// for (const user of team.lineup?.members) {
 		for (const member of team.members) {
-			description += `${getOlympeMention(member.user, textChannel.guild)} - [${
-				member.user.battlenetBtag || 'Profile'
-			}](${getWebsiteUrl(textChannel.client)}/profile/${member.user.id}) - ${getRoleEmoji(
-				member.tags.gameRoles[0]
-			)}\n`;
+			description += `${getOlympeMention(member.user, textChannel.guild)} - [${member.user.battlenetBtag || 'Profile'
+				}](${getWebsiteUrl(textChannel.client)}/profile/${member.user.id}) - ${getRoleEmoji(
+					member.tags.gameRoles[0]
+				)}\n`;
 		}
-		
+
 		if (team.membersLent.length) {
 			description += "**Membres en pret :**\n"
-			for (const member of team.membersLent.map(m=>m.member)) {
-			description += `${getOlympeMention(member.user, textChannel.guild)} - [${
-				member.user.battlenetBtag || 'Profile'
-			}](${getWebsiteUrl(textChannel.client)}/profile/${member.user.id}) - ${getRoleEmoji(
-				member.tags.gameRoles[0]
-			)}\n`;
-		}}
-		
+			for (const member of team.membersLent.map(m => m.member)) {
+				description += `${getOlympeMention(member.user, textChannel.guild)} - [${member.user.battlenetBtag || 'Profile'
+					}](${getWebsiteUrl(textChannel.client)}/profile/${member.user.id}) - ${getRoleEmoji(
+						member.tags.gameRoles[0]
+					)}\n`;
+			}
+		}
+
 		const embedTeam = new EmbedBuilder()
 			.setTitle(team.name)
 			.setURL(`${getWebsiteUrl(textChannel.client)}/teams/${team.id}`)
@@ -292,7 +293,76 @@ const mentionUsersInChannel = (textChannel, timestamp, teams, casters = null, ma
 		embeds.push(embedCast);
 	}
 
-	textChannel?.send({ content: message, embeds: embeds }).catch(console.error);
+	return { content: message, embeds: embeds };
+};
+
+/**
+ * Mention users in a channel with specific information
+ * @param {TextChannel} textChannel
+ * @param timestamp
+ * @param teams
+ * @param casters
+ * @param matchID
+ */
+const mentionUsersInChannel = (textChannel, timestamp, teams, casters = null, matchID) => {
+	const payload = generateMatchMessagePayload(textChannel, timestamp, teams, casters, matchID);
+	textChannel?.send(payload).catch(console.error);
+};
+
+/**
+ * Vérifie si le premier message du bot dans le salon est à jour, et l'édite si nécessaire.
+ * @param {TextChannel} textChannel
+ * @param timestamp
+ * @param teams
+ * @param casters
+ * @param matchID
+ */
+const checkMatchMessage = async (textChannel, timestamp, teams, casters = null, matchID) => {
+	try {
+		const messages = await textChannel.messages.fetch({ limit: 50 }); // On fetch un peu plus large au cas ou
+		const botMessage = messages.filter(m => m.author.id === textChannel.client.user.id).sort((a, b) => a.createdTimestamp - b.createdTimestamp).first();
+
+		if (!botMessage) {
+			// Si pas de message du bot, on l'envoie (ne devrait pas arriver souvent si la logique est bonne, mais sécurité)
+			// mentionUsersInChannel(textChannel, timestamp, teams, casters, matchID);
+			textChannel.client.error('No bot message found in channel ' + textChannel.name, 'checkMatchMessage');
+			return;
+		}
+
+		const payload = generateMatchMessagePayload(textChannel, timestamp, teams, casters, matchID);
+
+		// Comparaison simple pour voir s'il faut update
+		// Note : La comparaison des embeds est complexe car l'API retourne des objets enrichis.
+		// On va se baser sur le content et le nombre d'embeds, et potentiellement reconstruire les données.
+		// Pour faire simple et robuste : on regarde si le content est différent OU si la description des embeds est différente.
+
+		let updateNeeded = false;
+
+		if (botMessage.content !== payload.content) updateNeeded = true;
+
+		if (!updateNeeded && botMessage.embeds.length !== payload.embeds.length) updateNeeded = true;
+
+		if (!updateNeeded) {
+			for (let i = 0; i < payload.embeds.length; i++) {
+				const oldEmbed = botMessage.embeds[i];
+				const newEmbed = payload.embeds[i];
+
+				// Comparaison basique des titres et descriptions qui contiennent les infos changeantes (lineups)
+				if (oldEmbed.title !== newEmbed.data.title || oldEmbed.description !== newEmbed.data.description) {
+					updateNeeded = true;
+					break;
+				}
+			}
+		}
+
+		if (updateNeeded) {
+			await botMessage.edit(payload);
+			textChannel.client.log(`Message de match mis à jour dans ${textChannel.name}`, 'AUTOCHANNEL');
+		}
+
+	} catch (error) {
+		textChannel.client.error(`Erreur lors de la vérification du message de match dans ${textChannel.name}:\n`+ error, 'AUTOCHANNEL');
+	}
 };
 
 /**
@@ -381,4 +451,5 @@ module.exports = {
 	mentionUsersInChannel,
 	setPermissions,
 	notifyMatch,
+	checkMatchMessage,
 };

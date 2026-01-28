@@ -1,0 +1,126 @@
+{
+    "olympeAuth": {
+        "token": "x+bKxqKBkoPJ07QH/y/jGMtZw8rLVC6Fi1F7WaTQ4mQoSN58zpMH+0Vei50FmsQwOvwwW2cJ4YvbsKHOhq6RVcMRnTP6k/QsNLyC2XA5yvDRHsxFuI4/9QGYP2ZSTWRZtjK+wgA55mfGftRCpPiDq0L+xagXJhAVQR6wql8nVJ0=",
+        "expiration": 1781549196,
+        "domain": "prod.api.olympe.xyz",
+        "organization": "www.playallforone.com"
+    },
+
+    "guilds": {
+        "230307992354947072": {
+            "competitionId": 122,
+            "tags": {
+                "gameRoles": [
+                    [
+                        [
+                            "tank",
+                            "main support",
+                            "flex support",
+                            "dps hitscan",
+                            "dps projectile"
+                        ],
+                        {
+                            "id": null,
+                            "name": "player"
+                        }
+                    ]
+                ]
+            },
+            "roles": [
+                [
+                    [
+                        "captain"
+                    ],
+                    {
+                        "id": "1012102173477322852",
+                        "name": "Capitaine"
+                    }
+                ],
+                [
+                    [
+                        "owner",
+                        "president",
+                        "vice president",
+                        "staff",
+                        "communication",
+                        "esport director",
+                        "video analyst"
+                    ],
+                    {
+                        "id": null,
+                        "name": "club"
+                    }
+                ],
+                [
+                    [
+                        "manager",
+                        "assistant manager"
+                    ],
+                    {
+                        "id": null,
+                        "name": "Manager"
+                    }
+                ],
+                [
+                    [
+                        "head coach",
+                        "mental coach"
+                    ],
+                    {
+                        "id": null,
+                        "name": "Coach"
+                    }
+                ]
+            ],
+            "divisions": [
+                {
+                    "id": null,
+                    "name": "Espoir 1"
+                },
+                {
+                    "id": null,
+                    "name": "Espoir 2"
+                },
+                {
+                    "id": null,
+                    "name": "Amateur 1"
+                },
+                {
+                    "id": null,
+                    "name": "Amateur 2"
+                },
+                {
+                    "id": null,
+                    "name": "Amateur 3"
+                },
+                {
+                    "id": null,
+                    "name": "Semi Pro 1"
+                },
+                {
+                    "id": null,
+                    "name": "Semi Pro 2"
+                },
+                {
+                    "id": null,
+                    "name": "Championnat de France"
+                }
+            ],
+            "specialRoles": {
+                "orga": {
+                    "id": "606121171863207946",
+                    "name": "Organisateur"
+                },
+                "caster": {
+                    "id": "298530514187452427",
+                    "name": "Caster"
+                },
+                "licence": {
+                    "id": "826459334056869918",
+                    "name": "Licencié FR"
+                }
+            }
+        }
+    },
+    "everyXhours": 8
+}

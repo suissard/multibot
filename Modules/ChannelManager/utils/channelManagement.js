@@ -15,6 +15,7 @@ const {
 	mentionUsersInChannel,
 	createChannel,
 	setPermissions,
+	checkMatchMessage,
 } = require('../../../services/discordService');
 const { getUserById } = require('../../../services/apiService');
 const { getMatchDivisionName } = require('../../../utils/matchUtils');
@@ -309,6 +310,7 @@ const createTextChannel = async (
 	await setPermissions(channel, matchDiscordUsers, ChannelType.GuildText);
 
 	if (!channelExist) mentionUsersInChannel(channel, match.matchDate, teams, casters, match.id);
+	else await checkMatchMessage(channel, match.matchDate, teams, casters, match.id);
 	return [channel];
 };
 

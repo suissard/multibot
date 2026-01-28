@@ -8,7 +8,7 @@ const EventManager = require('./EventManager');
 const Event = require('./Event.js');
 const EmoteMessageManager = require('./EmoteMessageManager');
 
-const SelfApi = require('../SelfApi/Api.js');
+// const SelfApi = require('../SelfApi/Api.js');
 
 //const EmoteMessage = require("./EmoteMessage.js");
 
@@ -274,6 +274,7 @@ module.exports = class BotManager extends Map {
 	 */
 	startApi(configs, discord, saltRounds = 10) {
 		try {
+			const SelfApi = require('../SelfApi/Api.js');
 			this.API = new SelfApi(configs, discord, this, saltRounds);
 			this.API.start();
 		} catch (e) {
@@ -288,7 +289,7 @@ module.exports = class BotManager extends Map {
 	 * @param {Boolean} isError
 	 * @returns
 	 */
-	formatLog(content, reference, isError = false) {
+	static formatLog(content, reference, isError = false) {
 		if (content instanceof Error || isError) content = '❌ ' + content;
 		const color = '\x1b[31m'; // Red for error, Magenta for normal
 		const reset = '\x1b[0m';
@@ -301,8 +302,37 @@ module.exports = class BotManager extends Map {
 	 * @param {String} content
 	 * @param {String} reference
 	 */
+	static log(content, reference) {
+		console.log(BotManager.formatLog(content, reference, false));
+	}
+
+	/**
+	 * Diffuse une erreur
+	 * @param {String || Error} content
+	 * @param {String} reference
+	 */
+	static error(content, reference) {
+		console.error(BotManager.formatLog(content, reference, true));
+	}
+
+	/**
+	 * Met la référence et le contenu au bon format
+	 * @param {String || Error} content
+	 * @param {String} reference
+	 * @param {Boolean} isError
+	 * @returns
+	 */
+	formatLog(content, reference, isError = false) {
+		return BotManager.formatLog(content, reference, isError);
+	}
+
+	/**
+	 * Diffuse un log
+	 * @param {String} content
+	 * @param {String} reference
+	 */
 	log(content, reference) {
-		console.log(this.formatLog(content, reference, false));
+		BotManager.log(content, reference);
 	}
 
 	/**
@@ -311,6 +341,6 @@ module.exports = class BotManager extends Map {
 	 * @param {String} reference
 	 */
 	error(content, reference) {
-		console.error(this.formatLog(content, reference, true));
+		BotManager.error(content, reference);
 	}
 };

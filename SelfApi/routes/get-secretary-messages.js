@@ -10,7 +10,7 @@ module.exports = {
      * @param {import('express').Response} res
      * @param {import('../../Class/Bot')} bot
      */
-    handler: async (req, res, bot) => {
+    handler: async (req, res, bot, user) => {
         const channelId = req.params.channelId;
         if (!channelId) throw { message: 'Channel ID required', status: 400 };
 
@@ -18,15 +18,43 @@ module.exports = {
         if (!channel) throw { message: 'Channel not found', status: 404 };
 
         // Security check: ensure it is a secretary channel
-        if (!channel.name.match(/-[0-9]+$/) || (!channel.name.startsWith('❌') && !channel.name.startsWith('✅'))) {
-            throw { message: 'Invalid secretary channel', status: 403 };
+        if (!channel.name.match(/-[0-9]+$/)) {
+            throw { message: 'Invalid secretary channel format', status: 403 };
         }
 
-        // Fetch messages
-        const messages = await channel.messages.fetch({ limit: 50 });
+        // Permission check
+        const member = await channel.guild.members.fetch(user.id).catch(() => null);
+        if (!member) throw { message: 'User not found in guild', status: 403 };
+
+        const { PermissionsBitField } = require('discord.js');
+        if (!channel.permissionsFor(member).has(PermissionsBitField.Flags.ViewChannel)) {
+            throw { message: 'Missing permissions to view this channel', status: 403 };
+        }
+
+        // Extract User ID from channel name (format: STATUS-USERNAME-USERID)
+        // Taking the last part ensures we get the ID even if username has hyphens
+        const userId = channel.name.split('-').pop();
+
+        let targetUser;
+        try {
+            targetUser = await bot.users.fetch(userId);
+        } catch (e) {
+            throw { message: 'User not found or invalid ID', status: 404 };
+        }
+
+        // Fetch DM Channel
+        const dmChannel = await targetUser.createDM();
+
+        // Fetch messages from DM
+        const messages = await dmChannel.messages.fetch({ limit: 50 });
 
         const formattedMessages = [];
         messages.forEach(msg => {
+            // Determine "Author" for the frontend
+            // If msg.author.id == userId -> It's the User
+            // If msg.author.id == bot.user.id -> It's the Bot (representing Staff)
+            // Others -> Ignore or mark as system? generally DMs are 1on1.
+
             const formatted = {
                 id: msg.id,
                 content: msg.content,
@@ -38,7 +66,9 @@ module.exports = {
                 },
                 timestamp: msg.createdTimestamp,
                 attachments: msg.attachments.map(a => ({ url: a.url, name: a.name, type: a.contentType })),
-                embeds: msg.embeds
+                embeds: msg.embeds,
+                // Add a flag to help frontend know if it's "Staff" (Bot) or "User"
+                isStaff: msg.author.id === bot.user.id
             };
             formattedMessages.push(formatted);
         });

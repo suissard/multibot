@@ -6,6 +6,8 @@ import path from 'path';
 const selfApiDir = path.resolve(__dirname, '../SelfApi');
 const classDir = path.resolve(__dirname, '../Class');
 
+
+
 describe('SelfApi Unit Tests (White-box with Dependency Injection)', () => {
     let SelfApi;
     let api;
@@ -14,7 +16,8 @@ describe('SelfApi Unit Tests (White-box with Dependency Injection)', () => {
     let mockExpress;
     let mockBcrypt;
     let mockFetch;
-    let mockBots; // Declare variable here
+    let mockBots;
+    let mockSocketServer;
 
     let appMock;
 
@@ -25,14 +28,12 @@ describe('SelfApi Unit Tests (White-box with Dependency Injection)', () => {
         process.env.STRAPI_URL = 'http://localhost:1337';
         process.env.STRAPI_TOKEN = 'dummy_token';
 
-        // 2. Mock external dependencies of DataBase/index.js to avoid connection attempts
+        // 2. Mock external dependencies of DataBase/index.js
         vi.doMock('suissard-strapi-client', () => ({
-            StrapiApi: class {
-                constructor() { }
-            }
+            StrapiApi: class { constructor() { } }
         }));
 
-        // Mock routes and transformer to keep SelfApi isolated
+        // Mock routes and transformer
         vi.doMock(path.join(selfApiDir, 'routes/index.js'), () => ({
             routes: [],
             createAllRoutes: vi.fn()
@@ -57,22 +58,14 @@ describe('SelfApi Unit Tests (White-box with Dependency Injection)', () => {
             return { close: vi.fn() };
         });
 
-        appMock = { use, listen }; // The app instance
-
-        // The express() function mock
+        appMock = { use, listen };
         mockExpress = vi.fn(() => appMock);
-
-        // express.Router() mock
         mockExpress.Router = vi.fn(() => ({
             route: vi.fn(() => ({
-                get: vi.fn(),
-                post: vi.fn(),
-                put: vi.fn(),
-                delete: vi.fn(),
+                get: vi.fn(), post: vi.fn(), put: vi.fn(), delete: vi.fn(),
             })),
             use: vi.fn(),
         }));
-
 
         // Setup Bcrypt Mock
         mockBcrypt = {
@@ -83,6 +76,25 @@ describe('SelfApi Unit Tests (White-box with Dependency Injection)', () => {
         // Setup Fetch Mock
         mockFetch = vi.fn();
 
+        // Setup Socket Server Mock
+        mockSocketServer = class {
+            constructor() {
+                this.callbacks = {};
+                this.middleware = [];
+            }
+            on(event, cb) {
+                this.callbacks[event] = cb;
+            }
+            use(fn) {
+                this.middleware.push(fn);
+            }
+            _triggerConnection(socket) {
+                if (this.callbacks['connection']) {
+                    this.callbacks['connection'](socket);
+                }
+            }
+        };
+
         // Configs
         const mockDiscord = {
             clientId: 'clientId',
@@ -91,7 +103,7 @@ describe('SelfApi Unit Tests (White-box with Dependency Injection)', () => {
             scope: ['scope1'],
         };
         const mockConfigs = { token: 'apiToken', hostname: 'localhost', port: 3000 };
-        mockBots = new Map(); // Assign to outer variable
+        mockBots = new Map();
 
         // Instantiate with DI
         api = new SelfApi(
@@ -102,7 +114,8 @@ describe('SelfApi Unit Tests (White-box with Dependency Injection)', () => {
             {
                 express: mockExpress,
                 bcrypt: mockBcrypt,
-                fetch: mockFetch
+                fetch: mockFetch,
+                SocketServer: mockSocketServer
             }
         );
     });
@@ -185,6 +198,92 @@ describe('SelfApi Unit Tests (White-box with Dependency Injection)', () => {
             mockBots.set('bot1', mockBot);
 
             await expect(api.authentication(req, {})).rejects.toThrow('Utilisateur non authentifié');
+        });
+    });
+
+    describe('Socket User Mapping', () => {
+        let mockSocket1, mockSocket2;
+        const userId = 'user123';
+
+        beforeEach(() => {
+            // Need to start api to init io
+            // Suppress console logs during start
+            vi.spyOn(console, 'log').mockImplementation(() => { });
+            api.start();
+
+            mockSocket1 = {
+                id: 'socket1',
+                user: { id: userId, username: 'UserOne' },
+                on: vi.fn(),
+                callbacks: {}
+            };
+            // Implement simple on/emit pattern for mock socket
+            mockSocket1.on.mockImplementation((event, cb) => {
+                mockSocket1.callbacks[event] = cb;
+            });
+            mockSocket1._triggerDisconnect = () => {
+                if (mockSocket1.callbacks['disconnect']) mockSocket1.callbacks['disconnect']();
+            }
+
+
+            mockSocket2 = {
+                id: 'socket2',
+                user: { id: userId, username: 'UserOne' },
+                on: vi.fn(),
+                callbacks: {}
+            };
+            mockSocket2.on.mockImplementation((event, cb) => {
+                mockSocket2.callbacks[event] = cb;
+            });
+            mockSocket2._triggerDisconnect = () => {
+                if (mockSocket2.callbacks['disconnect']) mockSocket2.callbacks['disconnect']();
+            }
+        });
+
+        it('should map user to socket on connection', () => {
+            // Trigger connection via the mock io instance
+            api.io._triggerConnection(mockSocket1);
+
+            const sockets = api.getUserSockets(userId);
+            expect(sockets).toBeInstanceOf(Set);
+            expect(sockets.has('socket1')).toBe(true);
+            expect(sockets.size).toBe(1);
+        });
+
+        it('should handle multiple sockets for same user', () => {
+            api.io._triggerConnection(mockSocket1);
+            api.io._triggerConnection(mockSocket2);
+
+            const sockets = api.getUserSockets(userId);
+            expect(sockets.size).toBe(2);
+            expect(sockets.has('socket1')).toBe(true);
+            expect(sockets.has('socket2')).toBe(true);
+        });
+
+        it('should remove socket on disconnect', () => {
+            api.io._triggerConnection(mockSocket1);
+            api.io._triggerConnection(mockSocket2);
+
+            // Disconnect socket1
+            mockSocket1._triggerDisconnect();
+
+            const sockets = api.getUserSockets(userId);
+            expect(sockets.size).toBe(1);
+            expect(sockets.has('socket2')).toBe(true);
+            expect(sockets.has('socket1')).toBe(false);
+        });
+
+        it('should remove user from map when last socket disconnects', () => {
+            api.io._triggerConnection(mockSocket1);
+            mockSocket1._triggerDisconnect();
+
+            const sockets = api.getUserSockets(userId);
+            expect(sockets).toBeNull();
+            expect(api.userSockets.has(userId)).toBe(false);
+        });
+
+        it('getUserSockets should return null for unknown user', () => {
+            expect(api.getUserSockets('unknown')).toBeNull();
         });
     });
 });

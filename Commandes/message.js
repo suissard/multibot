@@ -150,7 +150,7 @@ module.exports = class Message extends Commande {
                 message.author.username = user.username;
                 message.content = texte;
                 message.fromCommandMessage = true;
-                this.bot.emit('secretary', message, true);
+                this.bot.emit('secretaryReceived', message);
             }
         });
         return 'les messages ont été envoyé';

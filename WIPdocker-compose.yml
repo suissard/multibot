@@ -3,8 +3,6 @@ services:
     image: node:24
     container_name: multibot_backend
     working_dir: /usr/src/app
-    ports:
-      - "${BACKEND_PORT}:3000"
     environment:
       - BOT_MODE=${BOT_MODE}
     volumes:
@@ -16,10 +14,8 @@ services:
     image: node:24
     container_name: multibot_frontend
     working_dir: /app
-    ports:
-      - "${FRONTEND_PORT}:8080"
     environment:
-      - VUE_APP_API_URL=${VUE_APP_API_URL}
+      - API_URL=${API_URL}
     depends_on:
       - backend
     volumes:

@@ -28,11 +28,11 @@ module.exports = class Done extends Command {
      * @param {object} args - Les arguments de la commande (non utilisés ici).
      * @returns {string} Un message de confirmation ou d'échec.
      */
-    methode(args = {}) {
+    async methode(args = {}) {
         let chan = this.channel;
         if (chan.name.startsWith('✅') == false) {
-            chan.setName('✅' + chan.name.replace(/❌/g, ''));
-            // return 'Ticket clos ! ✅';
+            await chan.setName('✅' + chan.name.replace(/❌/g, ''));
+            return 'Ticket clos ! ✅';
         }
         return 'Le ticket n\'a pas pu être clos ❌';
     }

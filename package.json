@@ -15,7 +15,7 @@
 		"node-cron": "^3.0.3",
 		"node-fetch": "^2.6.7",
 		"node-oauth2-server": "^2.4.0",
-		"olympe-client-api": "^1.0.6",
+		"olympe-client-api": "^1.0.7",
 		"path": "^0.12.7",
 		"qs": "^6.11.0",
 		"socket.io": "^4.2.0",

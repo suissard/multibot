@@ -2,26 +2,43 @@
     <div class="h-[calc(100vh-4rem)] flex overflow-hidden bg-gray-100 dark:bg-gray-900">
         <!-- Sidebar: Conversation List -->
         <aside class="w-80 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col">
-            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700 space-y-3">
                 <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">Conversations</h2>
-                <!-- Search could go here -->
+                <!-- Search Input -->
+                <div class="relative">
+                    <input type="text" v-model="searchQuery" placeholder="Search conversations..."
+                        class="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400">
+                    <svg class="w-4 h-4 text-gray-400 absolute left-3 top-3" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
             </div>
             <div class="flex-1 overflow-y-auto">
-                <div v-if="loadingConversations" class="p-4 text-center text-gray-500">
-                    Loading...
+                <div v-if="loadingConversations" class="p-4 space-y-4 animate-pulse">
+                    <!-- Conversation List Skeleton -->
+                    <div v-for="i in 6" :key="i" class="flex items-center space-x-4">
+                        <div class="h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-700 flex-shrink-0"></div>
+                        <div class="flex-1 space-y-2 py-1">
+                            <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                            <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                        </div>
+                    </div>
                 </div>
-                <div v-else-if="conversations.length === 0" class="p-4 text-center text-gray-500">
-                    No active conversations found.
+                <div v-else-if="filteredConversations.length === 0" class="p-4 text-center text-gray-500">
+                    <span v-if="searchQuery">No matching conversations found.</span>
+                    <span v-else>No active conversations found.</span>
                 </div>
                 <ul v-else class="divide-y divide-gray-200 dark:divide-gray-700">
-                    <li v-for="conversation in conversations" :key="conversation.channelId"
+                    <li v-for="conversation in filteredConversations" :key="conversation.channelId"
                         @click="selectConversation(conversation)"
                         class="cursor-pointer p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-150 ease-in-out"
                         :class="{ 'bg-indigo-50 dark:bg-gray-700': selectedConversation?.channelId === conversation.channelId }">
                         <div class="flex items-center space-x-4">
                             <div class="flex-shrink-0">
                                 <img class="h-10 w-10 rounded-full bg-indigo-500" :src="conversation.avatar" alt=""
-                                    @error="$event.target.src = 'https://ui-avatars.com/api/?name=' + conversation.username">
+                                    @error="handleImageError($event, conversation.username)">
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
@@ -45,7 +62,7 @@
                     class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-white dark:bg-gray-800 shadow-sm z-10">
                     <div class="flex items-center space-x-3">
                         <img class="h-10 w-10 rounded-full" :src="selectedConversation.avatar" alt=""
-                            @error="$event.target.src = 'https://ui-avatars.com/api/?name=' + selectedConversation.username">
+                            @error="handleImageError($event, selectedConversation.username)">
                         <div>
                             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                                 {{ selectedConversation.username }}
@@ -65,54 +82,68 @@
                 </div>
 
                 <!-- Messages Area -->
-                <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-900" ref="messagesContainer">
-                    <div v-if="loadingMessages" class="flex justify-center p-10">
-                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500"></div>
+                <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-900 scroll-smooth"
+                    ref="messagesContainer">
+                    <!-- Skeleton Loader -->
+                    <div v-if="loadingMessages" class="space-y-4 animate-pulse">
+                        <div v-for="i in 5" :key="i" class="flex flex-col"
+                            :class="i % 2 === 0 ? 'items-end' : 'items-start'">
+                            <div class="flex items-end space-x-2"
+                                :class="i % 2 === 0 ? 'flex-row-reverse space-x-reverse' : ''">
+                                <div class="h-8 w-8 rounded-full bg-gray-300 dark:bg-gray-700"></div>
+                                <div class="max-w-[70%] rounded-lg px-4 py-3 bg-gray-200 dark:bg-gray-800 h-16 w-48">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div v-for="message in messages" :key="message.id" class="flex flex-col"
-                        :class="{ 'items-end': message.author.bot, 'items-start': !message.author.bot }">
-                        <div class="max-w-[70%] rounded-lg px-4 py-2 shadow-sm relative group"
-                            :class="message.author.bot ? 'bg-indigo-600 text-white' : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-600'">
 
-                            <!-- Reply/Embed context visualization could go here -->
+                    <div v-else class="space-y-4">
+                        <div v-for="message in messages" :key="message.id" class="flex flex-col"
+                            :class="{ 'items-end': message.author.bot, 'items-start': !message.author.bot }">
+                            <div class="max-w-[70%] rounded-lg px-4 py-2 shadow-sm relative group"
+                                :class="message.author.bot ? 'bg-indigo-600 text-white' : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-600'">
 
-                            <p class="whitespace-pre-wrap">{{ message.content }}</p>
+                                <!-- Reply/Embed context visualization could go here -->
 
-                            <!-- Attachments -->
-                            <div v-if="message.attachments && message.attachments.length > 0" class="mt-2 space-y-2">
-                                <div v-for="(attachment, idx) in message.attachments" :key="idx">
-                                    <img v-if="attachment.type && attachment.type.startsWith('image/')"
-                                        :src="attachment.url"
-                                        class="max-w-full rounded-md max-h-60 object-contain bg-black/10" />
-                                    <a v-else :href="attachment.url" target="_blank"
-                                        class="text-xs underline opacity-75 hover:opacity-100 flex items-center">
-                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13">
-                                            </path>
-                                        </svg>
-                                        {{ attachment.name }}
-                                    </a>
+                                <p class="whitespace-pre-wrap">{{ message.content }}</p>
+
+                                <!-- Attachments -->
+                                <div v-if="message.attachments && message.attachments.length > 0" class="mt-2 space-y-2">
+                                    <div v-for="(attachment, idx) in message.attachments" :key="idx">
+                                        <img v-if="attachment.type && attachment.type.startsWith('image/')"
+                                            :src="attachment.url" @error="handleImageError($event, 'Attachment')"
+                                            class="max-w-full rounded-md max-h-60 object-contain bg-black/10" />
+                                        <a v-else :href="attachment.url" target="_blank"
+                                            class="text-xs underline opacity-75 hover:opacity-100 flex items-center">
+                                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13">
+                                                </path>
+                                            </svg>
+                                            {{ attachment.name }}
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <!-- Embeds -->
-                            <div v-if="message.embeds && message.embeds.length > 0" class="mt-2 space-y-2">
-                                <div v-for="(embed, idx) in message.embeds" :key="idx"
-                                    class="border-l-4 pl-2 border-gray-400 text-sm opacity-90">
-                                    <!-- Simple embed rendering -->
-                                    <p v-if="embed.title" class="font-bold">{{ embed.title }}</p>
-                                    <p v-if="embed.description">{{ embed.description }}</p>
-                                    <img v-if="embed.image" :src="embed.image.url" class="mt-1 rounded max-h-40" />
+                                <!-- Embeds -->
+                                <div v-if="message.embeds && message.embeds.length > 0" class="mt-2 space-y-2">
+                                    <div v-for="(embed, idx) in message.embeds" :key="idx"
+                                        class="border-l-4 pl-2 border-gray-400 text-sm opacity-90">
+                                        <!-- Simple embed rendering -->
+                                        <p v-if="embed.title" class="font-bold">{{ embed.title }}</p>
+                                        <p v-if="embed.description">{{ embed.description }}</p>
+                                        <img v-if="embed.image" :src="embed.image.url"
+                                            @error="handleImageError($event, 'Embed')" class="mt-1 rounded max-h-40" />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <!-- Timestamp -->
-                            <div class="text-[10px] mt-1 opacity-70 text-right"
-                                :class="message.author.bot ? 'text-indigo-100' : 'text-gray-400'">
-                                {{ formatTime(message.timestamp) }}
-                                <span v-if="message.author.bot && !message.author.username.includes('Dashboard')"
-                                    class="ml-1 font-bold">• {{ message.author.username }}</span>
+                                <!-- Timestamp -->
+                                <div class="text-[10px] mt-1 opacity-70 text-right"
+                                    :class="message.author.bot ? 'text-indigo-100' : 'text-gray-400'">
+                                    {{ formatTime(message.timestamp) }}
+                                    <span v-if="message.author.bot && !message.author.username.includes('Dashboard')"
+                                        class="ml-1 font-bold">• {{ message.author.username }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -192,6 +223,8 @@
 import { callApi } from '../services/callApi';
 import { useMainStore } from '../stores/main';
 import { mapState } from 'pinia';
+import SocketService from '../services/socket';
+
 
 export default {
     name: 'SecretaryView',
@@ -201,6 +234,7 @@ export default {
             selectedConversation: null,
             messages: [],
             newMessage: '',
+            searchQuery: '', // Add search query
             loadingConversations: false,
             loadingMessages: false,
             sending: false,
@@ -209,7 +243,15 @@ export default {
         };
     },
     computed: {
-        ...mapState(useMainStore, ['selectedBotId'])
+        ...mapState(useMainStore, ['selectedBotId']),
+        filteredConversations() {
+            if (!this.searchQuery) return this.conversations;
+            const query = this.searchQuery.toLowerCase();
+            return this.conversations.filter(c =>
+                c.username.toLowerCase().includes(query) ||
+                c.channelName.toLowerCase().includes(query)
+            );
+        }
     },
     watch: {
         selectedBotId: {
@@ -233,6 +275,7 @@ export default {
         },
         async selectConversation(conversation) {
             this.selectedConversation = conversation;
+            this.messages = []; // Clear messages immediately for loading state
             await this.loadMessages();
             this.scrollToBottom();
         },
@@ -318,27 +361,49 @@ export default {
                     container.scrollTop = container.scrollHeight;
                 }
             });
+        },
+        handleImageError(event, fallbackName) {
+            // Prevent infinite loop if fallback fails
+            if (event.target.dataset.error) return;
+            event.target.dataset.error = true;
+
+            // Use UI Avatars as robust fallback
+            event.target.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(fallbackName || 'User') + '&background=random';
         }
     },
-    mounted() {
-        this.refreshInterval = setInterval(() => {
-            if (this.selectedConversation) {
-                // Silent refresh
-                callApi('getSecretaryMessages', this.selectedBotId, this.selectedConversation.channelId)
-                    .then(msgs => {
-                        // Ideally merge to avoid scroll jump, but full replace for now
-                        // Only replace if count changed to avoid flickering if possible, or simple diff
-                        if (msgs.length !== this.messages.length || msgs[msgs.length - 1]?.id !== this.messages[this.messages.length - 1]?.id) {
-                            this.messages = msgs;
-                            // Only scroll if we were at bottom? 
-                        }
-                    })
-                    .catch(e => console.error('Silent refresh failed', e));
+    async mounted() {
+        // Initialize socket connection
+        SocketService.connect();
+
+        // Listen for new messages
+        SocketService.on('secretaryMessage', (data) => {
+            console.log('[SecretaryView] ws event received:', data);
+            if (data.botId !== this.selectedBotId) return;
+
+            // Update messages if conversation is open
+            if (this.selectedConversation && this.selectedConversation.channelId === data.channelId) {
+                console.log('[SecretaryView] Updating conversation messages');
+                // Avoid duplication if message ID already exists (e.g. from optimistic update)
+                // Note: Messages from backend might have different ID structure initially or temporary IDs
+                const exists = this.messages.some(m => m.id === data.message.id);
+                if (!exists) {
+                    this.messages.push(data.message);
+                    this.scrollToBottom();
+                } else {
+                    console.log('[SecretaryView] Message already exists');
+                }
+            } else {
+                console.log('[SecretaryView] Conversation not open or channel mismatch', this.selectedConversation?.channelId, data.channelId);
             }
-        }, 5000);
+
+            // Refresh conversation list to show new activity/unread (if we had unread status specific logic)
+            // For now, just re-fetching conversations is safe and ensures top sorting if backend sorts by recency
+            this.loadConversations();
+        });
     },
     beforeUnmount() {
-        if (this.refreshInterval) clearInterval(this.refreshInterval);
+        SocketService.off('secretaryMessage');
+        // We might want to keep the socket connected globally, but removing listener is good practice
     }
 };
 </script>

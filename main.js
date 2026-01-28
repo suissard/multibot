@@ -1,9 +1,10 @@
 require('dotenv').config();
 const mode = process.env.BOT_MODE || 'PROD'; // "PROD", "PREPROD" OU "DEV"
 require('./utils/patchOlympeApi');
+const BotManager = require('./Class/BotManager.js');
 
 
-console.log(`\x1b[31m[BOTMANAGER]\x1b[0m 🤖 Démarrage des bots en mode ${mode}...`);
+BotManager.log(`🤖 Démarrage des bots en mode ${mode}...`);
 
 const BOTS = require('./Class/BOTS.js');
 const DATAS = require('./Class/DataBase'); // CONNEXION A LA BASE DE DONNEE

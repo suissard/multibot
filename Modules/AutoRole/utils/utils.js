@@ -9,18 +9,8 @@ const {
 const simultaneousRequest = require('../../../Tools/simultaneousRequest.js');
 const ProgressBar = require('../../../Tools/progressBar.js');
 const ChallengesRolesId = require('../models/ChallengesRolesId.js');
+const { roleCategories, clubRolesList, managerRolesList, coachRolesList } = require('./constants');
 
-const clubRolesList = [
-	'owner',
-	'president',
-	'vice president',
-	'staff',
-	'communication',
-	'esport director',
-	'video analyst',
-];
-const managerRolesList = ['manager', 'assistant manager'];
-const coachRolesList = ['head coach', 'mental coach'];
 const progressBarRefreshRate = 5000;
 
 /**
@@ -102,6 +92,58 @@ const renameDiscordUserWithOlympeData = async (olympeMember, teamName, discordUs
 };
 
 /**
+ * Récupère les rôles à ajouter depuis le cache Olympe
+ * @param {Discord.Guild} guild
+ * @param {OlympeMember} olympeMember
+ * @param {string} teamName
+ * @returns {Array<string>}
+ */
+const getRoleToAddFromOlympe = (guild, olympeMember, teamName) => {
+	return guild.client.olympe?.users[olympeMember.user.thirdparties.discord.discordID]?.[teamName]?.roles || [];
+};
+
+/**
+ * Récupère la liste des vrais rôles Discord (dédublonnés) pour un membre donné au travers de ses équipes
+ * @param {Array<OlympeTeam>} teams
+ * @param {string} olympeMemberId
+ * @param {Discord.Guild} guild
+ * @param {ChallengesRolesId} challengesRolesId
+ * @returns {Array<Discord.Role>}
+ */
+const getDistinctRealRoles = (teams, olympeMemberId, guild, challengesRolesId) => {
+	let realRole = [];
+	// let lastOlympeMember = null;
+
+	teams.forEach((team) => {
+		const olympeMember = team.members
+			.concat(team.membersLent.map((m) => m.member))
+			.find((member) => member.user.id === olympeMemberId);
+
+		if (olympeMember) {
+			const rolesToAdd = getRoleToAddFromOlympe(guild, olympeMember, team.name);
+			realRole = realRole.concat(
+				getRealRole(rolesToAdd, guild, team.segments, challengesRolesId, olympeMember)
+			);
+			// lastOlympeMember = olympeMember;
+		}
+	});
+
+
+	const uniqueRoles = [];
+	const seenIds = new Set();
+	for (const role of realRole) {
+		if (role && !seenIds.has(role.id)) {
+			seenIds.add(role.id);
+			uniqueRoles.push(role);
+		}
+	}
+
+	// if (teams.length > 1)
+	// 	console.log(lastOlympeMember.user.username, uniqueRoles.map((role) => role.name));
+	return uniqueRoles;
+};
+
+/**
  * Donne les roles discord à un utilisateur en fonction des rôles olympe
  * @param {string} olympeMemberId
  * @param {Discord.Guild} guild
@@ -120,22 +162,11 @@ const changeDiscordRole = async (
 	rolesCompetId
 ) => {
 	try {
-		let realRole = [];
-		let olympeMember, rolesToAdd;
-		teams.forEach((team) => {
-			olympeMember = team.members
-				.concat(team.membersLent.map((m) => m.member))
-				.find((member) => member.user.id === olympeMemberId);
-			rolesToAdd =
-				guild.client.olympe?.users[olympeMember.user.thirdparties.discord.discordID]?.[
-					team.name
-				]?.roles || [];
-			realRole = realRole.concat(
-				getRealRole(rolesToAdd, guild, team.segments, challengesRolesId, olympeMember)
-			);
-		});
+		const realRoles = getDistinctRealRoles(teams, olympeMemberId, guild, challengesRolesId);
 
-		let roleIdToAdd = [...new Set(realRole.map((role) => role.id))];
+
+
+		let roleIdToAdd = realRoles.map((role) => role.id);
 		let rolesIdToRemove = rolesCompetId.filter(
 			(id) =>
 				discordUser.roles.cache.find((role) => role.id === id) &&
@@ -169,25 +200,25 @@ const getRoleToAdd = (olympeMember) => {
 	let roleToAdd = [];
 
 	olympeMember.roles.forEach((role) => {
-		if (clubRolesList.includes(role) && !roleToAdd.includes('club')) {
-			roleToAdd.push('club');
+		if (clubRolesList.includes(role) && !roleToAdd.includes(roleCategories.club)) {
+			roleToAdd.push(roleCategories.club);
 		}
-		if (managerRolesList.includes(role) && !roleToAdd.includes('manager')) {
-			roleToAdd.push('manager');
+		if (managerRolesList.includes(role) && !roleToAdd.includes(roleCategories.manager)) {
+			roleToAdd.push(roleCategories.manager);
 		}
-		if (coachRolesList.includes(role) && !roleToAdd.includes('coach')) {
-			roleToAdd.push('coach');
+		if (coachRolesList.includes(role) && !roleToAdd.includes(roleCategories.coach)) {
+			roleToAdd.push(roleCategories.coach);
 		}
 	});
-	if (olympeMember.user.castUrl && !roleToAdd.includes('caster')) {
-		roleToAdd.push('caster');
+	if (olympeMember.user.castUrl && !roleToAdd.includes(roleCategories.caster)) {
+		roleToAdd.push(roleCategories.caster);
 	}
 	if (olympeMember.tags.gameRoles.length > 0) {
-		roleToAdd.push('player');
+		roleToAdd.push(roleCategories.player);
 	}
 	if (roleToAdd.length === 0) {
 		// Si pas de role doit au moins avoir le role club
-		roleToAdd.push('club');
+		roleToAdd.push(roleCategories.club);
 	}
 	return roleToAdd;
 };
@@ -203,17 +234,11 @@ const getRoleToAdd = (olympeMember) => {
  */
 const getRealRole = (listRole, guild, segments, challengesRolesId, olympeMember) => {
 	const captain = olympeMember.roles.includes('captain');
+
+
+
 	try {
 		let realRole = [];
-		let segmentName, challengeRole;
-
-		for (const segment of segments) {
-			if (challengesRolesId.competitions[segment?.challengeID]) {
-				segmentName = segment.name;
-				challengeRole = challengesRolesId.competitions[segment?.challengeID]; // s'arrête au premier segment trouvé
-				break;
-			}
-		}
 
 		let globRole = guild.roles.cache.get(challengesRolesId.ALL);
 		realRole.push(globRole);
@@ -221,24 +246,33 @@ const getRealRole = (listRole, guild, segments, challengesRolesId, olympeMember)
 			let globCaptainRole = guild.roles.cache.get(challengesRolesId.captain);
 			realRole.push(globCaptainRole);
 		}
-		if (listRole.includes('caster'))
+		if (listRole.includes(roleCategories.caster))
 			realRole.push(guild.roles.cache.get(challengesRolesId.caster));
-		if (challengeRole) {
-			for (const role of listRole) {
-				if (
-					(!challengeRole[role] || !challengeRole[role][segmentName]) &&
-					!challengesRolesId[role]
-				) {
-					continue;
-				}
 
-				let discordRole = guild.roles.cache.get(
-					challengesRolesId[role] || challengeRole[role][segmentName]
-				);
-				realRole.push(discordRole);
-				if (role === 'club') {
-					let globClubRole = guild.roles.cache.get(challengeRole.club.ALL);
-					realRole.push(globClubRole);
+		for (const segment of segments) {
+			if (challengesRolesId.competitions[segment?.challengeID]) {
+				const segmentName = segment.name;
+				const challengeRole = challengesRolesId.competitions[segment?.challengeID];
+
+				for (const role of listRole) {
+
+
+					if (
+						(!challengeRole[role] || !challengeRole[role][segmentName]) &&
+						!challengesRolesId[role]
+					) {
+						continue;
+					}
+
+					let discordRole = guild.roles.cache.get(
+						challengesRolesId[role] || challengeRole[role][segmentName]
+					);
+
+					realRole.push(discordRole);
+					if (role === roleCategories.club && challengeRole.club && challengeRole.club.ALL) {
+						let globClubRole = guild.roles.cache.get(challengeRole.club.ALL);
+						realRole.push(globClubRole);
+					}
 				}
 			}
 		}
@@ -355,7 +389,7 @@ const processTeamMember = async (team, member, guild, bot) => {
 		discordUser = await guild.members
 			.fetch(member.user.thirdparties.discord.discordID)
 			.catch((_) => null);
-		if (!discordUser) return;
+		if (!discordUser) return
 	}
 
 	let userData = bot.olympe.users[discordUser.id].userData;
@@ -415,18 +449,28 @@ const processUser = async (user, guild, bot) => {
 		return;
 	}
 	let discordUser = user.userData.discordUser;
+
+	if (discordUser.id === bot.user.id) return;
 	let olympeMember = user.userData.olympeMember;
 	let teams = user.userData.teams;
 	let renameResult = 'same',
 		addRoleResult;
 
+	//Creer une exception pour les casters pour qu'il n esoit pas renommer masi qu'dn
+	const casterTeamName = bot.modules.AutoRole.guilds[guild.id]?.specialRoles.caster.name;
+
+
+
+	let teamName = teams.length > 1 ? 'multiteam' : teams[0].name.trim()
+	if (casterTeamName && teams.find((t) => t.name === casterTeamName))
+		teamName = casterTeamName
+
 	renameResult = await renameDiscordUserWithOlympeData(
 		olympeMember,
-		teams.length > 1 ? 'multiteam' : teams[0].name.trim(),
+		teamName,
 		discordUser,
 		bot
 	);
-
 
 	addRoleResult = (await changeDiscordRole(
 		olympeMember.user.id,
@@ -647,5 +691,7 @@ module.exports = {
 	processCasterUsers,
 	getCasterTeam,
 	processTeam,
-	processTeamMember
+	processTeamMember,
+	getRoleToAddFromOlympe,
+	getDistinctRealRoles,
 };

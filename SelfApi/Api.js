@@ -12,7 +12,9 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const Route = require('./Route.js');
 const fetch = require('node-fetch');
+
 const cors = require('cors');
+const { Server } = require("socket.io");
 
 module.exports = class SelfApi {
 	/**
@@ -33,12 +35,16 @@ module.exports = class SelfApi {
 		// Dependency Injection
 		this.express = libs.express || express;
 		this.bcrypt = libs.bcrypt || bcrypt;
+		this.express = libs.express || express;
+		this.bcrypt = libs.bcrypt || bcrypt;
 		this.fetch = libs.fetch || fetch;
+		this.SocketServer = libs.SocketServer || Server;
 
 		this.salt = this.bcrypt.genSaltSync(saltRounds);
 
 		this.routes = new Map();
 		this.hashUsers = new Map();
+		this.userSockets = new Map();
 
 		this.router = this.express.Router();
 		this.app = this.express();
@@ -325,6 +331,15 @@ module.exports = class SelfApi {
 	}
 
 	/**
+	 * Retourne les sockets connectés pour un utilisateur donné.
+	 * @param {string} userId - L'ID de l'utilisateur Discord.
+	 * @returns {Set<string>|null} Un Set d'IDs de sockets ou null si aucun.
+	 */
+	getUserSockets(userId) {
+		return this.userSockets.get(userId) || null;
+	}
+
+	/**
 	 * Remonte une donnée depuis un objet, en se basant sur une url
 	 * @param {Object} object
 	 * @param {String} url
@@ -423,6 +438,118 @@ module.exports = class SelfApi {
 		this.app.use('/api', this.router);
 		this.server = this.app.listen(this.port, this.hostname, () => {
 			this.log('démarrée à : http://' + this.hostname + ':' + this.port);
+		});
+
+		this.io = new this.SocketServer(this.server, {
+			cors: {
+				origin: "*", // Adjust in production
+				methods: ["GET", "POST"]
+			}
+		});
+
+		// Middleware d'authentification Socket.IO
+		this.io.use(async (socket, next) => {
+			const token = socket.handshake.auth.token || socket.handshake.headers.auth;
+			const tokenData = this.verifyToken(token);
+
+			if (!tokenData) {
+				return next(new Error("Authentication error"));
+			}
+			socket.user = tokenData.data; // Attach user data to socket
+			next();
+		});
+
+		this.io.on('connection', (socket) => {
+			// Add socket to user's list
+			const userId = socket.user.id;
+			if (!this.userSockets.has(userId)) {
+				this.userSockets.set(userId, new Set());
+			}
+			this.userSockets.get(userId).add(socket.id);
+
+			this.log('New client connected: ' + socket.user.username, 'SOCKET');
+
+			socket.on('disconnect', () => {
+				this.log('Client disconnected: ' + socket.user.username, 'SOCKET');
+
+				// Remove socket from user's list
+				if (this.userSockets.has(userId)) {
+					const userSockets = this.userSockets.get(userId);
+					userSockets.delete(socket.id);
+					if (userSockets.size === 0) {
+						this.userSockets.delete(userId);
+					}
+				}
+			});
+
+			// Rejoindre un salon (Listening)
+			socket.on('joinSecretaryChannel', async ({ botId, channelId }) => {
+				try {
+					if (!botId || !channelId) return;
+					const bot = this.BOTS.get(botId);
+					if (!bot) return;
+
+					const channel = await bot.channels.fetch(channelId).catch(() => null);
+					if (!channel) return;
+
+					// Vérification des droits de lecture
+					const member = await channel.guild.members.fetch(socket.user.id).catch(() => null);
+					if (!member) return socket.emit('error', 'Member not found in guild');
+
+					// Import dynamique pour éviter les dépendances circulaires si nécessaire, ou utiliser discord.js
+					const { PermissionsBitField } = require('discord.js');
+					if (!channel.permissionsFor(member).has(PermissionsBitField.Flags.ViewChannel)) {
+						return socket.emit('error', 'Missing ViewChannel permissions');
+					}
+
+					socket.join(channelId);
+					// this.log(`User ${socket.user.username} joined channel ${channel.name}`, 'SOCKET');
+				} catch (e) {
+					console.error('[SOCKET] Error joining channel', e);
+				}
+			});
+
+			// Envoyer un message (Reply)
+			socket.on('sendSecretaryMessage', async ({ botId, channelId, content }) => {
+				try {
+					if (!botId || !channelId || !content) return;
+					const bot = this.BOTS.get(botId);
+					if (!bot) return;
+
+					const channel = await bot.channels.fetch(channelId).catch(() => null);
+					if (!channel) return;
+
+					const member = await channel.guild.members.fetch(socket.user.id).catch(() => null);
+					if (!member) return socket.emit('error', 'Member not found');
+
+					const { PermissionsBitField } = require('discord.js');
+
+					// Vérification des droits : Voir le salon + Ecrire + Permissions Secrétaire (impliqué par l'accès au salon privé)
+					const permissions = channel.permissionsFor(member);
+					if (!permissions.has(PermissionsBitField.Flags.ViewChannel) ||
+						!permissions.has(PermissionsBitField.Flags.SendMessages)) {
+						return socket.emit('error', 'Missing permissions to send message');
+					}
+
+					// Envoi du message via SecretaryManager pour gestion centralisée (Embed, DM, etc.)
+					const secretaryManager = bot.secretaryManager;
+					if (!secretaryManager) return socket.emit('error', 'Secretary Manager not ready');
+
+					// Construct author object from socket user
+					const author = {
+						id: socket.user.id,
+						username: socket.user.username,
+						displayAvatarURL: () => socket.user.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'
+					};
+
+					// Appeler la méthode partagée
+					await secretaryManager.sendStaffResponse(channel, content, author, [], null);
+
+				} catch (e) {
+					console.error('[SOCKET] Error sending message', e);
+					socket.emit('error', 'Internal server error: ' + e.message);
+				}
+			});
 		});
 	}
 

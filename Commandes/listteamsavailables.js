@@ -16,7 +16,8 @@ module.exports = class ListTeamsAvailables extends Command {
 			required: false,
 		},
 	];
-
+	static help = 'Renvoie la liste des teams disponibles pour un challenge donné';
+	static test = '1';
 	static narrative = `
 - Cette commande a deux modes de fonctionnement en fonction de si un 'challengeid' est fourni.
 

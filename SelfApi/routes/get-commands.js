@@ -26,6 +26,8 @@ module.exports = {
                     botPermissions: cmd.botPermissions,
                     description: cmd.description,
                     help: cmd.help,
+                    narrative: cmd.narrative,
+                    howTo: cmd.howTo,
                     arguments: cmd.arguments,
                 };
             });
@@ -44,6 +46,8 @@ module.exports = {
             botPermissions: cmd.botPermissions,
             description: cmd.description,
             help: cmd.help,
+            narrative: cmd.narrative,
+            howTo: cmd.howTo,
             arguments: cmd.arguments,
         };
     },
