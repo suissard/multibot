@@ -163,6 +163,16 @@ Construit et retourne l'URL d'autorisation OAuth2 de Discord.
 
 **Returns:** `string` - d'autorisation.
 
+Retourne les sockets connectés pour un utilisateur donné.
+
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `userId` | `string` | - L'ID de l'utilisateur Discord. |
+
+**Returns:** `Set<string>|null` - Set d'IDs de sockets ou null si aucun.
+
 Remonte une donnée depuis un objet, en se basant sur une url
 
 **Parameters:**

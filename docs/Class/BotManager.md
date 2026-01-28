@@ -144,3 +144,33 @@ Diffuse une erreur
 | `content` | `String || Error` |  |
 | `reference` | `String` |  |
 
+Met la référence et le contenu au bon format
+
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `content` | `String || Error` |  |
+| `reference` | `String` |  |
+| `isError` | `Boolean` |  |
+
+**Returns:** `` - 
+
+Diffuse un log
+
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `content` | `String` |  |
+| `reference` | `String` |  |
+
+Diffuse une erreur
+
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `content` | `String || Error` |  |
+| `reference` | `String` |  |
+
