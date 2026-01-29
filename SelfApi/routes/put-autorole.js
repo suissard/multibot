@@ -14,7 +14,7 @@ module.exports = {
 	 * @param {any} user - (Non utilisé) L'utilisateur authentifié.
 	 * @param {import('../Api')} app - L'instance de l'API principale.
 	 */
-	handler: (req, res, botArg, user, app) => {
+	handler: async (req, res, botArg, user, app) => {
 		app.debug('AUTOROLE API DEBUG', 'PUT_AUTOROLE');
 		// retrouver dans app.BOTS (Map) celui qui a les bonne option dans ses configs
 		req.body.organization;
@@ -23,11 +23,34 @@ module.exports = {
 			if (req.body.organization == bot.modules.AutoRole?.organization) bots.push(bot);
 		}
 
+		const { syncMemberPermissions } = require('../../Modules/ChannelManager/utils/channelManagement.js');
+
 		// lancer la fonction autorole lié a une team ou un utilisateur
-		if (req.body.teamIDs) bots.forEach((bot) => utils.processFromOlympeTeamId(req.body.teamIds, bot));
-		else if (req.body.userIDs)
-			bots.forEach((bot) => utils.processFromOlympeUserId(req.body.userIDs, bot));
-		else app.warn("No OlympeID's provided", 'PUT_AUTOROLE');
+		if (req.body.teamIDs) {
+			for (const bot of bots) {
+				const updatedUserIds = await utils.processFromOlympeTeamId(req.body.teamIDs, bot);
+				if (Array.isArray(updatedUserIds)) {
+					for (const discordId of updatedUserIds) {
+						const guild = bot.guilds.cache.get(bot.home);
+						const member = guild.members.cache.get(discordId);
+						if (member) await syncMemberPermissions(bot, member, guild);
+					}
+				}
+			}
+		} else if (req.body.userIDs) {
+			for (const bot of bots) {
+				const updatedUserIds = await utils.processFromOlympeUserId(req.body.userIDs, bot);
+				if (Array.isArray(updatedUserIds)) {
+					for (const discordId of updatedUserIds) {
+						const guild = bot.guilds.cache.get(bot.home);
+						const member = guild.members.cache.get(discordId);
+						if (member) await syncMemberPermissions(bot, member, guild);
+					}
+				}
+			}
+		} else {
+			app.warn("No OlympeID's provided", 'PUT_AUTOROLE');
+		}
 
 		// Répondre
 		return {

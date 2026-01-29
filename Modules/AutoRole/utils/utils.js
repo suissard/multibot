@@ -551,12 +551,11 @@ const processFromOlympeTeamId = async (teamId, bot) => {
 		.concat(team.membersLent.map((m) => m.member))
 		.filter((olympeMember) => olympeMember.user.thirdparties?.discord?.discordID)
 		.map((olympeMember) => bot.olympe.users[olympeMember.user.thirdparties.discord.discordID]);
-	if (!users.length) return false;
 	for (let user of users) {
 		if (!user) continue;
 		processUser(user, guild, bot);
 	}
-	return true;
+	return users.map(u => u?.userData?.discordUser?.id).filter(id => id);
 };
 
 /**
@@ -567,12 +566,16 @@ const processFromOlympeTeamId = async (teamId, bot) => {
  */
 const processFromOlympeUserId = async (olympeUserId, bot) => {
 	let user = await getUserById(bot, olympeUserId).catch(console.error);
-	if (!user) return false;
+	if (!user) return []; // Return empty array if user not found
 	const userWithTeamData = await bot.olympe.api.users.get(user.id);
 	user.teams = userWithTeamData.teams;
 
-	for (let team of user.teams) await processFromOlympeTeamId(team.id, bot);
-	return true;
+	let processedIds = new Set();
+	for (let team of user.teams) {
+		const ids = await processFromOlympeTeamId(team.id, bot);
+		if (Array.isArray(ids)) ids.forEach(id => processedIds.add(id));
+	}
+	return Array.from(processedIds);
 };
 
 /**
