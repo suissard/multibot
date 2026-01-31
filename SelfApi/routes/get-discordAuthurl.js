@@ -10,7 +10,6 @@ module.exports = {
      * @param {import('../Api')} app - L'instance de l'API principale, utilisée pour obtenir l'URL.
      */
     handler: (req, res, bot, user, app) => {
-        console.log('GET /discord/authurl called');
         return app.getDiscordAuthUrl();
     },
 };
