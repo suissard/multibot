@@ -15,7 +15,7 @@ services:
     container_name: multibot_frontend
     working_dir: /app
     environment:
-      - API_URL=${API_URL}
+      - VUE_APP_VUE_APP_API_URL=${VUE_APP_API_URL}
     depends_on:
       - backend
     volumes:

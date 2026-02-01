@@ -267,7 +267,7 @@ module.exports = class SecretaryManager {
         });
         if (secretaryChannel) {
             if (secretaryChannel.name.startsWith('❌') == false) {
-                secretaryChannel.setName('❌' + secretaryChannel.name.replace(/✅/g, ''));
+                secretaryChannel = await secretaryChannel.setName('❌' + secretaryChannel.name.replace(/✅/g, ''));
             }
             return secretaryChannel;
         }

@@ -32,6 +32,11 @@ module.exports = class Done extends Command {
         let chan = this.channel;
         if (chan.name.startsWith('✅') == false) {
             await chan.setName('✅' + chan.name.replace(/❌/g, ''));
+
+            // Auto-Sort
+            const SecretarySortCommand = require('../Modules/Secretary/SecretarySortCommand.js');
+            SecretarySortCommand.sort(chan.guild).catch(console.error);
+
             return 'Ticket clos ! ✅';
         }
         return 'Le ticket n\'a pas pu être clos ❌';

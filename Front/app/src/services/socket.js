@@ -10,10 +10,10 @@ class SocketService {
         if (this.socket) return;
 
         // Auto-detect based on current window location or fall back to defaults
-        const isDev = process.env.NODE_ENV === 'development';
-        // If in dev mode (npm run serve), the API is likely on localhost:3000 (default) or specified
-        // In prod, it's served from same origin
-        const url = isDev ? 'http://localhost:3000' : window.location.origin;
+        // Use environment variable if available, otherwise fallback to dev/prod defaults
+        const url = process.env.NODE_ENV === 'DEV'
+            ? 'http://localhost:3000'
+            : (process.env.VUE_APP_API_URL || window.location.origin);
 
         const token = localStorage.getItem('api_token');
         this.socket = io(url, {

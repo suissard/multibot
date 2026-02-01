@@ -3,7 +3,9 @@ import axios from 'axios';
 class Route {
     constructor() {
         this.api = axios.create({
-            baseURL: '/api'
+            baseURL: process.env.NODE_ENV === 'DEV'
+                ? 'http://localhost:3000/api'
+                : (process.env.VUE_APP_API_URL ? `${process.env.VUE_APP_API_URL}/api` : '/api')
         });
 
         this.api.interceptors.request.use(config => {

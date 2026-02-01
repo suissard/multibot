@@ -29,10 +29,16 @@ module.exports = class Undone extends Command {
      * @param {object} args - Les arguments de la commande (non utilisés ici).
      * @returns {string} Un message de confirmation ou d'échec.
      */
-    methode(args = {}) {
+    async methode(args = {}) {
         let chan = this.channel;
         if (chan.name.startsWith('❌') == false) {
-            chan.setName('❌' + chan.name.replace(/✅/g, ''));
+            const newName = '❌' + chan.name.replace(/✅/g, '');
+            await chan.setName(newName);
+
+            // Auto-Sort
+            const SecretarySortCommand = require('../Modules/Secretary/SecretarySortCommand.js');
+            SecretarySortCommand.sort(chan.guild).catch(console.error);
+
             return 'Ticket réouvert ! ✅';
         }
         return 'Le ticket n\'a pas pu être réouvert ❌';

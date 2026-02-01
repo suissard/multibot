@@ -15,7 +15,7 @@ module.exports = class SecretarySort extends Command {
         {
             type: 'STRING',
             name: 'type',
-            description: 'Type de tri (alpha par défaut)',
+            description: 'Type de tri (date par défaut)',
             required: false,
             choices: [
                 { name: 'Alphabétique', value: 'alpha' },
@@ -37,29 +37,51 @@ module.exports = class SecretarySort extends Command {
 
     async methode(args = {}) {
         const { interaction } = args;
-        const sortType = interaction.options.getString('type') || 'alpha';
+        const sortType = interaction.options.getString('type') || 'date';
 
         await interaction.deferReply();
+        await this.constructor.sort(interaction.guild, interaction, sortType);
+    }
 
+    /**
+     * Sorts the secretary channels.
+     * @param {Discord.Guild} guild - The guild to sort.
+     * @param {Discord.CommandInteraction} [interaction] - Optional interaction for replies.
+     * @param {string} [sortType='date'] - Sort type: 'alpha' or 'date'.
+     */
+    static async sort(guild, interaction = null, sortType = 'date') {
         try {
             // 1. Config & Target Discovery
-            const secretaryConfig = this.bot.modules.Secretary.secretary;
+            // Access bot from guild.client since we are in a static context or passed guild
+            const bot = guild.client;
+            // Access modules. Assuming bot.modules is accessible.
+            const secretaryConfig = bot.modules?.Secretary?.secretary;
+
             if (!secretaryConfig?.length) {
-                await interaction.editReply("❌ Module Secrétariat inactif ou non configuré.");
-                return;
+                throw new Error("❌ Module Secrétariat inactif ou non configuré.");
             }
 
-            const guildSettings = secretaryConfig.filter(c => c.guild.id === interaction.guild.id);
+
+
+            const notify = async (content) => {
+                // Use standard command feedback if interaction exists
+                if (interaction) await this.sendFeedback(content);
+                // Fallback to log if running in background (Event mode)
+                else bot.log(content, 'SecretarySort');
+            };
+
+            const guildSettings = secretaryConfig.filter(c => c.guild.id === guild.id);
             if (!guildSettings.length) {
-                await interaction.editReply("❌ Aucun secrétariat configuré ici.");
-                return;
+                throw new Error("❌ Aucun secrétariat configuré ici.");
             }
 
             const targetBases = guildSettings.map(c => c.name);
             const allSecretaryCategories = [];
 
-            await interaction.guild.channels.fetch();
-            const allChannels = interaction.guild.channels.cache;
+            // Ensure channels are fetched
+            if (guild.channels.cache.size < guild.channelCount) await guild.channels.fetch();
+
+            const allChannels = guild.channels.cache;
             const addedCatIds = new Set();
             let parentCategory = null; // To deduce permissions for new categories
 
@@ -80,22 +102,57 @@ module.exports = class SecretarySort extends Command {
             }
 
             if (allSecretaryCategories.length === 0) {
-                await interaction.editReply("❌ Aucune catégorie secrétariat trouvée.");
-                return;
+                throw new Error("❌ Aucune catégorie secrétariat trouvée.");
             }
 
             // Sort categories by name to fill them in order (Secretary, Secretary - 1, etc.)
             // Assuming "BaseName" comes before "BaseName - 1"
             allSecretaryCategories.sort((a, b) => a.name.localeCompare(b.name));
 
-            // 2. Gather ALL Text Channels
+            // 2. Gather ALL Text/Announcement Channels
             let globalChannels = [];
             for (const cat of allSecretaryCategories) {
-                const kids = cat.children.cache.filter(c => c.type === Discord.ChannelType.GuildText);
+                const kids = cat.children.cache.filter(c =>
+                    c.type === Discord.ChannelType.GuildText ||
+                    c.type === Discord.ChannelType.GuildAnnouncement ||
+                    c.type === Discord.ChannelType.GuildNews // For older djs compatibility if needed, though usually one is enough
+                );
                 globalChannels.push(...kids.values());
             }
 
-            await interaction.editReply(`🔄 Analyse de ${globalChannels.length} salons dans ${allSecretaryCategories.length} catégories... (Tri Global)`);
+            // 2b. ALSO Gather channels from any existing "Secretary Swap Buffer" to rescue them!
+            const existingBuffers = guild.channels.cache.filter(c =>
+                c.type === Discord.ChannelType.GuildCategory &&
+                c.name.startsWith('Secretary Swap Buffer')
+            );
+
+            for (const [id, buf] of existingBuffers) {
+                const kids = buf.children.cache.filter(c =>
+                    c.type === Discord.ChannelType.GuildText ||
+                    c.type === Discord.ChannelType.GuildAnnouncement ||
+                    c.type === Discord.ChannelType.GuildNews
+                );
+                globalChannels.push(...kids.values());
+                await notify(`🔎 Récupération de ${kids.size} salons errants dans ${buf.name}...`);
+            }
+
+            // 2c. ALSO Gather "Root Orphans" (Channels at the root that look like secretary tickets)
+            // Pattern: Optional status emoji + name + separator + ID (digits)
+            // Regex: /^(?:[✅❌🛑⚠️]\s*)?.*-\d{15,20}$/
+            const orphanRegex = /^(?:[✅❌🛑⚠️]\s*)?.*-\d{15,20}$/;
+
+            const rootOrphans = guild.channels.cache.filter(c =>
+                c.parentId === null &&
+                (c.type === Discord.ChannelType.GuildText || c.type === Discord.ChannelType.GuildAnnouncement) &&
+                orphanRegex.test(c.name)
+            );
+
+            if (rootOrphans.size > 0) {
+                globalChannels.push(...rootOrphans.values());
+                await notify(`🔎 Récupération de ${rootOrphans.size} salons orphelins (Root)...`);
+            }
+
+            await notify(`🔄 Analyse de ${globalChannels.length} salons dans ${allSecretaryCategories.length} catégories... (Tri Global)`);
 
             // 3. Global Sort
             globalChannels.sort((a, b) => {
@@ -108,14 +165,15 @@ module.exports = class SecretarySort extends Command {
                 if (sortType === 'date') {
                     const aTime = a.lastMessageId ? Discord.SnowflakeUtil.timestampFrom(a.lastMessageId) : 0;
                     const bTime = b.lastMessageId ? Discord.SnowflakeUtil.timestampFrom(b.lastMessageId) : 0;
-                    return aTime - bTime; // Ascending (Oldest first)
+                    return bTime - aTime; // Descending (Newest first)
                 } else {
                     return a.name.localeCompare(b.name);
                 }
             });
 
             // 4. Ensure Capacity & Create Categories
-            const MAX = 50;
+            // Reduced to 45 to allow a 5-channel buffer for hidden channels/permissions/race conditions
+            const MAX = 45;
             const neededCategories = Math.ceil(globalChannels.length / MAX) || 1;
 
             // Create extra categories if needed
@@ -126,9 +184,9 @@ module.exports = class SecretarySort extends Command {
                 const baseName = targetBases[0]; // Simplification
                 const newName = `${baseName} - ${newIndex}`;
 
-                await interaction.editReply(`🔨 Création de la catégorie '${newName}' (Manque de place)...`);
+                await notify(`🔨 Création de la catégorie '${newName}' (Manque de place)...`);
 
-                const newCat = await interaction.guild.channels.create({
+                const newCat = await guild.channels.create({
                     name: newName,
                     type: Discord.ChannelType.GuildCategory,
                     position: parentCategory ? parentCategory.position + newIndex : 0,
@@ -140,16 +198,20 @@ module.exports = class SecretarySort extends Command {
 
             // 5. Global Distribution with Buffer
             // We use a temporary buffer category to handle swaps if categories are full
-            let bufferCategory = null;
-
+            let bufferCategories = [];
             const getBuffer = async () => {
-                if (bufferCategory) return bufferCategory;
-                bufferCategory = await interaction.guild.channels.create({
-                    name: 'Secretary Swap Buffer',
+                // Find a buffer with space
+                let availableBuffer = bufferCategories.find(b => b.children.cache.size < 50);
+                if (availableBuffer) return availableBuffer;
+
+                // Create new buffer
+                const newBuffer = await guild.channels.create({
+                    name: `Secretary Swap Buffer ${bufferCategories.length + 1}`,
                     type: Discord.ChannelType.GuildCategory,
-                    permissionOverwrites: [{ id: interaction.guild.id, deny: ['ViewChannel'] }]
+                    permissionOverwrites: [{ id: guild.id, deny: ['ViewChannel'] }]
                 });
-                return bufferCategory;
+                bufferCategories.push(newBuffer);
+                return newBuffer;
             };
 
             let moves = 0;
@@ -161,7 +223,7 @@ module.exports = class SecretarySort extends Command {
 
                 // Progress Update
                 if (i % 20 === 0) {
-                    await interaction.editReply(`🔄 Réorganisation... ${i}/${globalChannels.length} (Moves: ${moves})`);
+                    await notify(`🔄 Réorganisation... ${i}/${globalChannels.length} (Moves: ${moves})`);
                 }
 
                 if (channel.parentId !== targetCat.id) {
@@ -179,17 +241,16 @@ module.exports = class SecretarySort extends Command {
                         const victim = targetCat.children.cache.find(c => !protectedIds.has(c.id));
 
                         if (victim) {
-                            const buf = await getBuffer();
+
                             // Check buffer size! (Limit 50)
-                            // If buffer full, we are in trouble. But buffer shouldn't get that full if we pull from it too.
-                            // Actually channels in buffer are "pending". They will be valid `channel` in future iterations.
-                            // If we have > 50 pending, we need array of buffers.
-                            if (buf.children.cache.size >= MAX) {
-                                // Create another buffer? Or just crash?
-                                // Realistically users won't have 50 off-place channels accumulating... hopefully.
-                                // For now, let's assume one buffer is enough, or log warning.
-                                console.warn("Secretary Buffer Full! This might fail.");
+                            // We now have dynamic buffers, so just asking for getBuffer() will give us a valid one with space.
+                            const buf = await getBuffer();
+
+                            if (buf.children.cache.size >= 50) {
+                                // Should not happen with new logic, but safety check
+                                bot.error("Secretary Buffer Full despite dynamic creation!", 'SecretarySort');
                             }
+
                             await victim.setParent(buf, { lockPermissions: false });
                         }
                     }
@@ -199,27 +260,39 @@ module.exports = class SecretarySort extends Command {
                         await channel.setParent(targetCat, { lockPermissions: false });
                         moves++;
                     } catch (e) {
-                        console.error(`Failed to move ${channel.name} to ${targetCat.name}:`, e);
+                        bot.error(`Failed to move ${channel.name} to ${targetCat.name}: ${e}`, 'SecretarySort');
                     }
                 }
             }
 
             // 6. Cleanup & Sort Positions
-            // Delete buffer if empty
-            if (bufferCategory) {
-                if (bufferCategory.children.cache.size === 0) {
-                    await bufferCategory.delete();
+            // 6. Cleanup & Sort Positions
+            // Systematic Cleanup: Find ALL categories named 'Secretary Swap Buffer' (current or old) and delete them.
+            // This ensures self-healing from previous crashes.
+
+            const allBufferCategories = guild.channels.cache.filter(c =>
+                c.type === Discord.ChannelType.GuildCategory &&
+                c.name.startsWith('Secretary Swap Buffer')
+            );
+
+            for (const [id, buf] of allBufferCategories) {
+                if (buf.children.cache.size > 0) {
+                    bot.error(`⛔ SKIPPING DELETE for ${buf.name}: It still contains ${buf.children.cache.size} channels! (Should have been moved)`, 'SecretarySort');
+                    // Verify contents
+                    bot.log(`Stuck channels: ${buf.children.cache.map(c => c.name).join(', ')}`, 'SecretarySort');
                 } else {
-                    // Should be empty by logic (all globalChannels processed)
-                    // Unless there were orphan channels we didn't track?
-                    // We filtered `globalChannels` from known categories.
-                    // If we evicted something that WAS in a secretary category but NOT in `globalChannels`?
-                    // Impossible, `globalChannels` gathered everything.
+                    try {
+                        await buf.delete();
+                        bot.log(`🗑️ Deleted buffer: ${buf.name}`, 'SecretarySort');
+                    } catch (e) {
+                        bot.error(`❌ Failed to delete buffer ${buf.name}: ${e}`, 'SecretarySort');
+                    }
                 }
             }
 
             // Internal Position Sort
-            await interaction.editReply("🔄 Finalisation du tri (Positions)...");
+            await notify("🔄 Finalisation du tri (Positions)...");
+
             for (let cIdx = 0; cIdx < allSecretaryCategories.length; cIdx++) {
                 const cat = allSecretaryCategories[cIdx];
                 // Channels belonging here
@@ -233,17 +306,19 @@ module.exports = class SecretarySort extends Command {
                 }));
 
                 try {
-                    await interaction.guild.channels.setPositions(updates);
+                    await guild.channels.setPositions(updates);
                 } catch (e) {
-                    console.error("Position sync failed:", e);
+                    bot.error(`Position sync failed: ${e}`, 'SecretarySort');
                 }
             }
 
-            await interaction.editReply(`✅ **Tri Global Terminé !**\n${globalChannels.length} salons réorganisés dans ${allSecretaryCategories.length} catégories.\n(${moves} déplacements effectués).`);
+
+
+            await notify(`✅ **Tri Global Terminé !**\n${globalChannels.length} salons réorganisés dans ${allSecretaryCategories.length} catégories.\n(${moves} déplacements effectués).`);
 
         } catch (e) {
-            console.error(e);
-            await interaction.editReply("❌ Erreur critique : " + e.message);
+            bot.error(e, 'SecretarySort');
+            await notify(`❌ Erreur critique : ${e.message}`);
         }
     }
 };

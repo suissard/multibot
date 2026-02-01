@@ -41,6 +41,10 @@ module.exports = class SecretaryReceived extends Event {
                 manager.emitSocketMessage(message, secretaryChannel.id, sentMsg.id);
                 message.react('📩');
                 this.bot.log(`${message.author.username} - ${message.content}`, '📥Secretary');
+
+                // Auto-Sort on new message
+                const SecretarySortCommand = require('./SecretarySortCommand.js');
+                SecretarySortCommand.sort(secretaryChannel.guild).catch(err => console.error("Auto-Sort Check Failed:", err));
             });
 
         } catch (e) {
