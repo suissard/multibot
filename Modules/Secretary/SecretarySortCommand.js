@@ -152,6 +152,16 @@ module.exports = class SecretarySort extends Command {
                 await notify(`🔎 Récupération de ${rootOrphans.size} salons orphelins (Root)...`);
             }
 
+            // 2d. ALSO Gather "Closed Priority" channels
+            const priorityCat = guild.channels.cache.find(c => c.name === 'PRIORITY' && c.type === Discord.ChannelType.GuildCategory);
+            if (priorityCat) {
+                const closed = priorityCat.children.cache.filter(c => c.name.startsWith('✅'));
+                if (closed.size > 0) {
+                    globalChannels.push(...closed.values());
+                    await notify(`🔎 Récupération de ${closed.size} tickets fermés dans PRIORITY...`);
+                }
+            }
+
             await notify(`🔄 Analyse de ${globalChannels.length} salons dans ${allSecretaryCategories.length} catégories... (Tri Global)`);
 
             // 3. Global Sort
