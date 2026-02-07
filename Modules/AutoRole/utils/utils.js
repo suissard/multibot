@@ -10,6 +10,8 @@ const simultaneousRequest = require('../../../Tools/simultaneousRequest.js');
 const ProgressBar = require('../../../Tools/progressBar.js');
 const ChallengesRolesId = require('../models/ChallengesRolesId.js');
 const { roleCategories, clubRolesList, managerRolesList, coachRolesList } = require('./constants');
+const DiscordCallService = require('../../../services/DiscordCallService');
+
 
 const progressBarRefreshRate = 5000;
 
@@ -83,11 +85,11 @@ const renameDiscordUserWithOlympeData = async (olympeMember, teamName, discordUs
 		if (discordUser.nickname === name) {
 			return 'same';
 		}
-
-		await discordUser.setNickname(name);
-		return 'update';
+		const oldNickname = discordUser.nickname;
+		await DiscordCallService.setNickname(discordUser, name);
+		return `${oldNickname} -> ${name}`;
 	} catch (error) {
-		return error.message;
+		return '❌ ' + error.message;
 	}
 };
 
@@ -174,7 +176,7 @@ const changeDiscordRole = async (
 		);
 
 		if (rolesIdToRemove.length) {
-			await discordUser.roles.remove(rolesIdToRemove);
+			await DiscordCallService.removeRole(discordUser, rolesIdToRemove);
 		}
 
 		roleIdToAdd = roleIdToAdd.filter(
@@ -182,12 +184,13 @@ const changeDiscordRole = async (
 		);
 
 		if (roleIdToAdd.length) {
-			await discordUser.roles.add(roleIdToAdd);
+			await DiscordCallService.addRole(discordUser, roleIdToAdd);
 		}
 
-		return [roleIdToAdd, rolesIdToRemove];
+		// renvois le nom des roles
+		return [roleIdToAdd.map((id) => guild.roles.cache.get(id)?.name), rolesIdToRemove.map((id) => guild.roles.cache.get(id)?.name)];
 	} catch (e) {
-		return e.message;
+		return '❌ ' + e.message;
 	}
 };
 
@@ -383,14 +386,19 @@ const processTeamMember = async (team, member, guild, bot) => {
 	}
 
 	addOlympeUserData(member, team, bot);
-	let discordUser = guild.members.cache.get(member.user.thirdparties.discord.discordID);
+	// let discordUser = guild.members.cache.get(member.user.thirdparties.discord.discordID);
 
-	if (!discordUser) {
-		discordUser = await guild.members
-			.fetch(member.user.thirdparties.discord.discordID)
-			.catch((_) => null);
-		if (!discordUser) return
-	}
+	// if (!discordUser) {
+	// 	discordUser = await guild.members
+	// 		.fetch(member.user.thirdparties.discord.discordID)
+	// 		.catch((_) => null);
+	//     if (!discordUser) return
+	// }
+
+	if (!member.user.thirdparties.discord.discordID) return;
+
+	let discordUser = await DiscordCallService.fetchMember(guild, member.user.thirdparties.discord.discordID).catch((_) => null);
+	if (!discordUser) return;
 
 	let userData = bot.olympe.users[discordUser.id].userData;
 
@@ -481,12 +489,17 @@ const processUser = async (user, guild, bot) => {
 		bot.olympe.challengesRolesId.getAllIds()
 	));
 
-	renameResult = renameResult === 'same' ? '' : renameResult === "update" ? renameResult : '❌ ' + renameResult;
-	addRoleResult = addRoleResult[0].length + addRoleResult[1].length ? '❌ ' + addRoleResult : '';
+	renameResult = renameResult === 'same' ? '' : renameResult === "update" ? renameResult : renameResult;
+	// Le resultat est soit un tableau, quand c'est sans erreur, ou alrso un texte d'erreur
+	if (Array.isArray(addRoleResult)) {
+		addRoleResult = addRoleResult[0].length + addRoleResult[1].length ? 'addRole (+' + addRoleResult[0].join(',+') + ',-' + addRoleResult[1].join(',-') + ')' : '';
+	} else {
+		addRoleResult = addRoleResult ? 'addRole (' + addRoleResult + ')' : '';
+	}
 
-	if (renameResult || addRoleResult) {
+	if (renameResult !== "" || addRoleResult!== "") {
 		bot.log(
-			`${olympeMember.user.username} (${discordUser.user.tag}) : ${renameResult ? 'rename (' + renameResult + ')' : ''} ${addRoleResult ? 'addRole (' + addRoleResult + ')' : ''}`,
+			`${olympeMember.user.username} (${discordUser.user.tag}) : ${renameResult ? 'rename (' + renameResult + ')' : ''} ${addRoleResult}`,
 			'autorole'
 		);
 		return true;
@@ -551,12 +564,11 @@ const processFromOlympeTeamId = async (teamId, bot) => {
 		.concat(team.membersLent.map((m) => m.member))
 		.filter((olympeMember) => olympeMember.user.thirdparties?.discord?.discordID)
 		.map((olympeMember) => bot.olympe.users[olympeMember.user.thirdparties.discord.discordID]);
-	if (!users.length) return false;
 	for (let user of users) {
 		if (!user) continue;
 		processUser(user, guild, bot);
 	}
-	return true;
+	return users.map(u => u?.userData?.discordUser?.id).filter(id => id);
 };
 
 /**
@@ -567,12 +579,16 @@ const processFromOlympeTeamId = async (teamId, bot) => {
  */
 const processFromOlympeUserId = async (olympeUserId, bot) => {
 	let user = await getUserById(bot, olympeUserId).catch(console.error);
-	if (!user) return false;
+	if (!user) return []; // Return empty array if user not found
 	const userWithTeamData = await bot.olympe.api.users.get(user.id);
 	user.teams = userWithTeamData.teams;
 
-	for (let team of user.teams) await processFromOlympeTeamId(team.id, bot);
-	return true;
+	let processedIds = new Set();
+	for (let team of user.teams) {
+		const ids = await processFromOlympeTeamId(team.id, bot);
+		if (Array.isArray(ids)) ids.forEach(id => processedIds.add(id));
+	}
+	return Array.from(processedIds);
 };
 
 /**

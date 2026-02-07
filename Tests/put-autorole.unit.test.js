@@ -31,7 +31,7 @@ describe('put-autorole route handler', () => {
         }
     });
 
-    it('should trigger processFromOlympeTeamId when teamIDs provided', () => {
+    it('should trigger processFromOlympeTeamId when teamIDs provided', async () => {
         const req = {
             body: {
                 organization: 'org1',
@@ -48,13 +48,13 @@ describe('put-autorole route handler', () => {
             ])
         };
 
-        const result = handler(req, res, null, null, app);
+        const result = await handler(req, res, null, null, app);
 
         expect(utils.processFromOlympeTeamId).toHaveBeenCalled();
         expect(result).toEqual({ message: 'Data received' });
     });
 
-    it('should trigger processFromOlympeUserId when userIDs provided', () => {
+    it('should trigger processFromOlympeUserId when userIDs provided', async () => {
         const req = {
             body: {
                 organization: 'org1',
@@ -69,8 +69,78 @@ describe('put-autorole route handler', () => {
             ])
         };
 
-        handler(req, {}, null, null, app);
+        await handler(req, {}, null, null, app);
 
         expect(utils.processFromOlympeUserId).toHaveBeenCalledWith(['user1'], expect.anything());
+    });
+
+    it('should deduce bot from x-domain and log', async () => {
+        const req = {
+            body: {
+                organization: 'org1', // might be ignored in log now, we use x-domain or domain variable
+                teamIDs: ['team1']
+            },
+            headers: {
+                'x-domain': 'org1'
+            }
+        };
+        const channelMock = {
+            send: vi.fn().mockResolvedValue(true)
+        };
+        const botMock = {
+            modules: { AutoRole: { organization: 'org1' } },
+            channels: {
+                fetch: vi.fn().mockResolvedValue(channelMock)
+            },
+            home: 'guild1',
+            guilds: { cache: { get: () => ({ members: { cache: { get: () => null } } }) } }
+        };
+        const app = {
+            debug: vi.fn(),
+            warn: vi.fn(),
+            error: vi.fn(),
+            autoRoleLogChannelId: '12345',
+            BOTS: new Map([['bot1', botMock]])
+        };
+
+        await handler(req, {}, null, null, app);
+
+        expect(botMock.channels.fetch).toHaveBeenCalledWith('12345');
+        expect(channelMock.send).toHaveBeenCalled();
+        expect(channelMock.send.mock.calls[0][0]).toContain('Organization: org1');
+    });
+
+    it('should fallback to autoRoleLogBotId if deduction fails', async () => {
+        const req = {
+            body: {
+                organization: 'org1',
+                teamIDs: ['team1']
+            },
+            headers: {} // No x-domain
+        };
+        const channelMock = {
+            send: vi.fn().mockResolvedValue(true)
+        };
+        const botMock = {
+            modules: { AutoRole: { organization: 'org1' } },
+            channels: {
+                fetch: vi.fn().mockResolvedValue(channelMock)
+            },
+            home: 'guild1',
+            guilds: { cache: { get: () => ({ members: { cache: { get: () => null } } }) } }
+        };
+        const app = {
+            debug: vi.fn(),
+            warn: vi.fn(),
+            error: vi.fn(),
+            autoRoleLogChannelId: '12345',
+            autoRoleLogBotId: 'bot1',
+            BOTS: new Map([['bot1', botMock]])
+        };
+
+        await handler(req, {}, null, null, app);
+
+        expect(botMock.channels.fetch).toHaveBeenCalledWith('12345');
+        expect(channelMock.send).toHaveBeenCalled();
     });
 });

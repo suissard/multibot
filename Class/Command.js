@@ -279,7 +279,10 @@ module.exports = class Commande {
 			guild,
 			channel,
 			user,
-			member
+			user,
+			member,
+			null,
+			app
 		);
 		try {
 			this.log({ user, guild, channel: channel, id: 'api' });
@@ -332,12 +335,13 @@ module.exports = class Commande {
 	 * @param {Discord.User} user
 	 * @param {Discord.GuildMember} member
 	 */
-	setCommunicationData(guild, channel, user, member, interaction = null) {
+	setCommunicationData(guild, channel, user, member, interaction = null, app = null) {
 		this.guild = guild;
 		this.channel = channel;
 		this.user = user;
 		this.member = member;
 		this.interaction = interaction;
+		this.apiApp = app;
 	}
 
 	/**
@@ -484,6 +488,45 @@ module.exports = class Commande {
 
 			res(msgUpdate);
 		});
+	}
+
+	/**
+	 * Envoie un feedback à l'utilisateur (Discord ou Web)
+	 * @param {string|object} data - Le contenu du feedback
+	 */
+	async sendFeedback(data) {
+		// Normaliser le contenu si c'est juste une string
+		const content = typeof data === 'string' ? { content: data } : data;
+
+		try {
+			// Cas Discord Interaction
+			if (this.interaction) {
+				if (this.interaction.replied || this.interaction.deferred) {
+					await this.interaction.editReply(content);
+				} else {
+					await this.interaction.reply(content);
+				}
+			}
+			// Cas API / Websocket
+			else if (this.apiApp && this.user) {
+				const sockets = this.apiApp.getUserSockets(this.user.id);
+				if (sockets) {
+					// On envoie à tous les sockets connectés de cet utilisateur
+					for (const socketId of sockets) {
+						this.apiApp.io.to(socketId).emit('commandStatus', {
+							command: this.id,
+							data: data
+						});
+					}
+				}
+			}
+			// Cas message classique Discord (si ni interaction ni API, mais channel présent)
+			else if (this.channel) {
+				await this.channel.send(content);
+			}
+		} catch (e) {
+			console.error(`Erreur lors de l'envoi du feedback pour la commande ${this.id}`, e);
+		}
 	}
 
 	/**
