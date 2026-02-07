@@ -51,6 +51,8 @@ Liste d'événements non autorisés
 
 Liste des commandes non autorisées
 
+Couleur de log du bot
+
 Connexion du bot à l'API Discord avec le token fourni
 
 Redémarrrer le bot
@@ -67,16 +69,15 @@ Vérifie l'accès à des éléments Discord (serveur, salon, message) et les ret
 
 **Returns:** `Promise<false|{guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}>` - objet contenant les éléments trouvés, ou `false` si un élément requis n'est pas accessible.
 
-Met la référence et le contenu au bon format
+Génère une couleur ANSI basée sur le nom du bot
 
 **Parameters:**
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| `content` | `String || Error` |  |
-| `reference` | `String` |  |
+| `name` | `string` |  |
 
-**Returns:** `` - 
+**Returns:** `string` - couleur ANSI
 
 Diffuse un log
 
@@ -86,6 +87,15 @@ Diffuse un log
 | ---- | ---- | ----------- |
 | `content` | `String` |  |
 | `reference` | `String` |  |
+
+Diffuse un log
+
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `content` | `string` |  |
+| `reference` | `string` |  |
 
 Diffuse une erreur
 

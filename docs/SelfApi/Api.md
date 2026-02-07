@@ -76,9 +76,26 @@ Extrait le code d'autorisation Discord des paramètres de la requête.
 
 **Returns:** `string` - code d'autorisation.
 
-Génère un token d'API unique en utilisant UUID v4.
+Génère un token signé contenant les données de l'utilisateur.
 
-**Returns:** `string` - token généré.
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `userData` | `object` | - Les données de l'utilisateur. |
+| `accessToken` | `string` | - Le token d'accès Discord. |
+
+**Returns:** `string` - token signé (base64.signature).
+
+Vérifie un token signé et retourne son payload si valide.
+
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `token` | `string` | - Le token signé. |
+
+**Returns:** `object|null` - payload décodé ou null si invalide.
 
 Échange un code d'autorisation Discord contre un jeton d'accès.
 
@@ -146,6 +163,16 @@ Construit et retourne l'URL d'autorisation OAuth2 de Discord.
 
 **Returns:** `string` - d'autorisation.
 
+Retourne les sockets connectés pour un utilisateur donné.
+
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `userId` | `string` | - L'ID de l'utilisateur Discord. |
+
+**Returns:** `Set<string>|null` - Set d'IDs de sockets ou null si aucun.
+
 Remonte une donnée depuis un objet, en se basant sur une url
 
 **Parameters:**
@@ -191,4 +218,62 @@ Initialise toutes les routes définies dans le répertoire `routes`.
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | `routesArg` | `object` | - Arguments supplémentaires à passer au créateur de routes. |
+
+Formate un message de log avec une référence et une couleur spécifique.
+
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `content` | `string` | - Le message à logger. |
+| `reference` | `string` | - La référence du log (ex: NOM_DE_ROUTE). |
+| `` | `string` |  |
+| `prefix` | `string` | - Préfixe du log. |
+
+**Returns:** `string` - message formaté.
+
+Log un message d'information.
+
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `content` | `string` | - Le message à logger. |
+| `reference` | `string` | - La référence du log. |
+
+Log un message de stuccès.
+
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `content` | `string` | - Le message à logger. |
+| `reference` | `string` | - La référence du log. |
+
+Log une erreur.
+
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `content` | `string|Error` | - L'erreur à logger. |
+| `reference` | `string` | - La référence du log. |
+
+Log un avertissement.
+
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `content` | `string` | - L'avertissement à logger. |
+| `reference` | `string` | - La référence du log. |
+
+Log un message de debug.
+
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `content` | `string` | - Le message de debug. |
+| `reference` | `string` | - La référence du log. |
 

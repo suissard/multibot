@@ -6,6 +6,7 @@ layout: default
 # Plan du site
 
 * **Class**
+  * [ApiCallQueue.js](./Class/ApiCallQueue.html)
   * [Bot.js](./Class/Bot.html)
   * [BotManager.js](./Class/BotManager.html)
   * [Command.js](./Class/Command.html)
@@ -32,6 +33,7 @@ layout: default
   * [piece.js](./Commandes/piece.html)
   * [ping.js](./Commandes/ping.html)
   * [privacypolicy.js](./Commandes/privacypolicy.html)
+  * [refresh.js](./Commandes/refresh.html)
   * [register-slash-commands.js](./Commandes/register-slash-commands.html)
   * [restart.js](./Commandes/restart.html)
   * [say.js](./Commandes/say.html)
@@ -91,9 +93,15 @@ layout: default
     * [validatorClass.js](./Modules/MatchNotifier/validatorClass.html)
   * [ModuleConfigValidator.js](./Modules/ModuleConfigValidator.html)
   * **Secretary**
+    * [BackupSecretaryCommand.js](./Modules/Secretary/BackupSecretaryCommand.html)
     * [MessageCheckSecretary.js](./Modules/Secretary/MessageCheckSecretary.html)
     * [ReadyCreateSecretary.js](./Modules/Secretary/ReadyCreateSecretary.html)
-    * [Secretary.js](./Modules/Secretary/Secretary.html)
+    * [SecretaryManager.js](./Modules/Secretary/SecretaryManager.html)
+    * [SecretaryMessageDelete.js](./Modules/Secretary/SecretaryMessageDelete.html)
+    * [SecretaryMessageUpdate.js](./Modules/Secretary/SecretaryMessageUpdate.html)
+    * [SecretaryReceived.js](./Modules/Secretary/SecretaryReceived.html)
+    * [SecretarySent.js](./Modules/Secretary/SecretarySent.html)
+    * [SecretarySortCommand.js](./Modules/Secretary/SecretarySortCommand.html)
     * [index.js](./Modules/Secretary/index.html)
     * [validatorClass.js](./Modules/Secretary/validatorClass.html)
   * **ShareChannel**
@@ -120,4 +128,7 @@ layout: default
 * **Tools**
   * [MultiBotMessageEmbed.js](./Tools/MultiBotMessageEmbed.html)
   * [findRoleFromName.js](./Tools/findRoleFromName.html)
+  * [progressBar.js](./Tools/progressBar.html)
   * [teamManager.js](./Tools/teamManager.html)
+* **services**
+  * [geminiService.js](./services/geminiService.html)
