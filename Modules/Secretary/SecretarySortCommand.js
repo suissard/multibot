@@ -127,11 +127,8 @@ module.exports = class SecretarySort extends Command {
             );
 
             for (const [id, buf] of existingBuffers) {
-                const kids = buf.children.cache.filter(c =>
-                    c.type === Discord.ChannelType.GuildText ||
-                    c.type === Discord.ChannelType.GuildAnnouncement ||
-                    c.type === Discord.ChannelType.GuildNews
-                );
+                // CAPTURE ALL CHANNELS, whatever the type, to rescue them!
+                const kids = buf.children.cache;
                 globalChannels.push(...kids.values());
                 await notify(`🔎 Récupération de ${kids.size} salons errants dans ${buf.name}...`);
             }
@@ -152,14 +149,22 @@ module.exports = class SecretarySort extends Command {
                 await notify(`🔎 Récupération de ${rootOrphans.size} salons orphelins (Root)...`);
             }
 
-            // 2d. ALSO Gather "Closed Priority" channels
-            const priorityCat = guild.channels.cache.find(c => c.name === 'PRIORITY' && c.type === Discord.ChannelType.GuildCategory);
-            if (priorityCat) {
-                const closed = priorityCat.children.cache.filter(c => c.name.startsWith('✅'));
-                if (closed.size > 0) {
-                    globalChannels.push(...closed.values());
-                    await notify(`🔎 Récupération de ${closed.size} tickets fermés dans PRIORITY...`);
-                }
+            // 2d. Gather Closed Tickets from Priority Categories (🔴)
+            // We rescue tickets marked as done (✅) from priority categories to sort them back into normal archive.
+            const priorityCategories = guild.channels.cache.filter(c =>
+                c.type === Discord.ChannelType.GuildCategory && c.name.startsWith('🔴')
+            );
+
+            for (const [id, pCat] of priorityCategories) {
+                 const closedTickets = pCat.children.cache.filter(c =>
+                     (c.type === Discord.ChannelType.GuildText || c.type === Discord.ChannelType.GuildAnnouncement) &&
+                     c.name.startsWith('✅') &&
+                     orphanRegex.test(c.name)
+                 );
+                 if (closedTickets.size > 0) {
+                     globalChannels.push(...closedTickets.values());
+                     await notify(`🔎 Récupération de ${closedTickets.size} tickets clos dans ${pCat.name}...`);
+                 }
             }
 
             await notify(`🔄 Analyse de ${globalChannels.length} salons dans ${allSecretaryCategories.length} catégories... (Tri Global)`);
@@ -287,16 +292,35 @@ module.exports = class SecretarySort extends Command {
 
             for (const [id, buf] of allBufferCategories) {
                 if (buf.children.cache.size > 0) {
-                    bot.error(`⛔ SKIPPING DELETE for ${buf.name}: It still contains ${buf.children.cache.size} channels! (Should have been moved)`, 'SecretarySort');
-                    // Verify contents
-                    bot.log(`Stuck channels: ${buf.children.cache.map(c => c.name).join(', ')}`, 'SecretarySort');
-                } else {
+                    bot.error(`⛔ Buffer ${buf.name} still has ${buf.children.cache.size} channels! Rescuing them...`, 'SecretarySort');
+
+                    // Rescue Strategy: Move to the last active secretary category
+                    // If no category exists (weird), we can't do much, but we have strict checks before.
+                    const rescueCat = allSecretaryCategories[allSecretaryCategories.length - 1];
+
+                    if (rescueCat) {
+                        const orphans = buf.children.cache;
+                        for (const [oid, orphan] of orphans) {
+                            try {
+                                await orphan.setParent(rescueCat, { lockPermissions: false });
+                                bot.log(`🚑 Rescued channel ${orphan.name} from ${buf.name} -> ${rescueCat.name}`, 'SecretarySort');
+                            } catch (e) {
+                                bot.error(`❌ FAILED to rescue ${orphan.name}: ${e}`, 'SecretarySort');
+                            }
+                        }
+                    }
+                }
+
+                // Double check before delete (it should be empty now unless rescue failed)
+                if (buf.children.cache.size === 0) {
                     try {
                         await buf.delete();
                         bot.log(`🗑️ Deleted buffer: ${buf.name}`, 'SecretarySort');
                     } catch (e) {
                         bot.error(`❌ Failed to delete buffer ${buf.name}: ${e}`, 'SecretarySort');
                     }
+                } else {
+                    bot.error(`❌ Could not delete ${buf.name}, still contains channels after rescue attempt.`, 'SecretarySort');
                 }
             }
 

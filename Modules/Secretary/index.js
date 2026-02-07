@@ -6,6 +6,7 @@ const SecretaryMessageUpdate = require('./SecretaryMessageUpdate.js');
 const SecretaryMessageDelete = require('./SecretaryMessageDelete.js');
 const BackupSecretaryCommand = require('./BackupSecretaryCommand.js');
 const SecretarySortCommand = require('./SecretarySortCommand.js');
+const PriorityCommand = require('./PriorityCommand.js');
 const SecretaryManager = require('./SecretaryManager.js');
 
 /**
@@ -28,6 +29,7 @@ module.exports = (bot) => {
         SecretaryMessageUpdate,
         SecretaryMessageDelete,
         BackupSecretaryCommand,
-        SecretarySortCommand
+        SecretarySortCommand,
+        PriorityCommand
     };
 };

@@ -2,6 +2,8 @@ const { OlympeApi } = require('olympe-client-api');
 const { processCasterUsers, getCasterTeam, processAllUsers, processAllTeams, processTeamMembers } = require('./utils');
 const simultaneousRequest = require('../../../Tools/simultaneousRequest.js');
 const checkConfigMatch = require('./checkConfig');
+const DiscordCallService = require('../../../services/DiscordCallService');
+
 
 /**
  * Initialise la connexion à l'API Olympe et la stocke dans l'objet bot.
@@ -82,7 +84,8 @@ const deleteAllRole = async (bot, eraseAll = false) => {
 	for (let [id, member] of members) {
 		if (!bot.olympe.users[member.id] || eraseAll) {
 			console.log(`deleteAllRole : ${member.nickname} n'est pas référencé`);
-			await member.roles.remove(bot.olympe.challengesRolesId.getAllIds());
+			//await member.roles.remove(bot.olympe.challengesRolesId.getAllIds());
+			await DiscordCallService.removeRole(member, bot.olympe.challengesRolesId.getAllIds());
 		}
 	}
 };
@@ -123,6 +126,15 @@ const autoRole = async function (bot, guildId) {
 		bot.log(`check pseudo & roles`, 'autorole');
 
 		const users = Object.entries(bot.olympe.users);
+
+		let userWithDiscordId = users.length;
+		let userOnServer = users.filter((u) => u[1].userData?.discordUser).length;
+
+		bot.log(
+			`${userWithDiscordId} users with Discord ID, ${userOnServer} users present on server`,
+			'autorole'
+		);
+
 		await processAllUsers(users, guild, bot);
 
 		bot.log(`done : ${teams.length} teams, ${users.length} users`, 'autorole');

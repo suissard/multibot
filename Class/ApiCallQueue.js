@@ -9,9 +9,9 @@ class ApiCallQueue {
      * @param {number} [concurrency=1] - Nombre d'appels simultanés maximum.
      */
     constructor(delay = 300, concurrency = 1) {
-        if (ApiCallQueue.instance) {
-            return ApiCallQueue.instance;
-        }
+        // if (ApiCallQueue.instance) {
+        //     return ApiCallQueue.instance;
+        // }
 
         this.queue = [];
         this.activeCount = 0;

@@ -5,9 +5,9 @@ describe('ApiCallQueue', () => {
 
     it('should handle high load with concurrency and delays', async () => {
         // Reset Singleton
-        if (ApiCallQueue.instance) {
-            ApiCallQueue.instance = null;
-        }
+        // if (ApiCallQueue.instance) {
+        //     ApiCallQueue.instance = null;
+        // }
 
         // Config: 15ms délai entre appels, 5 concurrents
         const DELAY = 15;
