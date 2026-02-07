@@ -29,6 +29,9 @@ module.exports = class SelfApi {
 		this.token = configs.token;
 		this.hostname = configs.hostname || 'localhost';
 		this.port = configs.port || 3000;
+		this.autoRoleLogChannelId = configs.autoRoleLogChannelId;
+		this.autoRoleLogBotId = configs.autoRoleLogBotId;
+		this.autoRoleLogOrganization = configs.autoRoleLogOrganization;
 		this.discord = discord;
 		this.BOTS = BOTS;
 

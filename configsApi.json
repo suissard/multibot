@@ -9,10 +9,16 @@
 			"discordId": "306395745693597697"
 		}
 	],
+	"autoRoleLogChannelId": "1469676111800696974",
+	"autoRoleLogBotId": "808022219635949608",
+	"autoRoleLogOrganization": "www.playallforone.com",
 	"discord": {
 		"clientId": "417260981337456641",
 		"clientSecret": "6dKOwgEy_KOrApzRKLv-KyCj7R8emXXV",
 		"redirectUrl": "http://localhost:8080/auth/callback",
-		"scope": ["identify", "guilds"]
+		"scope": [
+			"identify",
+			"guilds"
+		]
 	}
 }

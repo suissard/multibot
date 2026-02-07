@@ -21,8 +21,13 @@ const managerRolesList = ['manager', 'assistant manager'];
 const coachRolesList = ['head coach', 'mental coach'];
 
 const apiQueueConfig = {
-    delay: 500,
-    concurrency: 1
+    delay: 200,
+    concurrency: 4
+};
+
+const discordQueueConfig = {
+    delay: 200,
+    concurrency: 4
 };
 
 module.exports = {
@@ -31,5 +36,6 @@ module.exports = {
     clubRolesList,
     managerRolesList,
     coachRolesList,
-    apiQueueConfig
+    apiQueueConfig,
+    discordQueueConfig
 };
