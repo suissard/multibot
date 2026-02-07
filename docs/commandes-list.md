@@ -18,6 +18,7 @@ layout: default
 * [numberOfChans](./Commandes/numberOfChans.html)
 * [piece](./Commandes/piece.html)
 * [ping](./Commandes/ping.html)
+* [priority](./Commandes/priority.html)
 * [privacypolicy](./Commandes/privacypolicy.html)
 * [refresh](./Commandes/refresh.html)
 * [register-slash-commands](./Commandes/register-slash-commands.html)

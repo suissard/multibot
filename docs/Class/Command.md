@@ -131,6 +131,14 @@ Affiche un message se mettant a jour en fonction de l'avancée de la commande
 | `mapFunction` | `function` | Fonction a utiliser sur chaque entrée du Array fournit |
 | `errorFunc` | `function` | Fonction a utiliser sur les erreurs |
 
+Envoie un feedback à l'utilisateur (Discord ou Web)
+
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `data` | `string|object` | - Le contenu du feedback |
+
 receptionne les erreurs issue de la commande
 
 **Parameters:**

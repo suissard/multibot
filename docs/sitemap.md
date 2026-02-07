@@ -32,6 +32,7 @@ layout: default
   * [numberOfChans.js](./Commandes/numberOfChans.html)
   * [piece.js](./Commandes/piece.html)
   * [ping.js](./Commandes/ping.html)
+  * [priority.js](./Commandes/priority.html)
   * [privacypolicy.js](./Commandes/privacypolicy.html)
   * [refresh.js](./Commandes/refresh.html)
   * [register-slash-commands.js](./Commandes/register-slash-commands.html)
@@ -95,6 +96,7 @@ layout: default
   * **Secretary**
     * [BackupSecretaryCommand.js](./Modules/Secretary/BackupSecretaryCommand.html)
     * [MessageCheckSecretary.js](./Modules/Secretary/MessageCheckSecretary.html)
+    * [PriorityCommand.js](./Modules/Secretary/PriorityCommand.html)
     * [ReadyCreateSecretary.js](./Modules/Secretary/ReadyCreateSecretary.html)
     * [SecretaryManager.js](./Modules/Secretary/SecretaryManager.html)
     * [SecretaryMessageDelete.js](./Modules/Secretary/SecretaryMessageDelete.html)

@@ -24,6 +24,15 @@ Trie les tickets du secrétariat (❌ Priority)
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| `type` | `STRING` | Type de tri (alpha par défaut) | No |
+| `type` | `STRING` | Type de tri (date par défaut) | No |
 
-*No JSDoc comments found in this file.*
+Sorts the secretary channels.
+
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `guild` | `Discord.Guild` | - The guild to sort. |
+| `interaction` | `Discord.CommandInteraction` | - Optional interaction for replies. |
+| `sortType` | `string` | - Sort type: 'alpha' or 'date'. |
+
