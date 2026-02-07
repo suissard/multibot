@@ -152,6 +152,24 @@ module.exports = class SecretarySort extends Command {
                 await notify(`🔎 Récupération de ${rootOrphans.size} salons orphelins (Root)...`);
             }
 
+            // 2d. Gather Closed Tickets from Priority Categories (🔴)
+            // We rescue tickets marked as done (✅) from priority categories to sort them back into normal archive.
+            const priorityCategories = guild.channels.cache.filter(c =>
+                c.type === Discord.ChannelType.GuildCategory && c.name.startsWith('🔴')
+            );
+
+            for (const [id, pCat] of priorityCategories) {
+                 const closedTickets = pCat.children.cache.filter(c =>
+                     (c.type === Discord.ChannelType.GuildText || c.type === Discord.ChannelType.GuildAnnouncement) &&
+                     c.name.startsWith('✅') &&
+                     orphanRegex.test(c.name)
+                 );
+                 if (closedTickets.size > 0) {
+                     globalChannels.push(...closedTickets.values());
+                     await notify(`🔎 Récupération de ${closedTickets.size} tickets clos dans ${pCat.name}...`);
+                 }
+            }
+
             await notify(`🔄 Analyse de ${globalChannels.length} salons dans ${allSecretaryCategories.length} catégories... (Tri Global)`);
 
             // 3. Global Sort
