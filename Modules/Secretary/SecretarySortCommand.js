@@ -167,7 +167,7 @@ module.exports = class SecretarySort extends Command {
                  }
             }
 
-            await notify(`🔄 Analyse de ${globalChannels.length} salons dans ${allSecretaryCategories.length} catégories... (Tri Global)`);
+            // await notify(`🔄 Analyse de ${globalChannels.length} salons dans ${allSecretaryCategories.length} catégories... (Tri Global)`);
 
             // 3. Global Sort
             globalChannels.sort((a, b) => {
@@ -237,9 +237,9 @@ module.exports = class SecretarySort extends Command {
                 const targetCat = allSecretaryCategories[targetCatIndex];
 
                 // Progress Update
-                if (i % 20 === 0) {
-                    await notify(`🔄 Réorganisation... ${i}/${globalChannels.length} (Moves: ${moves})`);
-                }
+                // if (i % 20 === 0) {
+                //     await notify(`🔄 Réorganisation... ${i}/${globalChannels.length} (Moves: ${moves})`);
+                // }
 
                 if (channel.parentId !== targetCat.id) {
                     // Check if target is full
@@ -325,7 +325,7 @@ module.exports = class SecretarySort extends Command {
             }
 
             // Internal Position Sort
-            await notify("🔄 Finalisation du tri (Positions)...");
+            // await notify("🔄 Finalisation du tri (Positions)...");
 
             for (let cIdx = 0; cIdx < allSecretaryCategories.length; cIdx++) {
                 const cat = allSecretaryCategories[cIdx];
@@ -348,7 +348,7 @@ module.exports = class SecretarySort extends Command {
 
 
 
-            await notify(`✅ **Tri Global Terminé !**\n${globalChannels.length} salons réorganisés dans ${allSecretaryCategories.length} catégories.\n(${moves} déplacements effectués).`);
+            await notify(`✅ **Tri Global Terminé !** : ${globalChannels.length} salons réorganisés dans ${allSecretaryCategories.length} catégories.\n(${moves} déplacements effectués).`);
 
         } catch (e) {
             bot.error(e, 'SecretarySort');

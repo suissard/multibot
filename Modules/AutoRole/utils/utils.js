@@ -497,13 +497,11 @@ const processUser = async (user, guild, bot) => {
 		addRoleResult = addRoleResult ? 'addRole (' + addRoleResult + ')' : '';
 	}
 
-	if (renameResult !== "" || addRoleResult!== "") {
-		bot.log(
-			`${olympeMember.user.username} (${discordUser.user.tag}) : ${renameResult ? 'rename (' + renameResult + ')' : ''} ${addRoleResult}`,
-			'autorole'
-		);
-		return true;
-	} else return false;
+	if (renameResult !== "" || addRoleResult !== "") {
+		const log = `${olympeMember.user.username} (${discordUser.user.tag}) : ${renameResult ? 'rename (' + renameResult + ')' : ''} ${addRoleResult}`;
+		bot.log(log, 'autorole');
+		return { changed: true, log };
+	} else return { changed: false, log: '' };
 };
 
 // ! mis en asynchrone pour anticiper la nécessité de call api ultérieur
@@ -564,11 +562,19 @@ const processFromOlympeTeamId = async (teamId, bot) => {
 		.concat(team.membersLent.map((m) => m.member))
 		.filter((olympeMember) => olympeMember.user.thirdparties?.discord?.discordID)
 		.map((olympeMember) => bot.olympe.users[olympeMember.user.thirdparties.discord.discordID]);
+	const logs = [];
+	const ids = [];
 	for (let user of users) {
 		if (!user) continue;
-		processUser(user, guild, bot);
+		const result = await processUser(user, guild, bot);
+		if (result && result.changed) {
+			logs.push(result.log);
+		}
+		if (user?.userData?.discordUser?.id) {
+			ids.push(user.userData.discordUser.id);
+		}
 	}
-	return users.map(u => u?.userData?.discordUser?.id).filter(id => id);
+	return { ids, logs };
 };
 
 /**
@@ -584,11 +590,13 @@ const processFromOlympeUserId = async (olympeUserId, bot) => {
 	user.teams = userWithTeamData.teams;
 
 	let processedIds = new Set();
+	let allLogs = [];
 	for (let team of user.teams) {
-		const ids = await processFromOlympeTeamId(team.id, bot);
+		const { ids, logs } = await processFromOlympeTeamId(team.id, bot);
 		if (Array.isArray(ids)) ids.forEach(id => processedIds.add(id));
+		if (Array.isArray(logs)) allLogs = allLogs.concat(logs);
 	}
-	return Array.from(processedIds);
+	return { ids: Array.from(processedIds), logs: allLogs };
 };
 
 /**

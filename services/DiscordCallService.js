@@ -54,7 +54,8 @@ const DiscordCallService = {
      */
     fetchMember: (guild, userId) => {
         if (!userId) return Promise.reject(new Error("fetchMember: userId is required"));
-        return queue.add(() => guild.members.fetch(userId).catch(e => console.warn("fetchMember " + userId + " : " + e.message)));
+        return queue.add(() => guild.members.fetch(userId).catch(e => { }));
+        // return queue.add(() => guild.members.fetch(userId).catch(e => console.warn("fetchMember " + userId + " : " + e.message)));
     }
 };
 

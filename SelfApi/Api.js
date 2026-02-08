@@ -262,9 +262,10 @@ module.exports = class SelfApi {
 	 * - Un token utilisateur valide est requis sauf pour certaines routes (ex: /commands).
 	 * @param {import('express').Request} req - L'objet de la requête Express.
 	 * @param {import('express').Response} res - L'objet de la réponse Express.
+	 * @param {object} [options] - Options de la route (ex: { auth: false }).
 	 * @returns {Promise<{bot: import('../Class/Bot.js'), user: import('discord.js').User}>} L'instance du bot et de l'utilisateur authentifié.
 	 */
-	async authentication(req, res) {
+	async authentication(req, res, options = {}) {
 		const token = req.headers?.authorization?.replace('Bearer ', '');
 		let tokenData;
 
@@ -309,8 +310,13 @@ module.exports = class SelfApi {
 
 
 		if (!tokenData) {
+			// Check options.auth explicitly (strict false check)
+			if (options.auth === false) return { bot };
+
+			// Legacy/Fallback checks (can be removed later if all routes are updated)
 			if (req.url.includes('/commands')) return { bot };
-			if (req.url.includes('/autorole')) return { bot };
+			// if (req.url.includes('/autorole')) return { bot }; // Removed in favor of option
+
 			const err = new Error('Utilisateur non authentifié ou session expirée');
 			err.status = 401;
 			throw err;
@@ -429,13 +435,14 @@ module.exports = class SelfApi {
 	 * @param {string} path - Le chemin de la route (ex: '/commands').
 	 * @param {'get'|'post'|'put'|'delete'} method - La méthode HTTP.
 	 * @param {function} handler - La fonction de gestion de la route.
+	 * @param {object} [options] - Options de la route (ex: { auth: false }).
 	 */
-	setRoute(path, method, handler) {
-		this.routes.set(`${method}--${path}`, { path, method, handler });
+	setRoute(path, method, handler, options = {}) {
+		this.routes.set(`${method}--${path}`, { path, method, handler, options });
 		try {
 			this.router.route(path)[method.toLowerCase()](async (req, res) => {
 				try {
-					let { user, bot } = (await this.authentication(req, res)) || {};
+					let { user, bot } = (await this.authentication(req, res, options)) || {};
 					return handler(req, res, bot, user, this);
 				} catch (e) {
 					this.error(`BUG API ${e.message}\n${e.stack}`);
@@ -456,7 +463,7 @@ module.exports = class SelfApi {
 			const path = require('path');
 			this.app.use(express.static(path.join(__dirname, '../Front/app/dist')));
 		}
-		this.app.use('/api', this.router);
+		this.app.use('', this.router);
 		this.server = this.app.listen(this.port, this.hostname, () => {
 			this.log('démarrée à : http://' + this.hostname + ':' + this.port);
 		});

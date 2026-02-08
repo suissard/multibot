@@ -9,14 +9,16 @@ class Route {
      * @param {string} path - Le chemin de la route (ex: '/commands').
      * @param {'get'|'post'|'put'|'delete'} method - La méthode HTTP.
      * @param {function} handler - La fonction de gestion de la route.
+     * @param {object} [options] - Options supplémentaires pour la route (ex: { auth: false }).
      */
-    constructor(api, path, method, handler) {
+    constructor(api, path, method, handler, options = {}) {
         //Gestion d'errur de config 
         if (!api || !path || !method || !handler) {
             throw new Error('Invalid route configuration');
         }
         this.path = path;
         this.method = method;
+        this.options = options;
 
         // Wrap the handler to provide automatic error handling and response sending
         this.handler = async (req, res, ...args) => {
@@ -38,7 +40,7 @@ class Route {
             }
         };
 
-        api.setRoute(path, method, this.handler);
+        api.setRoute(path, method, this.handler, options);
     }
 }
 

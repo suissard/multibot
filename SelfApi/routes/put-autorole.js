@@ -1,4 +1,5 @@
 const Bot = require('../../Class/Bot.js');
+const { EmbedBuilder } = require('discord.js');
 const utils = require('../../Modules/AutoRole/utils/utils.js');
 /**
  * Route permettant de déclencerh des fonctions de l'autorole
@@ -26,9 +27,12 @@ module.exports = {
 		const { syncMemberPermissions } = require('../../Modules/ChannelManager/utils/channelManagement.js');
 
 		// lancer la fonction autorole lié a une team ou un utilisateur
+		let processLogs = [];
 		if (req.body.teamIDs) {
 			for (const bot of bots) {
-				const updatedUserIds = await utils.processFromOlympeTeamId(req.body.teamIDs, bot);
+				const { ids: updatedUserIds, logs } = await utils.processFromOlympeTeamId(req.body.teamIDs, bot);
+				if (logs && logs.length > 0) processLogs.push(...logs);
+
 				if (Array.isArray(updatedUserIds)) {
 					for (const discordId of updatedUserIds) {
 						const guild = bot.guilds.cache.get(bot.home);
@@ -39,7 +43,9 @@ module.exports = {
 			}
 		} else if (req.body.userIDs) {
 			for (const bot of bots) {
-				const updatedUserIds = await utils.processFromOlympeUserId(req.body.userIDs, bot);
+				const { ids: updatedUserIds, logs } = await utils.processFromOlympeUserId(req.body.userIDs, bot);
+				if (logs && logs.length > 0) processLogs.push(...logs);
+
 				if (Array.isArray(updatedUserIds)) {
 					for (const discordId of updatedUserIds) {
 						const guild = bot.guilds.cache.get(bot.home);
@@ -65,7 +71,7 @@ module.exports = {
 			// If `autoRoleLogOrganization` is provided, I'll check if it matches `req.body.organization`.
 
 			let logBot;
-			const domain = req.headers['x-domain'];
+			const domain = req.body.organization;
 
 			// Deduce bot from x-domain
 			if (domain) {
@@ -87,11 +93,25 @@ module.exports = {
 				if (!app.autoRoleLogOrganization || app.autoRoleLogOrganization === domain) {
 					const logChannel = await logBot.channels.fetch(app.autoRoleLogChannelId).catch(() => null);
 					if (logChannel) {
-						const content = `**AutoRole API Call**
-Organization: ${domain || 'Unknown'}
-Teams: ${req.body.teamIDs ? req.body.teamIDs.join(', ') : 'None'}
-Users: ${req.body.userIDs ? req.body.userIDs.join(', ') : 'None'}`;
-						logChannel.send(content).catch(e => app.error(`Failed to send log: ${e.message}`, 'PUT_AUTOROLE'));
+						const embed = new EmbedBuilder()
+							.setTitle('AutoRole API Call')
+							.setColor('#0099ff')
+							.addFields(
+								{ name: 'Organization', value: domain || 'Unknown', inline: true },
+								{ name: 'Target', value: req.body.teamIDs ? `Teams: ${req.body.teamIDs}` : `Users: ${req.body.userIDs}`, inline: true }
+							)
+							.setTimestamp();
+
+						if (processLogs.length > 0) {
+							// Discord field value limit is 1024 characters
+							const logsText = processLogs.join('\n');
+							const truncatedLogs = logsText.length > 1024 ? logsText.substring(0, 1021) + '...' : logsText;
+							embed.addFields({ name: 'Details', value: truncatedLogs });
+						} else {
+							embed.addFields({ name: 'Details', value: 'No changes detected.' });
+						}
+
+						logChannel.send({ embeds: [embed] }).catch(e => app.error(`Failed to send log: ${e.message}`, 'PUT_AUTOROLE'));
 					} else {
 						app.warn(`Log channel ${app.autoRoleLogChannelId} not found on bot ${logBot.user?.username || logBot.id}`, 'PUT_AUTOROLE');
 					}
@@ -106,4 +126,5 @@ Users: ${req.body.userIDs ? req.body.userIDs.join(', ') : 'None'}`;
 			message: 'Data received',
 		};
 	},
+	auth: false
 };

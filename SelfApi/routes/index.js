@@ -65,6 +65,8 @@ const routes = [
  */
 const createAllRoutes = (api, routesArg) => {
     if (!routesArg) routesArg = routes;
-    for (const { path, method, handler } of routesArg) new Route(api, path, method, handler);
+    for (const routeConfig of routesArg) {
+        new Route(api, routeConfig.path, routeConfig.method, routeConfig.handler, routeConfig);
+    }
 };
 module.exports = { routes, createAllRoutes };
