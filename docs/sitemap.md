@@ -105,6 +105,7 @@ layout: default
     * [SecretarySent.js](./Modules/Secretary/SecretarySent.html)
     * [SecretarySortCommand.js](./Modules/Secretary/SecretarySortCommand.html)
     * [index.js](./Modules/Secretary/index.html)
+    * [priorityCommand.js](./Modules/Secretary/priorityCommand.html)
     * [validatorClass.js](./Modules/Secretary/validatorClass.html)
   * **ShareChannel**
     * [LoadShareChannelsBotsReady.js](./Modules/ShareChannel/LoadShareChannelsBotsReady.html)

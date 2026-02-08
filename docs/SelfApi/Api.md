@@ -136,6 +136,7 @@ Middleware d'authentification centralisé pour les requêtes API. Identifie l'ut
 | ---- | ---- | ----------- |
 | `req` | `import('express').Request` | - L'objet de la requête Express. |
 | `res` | `import('express').Response` | - L'objet de la réponse Express. |
+| `options` | `object` | - Options de la route (ex: { auth: false }). |
 
 **Returns:** `Promise<{bot: import('../Class/Bot.js'), user: import('discord.js').User}>` - du bot et de l'utilisateur authentifié.
 
@@ -210,6 +211,7 @@ Enregistre une nouvelle route dans le routeur Express. Ajoute un wrapper pour g�
 | `path` | `string` | - Le chemin de la route (ex: '/commands'). |
 | `method` | `'get'|'post'|'put'|'delete'` | - La méthode HTTP. |
 | `handler` | `function` | - La fonction de gestion de la route. |
+| `options` | `object` | - Options de la route (ex: { auth: false }). |
 
 Initialise toutes les routes définies dans le répertoire `routes`.
 

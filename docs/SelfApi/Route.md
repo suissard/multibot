@@ -19,4 +19,5 @@ Représente une route de l'API. L'instanciation de cette classe enregistre autom
 | `path` | `string` | - Le chemin de la route (ex: '/commands'). |
 | `method` | `'get'|'post'|'put'|'delete'` | - La méthode HTTP. |
 | `handler` | `function` | - La fonction de gestion de la route. |
+| `options` | `object` | - Options supplémentaires pour la route (ex: { auth: false }). |
 

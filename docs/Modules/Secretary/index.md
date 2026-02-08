@@ -20,4 +20,5 @@ Le module "Secretary" met en place un système de support par message privé. ..
 * [BackupSecretaryCommand](./BackupSecretaryCommand.html)
 * [PriorityCommand](./PriorityCommand.html)
 * [SecretarySortCommand](./SecretarySortCommand.html)
+* [priorityCommand](./priorityCommand.html)
 
