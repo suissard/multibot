@@ -1,4 +1,3 @@
-const BOTS = require('../../Class/BOTS.js');
 const fs = require('fs');
 const path = require('path');
 

@@ -266,7 +266,23 @@ module.exports = class SelfApi {
 	 */
 	async authentication(req, res) {
 		const token = req.headers?.authorization?.replace('Bearer ', '');
-		const tokenData = this.verifyToken(token); // Verify and extract payload
+		let tokenData;
+
+		// Master Token Bypass
+		if (token === this.token) {
+			tokenData = {
+				data: {
+					id: 'system',
+					username: 'System',
+					discriminator: '0000',
+					avatar: null,
+					bot: true,
+					system: true
+				}
+			};
+		} else {
+			tokenData = this.verifyToken(token); // Verify and extract payload
+		}
 
 		if (req.url.includes('/discord/authurl')) return {};
 		if (req.url.includes('/auth')) return {};
@@ -291,8 +307,10 @@ module.exports = class SelfApi {
 			}
 		}
 
+
 		if (!tokenData) {
 			if (req.url.includes('/commands')) return { bot };
+			if (req.url.includes('/autorole')) return { bot };
 			const err = new Error('Utilisateur non authentifié ou session expirée');
 			err.status = 401;
 			throw err;

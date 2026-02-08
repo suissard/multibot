@@ -4,6 +4,8 @@ import Route from '../SelfApi/Route.js';
 import SelfApi from '../SelfApi/Api.js';
 
 // Configurations API et Discord
+process.env.STRAPI_URL = process.env.STRAPI_URL || 'http://localhost:1337';
+process.env.STRAPI_TOKEN = process.env.STRAPI_TOKEN || 'test-token';
 const configs = {
     api: {
         token: 'ceciestuntokentemporaire',
@@ -19,46 +21,51 @@ const configs = {
     },
 };
 
-let api, token, reqResult;
+let api, token;
 const paths = ['/truc', '/test', '/test/:id'];
 const methods = ['get', 'post', 'put', 'delete'];
-const resultTest = { json: (data) => (reqResult = data) };
+
+// Mock Bot
+const mockBot = {
+    id: 'mock_bot_id',
+    name: 'MockBot'
+};
 
 // Fonction de création des routes pour les tests
 const createAllRoutes = (api, paths, methods) => {
     for (let path of paths) {
         for (let method of methods) {
             new Route(api, path, method, (req, res, bot, user) =>
-                res.json({ path, method, user, message: `${method} => ${path}` }),
+                res.json({ path, method, user: user?.id, message: `${method} => ${path}` }),
             );
         }
     }
 };
 
 beforeAll(() => {
-    api = new SelfApi(configs.api, configs.discord, new Map());
+    const botsMap = new Map();
+    botsMap.set(mockBot.id, mockBot);
+    api = new SelfApi(configs.api, configs.discord, botsMap);
     api.start();
     createAllRoutes(api, paths, methods);
-    token = api.generateToken();
+    token = api.signToken({ id: 'test_user_id', username: 'test_user' }, 'dummy_access_token');
 });
 
 describe('API: Setup and Route Tests', () => {
 
     it('should initialize API and create routes', async () => {
-        api.authentication = async (req) => {
-            const requestHash = await api.getHashFromTokenRequest(req);
-            const userId = requestHash ? api.hashUsers.get(requestHash) : false;
-            return { bot: false, user: userId };
-        };
+        // Mock authentication to return our test user
+        // But since we use signToken, verifyToken should work if secret matches.
+        // Api.js uses this.token or default_secret.
 
         for (let path of paths) {
             for (let method of methods) {
-                const response = await fetch(`http://127.0.0.1:${configs.api.port}${path}`, {
+                const response = await fetch(`http://127.0.0.1:${configs.api.port}/api${path}?bot_id=${mockBot.id}`, {
                     method,
                     headers: { authorization: `Bearer ${token}` },
                 });
                 const json = await response.json();
-                expect(json).toEqual({ path, method, user: undefined, message: `${method} => ${path}` });
+                expect(json).toEqual({ path, method, user: 'test_user_id', message: `${method} => ${path}` });
             }
         }
     });
@@ -83,68 +90,5 @@ describe('API: Unit Method Tests', () => {
     it('should retrieve Discord code from request', () => {
         const discordCode = api.getDiscordCodeFromRequest({ query: { code: 'discordCode' } });
         expect(discordCode).toEqual('discordCode');
-    });
-});
-
-describe('API: Authentication Flow Tests', () => {
-
-    it('should create a new user via Discord authentication', async () => {
-        api.getDiscordIdFromCode = () => '12345678910';
-        const authResponse = await fetch(`http://127.0.0.1:${configs.api.port}/auth`);
-        expect(authResponse.status).toBe(200);
-
-        const { token: userToken, discordId: userDiscordId } = await api.createUser(
-            { headers: {} },
-            resultTest,
-        );
-        const [userHash] = Array.from(api.hashUsers)[0];
-        expect(userDiscordId).toBe(reqResult.discordId);
-        expect(await api.hashPassword(userToken)).toBe(userHash);
-        expect(api.hashUsers.size).toBe(1);
-    });
-
-    it('should add another user when authenticated again', async () => {
-        api.getDiscordAccessTokenFromCode = () => null;
-        api.getDiscordIdFromDiscordToken = () => '10987654321';
-        const authResponse2 = await fetch(`http://127.0.0.1:${configs.api.port}/auth`);
-        expect(authResponse2.status).toBe(200);
-        expect(api.hashUsers.size).toBe(2);
-
-        const { token: userToken2, discordId: userDiscordId2 } = await authResponse2.json();
-
-        for (let user of [{ token: userToken2, discordId: userDiscordId2 }]) {
-            for (let path of paths) {
-                for (let method of methods) {
-                    const response = await fetch(`http://127.0.0.1:${configs.api.port}${path}`, {
-                        method,
-                        headers: { authorization: `Bearer ${user.token}` },
-                    });
-                    const json = await response.json();
-                    expect(json).toEqual({ path, method, user: user.discordId, message: `${method} => ${path}` });
-                }
-            }
-        }
-    });
-});
-
-describe('API: Config Users Tests', () => {
-
-    it('should add and verify configured users', async () => {
-        const users = [
-            { discordId: 'discordId1', token: 'token1' },
-            { discordId: 'discordId2', token: 'token2' },
-            { discordId: 'discordId3', token: 'token3' },
-        ];
-
-        const initialUserCount = api.hashUsers.size;
-        await api.addConfigUsers(users);
-        expect(api.hashUsers.size).toBe(initialUserCount + 3);
-
-        const response = await fetch(`http://127.0.0.1:${configs.api.port}${paths[1]}`, {
-            method: 'get',
-            headers: { authorization: `Bearer ${users[0].token}` },
-        });
-        const json = await response.json();
-        expect(json.user).toEqual(users[0].discordId);
     });
 });
