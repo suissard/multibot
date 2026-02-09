@@ -400,7 +400,7 @@ const processTeamMember = async (team, member, guild, bot) => {
 	let discordUser = await DiscordCallService.fetchMember(guild, member.user.thirdparties.discord.discordID).catch((_) => null);
 	if (!discordUser) return;
 
-	let userData = bot.olympe.users[discordUser.id].userData;
+	let userData = bot.olympe.users[discordUser.id]?.userData;
 
 	if (!userData) {
 		userData = { discordUser };

@@ -4,8 +4,8 @@ class Route {
     constructor() {
         this.api = axios.create({
             baseURL: process.env.NODE_ENV === 'DEV'
-                ? 'http://localhost:3000/api'
-                : (process.env.VUE_APP_API_URL ? `${process.env.VUE_APP_API_URL}/api` : '/api')
+                ? 'http://localhost:3000'
+                : (process.env.VUE_APP_API_URL ? `${process.env.VUE_APP_API_URL}` : '')
         });
 
         this.api.interceptors.request.use(config => {

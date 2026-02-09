@@ -438,7 +438,7 @@ module.exports = class SelfApi {
 			const path = require('path');
 			this.app.use(express.static(path.join(__dirname, '../Front/app/dist')));
 		}
-		this.app.use('/api', this.router);
+		this.app.use('', this.router);
 		this.server = this.app.listen(this.port, this.hostname, () => {
 			this.log('démarrée à : http://' + this.hostname + ':' + this.port);
 		});
