@@ -19,6 +19,7 @@ layout: default
   * [Event.js](./Class/Event.html)
   * [EventManager.js](./Class/EventManager.html)
 * **Commandes**
+  * [TicketDevCommand.js](./Commandes/TicketDevCommand.html)
   * [dev.js](./Commandes/dev.html)
   * [done.js](./Commandes/done.html)
   * [event.js](./Commandes/event.html)
