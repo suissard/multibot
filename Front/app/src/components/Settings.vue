@@ -78,7 +78,7 @@ export default {
       this.loading = true;
       this.error = null;
       try {
-        const response = await axios.get('/api/settings', {
+        const response = await axios.get('/settings', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('api_token')}`
           }
@@ -93,7 +93,7 @@ export default {
     },
     async handleSave(updatedSettings) {
       try {
-        await axios.put('/api/settings', updatedSettings, {
+        await axios.put('/settings', updatedSettings, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('api_token')}`
           }

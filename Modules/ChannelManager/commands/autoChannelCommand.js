@@ -32,11 +32,11 @@ class AutoChannelCommand extends Commande {
 	 * @returns {Promise<string>} Un message indiquant que le processus est en cours.
 	 */
 	async methode(args = {}) {
-			autoChannel(this.bot, this.guild).then(() => {
-				this.answerToUser(
-					`AutoChannel terminé !`
-				);
-			});
+		autoChannel(this.bot, this.guild).then(() => {
+			this.answerToUser(
+				`AutoChannel terminé !`
+			);
+		});
 		return `⏳ AutoChannel en cours...`
 	}
 }

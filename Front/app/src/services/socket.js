@@ -12,7 +12,8 @@ class SocketService {
         // Auto-detect based on current window location or fall back to defaults
         // Use environment variable if available, otherwise fallback to dev/prod defaults
         const url = process.env.NODE_ENV === 'DEV'
-            ? 'http://localhost:3000'
+            ? 'https://multibot.api.wekkcorp.eu'
+            // ? 'http://localhost:3000'
             : (process.env.VUE_APP_API_URL || window.location.origin);
 
         const token = localStorage.getItem('api_token');
