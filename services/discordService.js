@@ -218,10 +218,10 @@ const getWebsiteUrl = (bot) => {
 const getOlympeMention = (user, guild) => {
 	const userIsPresent = guild.members.cache.get(user.thirdparties?.discord?.discordID);
 	return `<@${userIsPresent
-			? userIsPresent.id
-			: !user.thirdparties?.discord?.discordID
-				? 'noDiscordSync'
-				: 'NotPresentInGuild'
+		? userIsPresent.id
+		: !user.thirdparties?.discord?.discordID
+			? 'noDiscordSync'
+			: 'NotPresentInGuild'
 		}>`;
 };
 /**
@@ -244,10 +244,17 @@ const getOlympeMention = (user, guild) => {
  */
 const generateMatchMessagePayload = (textChannel, timestamp, teams, casters = null, matchID) => {
 	let embeds = [];
-	let message = `Hey !\nLe match entre **${teams[0].name} ⚔️ ${teams[1].name
-		}**\nse déroule **<t:${timestamp}:R>**\n[Lien vers le match](${getWebsiteUrl(
-			textChannel.client
-		)}/matchs/${matchID})\n\n`;
+	let message = textChannel.client.modules.ChannelManager.notifMessage || `Hey !\nLe match entre **${teams[0].name} ⚔️ ${teams[1].name}**\nse déroule **<t:${timestamp}:R>**\n[Lien vers le match](${getWebsiteUrl(
+		textChannel.client
+	)}/matchs/${matchID})\n\n`;
+
+	message = message
+		.replace('${teams[0].name}', teams[0].name)
+		.replace('${teams[1].name}', teams[1].name)
+		.replace('${timestamp}', timestamp)
+		.replace('${matchID}', matchID)
+		.replace('${url}', getWebsiteUrl(textChannel.client));
+
 	const gradinChannel = textChannel.parent.children.cache.find(c => c.name.startsWith("Gradins"))
 	message +=
 		'⚠️ **Pas d\'accés au channel vocal ? :** Tu peux déplacer tes teammates depuis <#' + gradinChannel + '> vers le channel d\'équipe\n';
@@ -361,7 +368,7 @@ const checkMatchMessage = async (textChannel, timestamp, teams, casters = null, 
 		}
 
 	} catch (error) {
-		textChannel.client.error(`Erreur lors de la vérification du message de match dans ${textChannel.name}:\n`+ error, 'AUTOCHANNEL');
+		textChannel.client.error(`Erreur lors de la vérification du message de match dans ${textChannel.name}:\n` + error, 'AUTOCHANNEL');
 	}
 };
 
@@ -387,7 +394,7 @@ const notifyMatch = async (bot, teams, division, timestamp, casters, channel, ro
 	if (role) message = message.replace('${roleId}', `<@&${roleId}>`);
 	else message = message.replace('${roleId}', '');
 
-	if (casters) {
+	if (casters && casters.length > 0) {
 		let description = '';
 		for (const caster of casters) {
 			description += `🎙️ ${getOlympeMention(caster, channel.guild)} - <${caster.castUrl}>\n`;

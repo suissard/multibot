@@ -15,6 +15,42 @@
       </div>
     </div>
 
+    <!-- Controls: Filter & Sort -->
+    <div
+      class="flex flex-wrap gap-4 mb-6 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
+      <!-- Category Filter -->
+      <div class="flex-1 min-w-[200px]">
+        <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">CATEGORY</label>
+        <select v-model="selectedCategory"
+          class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 py-2 px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+          <option value="">All Categories</option>
+          <option v-for="category in uniqueCategories" :key="category" :value="category">
+            {{ category }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Sort By -->
+      <div class="flex-1 min-w-[200px]">
+        <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">SORT BY</label>
+        <select v-model="sortBy"
+          class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 py-2 px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+          <option value="name">Name</option>
+          <option value="category">Category</option>
+        </select>
+      </div>
+
+      <!-- Sort Order -->
+      <div class="flex items-end">
+        <button @click="toggleSortOrder"
+          class="h-[42px] px-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors flex items-center justify-center gap-2"
+          :title="sortOrder === 'asc' ? 'Ascending' : 'Descending'">
+          <span class="text-sm font-medium">{{ sortOrder === 'asc' ? 'A-Z' : 'Z-A' }}</span>
+          <span class="text-xs">{{ sortOrder === 'asc' ? '↓' : '↑' }}</span>
+        </button>
+      </div>
+    </div>
+
     <!-- Loading -->
     <div v-if="loading" class="flex justify-center items-center h-64">
       <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
@@ -109,22 +145,64 @@ export default {
   name: 'CommandList',
   data() {
     return {
-      searchQuery: ''
+      searchQuery: '',
+      selectedCategory: '',
+      sortBy: 'name', // 'name' | 'category'
+      sortOrder: 'asc' // 'asc' | 'desc'
     };
   },
   computed: {
     ...mapState(useMainStore, ['commands', 'loading', 'selectedBotId']),
+    uniqueCategories() {
+      // Extract unique categories, filter out null/undefined/empty
+      const categories = new Set(this.commands.map(cmd => cmd.category).filter(Boolean));
+      return Array.from(categories).sort();
+    },
     filteredCommands() {
-      if (!this.searchQuery) return this.commands;
-      const query = this.searchQuery.toLowerCase();
-      return this.commands.filter(cmd =>
-        cmd.name.toLowerCase().includes(query) ||
-        (cmd.description && cmd.description.toLowerCase().includes(query))
-      );
+      let result = [...this.commands]; // Create a copy
+
+      // 1. Search Filter
+      if (this.searchQuery) {
+        const query = this.searchQuery.toLowerCase();
+        result = result.filter(cmd =>
+          cmd.name.toLowerCase().includes(query) ||
+          (cmd.description && cmd.description.toLowerCase().includes(query))
+        );
+      }
+
+      // 2. Category Filter
+      if (this.selectedCategory) {
+        result = result.filter(cmd => cmd.category === this.selectedCategory);
+      }
+
+      // 3. Sorting
+      result.sort((a, b) => {
+        let comparison = 0;
+
+        if (this.sortBy === 'name') {
+          comparison = a.name.localeCompare(b.name);
+        } else if (this.sortBy === 'category') {
+          const catA = a.category || '';
+          const catB = b.category || '';
+          comparison = catA.localeCompare(catB); // Handle potential empty categories
+
+          // Secondary sort by name if categories are equal
+          if (comparison === 0) {
+            comparison = a.name.localeCompare(b.name);
+          }
+        }
+
+        return this.sortOrder === 'asc' ? comparison : -comparison;
+      });
+
+      return result;
     }
   },
   methods: {
     ...mapActions(useMainStore, ['fetchCommands']),
+    toggleSortOrder() {
+      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    }
   },
   mounted() {
     this.fetchCommands();
