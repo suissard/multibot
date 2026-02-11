@@ -9,7 +9,9 @@ module.exports = class MatchNotifierValidator extends ModuleConfigValidator {
         this.isObject('notifRoleId');
         this.isObject('competitions');
         this.isType('cronSchedule', 'string');
-        this.isType('notifMessage', 'string');
+        if (this.hasProperty('notifMessage')) {
+            this.isType('notifMessage', 'string');
+        }
         this.isType('casterStatFormUrl', 'string');
         this.isType('maximumMatchDuration', 'number');
         this.isType('maximumNumberOfHoursToRetrieveFutureMatches', 'number');

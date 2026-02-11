@@ -30,7 +30,7 @@
                         <img v-if="bot.avatar" :src="bot.avatar" alt="Avatar" class="w-12 h-12 rounded-full">
                         <div v-else
                             class="w-12 h-12 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold text-xl">
-                            {{ bot.name.charAt(0).toUpperCase() }}
+                            {{ (bot.name || 'Unknown').charAt(0).toUpperCase() }}
                         </div>
                         <div>
                             <h3 class="text-xl font-bold">{{ bot.name }}</h3>

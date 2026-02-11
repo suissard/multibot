@@ -48,6 +48,7 @@ module.exports = class SelfApi {
 		this.routes = new Map();
 		this.hashUsers = new Map();
 		this.userSockets = new Map();
+		this.configUsers = configs.users || [];
 
 		this.router = this.express.Router();
 		this.app = this.express();
@@ -310,10 +311,31 @@ module.exports = class SelfApi {
 
 
 		if (!tokenData) {
-			// Check options.auth explicitly (strict false check)
-			if (options.auth === false) return { bot };
+			// Fallback: Check if token matches a configured user (Dev mode / Static tokens)
+			const configUser = this.configUsers.find(u => u.token === token);
+			if (configUser) {
+				// Try to fetch full user details from the bot if possible
+				let discordUser = { id: configUser.discordId, username: 'Dev User', discriminator: '0000', avatar: null };
 
-			// Legacy/Fallback checks (can be removed later if all routes are updated)
+				if (bot) {
+					try {
+						const fetchedUser = await bot.users.fetch(configUser.discordId);
+						if (fetchedUser) {
+							discordUser = {
+								id: fetchedUser.id,
+								username: fetchedUser.username,
+								discriminator: fetchedUser.discriminator,
+								avatar: fetchedUser.avatar
+							};
+						}
+					} catch (e) {
+						console.warn('Could not fetch dev user details from Discord', e);
+					}
+				}
+
+				return { bot, user: discordUser };
+			}
+
 			if (req.url.includes('/commands')) return { bot };
 			// if (req.url.includes('/autorole')) return { bot }; // Removed in favor of option
 
