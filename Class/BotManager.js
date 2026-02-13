@@ -294,7 +294,7 @@ module.exports = class BotManager extends Map {
 		const color = '\x1b[31m'; // Red for error, Magenta for normal
 		const reset = '\x1b[0m';
 		const now = new Date();
-		const time = now.toLocaleTimeString('fr-FR');
+		const time = now.toLocaleDateString('fr-FR') + ' ' + now.toLocaleTimeString('fr-FR');
 		return `[${time}] ${color}[BOTMANAGER]${reset} ${reference ? reference.toUpperCase() + ' ' : ''
 			}| ${content}`;
 	}

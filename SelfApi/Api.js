@@ -600,7 +600,7 @@ module.exports = class SelfApi {
 	formatLog(content, reference, color = '\x1b[36m', prefix = 'API') {
 		const reset = '\x1b[0m';
 		const now = new Date();
-		const time = now.toLocaleTimeString('fr-FR');
+		const time = now.toLocaleDateString('fr-FR') + ' ' + now.toLocaleTimeString('fr-FR');
 		return `[${time}] ${color}[${prefix}]${reset} ${reference ? reference.toUpperCase() + ' ' : ''}| ${content}`;
 	}
 

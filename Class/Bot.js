@@ -200,7 +200,7 @@ module.exports = class Bot extends Discord.Client {
 		const color = `\x1b[${colorCode}m`;
 		const reset = '\x1b[0m';
 		const now = new Date();
-		const time = now.toLocaleTimeString('fr-FR');
+		const time = now.toLocaleDateString('fr-FR') + ' ' + now.toLocaleTimeString('fr-FR');
 		return `[${time}] ${color}[${this.name}]${reset} ${reference ? reference.toUpperCase() + ' ' : ''
 			}| ${content}`;
 	}
