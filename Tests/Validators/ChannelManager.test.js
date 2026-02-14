@@ -24,7 +24,7 @@ describe('ChannelManagerValidator', () => {
         const validator = new ChannelManagerValidator(invalidConfig);
         validator.validate();
         expect(validator.isValid()).toBe(false);
-        expect(validator.getErrors()).toContain('Missing property: maximumNumberOfHoursToRetrieveFutureMatches');
+        expect(validator.getErrors().missing).toContain('maximumNumberOfHoursToRetrieveFutureMatches');
     });
 
     it('should fail if a property has the wrong type', () => {
@@ -37,6 +37,19 @@ describe('ChannelManagerValidator', () => {
         const validator = new ChannelManagerValidator(invalidConfig);
         validator.validate();
         expect(validator.isValid()).toBe(false);
-        expect(validator.getErrors()).toContain("Property 'userLimit' must be of type 'number'");
+        expect(validator.getErrors().invalid).toContain("Property 'userLimit' must be of type 'number'");
+    });
+
+    it('should pass with optional notifMessage', () => {
+        const validConfig = {
+            userLimit: 10,
+            cronSchedule: '*/30 * * * *',
+            maximumMatchDuration: -1,
+            maximumNumberOfHoursToRetrieveFutureMatches: -1,
+            notifMessage: 'Custom message'
+        };
+        const validator = new ChannelManagerValidator(validConfig);
+        validator.validate();
+        expect(validator.isValid()).toBe(true);
     });
 });

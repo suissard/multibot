@@ -1,9 +1,25 @@
 <template>
   <div class="settings p-8">
-    <h1 class="text-3xl font-bold mb-6">Settings</h1>
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold">Settings</h1>
+
+      <!-- File Selector -->
+      <div class="flex bg-gray-200 dark:bg-gray-700 rounded-lg p-1">
+        <button @click="fileType = 'bot'" class="px-4 py-2 rounded-md text-sm font-medium transition-colors"
+          :class="fileType === 'bot' ? 'bg-white dark:bg-gray-600 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'">
+          Bot Settings
+        </button>
+        <button @click="fileType = 'api'" class="px-4 py-2 rounded-md text-sm font-medium transition-colors"
+          :class="fileType === 'api' ? 'bg-white dark:bg-gray-600 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'">
+          API Settings
+        </button>
+      </div>
+    </div>
+
     <div v-if="loading" class="text-gray-600 dark:text-gray-400">Loading...</div>
-    <div v-if="error" class="text-red-500">{{ error }}</div>
-    <div v-if="settings">
+    <div v-if="error" class="text-red-500 mb-4">{{ error }}</div>
+
+    <div v-if="settings" :key="fileType">
       <DataEditor :data="settings" @save="handleSave" />
     </div>
 
@@ -63,12 +79,18 @@ export default {
       settings: null,
       loading: true,
       error: null,
+      fileType: 'bot', // 'bot' or 'api'
       localSettings: {
         geminiApiKey: '',
         geminiModel: 'gemini-flash-latest',
         geminiTemperature: 0.7
       }
     };
+  },
+  watch: {
+    fileType() {
+      this.fetchSettings();
+    }
   },
   async created() {
     await this.fetchSettings();
@@ -77,8 +99,10 @@ export default {
     async fetchSettings() {
       this.loading = true;
       this.error = null;
+      this.settings = null;
       try {
         const response = await axios.get('/settings', {
+          params: { file: this.fileType },
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('api_token')}`
           }
@@ -94,6 +118,7 @@ export default {
     async handleSave(updatedSettings) {
       try {
         await axios.put('/settings', updatedSettings, {
+          params: { file: this.fileType },
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('api_token')}`
           }

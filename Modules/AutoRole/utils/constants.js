@@ -21,8 +21,8 @@ const managerRolesList = ['manager', 'assistant manager'];
 const coachRolesList = ['head coach', 'mental coach'];
 
 const apiQueueConfig = {
-    delay: 200,
-    concurrency: 4
+    delay: 500,
+    concurrency: 2
 };
 
 const discordQueueConfig = {

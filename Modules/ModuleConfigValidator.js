@@ -60,4 +60,26 @@ module.exports = class ModuleConfigValidator {
     isValid() {
         return this.errors.missing.length === 0 && this.errors.invalid.length === 0;
     }
+
+    getCleanedConfig() {
+        const allowed = this.getAllowedKeys();
+        if (allowed) {
+            return this.filterConfig(allowed);
+        }
+        return this.config;
+    }
+
+    getAllowedKeys() {
+        return null;
+    }
+
+    filterConfig(allowedKeys) {
+        const cleaned = {};
+        for (const key of allowedKeys) {
+            if (this.config[key] !== undefined) {
+                cleaned[key] = this.config[key];
+            }
+        }
+        return cleaned;
+    }
 }

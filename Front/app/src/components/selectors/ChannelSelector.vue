@@ -7,13 +7,8 @@
         <div v-if="guildId" class="animate-fade-in">
             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Channel ({{ channelTypeFilter
                 }})</label>
-            <select v-if="!loading" v-model="selectedChannelId" @change="emitSelection"
-                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md dark:bg-gray-800 dark:border-gray-600 dark:text-white">
-                <option value="" disabled>Select a Channel</option>
-                <option v-for="channel in channels" :key="channel.id" :value="channel.id">
-                    #{{ channel.name }}
-                </option>
-            </select>
+            <SearchableSelect v-if="!loading" v-model="selectedChannelId" :options="channelOptions"
+                placeholder="Select a Channel" @update:modelValue="emitSelection" />
             <div v-else class="text-sm text-gray-500">Loading channels...</div>
         </div>
     </div>
@@ -23,10 +18,11 @@
 import { callApi } from '@/services/callApi';
 import { useMainStore } from '@/stores/main';
 import GuildSelector from './GuildSelector.vue';
+import SearchableSelect from '../SearchableSelect.vue';
 
 export default {
     name: 'ChannelSelector',
-    components: { GuildSelector },
+    components: { GuildSelector, SearchableSelect },
     props: {
         typeFilter: { // Optional, e.g., 'text', 'voice' but backend currently just returns text
             type: String,
@@ -44,6 +40,12 @@ export default {
     computed: {
         channelTypeFilter() {
             return this.typeFilter;
+        },
+        channelOptions() {
+            return this.channels.map(c => ({
+                id: c.id,
+                label: '#' + c.name
+            }));
         }
     },
     methods: {
@@ -65,7 +67,8 @@ export default {
                 this.loading = false;
             }
         },
-        emitSelection() {
+        emitSelection(val) {
+            if (val && typeof val !== 'object') this.selectedChannelId = val;
             this.$emit('select', this.selectedChannelId);
             // Also emit full object if needed, but ID is primary
             this.$emit('input', this.selectedChannelId); // Support v-model like behavior

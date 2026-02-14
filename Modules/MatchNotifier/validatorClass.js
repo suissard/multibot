@@ -16,4 +16,16 @@ module.exports = class MatchNotifierValidator extends ModuleConfigValidator {
         this.isType('maximumMatchDuration', 'number');
         this.isType('maximumNumberOfHoursToRetrieveFutureMatches', 'number');
     }
+
+    getAllowedKeys() {
+        return [
+            'notifRoleId',
+            'competitions',
+            'cronSchedule',
+            'notifMessage',
+            'casterStatFormUrl',
+            'maximumMatchDuration',
+            'maximumNumberOfHoursToRetrieveFutureMatches'
+        ];
+    }
 }

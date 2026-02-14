@@ -15,6 +15,8 @@ const putModuleTestData = require('./put-module-test-data.js');
 const getAuthCallback = require('./get-auth-callback.js');
 const getSettings = require('./get-settings.js');
 const putSettings = require('./put-settings.js');
+const getModuleSettings = require('./get-module-settings.js');
+const putModuleSettings = require('./put-module-settings.js');
 
 const getBots = require('./get-bots.js');
 const getUser = require('./get-user.js');
@@ -30,6 +32,8 @@ const postSecretaryReply = require('./post-secretary-reply.js');
 const postSecretarySuggestion = require('./post-secretary-suggestion.js');
 const triggerEvent = require('./trigger-event.js');
 
+const getModuleDescriptions = require('./get-module-descriptions.js');
+
 const routes = [
     getCommands,
     postCommands,
@@ -43,6 +47,9 @@ const routes = [
     putModuleTestData,
     getSettings,
     putSettings,
+    getModuleSettings,
+    putModuleSettings,
+    getModuleDescriptions,
     getAuthCallback,
     getBots,
     getUser,

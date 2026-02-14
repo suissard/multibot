@@ -64,7 +64,7 @@ const routes = [
     component: ModuleData
   },
   {
-    path: '/module/:id/settings',
+    path: '/modules/:id/settings',
     name: 'ModuleSettings',
     component: ModuleSettings
   },
