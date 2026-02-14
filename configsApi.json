@@ -15,7 +15,7 @@
 	"discord": {
 		"clientId": "417260981337456641",
 		"clientSecret": "6dKOwgEy_KOrApzRKLv-KyCj7R8emXXV",
-		"redirectUrl": "https://multibot.clavier.dev/auth/callback",
+		"redirectUrl": "http://localhost:8080/auth/callback",
 		"scope": [
 			"identify",
 			"guilds"

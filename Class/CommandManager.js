@@ -65,6 +65,7 @@ module.exports = class CommandeManager {
 		delete require.cache[require.resolve(path)];
 
 		let data = require(path);
+		if (!data.category) data.category = 'System';
 
 		let error = [];
 		if (data.id === undefined) error.push('id');

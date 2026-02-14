@@ -39,6 +39,7 @@ module.exports = class Commande {
 	static howTo = undefined;
 	static test = undefined;
 	static arguments = undefined;
+	static category = undefined;
 
 	constructor(bot /*, message, args*/) {
 		/**
@@ -150,6 +151,12 @@ module.exports = class Commande {
 		 * @type {Array<Object>}
 		 */
 		this.arguments = this.constructor.arguments;
+
+		/**
+		 * Categorie de la commande
+		 * @type {string}
+		 */
+		this.category = this.constructor.category;
 	}
 
 	/**

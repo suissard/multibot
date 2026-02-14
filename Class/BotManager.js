@@ -147,6 +147,7 @@ module.exports = class BotManager extends Map {
 			let commandAndEvent = botModule(bot); // TODO ne gere pas si la commande est asynchrone
 			// console.log(`🤖 [${bot.name}] module ${moduleName} chargé`);
 			for (let ii in commandAndEvent) {
+				commandAndEvent[ii].category = moduleName;
 				this.use(commandAndEvent[ii], bot); //TODO ! Dasn le cas ou plusieurs bot on els meme module cela déclenche un erreur quand il essaie d'intégerer event et command
 			}
 		} catch (e) {
