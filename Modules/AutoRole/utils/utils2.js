@@ -123,21 +123,8 @@ const autoRole = async function (bot, guildId) {
 
 		await processAllTeams(teams, guild, bot);
 
-		bot.log(`check pseudo & roles`, 'autorole');
+		bot.emit('olympeUserCacheReady'); // signal cache ready
 
-		const users = Object.entries(bot.olympe.users);
-
-		let userWithDiscordId = users.length;
-		let userOnServer = users.filter((u) => u[1].userData?.discordUser).length;
-
-		bot.log(
-			`${userWithDiscordId} users with Discord ID, ${userOnServer} users present on server`,
-			'autorole'
-		);
-
-		await processAllUsers(users, guild, bot);
-
-		bot.log(`done : ${teams.length} teams, ${users.length} users`, 'autorole');
 	} catch (error) {
 		bot.error(error, 'autorole');
 	}
@@ -149,4 +136,5 @@ module.exports = {
 	deleteAllRole,
 	autoRole,
 	instanciateOlympe,
+	processAllUsers,
 };

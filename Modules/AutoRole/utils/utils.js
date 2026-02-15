@@ -385,9 +385,7 @@ const processTeamMember = async (team, member, guild, bot) => {
 		if (!member.user.thirdparties?.discord?.discordID) return;
 	}
 
-	addOlympeUserData(member, team, bot);
 	// let discordUser = guild.members.cache.get(member.user.thirdparties.discord.discordID);
-
 	// if (!discordUser) {
 	// 	discordUser = await guild.members
 	// 		.fetch(member.user.thirdparties.discord.discordID)
@@ -402,21 +400,9 @@ const processTeamMember = async (team, member, guild, bot) => {
 
 	let userData = bot.olympe.users[discordUser.id]?.userData;
 
-	if (!userData) {
-		userData = { discordUser };
-	}
+	bot.emit("olympeMember", { discordUser, olympeMember: member, team })
 
-	userData.olympeMember = member;
 
-	if (!userData.teams) {
-		userData.teams = [];
-	}
-
-	if (!userData.teams.find((t) => t.id === team.id)) {
-		userData.teams.push(team);
-	}
-
-	bot.olympe.users[discordUser.id].userData = userData;
 };
 
 /**
@@ -497,7 +483,7 @@ const processUser = async (user, guild, bot) => {
 		addRoleResult = addRoleResult ? 'addRole (' + addRoleResult + ')' : '';
 	}
 
-	if (renameResult !== "" || addRoleResult!== "") {
+	if (renameResult !== "" || addRoleResult !== "") {
 		bot.log(
 			`${olympeMember.user.username} (${discordUser.user.tag}) : ${renameResult ? 'rename (' + renameResult + ')' : ''} ${addRoleResult}`,
 			'autorole'

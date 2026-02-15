@@ -1,3 +1,4 @@
+// PROD Constants
 const roleCategories = {
     club: 'club',
     coach: 'coach',
@@ -30,7 +31,7 @@ const discordQueueConfig = {
     concurrency: 4
 };
 
-module.exports = {
+const prodConstants = {
     roleCategories,
     roleCategoriesList,
     clubRolesList,
@@ -39,3 +40,18 @@ module.exports = {
     apiQueueConfig,
     discordQueueConfig
 };
+
+// DEV Constants
+const devConstants = {
+    ...prodConstants,
+    apiQueueConfig: {
+        delay: 200,
+        concurrency: 4
+    },
+    discordQueueConfig: {
+        delay: 200,
+        concurrency: 4
+    }
+};
+
+module.exports = process.env.BOT_MODE === 'DEV' ? devConstants : prodConstants;
