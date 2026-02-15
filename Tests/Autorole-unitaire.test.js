@@ -151,7 +151,7 @@ describe('renameDiscordUserWithOlympeData', () => {
 			...mockDiscordUser,
 			nickname: 'NotValidName',
 		});
-		expect(result).toBe('update');
+		expect(result).toBe('NotValidName -> OlympeUser | TeamOne');
 		expect(mockDiscordUser.setNickname).toHaveBeenCalled();
 	});
 });

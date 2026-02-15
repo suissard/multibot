@@ -1,4 +1,5 @@
-const simultaneousRequest = require('../../Tools/simultaneousRequest');
+const AddOlympeDataEvent = require('./events/addOlympeDataEvent.js');
+const ProcessAllUsersEvent = require('./events/processAllUsersEvent.js');
 const GetIncidentForm = require('./GetIncidentForm.js');
 const GetCastRewardFormCommand = require('./GetCastRewardForm.js');
 const GetCasterStatFormCommand = require('./GetCasterStatForm.js');
@@ -66,11 +67,11 @@ module.exports = (bot) => {
 			};
 			if (params)
 				autoroleFn(); // .then(() => deleteAllRole(bot));
-				setInterval(autoroleFn, bot.modules.AutoRole.everyXhours * 60 * 60 * 1000);
+			setInterval(autoroleFn, bot.modules.AutoRole.everyXhours * 60 * 60 * 1000);
 		} catch (err) {
 			bot.error(err, 'autorole');
 		}
 	});
 
-	return { GetIncidentForm, AutoRoleCommand, GetCasterStatFormCommand, GetCastRewardFormCommand, GiveCasterRoleCommand };
+	return { GetIncidentForm, AutoRoleCommand, GetCasterStatFormCommand, GetCastRewardFormCommand, GiveCasterRoleCommand, AddOlympeDataEvent, ProcessAllUsersEvent };
 };
