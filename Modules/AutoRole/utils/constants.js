@@ -22,8 +22,8 @@ const managerRolesList = ['manager', 'assistant manager'];
 const coachRolesList = ['head coach', 'mental coach'];
 
 const apiQueueConfig = {
-    delay: 500,
-    concurrency: 2
+    delay: 2500,
+    concurrency: 1
 };
 
 const discordQueueConfig = {
@@ -45,8 +45,8 @@ const prodConstants = {
 const devConstants = {
     ...prodConstants,
     apiQueueConfig: {
-        delay: 200,
-        concurrency: 4
+        delay: 2500,
+        concurrency: 1
     },
     discordQueueConfig: {
         delay: 200,

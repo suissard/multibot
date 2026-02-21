@@ -95,7 +95,20 @@ const getACLusers = (bot) => {
 	// TODO ASAP
 	// return bot.olympe.api.get('acl?fields=thirdpartiesDiscord%2CcastUrl').catch(console.error)
 
-	return bot.olympe.api.get('acl?fields=thirdpartiesDiscord%2CcastUrl').catch(console.error)
+	// bot.log('getACLusers called', 'apiService'); // DEBUG
+
+	const apiCall = bot.olympe.api.get('acl?fields=thirdpartiesDiscord%2CcastUrl');
+	const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('Request timed out (25s)')), 25000));
+
+	return Promise.race([apiCall, timeout])
+		.then(res => {
+			// bot.log(`getACLusers success, ${res?.length} users`, 'apiService'); // DEBUG
+			return res;
+		})
+		.catch(e => {
+			bot.error(`getACLusers failed: ${e.message}`, 'apiService');
+			return []; // Return empty array to allow continuation
+		});
 };
 
 /**
@@ -103,7 +116,9 @@ const getACLusers = (bot) => {
  * @param {Bot} bot
  */
 const getCasterUsers = async (bot) => {
+	// bot.log('getCasterUsers called', 'apiService'); // DEBUG
 	const casters = await getACLusers(bot).catch(e => bot.error(`Error getting ACL users ${e}`, 'getCasterUsers'));
+	// bot.log(`getCasterUsers fetched ${casters?.length} users, filtering...`, 'apiService'); // DEBUG
 	return casters?.filter(
 		(caster) => caster.castUrl && caster.organizationRoles.includes('caster')
 	);

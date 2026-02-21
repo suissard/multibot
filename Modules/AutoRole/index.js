@@ -5,7 +5,7 @@ const GetCastRewardFormCommand = require('./GetCastRewardForm.js');
 const GetCasterStatFormCommand = require('./GetCasterStatForm.js');
 const AutoRoleCommand = require('./AutoRoleCommand.js');
 const GiveCasterRoleCommand = require('./GiveCasterRoleCommand.js');
-const { autoRole, instanciateOlympe } = require('./utils/utils2');
+const { autoRole } = require('./utils/utils2');
 
 const ChallengesRolesId = require('./models/ChallengesRolesId.js');
 
@@ -50,28 +50,53 @@ module.exports = (bot) => {
 				bot.modules.AutoRole.roleIds.competitions
 			);
 
-			await instanciateOlympe(bot, challengesRolesId);
+			// Olympe instantiation is now handled by the Olympe module.
+			// await instanciateOlympe(bot, challengesRolesId);
 
-			let params = false
-			for (const guildId in bot.modules.AutoRole.guilds) {
-				const guild = await bot.guilds.fetch(bot.home).catch((_) => null);
-				if (guild) {
-					params = true
-					await guild.roles.fetch().catch(e => bot.error(`Roles fetch failed for ${guildId}: ${e.message}`, "AutoRole"));
-					await guild.members.fetch().catch(e => bot.error(`Members fetch failed for ${guildId}: ${e.message}`, "AutoRole"));
+			const startAutoRole = async () => {
+				if (bot.olympe) {
+					bot.olympe.challengesRolesId = challengesRolesId;
+				} else {
+					bot.error('Olympe module not ready during AutoRole init', 'AutoRole');
+					return;
 				}
-			}
 
-			const autoroleFn = () => {
-				for (const guildId in bot.modules.AutoRole.guilds) autoRole(bot, guildId);
+				let params = false
+				for (const guildId in bot.modules.AutoRole.guilds) {
+					const guild = await bot.guilds.fetch(bot.home).catch((_) => null);
+					if (guild) {
+						params = true
+						await guild.roles.fetch().catch(e => bot.error(`Roles fetch failed for ${guildId}: ${e.message}`, "AutoRole"));
+						await guild.members.fetch().catch(e => bot.error(`Members fetch failed for ${guildId}: ${e.message}`, "AutoRole"));
+					}
+				}
+
+				const autoroleFn = () => {
+					for (const guildId in bot.modules.AutoRole.guilds) autoRole(bot, guildId);
+				};
+				if (params)
+					autoroleFn(); // .then(() => deleteAllRole(bot));
+				setInterval(autoroleFn, bot.modules.AutoRole.everyXhours * 60 * 60 * 1000);
 			};
-			if (params)
-				autoroleFn(); // .then(() => deleteAllRole(bot));
-			setInterval(autoroleFn, bot.modules.AutoRole.everyXhours * 60 * 60 * 1000);
+
+			if (bot.olympe && bot.olympe.api) {
+				startAutoRole();
+			} else {
+				bot.on('olympeReady', startAutoRole);
+			}
 		} catch (err) {
 			bot.error(err, 'autorole');
 		}
 	});
 
-	return { GetIncidentForm, AutoRoleCommand, GetCasterStatFormCommand, GetCastRewardFormCommand, GiveCasterRoleCommand, AddOlympeDataEvent, ProcessAllUsersEvent };
+	return {
+		GetIncidentForm,
+		AutoRoleCommand,
+		GetCasterStatFormCommand,
+		GetCastRewardFormCommand,
+		GiveCasterRoleCommand,
+		AddOlympeDataEvent,
+		ProcessAllUsersEvent,
+		dependencies: ['Olympe']
+	};
 };

@@ -51,6 +51,7 @@ module.exports = (bot) => {
 		washMatchCommand,
 		AutoChannelCommand,
 		NotifyMatchCommand,
-		GuildMemberAddAutorole
+		GuildMemberAddAutorole,
+		dependencies: ['Olympe']
 	};
 };
