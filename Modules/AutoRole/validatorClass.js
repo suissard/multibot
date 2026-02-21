@@ -8,26 +8,14 @@ module.exports = class AutoRoleValidator extends ModuleConfigValidator {
     validate() {
         this.isObject('guilds');
         this.isObject('roleIds');
-        this.isObject('olympeAuth');
         this.isType('everyXhours', 'number');
-        this.isArray('orgaRoleIds');
-        this.isType('olympeDomain', 'string');
-        this.isType('organization', 'string');
-        if (this.config.olympeMods) {
-            this.isArray('olympeMods');
-        }
     }
 
     getAllowedKeys() {
         return [
             'guilds',
             'roleIds',
-            'olympeAuth',
             'everyXhours',
-            'orgaRoleIds',
-            'olympeDomain',
-            'organization',
-            'olympeMods'
         ];
     }
 }

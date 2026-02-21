@@ -145,8 +145,18 @@ module.exports = class BotManager extends Map {
 		try {
 			botModule = require(`../Modules/${moduleName}`);
 			let commandAndEvent = botModule(bot); // TODO ne gere pas si la commande est asynchrone
+
+			// DEPENDENCY CHECK
+			if (commandAndEvent.dependencies && Array.isArray(commandAndEvent.dependencies)) {
+				const missingDeps = commandAndEvent.dependencies.filter(dep => !bot.modules[dep]);
+				if (missingDeps.length > 0) {
+					throw new Error(`Module ${moduleName} requires missing dependencies: ${missingDeps.join(', ')}`);
+				}
+			}
+
 			// console.log(`🤖 [${bot.name}] module ${moduleName} chargé`);
 			for (let ii in commandAndEvent) {
+				if (ii === 'dependencies') continue; // Skip dependency property
 				commandAndEvent[ii].category = moduleName;
 				this.use(commandAndEvent[ii], bot); //TODO ! Dasn le cas ou plusieurs bot on els meme module cela déclenche un erreur quand il essaie d'intégerer event et command
 			}

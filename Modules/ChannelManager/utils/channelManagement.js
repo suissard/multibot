@@ -334,12 +334,12 @@ const getActiveMatches = async (bot) => {
 	futuresMatchs = futuresMatchs.filter((match) =>
 		isMatchStartedSoon(
 			match.matchDate,
-			bot.modules.ChannelManager.maximumNumberOfHoursToRetrieveFutureMatches
+			bot.modules.ChannelManager?.maximumNumberOfHoursToRetrieveFutureMatches
 		)
 	);
 	pastMatchs = pastMatchs.filter(
 		(match) =>
-			!isMatchAlreadyPlayed(match.matchDate, bot.modules.ChannelManager.maximumMatchDuration)
+			!isMatchAlreadyPlayed(match.matchDate, bot.modules.ChannelManager?.maximumMatchDuration)
 	);
 
 	cachedMatches = futuresMatchs.concat(pastMatchs);
@@ -356,7 +356,7 @@ const getActiveMatches = async (bot) => {
  * @param {import('discord.js').Guild} guild - La guilde à gérer.
  */
 const autoChannel = async (bot, guild) => {
-	console.log(`[${bot.name}] CHANNELMANAGER : Start`);
+	bot.log(`Start`, "autochannel");
 	let exceptionName = [];
 	const divisionNames = [];
 	const matchs = await getActiveMatches(bot);
@@ -376,7 +376,7 @@ const autoChannel = async (bot, guild) => {
 	// supprimer les channels useless
 	await washOldChannels(guild, exceptionName).catch(console.error);
 	await washEmptyCategory(bot, guild);
-	console.log(`[${bot.name}] CHANNELMANAGER : End`);
+	bot.log(`End`, "autochannel");
 };
 
 /**

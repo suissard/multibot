@@ -192,10 +192,10 @@ const washOldChannels = async (guild, exceptionName = [], forceWash) => {
 
 			if (channel.type == ChannelType.GuildVoice && channel.members.size > 0) continue;
 
-			await guild.channels.delete(channel);
+			await guild.channels.delete(channel).catch((e) => console.error(e));
 			nbrDeleteChannels++;
-			console.log(
-				`[${guild.client.name}] CHANNELMANAGER : Nettoyage du channel ${channel.name}`
+			guild.client.log(
+				`Nettoyage du channel ${channel.name}`, "autochannel"
 			);
 		}
 	}

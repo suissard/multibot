@@ -456,8 +456,10 @@ const processUser = async (user, guild, bot) => {
 
 
 	let teamName = teams.length > 1 ? 'multiteam' : teams[0].name.trim()
-	if (casterTeamName && teams.find((t) => t.name === casterTeamName))
-		teamName = casterTeamName
+
+	if ((casterTeamName && teams.find((t) => t.name === casterTeamName)) || olympeMember.user.castUrl) {
+		if (casterTeamName) teamName = casterTeamName;
+	}
 
 	renameResult = await renameDiscordUserWithOlympeData(
 		olympeMember,
@@ -631,7 +633,9 @@ const generateTeamFromOlympeMembers = (name, members = [], segments = []) => {
 const getCasterTeam = async (bot, guild) => {
 	let casters = await getCasterUsers(bot);
 	casters = casters?.map((olympeUser) => generateMemberFromOlympeUser(olympeUser)) || [];
-	if (!casters.length) return;
+	if (!casters.length) {
+		return;
+	}
 
 	const segment = bot.olympe.segments[0];
 	const casterTeamName = bot.modules.AutoRole.guilds[guild.id]?.specialRoles.caster.name;
