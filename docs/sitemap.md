@@ -68,6 +68,9 @@ layout: default
     * [GetCasterStatForm.js](./Modules/AutoRole/GetCasterStatForm.html)
     * [GetIncidentForm.js](./Modules/AutoRole/GetIncidentForm.html)
     * [GiveCasterRoleCommand.js](./Modules/AutoRole/GiveCasterRoleCommand.html)
+    * **events**
+      * [addOlympeDataEvent.js](./Modules/AutoRole/events/addOlympeDataEvent.html)
+      * [processAllUsersEvent.js](./Modules/AutoRole/events/processAllUsersEvent.html)
     * [index.js](./Modules/AutoRole/index.html)
     * **models**
       * [ChallengesRolesId.js](./Modules/AutoRole/models/ChallengesRolesId.html)
@@ -94,6 +97,9 @@ layout: default
     * [index.js](./Modules/MatchNotifier/index.html)
     * [validatorClass.js](./Modules/MatchNotifier/validatorClass.html)
   * [ModuleConfigValidator.js](./Modules/ModuleConfigValidator.html)
+  * **Olympe**
+    * [index.js](./Modules/Olympe/index.html)
+    * [validatorClass.js](./Modules/Olympe/validatorClass.html)
   * **Secretary**
     * [BackupSecretaryCommand.js](./Modules/Secretary/BackupSecretaryCommand.html)
     * [MessageCheckSecretary.js](./Modules/Secretary/MessageCheckSecretary.html)
@@ -119,6 +125,14 @@ layout: default
     * [SharePromoCommand.js](./Modules/ShareChannel/SharePromoCommand.html)
     * [ShareStopCommand.js](./Modules/ShareChannel/ShareStopCommand.html)
     * [index.js](./Modules/ShareChannel/index.html)
+  * **TeamManager**
+    * [TeamChannel.js](./Modules/TeamManager/TeamChannel.html)
+    * **commands**
+      * [CreateAllTeamChannelsCommand.js](./Modules/TeamManager/commands/CreateAllTeamChannelsCommand.html)
+      * [DeleteAllTeamChannelsCommand.js](./Modules/TeamManager/commands/DeleteAllTeamChannelsCommand.html)
+      * [UpdateTeamChannelPermissionsCommand.js](./Modules/TeamManager/commands/UpdateTeamChannelPermissionsCommand.html)
+    * [index.js](./Modules/TeamManager/index.html)
+    * [validatorClass.js](./Modules/TeamManager/validatorClass.html)
   * **VocalDuplicate**
     * [index.js](./Modules/VocalDuplicate/index.html)
     * [validatorClass.js](./Modules/VocalDuplicate/validatorClass.html)

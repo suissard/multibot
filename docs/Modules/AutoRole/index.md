@@ -30,3 +30,8 @@ Ce module contient des fichiers de configuration spécifiques. Cliquez ci-dessou
 
 * [AutoroleConfigClass](./AutoroleConfigClass.html)
 
+## Événements du Module
+
+* [addOlympeDataEvent](./events/addOlympeDataEvent.html)
+* [processAllUsersEvent](./events/processAllUsersEvent.html)
+

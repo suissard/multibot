@@ -39,6 +39,8 @@ Quel element pour tester cette commande via la fonction "testProcess"
 
 Liste des arguments pour exécuter la commande.
 
+Categorie de la commande
+
 Renvoie un object compactible avec la base de donnée strapi
 
 **Returns:** `Object` - 
