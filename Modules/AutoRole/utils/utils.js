@@ -385,9 +385,7 @@ const processTeamMember = async (team, member, guild, bot) => {
 		if (!member.user.thirdparties?.discord?.discordID) return;
 	}
 
-	addOlympeUserData(member, team, bot);
 	// let discordUser = guild.members.cache.get(member.user.thirdparties.discord.discordID);
-
 	// if (!discordUser) {
 	// 	discordUser = await guild.members
 	// 		.fetch(member.user.thirdparties.discord.discordID)
@@ -402,21 +400,9 @@ const processTeamMember = async (team, member, guild, bot) => {
 
 	let userData = bot.olympe.users[discordUser.id]?.userData;
 
-	if (!userData) {
-		userData = { discordUser };
-	}
+	bot.emit("olympeMember", { discordUser, olympeMember: member, team })
 
-	userData.olympeMember = member;
 
-	if (!userData.teams) {
-		userData.teams = [];
-	}
-
-	if (!userData.teams.find((t) => t.id === team.id)) {
-		userData.teams.push(team);
-	}
-
-	bot.olympe.users[discordUser.id].userData = userData;
 };
 
 /**
@@ -470,8 +456,10 @@ const processUser = async (user, guild, bot) => {
 
 
 	let teamName = teams.length > 1 ? 'multiteam' : teams[0].name.trim()
-	if (casterTeamName && teams.find((t) => t.name === casterTeamName))
-		teamName = casterTeamName
+
+	if ((casterTeamName && teams.find((t) => t.name === casterTeamName)) || olympeMember.user.castUrl) {
+		if (casterTeamName) teamName = casterTeamName;
+	}
 
 	renameResult = await renameDiscordUserWithOlympeData(
 		olympeMember,
@@ -653,7 +641,9 @@ const generateTeamFromOlympeMembers = (name, members = [], segments = []) => {
 const getCasterTeam = async (bot, guild) => {
 	let casters = await getCasterUsers(bot);
 	casters = casters?.map((olympeUser) => generateMemberFromOlympeUser(olympeUser)) || [];
-	if (!casters.length) return;
+	if (!casters.length) {
+		return;
+	}
 
 	const segment = bot.olympe.segments[0];
 	const casterTeamName = bot.modules.AutoRole.guilds[guild.id]?.specialRoles.caster.name;

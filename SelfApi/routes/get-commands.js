@@ -29,6 +29,7 @@ module.exports = {
                     narrative: cmd.narrative,
                     howTo: cmd.howTo,
                     arguments: cmd.arguments,
+                    category: cmd.category,
                 };
             });
             return listCmd;
@@ -49,6 +50,7 @@ module.exports = {
             narrative: cmd.narrative,
             howTo: cmd.howTo,
             arguments: cmd.arguments,
+            category: cmd.category,
         };
     },
 };

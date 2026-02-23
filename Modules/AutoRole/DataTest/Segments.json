@@ -1,0 +1,50 @@
+[
+    {
+        "id": 572,
+        "challengeID": 122,
+        "position": 1,
+        "name": "Championnat de France"
+    },
+    {
+        "id": 573,
+        "challengeID": 122,
+        "position": 2,
+        "name": "Semi Pro 1"
+    },
+    {
+        "id": 574,
+        "challengeID": 122,
+        "position": 3,
+        "name": "Semi Pro 2"
+    },
+    {
+        "id": 576,
+        "challengeID": 122,
+        "position": 4,
+        "name": "Espoir 1"
+    },
+    {
+        "id": 577,
+        "challengeID": 122,
+        "position": 5,
+        "name": "Espoir 2"
+    },
+    {
+        "id": 578,
+        "challengeID": 122,
+        "position": 6,
+        "name": "Amateur 1"
+    },
+    {
+        "id": 579,
+        "challengeID": 122,
+        "position": 7,
+        "name": "Amateur 2"
+    },
+    {
+        "id": 580,
+        "challengeID": 122,
+        "position": 8,
+        "name": "Amateur 3"
+    }
+]

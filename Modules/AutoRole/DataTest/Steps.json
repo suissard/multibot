@@ -1,0 +1,74 @@
+[
+    {
+        "id": 420,
+        "challengeID": 122,
+        "name": "Inscriptions",
+        "type": "register",
+        "startDate": 1763334000,
+        "endDate": 1767920400
+    },
+    {
+        "id": 421,
+        "challengeID": 122,
+        "name": "Winter Break",
+        "type": "break",
+        "startDate": 1767920400,
+        "endDate": 1769079600
+    },
+    {
+        "id": 422,
+        "challengeID": 122,
+        "name": "Stage 1",
+        "type": "play",
+        "startDate": 1769079600,
+        "endDate": 1771023540
+    },
+    {
+        "id": 523,
+        "challengeID": 122,
+        "name": "Promotion et Rel\u00e9gation",
+        "type": "play",
+        "startDate": 1771023540,
+        "endDate": 1771455540
+    },
+    {
+        "id": 524,
+        "challengeID": 122,
+        "name": "Stage 2",
+        "type": "play",
+        "startDate": 1771455540,
+        "endDate": 1773269940
+    },
+    {
+        "id": 423,
+        "challengeID": 122,
+        "name": "Play Ins",
+        "type": "play",
+        "startDate": 1773269940,
+        "endDate": 1774220340
+    },
+    {
+        "id": 424,
+        "challengeID": 122,
+        "name": "Finale de Division",
+        "type": "play",
+        "startDate": 1774220340,
+        "endDate": 1776031140
+    },
+    {
+        "id": 425,
+        "challengeID": 122,
+        "name": "Spring Break",
+        "type": "break",
+        "startDate": 1776031140,
+        "endDate": 1778277540
+    },
+    {
+        "id": 426,
+        "challengeID": 122,
+        "name": "Grande Finale",
+        "type": "play",
+        "startDate": 1778277540,
+        "endDate": 1778450340
+    }
+]

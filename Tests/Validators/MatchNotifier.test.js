@@ -17,6 +17,21 @@ describe('MatchNotifierValidator', () => {
         expect(validator.isValid()).toBe(true);
     });
 
+    it('should pass if notifMessage is missing (optional)', () => {
+        const validConfig = {
+            notifRoleId: {},
+            competitions: {},
+            cronSchedule: '*/30 * * * *',
+            // notifMessage is missing
+            casterStatFormUrl: 'url',
+            maximumMatchDuration: 4,
+            maximumNumberOfHoursToRetrieveFutureMatches: 4
+        };
+        const validator = new MatchNotifierValidator(validConfig);
+        validator.validate();
+        expect(validator.isValid()).toBe(true);
+    });
+
     it('should fail if a required property is missing', () => {
         const invalidConfig = {
             notifRoleId: {},
@@ -30,7 +45,7 @@ describe('MatchNotifierValidator', () => {
         const validator = new MatchNotifierValidator(invalidConfig);
         validator.validate();
         expect(validator.isValid()).toBe(false);
-        expect(validator.getErrors()).toContain('Missing property: maximumNumberOfHoursToRetrieveFutureMatches');
+        expect(validator.getErrors().missing).toContain('maximumNumberOfHoursToRetrieveFutureMatches');
     });
 
     it('should fail if a property has the wrong type', () => {
@@ -46,6 +61,6 @@ describe('MatchNotifierValidator', () => {
         const validator = new MatchNotifierValidator(invalidConfig);
         validator.validate();
         expect(validator.isValid()).toBe(false);
-        expect(validator.getErrors()).toContain("Property 'maximumMatchDuration' must be of type 'number'");
+        expect(validator.getErrors().invalid).toContain("Property 'maximumMatchDuration' must be of type 'number'");
     });
 });

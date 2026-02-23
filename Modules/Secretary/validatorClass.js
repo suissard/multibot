@@ -11,4 +11,15 @@ module.exports = class SecretaryValidator extends ModuleConfigValidator {
         this.isArray('secretaryRoleId');
         this.isArray('secretaryCategorieId');
     }
+
+    getAllowedKeys() {
+        return [
+            'suppRole',
+            'notifKeywords',
+            'secretaryRoleId',
+            'secretaryCategorieId',
+            'staffEmbedColor',
+            'userEmbedColor'
+        ];
+    }
 }

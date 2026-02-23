@@ -160,4 +160,8 @@ module.exports = (bot) => {
 			console.log(`[${bot.name}] MATCHNOTIFIER : end`);
 		});
 	});
+
+	return {
+		dependencies: ['Olympe']
+	};
 };

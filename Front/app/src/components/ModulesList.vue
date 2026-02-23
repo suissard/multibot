@@ -4,9 +4,14 @@
     <div v-if="loading" class="text-gray-600 dark:text-gray-400">Loading...</div>
     <div v-if="error" class="text-red-500">{{ error }}</div>
     <ul v-if="modules.length" class="space-y-4">
-      <li v-for="module in modules" :key="module.id">
-        <router-link :to="`/modules/${module.id}/test-data`" class="block p-4 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700">
+      <li v-for="module in modules" :key="module.id"
+        class="flex justify-between items-center bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+        <router-link :to="`/modules/${module.id}/settings`" class="flex-grow hover:underline">
           <h2 class="text-xl font-semibold">{{ module.name }}</h2>
+        </router-link>
+        <router-link :to="`/modules/${module.id}/settings`"
+          class="ml-4 px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700 text-sm">
+          Settings
         </router-link>
       </li>
     </ul>

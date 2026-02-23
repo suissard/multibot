@@ -8,4 +8,10 @@ module.exports = class VocalDuplicateValidator extends ModuleConfigValidator {
     validate() {
         this.isArray('guilds');
     }
+
+    getAllowedKeys() {
+        return [
+            'guilds'
+        ];
+    }
 }

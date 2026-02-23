@@ -11,5 +11,19 @@ module.exports = class ChannelManagerValidator extends ModuleConfigValidator {
         this.isType('maximumMatchDuration', 'number');
         this.isType('maximumNumberOfHoursToRetrieveFutureMatches', 'number');
         this.isType('matchCacheDuration', 'number');
+        if (this.config.notifMessage !== undefined) {
+            this.isType('notifMessage', 'string');
+        }
+    }
+
+    getAllowedKeys() {
+        return [
+            'userLimit',
+            'cronSchedule',
+            'maximumMatchDuration',
+            'maximumNumberOfHoursToRetrieveFutureMatches',
+            'matchCacheDuration',
+            'notifMessage'
+        ];
     }
 }

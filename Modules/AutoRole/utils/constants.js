@@ -1,3 +1,4 @@
+// PROD Constants
 const roleCategories = {
     club: 'club',
     coach: 'coach',
@@ -21,8 +22,8 @@ const managerRolesList = ['manager', 'assistant manager'];
 const coachRolesList = ['head coach', 'mental coach'];
 
 const apiQueueConfig = {
-    delay: 200,
-    concurrency: 4
+    delay: 2500,
+    concurrency: 1
 };
 
 const discordQueueConfig = {
@@ -30,7 +31,7 @@ const discordQueueConfig = {
     concurrency: 4
 };
 
-module.exports = {
+const prodConstants = {
     roleCategories,
     roleCategoriesList,
     clubRolesList,
@@ -39,3 +40,18 @@ module.exports = {
     apiQueueConfig,
     discordQueueConfig
 };
+
+// DEV Constants
+const devConstants = {
+    ...prodConstants,
+    apiQueueConfig: {
+        delay: 2500,
+        concurrency: 1
+    },
+    discordQueueConfig: {
+        delay: 200,
+        concurrency: 4
+    }
+};
+
+module.exports = process.env.BOT_MODE === 'DEV' ? devConstants : prodConstants;

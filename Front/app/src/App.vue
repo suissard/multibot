@@ -4,56 +4,76 @@
     <NotificationHistory :show="showHistory" @close="showHistory = false" />
 
     <!-- Sidebar (Desktop) -->
-    <aside class="hidden md:flex flex-col w-64 bg-white dark:bg-gray-800 shadow-xl z-20 transition-all duration-300 border-r border-gray-200 dark:border-gray-700">
-       <div class="flex items-center justify-center h-16 border-b border-gray-200 dark:border-gray-700">
-         <h1 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 tracking-tight">Multibot</h1>
+    <aside
+      class="hidden md:flex flex-col w-64 bg-white dark:bg-gray-800 shadow-xl z-20 transition-all duration-300 border-r border-gray-200 dark:border-gray-700">
+      <div class="flex items-center justify-center h-16 border-b border-gray-200 dark:border-gray-700">
+        <h1 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 tracking-tight">Multibot</h1>
       </div>
       <div class="flex-1 overflow-y-auto py-4">
         <nav class="space-y-1 px-3">
-            <router-link to="/" active-class="bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
-                <svg class="w-5 h-5 mr-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
-                <span class="font-medium">Home</span>
-            </router-link>
+          <router-link to="/" active-class="bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400"
+            class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
+            <svg class="w-5 h-5 mr-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            <span class="font-medium">Home</span>
+          </router-link>
 
-             <router-link to="/commands" active-class="bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
-                <svg class="w-5 h-5 mr-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span class="font-medium">Commands</span>
-            </router-link>
+          <router-link to="/commands" active-class="bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400"
+            class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
+            <svg class="w-5 h-5 mr-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="font-medium">Commands</span>
+          </router-link>
 
-             <router-link to="/events" active-class="bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
-                <svg class="w-5 h-5 mr-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span class="font-medium">Events</span>
-            </router-link>
+          <router-link to="/events" active-class="bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400"
+            class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
+            <svg class="w-5 h-5 mr-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="font-medium">Events</span>
+          </router-link>
 
-             <router-link to="/modules" active-class="bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
-                <svg class="w-5 h-5 mr-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                </svg>
-                <span class="font-medium">Modules</span>
-            </router-link>
+          <router-link to="/modules" active-class="bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400"
+            class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
+            <svg class="w-5 h-5 mr-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+            </svg>
+            <span class="font-medium">Modules</span>
+          </router-link>
 
-             <router-link to="/secretary" active-class="bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
-                <svg class="w-5 h-5 mr-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                <span class="font-medium">Secretary</span>
-            </router-link>
+          <router-link to="/secretary" active-class="bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400"
+            class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
+            <svg class="w-5 h-5 mr-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <span class="font-medium">Secretary</span>
+          </router-link>
 
-             <div class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700"></div>
+          <div class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700"></div>
 
-             <router-link to="/settings" active-class="bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
-                <svg class="w-5 h-5 mr-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span class="font-medium">Settings</span>
-            </router-link>
+          <router-link to="/settings" active-class="bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400"
+            class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
+            <svg class="w-5 h-5 mr-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span class="font-medium">Settings</span>
+          </router-link>
         </nav>
       </div>
     </aside>
@@ -63,24 +83,24 @@
       <!-- Top Header -->
       <header class="bg-white dark:bg-gray-800 shadow-md relative z-30 flex-shrink-0 h-16">
         <div class="h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-           <!-- Mobile Menu Button -->
-           <div class="flex items-center md:hidden">
-              <button @click="isMobileMenuOpen = !isMobileMenuOpen" type="button"
-                class="bg-white dark:bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                <span class="sr-only">Open main menu</span>
-                <svg v-if="!isMobileMenuOpen" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
-                  viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-                <svg v-else class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-           </div>
+          <!-- Mobile Menu Button -->
+          <div class="flex items-center md:hidden">
+            <button @click="isMobileMenuOpen = !isMobileMenuOpen" type="button"
+              class="bg-white dark:bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+              <span class="sr-only">Open main menu</span>
+              <svg v-if="!isMobileMenuOpen" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <svg v-else class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
 
-           <!-- Centered Bot & Channel Info -->
-           <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center space-x-4">
+          <!-- Centered Bot & Channel Info -->
+          <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center space-x-4">
 
             <!-- Bot Selector -->
             <div class="relative">
@@ -91,7 +111,7 @@
                     class="h-8 w-8 rounded-full border border-indigo-200 dark:border-indigo-600 mr-2">
                   <div v-else
                     class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold mr-2">
-                    {{ selectedBot.name.charAt(0).toUpperCase() }}
+                    {{ (selectedBot.name || 'Unknown').charAt(0).toUpperCase() }}
                   </div>
                   <span class="text-sm font-medium text-indigo-700 dark:text-indigo-200 hidden sm:block mr-1">{{
                     selectedBot.name }}</span>
@@ -117,7 +137,7 @@
                         class="h-8 w-8 rounded-full mr-3 border border-gray-200 dark:border-gray-600">
                       <div v-else
                         class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold mr-3 text-xs">
-                        {{ bot.name.charAt(0).toUpperCase() }}
+                        {{ (bot.name || 'Unknown').charAt(0).toUpperCase() }}
                       </div>
                       <span class="text-sm font-medium text-gray-700 dark:text-gray-200">{{ bot.name }}</span>
                       <span v-if="selectedBotId === bot.id" class="ml-auto text-indigo-600 dark:text-indigo-400">
@@ -157,7 +177,16 @@
               <transition name="fade">
                 <div v-if="showChannelSelector"
                   class="absolute top-12 left-0 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 py-2 z-50 max-h-96 overflow-y-auto w-max min-w-full">
-                  <div v-if="channels && channels.length > 0">
+
+                  <!-- Search Input -->
+                  <div
+                    class="px-4 py-2 border-b border-gray-100 dark:border-gray-700 sticky top-0 bg-white dark:bg-gray-800 z-10 transition-colors">
+                    <input v-model="channelSearchQuery" ref="channelSearchInput" type="text"
+                      class="w-full px-3 py-1.5 text-sm rounded-md border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-colors"
+                      placeholder="Search channels..." @click.stop />
+                  </div>
+
+                  <div v-if="filteredChannels && filteredChannels.length > 0">
                     <!-- Option for No Channel (DM) -->
                     <div @click="handleChannelSelection(null)"
                       class="flex items-center px-4 py-3 hover:bg-green-50 dark:hover:bg-gray-700 cursor-pointer transition-colors duration-150 border-b border-gray-100 dark:border-gray-700">
@@ -165,31 +194,21 @@
                         (Default/DM)</span>
                     </div>
 
-                    <div v-for="channel in channels" :key="channel.id" @click="handleChannelSelection(channel)"
+                    <div v-for="channel in filteredChannels" :key="channel.id" @click="handleChannelSelection(channel)"
                       class="flex items-center px-4 py-3 hover:bg-green-50 dark:hover:bg-gray-700 cursor-pointer transition-colors duration-150"
                       :class="{ 'bg-green-50/50 dark:bg-gray-700/50': selectedChannelId === channel.id }">
                       <span class="text-gray-400 text-xs mr-2">#</span>
-                      <span class="text-sm font-medium text-gray-700 dark:text-gray-200 truncate">{{ channel.name }}</span>
-                      
-                      <!-- Default Channel Star -->
-                      <div class="ml-auto flex items-center space-x-2">
-                        <button 
-                          @click.stop="toggleDefaultChannel(channel.id)" 
-                          class="focus:outline-none transition-transform hover:scale-110"
-                          :title="isDefaultChannel(channel.id) ? 'Unset Default' : 'Set as Default'"
-                        >
-                          <svg v-if="isDefaultChannel(channel.id)" class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                          </svg>
-                          <svg v-else class="w-4 h-4 text-gray-300 hover:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                          </svg>
-                        </button>
+                      <span class="text-sm font-medium text-gray-700 dark:text-gray-200 truncate">{{ channel.name
+                      }}</span>
 
+                      <!-- Checkmark for selected -->
+                      <div class="ml-auto flex items-center space-x-2">
                         <span v-if="selectedChannelId === channel.id" class="text-green-600 dark:text-green-400">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
+                          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clip-rule="evenodd"></path>
+                          </svg>
                         </span>
                       </div>
                     </div>
@@ -226,7 +245,7 @@
                   class="h-9 w-9 rounded-full border-2 border-transparent hover:border-indigo-500 transition-colors duration-200 shadow-sm">
                 <div v-else
                   class="h-9 w-9 rounded-full bg-indigo-500 flex items-center justify-center text-white shadow-sm font-bold">
-                  {{ user.username.charAt(0).toUpperCase() }}
+                  {{ (user.username || 'User').charAt(0).toUpperCase() }}
                 </div>
               </button>
             </div>
@@ -244,7 +263,7 @@
 
         </div>
       </header>
-    
+
       <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-gray-900">
         <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           <router-view v-slot="{ Component }">
@@ -262,8 +281,7 @@
       <transition enter-active-class="transition-opacity ease-linear duration-300" enter-from-class="opacity-0"
         enter-to-class="opacity-100" leave-active-class="transition-opacity ease-linear duration-300"
         leave-from-class="opacity-100" leave-to-class="opacity-0">
-        <div class="fixed inset-0 bg-gray-600 bg-opacity-75" aria-hidden="true"
-          @click="isMobileMenuOpen = false">
+        <div class="fixed inset-0 bg-gray-600 bg-opacity-75" aria-hidden="true" @click="isMobileMenuOpen = false">
         </div>
       </transition>
 
@@ -272,8 +290,7 @@
         enter-from-class="-translate-x-full" enter-to-class="translate-x-0"
         leave-active-class="transition ease-in-out duration-300 transform" leave-from-class="translate-x-0"
         leave-to-class="-translate-x-full">
-        <div 
-          class="relative flex-1 flex flex-col max-w-xs w-full bg-white dark:bg-gray-800 shadow-xl h-full">
+        <div class="relative flex-1 flex flex-col max-w-xs w-full bg-white dark:bg-gray-800 shadow-xl h-full">
           <div class="absolute top-0 right-0 -mr-12 pt-2">
             <button @click="isMobileMenuOpen = false"
               class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
@@ -348,7 +365,8 @@ export default {
       showBotSelector: false,
       showChannelSelector: false,
       isMobileMenuOpen: false,
-      currentBotDefaultChannelId: null
+      currentBotDefaultChannelId: null,
+      channelSearchQuery: ''
     };
   },
   computed: {
@@ -361,6 +379,13 @@ export default {
     selectedChannel() {
       if (!this.selectedChannelId || !this.channels) return null;
       return this.channels.find(c => c.id === this.selectedChannelId);
+    },
+    filteredChannels() {
+      if (!this.channels) return [];
+      if (!this.channelSearchQuery) return this.channels;
+
+      const q = this.channelSearchQuery.toLowerCase();
+      return this.channels.filter(c => c.name.toLowerCase().includes(q));
     }
   },
   methods: {
@@ -381,6 +406,14 @@ export default {
       this.showChannelSelector = !this.showChannelSelector;
       this.showBotSelector = false;
       this.isSettingsPanelOpen = false;
+      if (this.showChannelSelector) {
+        this.channelSearchQuery = '';
+        this.$nextTick(() => {
+          setTimeout(() => {
+            this.$refs.channelSearchInput?.focus();
+          }, 50); // Small delay to ensure transition completes or element is rendered
+        });
+      }
     },
     async handleBotSelection(bot) {
       if (!bot) return;
@@ -407,19 +440,19 @@ export default {
       }
     },
     isDefaultChannel(channelId) {
-        return this.currentBotDefaultChannelId === channelId;
+      return this.currentBotDefaultChannelId === channelId;
     },
     toggleDefaultChannel(channelId) {
-        if (!this.selectedBotId) return;
-        if (this.isDefaultChannel(channelId)) {
-            // Unset
-            this.setDefaultChannel(this.selectedBotId, null);
-            this.currentBotDefaultChannelId = null;
-        } else {
-            // Set
-            this.setDefaultChannel(this.selectedBotId, channelId);
-            this.currentBotDefaultChannelId = channelId;
-        }
+      if (!this.selectedBotId) return;
+      if (this.isDefaultChannel(channelId)) {
+        // Unset
+        this.setDefaultChannel(this.selectedBotId, null);
+        this.currentBotDefaultChannelId = null;
+      } else {
+        // Set
+        this.setDefaultChannel(this.selectedBotId, channelId);
+        this.currentBotDefaultChannelId = channelId;
+      }
     },
     async handleLogin() {
       // Redirect to Discord OAuth
@@ -469,11 +502,6 @@ export default {
 </script>
 
 <style>
-.router-link-exact-active {
-  /* @apply bg-gray-200 dark:bg-gray-700; */
-  /* Replaced by active-class in template */
-}
-
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.1s ease;
