@@ -121,19 +121,10 @@ class TeamChannel {
     async updatePermissions(channel, guild) {
         const requiredOverwrites = [];
 
-        // Base guild permissions (always deny view/connect for everyone except authorized)
-        // IMPORTANT: We might want to enforce this even if manual changes happened, 
-        // OR we trust manual changes?
-        // "Il ne doit pas retirer de spermissions , juste en ajouter de nouvelle"
-        // If someone added "ViewChannel" to @everyone, we shouldn't remove it?
-        // That seems risky for a private channel system.
-        // Usually "not remove permissions" applies to specific users added manually.
-        // I will assume the base @everyone restriction is MANDATORY for the system to work (private channels),
-        // but for specific USERS, we don't remove.
-
         requiredOverwrites.push({
             id: guild.id,
-            deny: [PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.Connect],
+            allow: [PermissionsBitField.Flags.ViewChannel],
+            deny: [PermissionsBitField.Flags.Connect, PermissionsBitField.Flags.MoveMembers],
         });
 
         // Add members
@@ -152,17 +143,21 @@ class TeamChannel {
                             PermissionsBitField.Flags.ViewChannel,
                             PermissionsBitField.Flags.Connect,
                             PermissionsBitField.Flags.Speak,
+                            PermissionsBitField.Flags.MoveMembers,
                         ],
                     });
                 }
             }
         }
 
-        // Add Organizer/Staff access
+        const allowedRoles = new Set([guild.id]);
+
+        // Add Organizer/Staff and Caster access
         const autoRoleConfig = this.bot.modules.AutoRole?.guilds[guild.id];
-        if (autoRoleConfig && autoRoleConfig.specialRoles && autoRoleConfig.specialRoles.orga) {
-            const orgaRoleId = autoRoleConfig.specialRoles.orga.id;
+        if (autoRoleConfig && autoRoleConfig.specialRoles) {
+            const orgaRoleId = autoRoleConfig.specialRoles.orga?.id;
             if (orgaRoleId && guild.roles.cache.has(orgaRoleId)) {
+                allowedRoles.add(orgaRoleId);
                 requiredOverwrites.push({
                     id: orgaRoleId,
                     allow: [
@@ -173,6 +168,20 @@ class TeamChannel {
                         PermissionsBitField.Flags.MuteMembers,
                         PermissionsBitField.Flags.DeafenMembers,
                         PermissionsBitField.Flags.ManageChannels
+                    ]
+                });
+            }
+
+            const casterRoleId = autoRoleConfig.specialRoles.caster?.id;
+            if (casterRoleId && guild.roles.cache.has(casterRoleId)) {
+                allowedRoles.add(casterRoleId);
+                requiredOverwrites.push({
+                    id: casterRoleId,
+                    allow: [
+                        PermissionsBitField.Flags.ViewChannel,
+                        PermissionsBitField.Flags.Connect,
+                        PermissionsBitField.Flags.Speak,
+                        PermissionsBitField.Flags.MoveMembers
                     ]
                 });
             }
@@ -188,6 +197,11 @@ class TeamChannel {
 
         // 1. Load existing overwrites
         for (const [id, overwrite] of currentOverwrites) {
+            // Remove specific overwrites for roles (type 0) not explicitly allowed
+            if (overwrite.type === 0 && !allowedRoles.has(id)) {
+                continue;
+            }
+
             finalOverwritesMap.set(id, {
                 id: overwrite.id,
                 allow: new PermissionsBitField(overwrite.allow),
@@ -200,19 +214,8 @@ class TeamChannel {
         for (const req of requiredOverwrites) {
             const existing = finalOverwritesMap.get(req.id);
             if (existing) {
-                // Merge allow: existing ALLOW | required ALLOW
                 existing.allow.add(req.allow || []);
-
-                // Merge deny: existing DENY | required DENY
-                // Wait, if we enforce DENY (like for @everyone), we should add it.
-                // But if we want to "only add permissions" (positive), maybe we shouldn't add invalidations?
-                // For @everyone, we MUST deny View/Connect if we want privacy.
-                // For users, we usually only have ALLOW.
                 existing.deny.add(req.deny || []);
-
-                // Conflict resolution: If a bit is in both ALLOW and DENY, Discord prioritizes DENY?
-                // Or we should clean it up: remove from DENY if we explicitly ALLOW it now?
-                // Logic: "juste en ajouter de nouvelle". If we want to allow Connect, and it was Denied, we should remove Deny.
                 if (req.allow) {
                     existing.deny.remove(req.allow); // Ensure we don't deny what we want to allow
                 }
@@ -230,13 +233,6 @@ class TeamChannel {
 
         // 3. Convert map back to array
         const finalOverwrites = Array.from(finalOverwritesMap.values());
-
-        // 4. Apply changes
-        // We can just use .set() with the merged list.
-        // Optimization: check if anything actually changed?
-        // Comparing deeply might be expensive, but saving API calls is good.
-        // Let's rely on Discord.js internal check or just set it.
-        // Given the complex merge, let's just set it.
 
         await channel.permissionOverwrites.set(finalOverwrites);
     }

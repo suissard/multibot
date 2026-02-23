@@ -156,15 +156,15 @@ module.exports = class SecretarySort extends Command {
             );
 
             for (const [id, pCat] of priorityCategories) {
-                 const closedTickets = pCat.children.cache.filter(c =>
-                     (c.type === Discord.ChannelType.GuildText || c.type === Discord.ChannelType.GuildAnnouncement) &&
-                     c.name.startsWith('✅') &&
-                     orphanRegex.test(c.name)
-                 );
-                 if (closedTickets.size > 0) {
-                     globalChannels.push(...closedTickets.values());
-                     await notify(`🔎 Récupération de ${closedTickets.size} tickets clos dans ${pCat.name}...`);
-                 }
+                const closedTickets = pCat.children.cache.filter(c =>
+                    (c.type === Discord.ChannelType.GuildText || c.type === Discord.ChannelType.GuildAnnouncement) &&
+                    c.name.startsWith('✅') &&
+                    orphanRegex.test(c.name)
+                );
+                if (closedTickets.size > 0) {
+                    globalChannels.push(...closedTickets.values());
+                    await notify(`🔎 Récupération de ${closedTickets.size} tickets clos dans ${pCat.name}...`);
+                }
             }
 
             await notify(`🔄 Analyse de ${globalChannels.length} salons dans ${allSecretaryCategories.length} catégories... (Tri Global)`);
@@ -230,6 +230,7 @@ module.exports = class SecretarySort extends Command {
             };
 
             let moves = 0;
+            let lastNotifyTime = Date.now();
 
             for (let i = 0; i < globalChannels.length; i++) {
                 const channel = globalChannels[i];
@@ -237,8 +238,9 @@ module.exports = class SecretarySort extends Command {
                 const targetCat = allSecretaryCategories[targetCatIndex];
 
                 // Progress Update
-                if (i % 20 === 0) {
+                if (Date.now() - lastNotifyTime > 5000) {
                     await notify(`🔄 Réorganisation... ${i}/${globalChannels.length} (Moves: ${moves})`);
+                    lastNotifyTime = Date.now();
                 }
 
                 if (channel.parentId !== targetCat.id) {
@@ -278,6 +280,10 @@ module.exports = class SecretarySort extends Command {
                         bot.error(`Failed to move ${channel.name} to ${targetCat.name}: ${e}`, 'SecretarySort');
                     }
                 }
+            }
+
+            if (globalChannels.length > 0) {
+                await notify(`🔄 Réorganisation terminée... ${globalChannels.length}/${globalChannels.length} (Moves: ${moves})`);
             }
 
             // 6. Cleanup & Sort Positions
@@ -325,8 +331,6 @@ module.exports = class SecretarySort extends Command {
             }
 
             // Internal Position Sort
-            await notify("🔄 Finalisation du tri (Positions)...");
-
             for (let cIdx = 0; cIdx < allSecretaryCategories.length; cIdx++) {
                 const cat = allSecretaryCategories[cIdx];
                 // Channels belonging here
@@ -348,7 +352,7 @@ module.exports = class SecretarySort extends Command {
 
 
 
-            await notify(`✅ **Tri Global Terminé !**\n${globalChannels.length} salons réorganisés dans ${allSecretaryCategories.length} catégories.\n(${moves} déplacements effectués).`);
+            await notify(`✅ **Tri Global Terminé !** : ${globalChannels.length} salons réorganisés dans ${allSecretaryCategories.length} catégories. (${moves} déplacements effectués).`);
 
         } catch (e) {
             bot.error(e, 'SecretarySort');
