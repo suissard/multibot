@@ -103,6 +103,7 @@ layout: default
   * **Secretary**
     * [BackupSecretaryCommand.js](./Modules/Secretary/BackupSecretaryCommand.html)
     * [MessageCheckSecretary.js](./Modules/Secretary/MessageCheckSecretary.html)
+    * [PriorityCommand.js](./Modules/Secretary/PriorityCommand.html)
     * [ReadyCreateSecretary.js](./Modules/Secretary/ReadyCreateSecretary.html)
     * [SecretaryManager.js](./Modules/Secretary/SecretaryManager.html)
     * [SecretaryMessageDelete.js](./Modules/Secretary/SecretaryMessageDelete.html)
