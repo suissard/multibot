@@ -19,6 +19,7 @@ layout: default
   * [Event.js](./Class/Event.html)
   * [EventManager.js](./Class/EventManager.html)
 * **Commandes**
+  * [TicketDevCommand.js](./Commandes/TicketDevCommand.html)
   * [dev.js](./Commandes/dev.html)
   * [done.js](./Commandes/done.html)
   * [event.js](./Commandes/event.html)
@@ -96,7 +97,6 @@ layout: default
   * **Secretary**
     * [BackupSecretaryCommand.js](./Modules/Secretary/BackupSecretaryCommand.html)
     * [MessageCheckSecretary.js](./Modules/Secretary/MessageCheckSecretary.html)
-    * [PriorityCommand.js](./Modules/Secretary/PriorityCommand.html)
     * [ReadyCreateSecretary.js](./Modules/Secretary/ReadyCreateSecretary.html)
     * [SecretaryManager.js](./Modules/Secretary/SecretaryManager.html)
     * [SecretaryMessageDelete.js](./Modules/Secretary/SecretaryMessageDelete.html)
@@ -105,7 +105,6 @@ layout: default
     * [SecretarySent.js](./Modules/Secretary/SecretarySent.html)
     * [SecretarySortCommand.js](./Modules/Secretary/SecretarySortCommand.html)
     * [index.js](./Modules/Secretary/index.html)
-    * [priorityCommand.js](./Modules/Secretary/priorityCommand.html)
     * [validatorClass.js](./Modules/Secretary/validatorClass.html)
   * **ShareChannel**
     * [LoadShareChannelsBotsReady.js](./Modules/ShareChannel/LoadShareChannelsBotsReady.html)

@@ -304,7 +304,9 @@ module.exports = class BotManager extends Map {
 		if (content instanceof Error || isError) content = '❌ ' + content;
 		const color = '\x1b[31m'; // Red for error, Magenta for normal
 		const reset = '\x1b[0m';
-		return `${color}[BOTMANAGER]${reset} ${reference ? reference.toUpperCase() + ' ' : ''
+		const now = new Date();
+		const time = now.toLocaleDateString('fr-FR') + ' ' + now.toLocaleTimeString('fr-FR');
+		return `[${time}] ${color}[BOTMANAGER]${reset} ${reference ? reference.toUpperCase() + ' ' : ''
 			}| ${content}`;
 	}
 

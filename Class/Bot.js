@@ -199,7 +199,9 @@ module.exports = class Bot extends Discord.Client {
 		const colorCode = this.color || '37'; // Default to white if undefined
 		const color = `\x1b[${colorCode}m`;
 		const reset = '\x1b[0m';
-		return `${color}[${this.name}]${reset} ${reference ? reference.toUpperCase() + ' ' : ''
+		const now = new Date();
+		const time = now.toLocaleDateString('fr-FR') + ' ' + now.toLocaleTimeString('fr-FR');
+		return `[${time}] ${color}[${this.name}]${reset} ${reference ? reference.toUpperCase() + ' ' : ''
 			}| ${content}`;
 	}
 
