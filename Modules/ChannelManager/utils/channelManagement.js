@@ -55,41 +55,56 @@ const createMatchChannels = async (bot, match, guild) => {
 
 	let textChannelName = generateMatchTextChannelName(teamNames, hoursMinutes);
 
-	channels = channels.concat(
-		await createTeamChannels(
-			bot,
-			guild,
-			teams,
-			category,
-			hoursMinutes,
-			matchDiscordUsers,
-			channelNames
-		)
-	);
-	channels = channels.concat(
-		await createCasterChannels(
-			bot,
-			guild,
-			casters,
-			category,
-			textChannelName,
-			matchDiscordUsers,
-			channelNames
-		)
-	);
-	channels = channels.concat(
-		await createTextChannel(
-			bot,
-			guild,
-			category,
-			textChannelName,
-			match,
-			teams,
-			casters,
-			matchDiscordUsers,
-			channelNames
-		)
-	);
+	if (
+		bot.modules.ChannelManager.createTeamVoiceChannels !== false &&
+		bot.modules.ChannelManager.createTeamVoiceChannels !== 'false'
+	) {
+		channels = channels.concat(
+			await createTeamChannels(
+				bot,
+				guild,
+				teams,
+				category,
+				hoursMinutes,
+				matchDiscordUsers,
+				channelNames
+			)
+		);
+	}
+	if (
+		bot.modules.ChannelManager.createCasterVoiceChannels !== false &&
+		bot.modules.ChannelManager.createCasterVoiceChannels !== 'false'
+	) {
+		channels = channels.concat(
+			await createCasterChannels(
+				bot,
+				guild,
+				casters,
+				category,
+				textChannelName,
+				matchDiscordUsers,
+				channelNames
+			)
+		);
+	}
+	if (
+		bot.modules.ChannelManager.createTextChannels !== false &&
+		bot.modules.ChannelManager.createTextChannels !== 'false'
+	) {
+		channels = channels.concat(
+			await createTextChannel(
+				bot,
+				guild,
+				category,
+				textChannelName,
+				match,
+				teams,
+				casters,
+				matchDiscordUsers,
+				channelNames
+			)
+		);
+	}
 
 	return channels;
 };
