@@ -38,6 +38,30 @@ module.exports = [
             "Custom message for notifications.",
             "Your channel is ready!",
             null
+        ],
+        "createTextChannels": [
+            "Create Text Channels",
+            "Enable or disable the creation of match text channels.",
+            "true",
+            null
+        ],
+        "customMatchText": [
+            "Custom Match Text",
+            "Custom message to send in the match text channel. Leave empty to use default.",
+            "",
+            null
+        ],
+        "createTeamVoiceChannels": [
+            "Create Team Voice Channels",
+            "Enable or disable the creation of voice channels for teams.",
+            "true",
+            null
+        ],
+        "createCasterVoiceChannels": [
+            "Create Caster Voice Channels",
+            "Enable or disable the creation of voice channels for casters.",
+            "true",
+            null
         ]
     }
 ];

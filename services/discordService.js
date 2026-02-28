@@ -203,8 +203,8 @@ const getChannelByNameAndType = (guild, name, channelType) => {
  * @returns {string} L'URL du site web.
  */
 const getWebsiteUrl = (bot) => {
-	if (!bot.modules || !bot.modules.AutoRole || !bot.modules.AutoRole.organization) return null;
-	return `https://${bot.modules.AutoRole.organization}`;
+	if (!bot.modules || !bot.modules.Olympe || !bot.modules.Olympe.organization) return null;
+	return `https://${bot.modules.Olympe.organization}`;
 };
 
 /**
@@ -242,11 +242,14 @@ const getOlympeMention = (user, guild) => {
  */
 const generateMatchMessagePayload = (textChannel, timestamp, teams, casters = null, matchID) => {
 	let embeds = [];
-	let message = textChannel.client.modules.ChannelManager.notifMessage || `Hey !\nLe match entre **${teams[0].name} ⚔️ ${teams[1].name}**\nse déroule **<t:${timestamp}:R>**\n[Lien vers le match](${getWebsiteUrl(
+	const configCustomText = textChannel.client.modules.ChannelManager.customMatchText;
+	let messageTemplate = configCustomText && configCustomText.trim() !== ''
+		? configCustomText
+		: `Hey !\nLe match entre **${teams[0].name} ⚔️ ${teams[1].name}**\nse déroule **<t:${timestamp}:R>**\n[Lien vers le match](${getWebsiteUrl(
 		textChannel.client
 	)}/matchs/${matchID})\n\n`;
 
-	message = message
+	let message = messageTemplate
 		.replace('${teams[0].name}', teams[0].name)
 		.replace('${teams[1].name}', teams[1].name)
 		.replace('${timestamp}', timestamp)
