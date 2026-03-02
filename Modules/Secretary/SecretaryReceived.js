@@ -45,6 +45,42 @@ module.exports = class SecretaryReceived extends Event {
                 // Auto-Sort on new message
                 const SecretarySortCommand = require('./SecretarySortCommand.js');
                 SecretarySortCommand.sort(secretaryChannel.guild).catch(err => console.error("Auto-Sort Check Failed:", err));
+
+                // AI Suggestion
+                if (this.bot.modules.Secretary.aiSuggestionEnabled) {
+                    this.bot.log(`Requête envoyée à l'IA pour ${message.author.username}`, '🤖 IA Suggestion');
+                    fetch('https://n8n.clavier.dev/webhook/1c5f9a43-3440-40ad-8bb6-4386f921d6c7', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            sessionId: message.author.id,
+                            text: message.content
+                        })
+                    })
+                        .then(res => res.text())
+                        .then(async text => {
+                            let suggestion = text;
+                            try {
+                                const parsed = JSON.parse(text);
+                                // Obtenir la suggestion depuis les formats courants de webhook
+                                suggestion = parsed.suggestion || parsed.text || parsed.reply || ((parsed.output && typeof parsed.output === 'string') ? parsed.output : text);
+                            } catch (e) {
+                                // C'est probablement du texte brut (ou l'erreur 404 de n8n par exemple)
+                            }
+
+                            if (suggestion && suggestion.trim().length > 0) {
+                                const { EmbedBuilder } = require('discord.js');
+                                const aiEmbed = new EmbedBuilder()
+                                    .setAuthor({ name: 'Suggestion d\'IA', iconURL: 'https://cdn-icons-png.flaticon.com/512/2040/2040946.png' })
+                                    .setDescription(`Copiez-collez ce texte pour répondre :\n\`\`\`text\n${suggestion}\n\`\`\``)
+                                    .setColor('Orange');
+                                await secretaryChannel.send({ embeds: [aiEmbed] });
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Erreur lors de la requête Webhook IA :', err);
+                        });
+                }
             });
 
         } catch (e) {
