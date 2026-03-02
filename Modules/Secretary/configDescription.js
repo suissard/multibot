@@ -38,6 +38,12 @@ module.exports = [
             "Color for user messages.",
             "'DarkGrey'",
             null
+        ],
+        "aiSuggestionUrl": [
+            "AI Suggestion Webhook URL",
+            "URL of the webhook (e.g. n8n) to generate AI suggestions for tickets. If set, AI suggestions are active.",
+            "'https://n8n.clavier.dev/webhook/1c5f9a43-3440-40ad-8bb6-4386f921d6c7'",
+            null
         ]
     }
 ];
