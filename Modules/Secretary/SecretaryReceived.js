@@ -47,9 +47,10 @@ module.exports = class SecretaryReceived extends Event {
                 SecretarySortCommand.sort(secretaryChannel.guild).catch(err => console.error("Auto-Sort Check Failed:", err));
 
                 // AI Suggestion
-                if (this.bot.modules.Secretary.aiSuggestionEnabled) {
+                const aiWebhookUrl = this.bot.modules.Secretary.aiSuggestionUrl;
+                if (aiWebhookUrl) {
                     this.bot.log(`Requête envoyée à l'IA pour ${message.author.username}`, '🤖 IA Suggestion');
-                    fetch('https://n8n.clavier.dev/webhook/1c5f9a43-3440-40ad-8bb6-4386f921d6c7', {
+                    fetch(aiWebhookUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
