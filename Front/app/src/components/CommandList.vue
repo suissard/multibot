@@ -4,25 +4,26 @@
     <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
       <div>
         <h1
-          class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-600">
+          class="text-4xl font-extrabold text-indigo-600 dark:text-indigo-400 tracking-tight">
           Commands Repository</h1>
         <p class="text-gray-500 mt-2">Browse and execute available bot commands.</p>
       </div>
       <div class="w-full md:w-auto relative">
         <input v-model="searchQuery" type="text" placeholder="Search commands..."
-          class="w-full md:w-80 pl-10 pr-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 focus:border-transparent dark:bg-gray-800 transition-all shadow-sm">
+          class="w-full md:w-80 pl-10 pr-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent dark:bg-gray-800 transition-all shadow-sm outline-none">
         <span class="absolute left-3 top-2.5 text-gray-400">🔍</span>
       </div>
     </div>
 
     <!-- Controls: Filter & Sort -->
     <div
-      class="flex flex-wrap gap-4 mb-6 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
+      <div
+      class="flex flex-wrap gap-4 mb-6 p-4 bg-white dark:bg-gray-800/40 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
       <!-- Category Filter -->
       <div class="flex-1 min-w-[200px]">
         <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">CATEGORY</label>
         <select v-model="selectedCategory"
-          class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 py-2 px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+          class="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 py-2 px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
           <option value="">All Categories</option>
           <option v-for="category in uniqueCategories" :key="category" :value="category">
             {{ category }}
@@ -34,7 +35,7 @@
       <div class="flex-1 min-w-[200px]">
         <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">SORT BY</label>
         <select v-model="sortBy"
-          class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 py-2 px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+          class="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 py-2 px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
           <option value="name">Name</option>
           <option value="category">Category</option>
         </select>
@@ -43,7 +44,7 @@
       <!-- Sort Order -->
       <div class="flex items-end">
         <button @click="toggleSortOrder"
-          class="h-[42px] px-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors flex items-center justify-center gap-2"
+          class="h-[42px] px-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all flex items-center justify-center gap-2"
           :title="sortOrder === 'asc' ? 'Ascending' : 'Descending'">
           <span class="text-sm font-medium">{{ sortOrder === 'asc' ? 'A-Z' : 'Z-A' }}</span>
           <span class="text-xs">{{ sortOrder === 'asc' ? '↓' : '↑' }}</span>
@@ -64,7 +65,7 @@
         <p class="text-yellow-700 dark:text-yellow-300 mb-6">Please select a bot from the dashboard to view and execute
           commands.</p>
         <router-link to="/"
-          class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-lg shadow transition">
+          class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-xl shadow-sm transition-all inline-block">
           Go to Dashboard
         </router-link>
       </div>
@@ -78,7 +79,7 @@
 
     <!-- Grid -->
     <!-- Table View -->
-    <div v-else class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+    <div v-else class="bg-white dark:bg-gray-800 shadow-sm rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
       <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
           <thead class="bg-gray-50 dark:bg-gray-700">

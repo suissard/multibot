@@ -5,14 +5,14 @@
 
     <!-- Sidebar (Desktop) -->
     <aside
-      class="hidden md:flex flex-col w-64 bg-white dark:bg-gray-800 shadow-xl z-20 transition-all duration-300 border-r border-gray-200 dark:border-gray-700">
+      class="hidden md:flex flex-col w-64 bg-white dark:bg-gray-800 shadow-sm z-20 transition-all duration-200 border-r border-gray-200 dark:border-gray-700">
       <div class="flex items-center justify-center h-16 border-b border-gray-200 dark:border-gray-700">
         <h1 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 tracking-tight">Multibot</h1>
       </div>
       <div class="flex-1 overflow-y-auto py-4">
         <nav class="space-y-1 px-3">
-          <router-link to="/" active-class="bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400"
-            class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
+          <router-link to="/" active-class="bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 font-bold"
+            class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
             <svg class="w-5 h-5 mr-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
               fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -21,8 +21,8 @@
             <span class="font-medium">Home</span>
           </router-link>
 
-          <router-link to="/commands" active-class="bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400"
-            class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
+          <router-link to="/commands" active-class="bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 font-bold"
+            class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
             <svg class="w-5 h-5 mr-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
               fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -31,8 +31,8 @@
             <span class="font-medium">Commands</span>
           </router-link>
 
-          <router-link to="/events" active-class="bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400"
-            class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
+          <router-link to="/events" active-class="bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 font-bold"
+            class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
             <svg class="w-5 h-5 mr-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
               fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -41,8 +41,8 @@
             <span class="font-medium">Events</span>
           </router-link>
 
-          <router-link to="/modules" active-class="bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400"
-            class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
+          <router-link to="/modules" active-class="bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 font-bold"
+            class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
             <svg class="w-5 h-5 mr-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
               fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -51,8 +51,8 @@
             <span class="font-medium">Modules</span>
           </router-link>
 
-          <router-link to="/secretary" active-class="bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400"
-            class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
+          <router-link to="/secretary" active-class="bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 font-bold"
+            class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
             <svg class="w-5 h-5 mr-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
               fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -63,8 +63,8 @@
 
           <div class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700"></div>
 
-          <router-link to="/settings" active-class="bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400"
-            class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
+          <router-link to="/settings" active-class="bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 font-bold"
+            class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group mb-1">
             <svg class="w-5 h-5 mr-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
               fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -105,7 +105,7 @@
             <!-- Bot Selector -->
             <div class="relative">
               <div @click="toggleBotSelector"
-                class="relative z-10 flex items-center bg-indigo-50 dark:bg-indigo-900/50 border border-indigo-200 dark:border-indigo-700 rounded-full py-1.5 px-4 shadow-sm cursor-pointer hover:bg-indigo-100 dark:hover:bg-indigo-800 transition-colors duration-200">
+                class="relative z-10 flex items-center bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 rounded-lg py-1.5 px-4 shadow-sm cursor-pointer hover:bg-indigo-100 dark:hover:bg-indigo-800 transition-colors duration-200">
                 <div v-if="selectedBot" class="flex items-center">
                   <img v-if="selectedBot.avatar" :src="selectedBot.avatar" alt="Bot Avatar"
                     class="h-8 w-8 rounded-full border border-indigo-200 dark:border-indigo-600 mr-2">
@@ -159,7 +159,7 @@
             <!-- Channel Selector -->
             <div class="relative" v-if="selectedBot">
               <div @click="toggleChannelSelector"
-                class="relative z-10 flex items-center bg-green-50 dark:bg-green-900/50 border border-green-200 dark:border-green-700 rounded-full py-1.5 px-4 shadow-sm cursor-pointer hover:bg-green-100 dark:hover:bg-green-800 transition-colors duration-200">
+                class="relative z-10 flex items-center bg-green-50 dark:bg-green-900/30 border border-green-100 dark:border-green-800 rounded-lg py-1.5 px-4 shadow-sm cursor-pointer hover:bg-green-100 dark:hover:bg-green-800 transition-colors duration-200">
                 <div v-if="selectedChannel" class="flex items-center">
                   <span class="text-sm font-medium text-green-700 dark:text-green-200 hidden sm:block mr-1"># {{
                     selectedChannel.name }}</span>
@@ -251,7 +251,7 @@
             </div>
             <div v-else class="ml-4">
               <button @click="handleLogin"
-                class="flex items-center space-x-2 bg-[#5865F2] hover:bg-[#4752C4] text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 shadow-md">
+                class="flex items-center space-x-2 bg-[#5865F2] hover:bg-[#4752C4] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 shadow-sm">
                 <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path
                     d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.419-2.1568 2.419zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.419-2.1568 2.419z" />

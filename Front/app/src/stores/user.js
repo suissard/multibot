@@ -7,6 +7,7 @@ export const useUserStore = defineStore('user', {
     user: null,
     theme: localStorage.getItem('theme') || 'light',
     token: localStorage.getItem('api_token') || null,
+    strapiToken: localStorage.getItem('strapi_token') || null,
   }),
   getters: {
     profilePictureUrl() {
@@ -42,15 +43,21 @@ export const useUserStore = defineStore('user', {
     },
     async login(code) {
       this.logout(); // Clear previous token
-      const { token } = await callApi('login', code);
+      const { token, strapiToken } = await callApi('login', code);
       localStorage.setItem('api_token', token);
+      if (strapiToken) {
+        localStorage.setItem('strapi_token', strapiToken);
+        this.strapiToken = strapiToken;
+      }
       this.token = token;
       this.isAuthenticated = true;
       await this.fetchUser();
     },
     logout() {
       localStorage.removeItem('api_token');
+      localStorage.removeItem('strapi_token');
       this.token = null;
+      this.strapiToken = null;
       this.isAuthenticated = false;
       this.user = null;
     },

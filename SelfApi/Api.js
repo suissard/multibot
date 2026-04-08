@@ -246,13 +246,27 @@ module.exports = class SelfApi {
 		const accessToken = await this.getDiscordAccessTokenFromCode(dicordCode);
 		const discordUser = await this.getDiscordUserFromToken(accessToken);
 
-		//Verifier que l'id discord n'est pas existant
-		// Stateless: No need to check existing ID in memory
+		// Synchronize with Strapi
+		let strapiToken = null;
+		try {
+			const strapiResponse = await this.fetch(`${process.env.STRAPI_URL}/api/auth/discord/callback?access_token=${accessToken}`);
+			const strapiData = await strapiResponse.json();
+			if (strapiData.jwt) {
+				strapiToken = strapiData.jwt;
+			} else {
+				this.warn('Strapi authentication failed during sync', 'createUser');
+			}
+		} catch (e) {
+			this.error('Error syncing with Strapi: ' + e.message, 'createUser');
+		}
 
 		const token = this.signToken(discordUser, accessToken); // Create signed token
+		// Store strapi token in the session token (or optionally return it separately)
+		// For now, let's keep them separate in the response so the frontend can store both if needed,
+		// but we'll prioritize the unified token.
 
-		res.json({ token, discordId: discordUser.id }); //Renvoyer données utilisateurs
-		return { token, discordId: discordUser.id };
+		res.json({ token, strapiToken, discordId: discordUser.id }); //Renvoyer données utilisateurs
+		return { token, strapiToken, discordId: discordUser.id };
 	}
 
 	/**

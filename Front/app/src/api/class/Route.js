@@ -10,9 +10,17 @@ class Route {
 
         this.api.interceptors.request.use(config => {
             const token = localStorage.getItem('api_token');
+            const strapiToken = localStorage.getItem('strapi_token');
+            
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`;
             }
+
+            // If we are calling Strapi directly or if we want to pass it through SelfApi
+            if (strapiToken) {
+                config.headers['X-Strapi-Authorization'] = `Bearer ${strapiToken}`;
+            }
+            
             return config;
         });
 

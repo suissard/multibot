@@ -7,7 +7,7 @@
                 <!-- Search Input -->
                 <div class="relative">
                     <input type="text" v-model="searchQuery" placeholder="Search conversations..."
-                        class="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400">
+                        class="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 outline-none transition-all shadow-sm">
                     <svg class="w-4 h-4 text-gray-400 absolute left-3 top-3" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -33,8 +33,8 @@
                 <ul v-else class="divide-y divide-gray-200 dark:divide-gray-700">
                     <li v-for="conversation in filteredConversations" :key="conversation.channelId"
                         @click="selectConversation(conversation)"
-                        class="cursor-pointer p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-150 ease-in-out"
-                        :class="{ 'bg-indigo-50 dark:bg-gray-700': selectedConversation?.channelId === conversation.channelId }">
+                        class="cursor-pointer p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition duration-150 ease-in-out mx-2 my-1 rounded-xl"
+                        :class="{ 'bg-indigo-50 dark:bg-indigo-900/30 ring-1 ring-indigo-100 dark:ring-indigo-800': selectedConversation?.channelId === conversation.channelId }">
                         <div class="flex items-center space-x-4">
                             <div class="flex-shrink-0">
                                 <img class="h-10 w-10 rounded-full bg-indigo-500" :src="conversation.avatar" alt=""
@@ -59,7 +59,7 @@
             <div v-if="selectedConversation" class="flex-1 flex flex-col h-full">
                 <!-- Chat Header -->
                 <div
-                    class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-white dark:bg-gray-800 shadow-sm z-10">
+                    class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-white dark:bg-gray-800 z-10 transition-colors">
                     <div class="flex items-center space-x-3">
                         <img class="h-10 w-10 rounded-full" :src="selectedConversation.avatar" alt=""
                             @error="handleImageError($event, selectedConversation.username)">
@@ -100,8 +100,8 @@
                     <div v-else class="space-y-4">
                         <div v-for="message in messages" :key="message.id" class="flex flex-col"
                             :class="{ 'items-end': message.author.bot, 'items-start': !message.author.bot }">
-                            <div class="max-w-[70%] rounded-lg px-4 py-2 shadow-sm relative group"
-                                :class="message.author.bot ? 'bg-indigo-600 text-white' : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-600'">
+                            <div class="max-w-[70%] rounded-2xl px-4 py-2 shadow-sm relative group"
+                                :class="message.author.bot ? 'bg-indigo-600 text-white' : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-100 dark:border-gray-700'">
 
                                 <!-- Reply/Embed context visualization could go here -->
 
@@ -163,14 +163,14 @@
                     </div>
                     <form @submit.prevent="sendMessage" class="flex items-end space-x-2">
                         <div
-                            class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-2 focus-within:ring-2 focus-within:ring-indigo-500 relative">
+                            class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-xl p-2 focus-within:ring-2 focus-within:ring-indigo-500 relative transition-all">
                             <textarea v-model="newMessage" @keydown.enter.prevent="handleEnter" rows="1"
                                 class="w-full bg-transparent border-0 focus:ring-0 text-gray-900 dark:text-gray-100 resize-none max-h-32"
                                 placeholder="Type a message to reply..."></textarea>
 
                             <!-- AI Loading Indicator -->
                             <div v-if="isGenerating"
-                                class="absolute inset-0 bg-gray-100/80 dark:bg-gray-700/80 flex items-center justify-center rounded-lg backdrop-blur-[1px] z-10">
+                                class="absolute inset-0 bg-gray-100/50 dark:bg-gray-700/50 flex items-center justify-center rounded-xl z-10">
                                 <div class="flex items-center space-x-2 text-indigo-600 dark:text-indigo-400">
                                     <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24">
@@ -185,7 +185,7 @@
                             </div>
                         </div>
                         <button type="submit" :disabled="!newMessage.trim() || sending"
-                            class="p-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition duration-200">
+                            class="p-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition duration-200">
                             <svg v-if="sending" class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
