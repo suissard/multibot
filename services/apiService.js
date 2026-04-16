@@ -77,9 +77,7 @@ const getUserById = async (bot, id) => {
  * @throws {Error} Si le match n'est pas trouvé.
  */
 const getMatchById = async (bot, id) => {
-	const match = await bot.olympe.api.matchs.get(id, {
-		userFields: ['thirdpartiesDiscord', 'battlenetBtag'],
-	});
+	const match = await bot.olympe.api.matchs.get(id);
 	if (!match) {
 		throw new Error('No match');
 	}

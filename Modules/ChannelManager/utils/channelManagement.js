@@ -28,6 +28,23 @@ const Bot = require('../../../Class/Bot');
 let cachedMatches = null;
 let lastCacheUpdate = 0;
 
+const getOneTeamDiscordIds = async (bot, team) => {
+	const discordIds = [];
+
+	for (const member of team?.members ?? []) {
+		if (member.user.thirdparties?.discord?.discordID) {
+			discordIds.push(member.user.thirdparties.discord.discordID);
+			continue;
+		}
+		const user = await getUserById(bot, member.user.id);
+		if (user?.thirdparties.discord?.discordID) {
+			discordIds.push(user.thirdparties.discord?.discordID);
+		}
+	}
+
+	return discordIds;
+};
+
 /**
  * Crée tous les salons (vocaux et textuels) associés à un match spécifique.
  * @param {Bot} bot - L'instance du bot.
@@ -205,7 +222,7 @@ const createTeamChannels = async (bot, guild, teams, category, hoursMinutes, mat
 	for (const team of teams) {
 		const voiceChannelName = generateVoiceChannelName(team.name, hoursMinutes);
 
-		const discordIds = getUsersDiscordIdFromTeam(team).filter((id) => id);
+		const discordIds = await getOneTeamDiscordIds(bot, team);
 
 		let discordUsers = await Promise.all(
 			discordIds.map((id) => guild.members.fetch(id).catch(() => null))
