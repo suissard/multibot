@@ -24,24 +24,28 @@ module.exports = (bot) => {
 	 * pour la gestion automatique des salons.
 	 */
 	bot.on('clientReady', async () => {
-		const guildId = bot.home;
-		const guild = bot.guilds.cache.get(guildId);
-		await guild.channels.fetch();
-		await guild.members.fetch().catch(console.warn);
-		//! TEST =====================================================================
-		// bot.modules.ChannelManager.cronSchedule = '*/1 * * * *';
-		// const duration = 12//0.5
-		// bot.modules.ChannelManager.maximumNumberOfHoursToRetrieveFutureMatches = duration;
-		// bot.modules.ChannelManager.maximumMatchDuration = duration;
-
-		// let member = guild.members.cache.get("306395745693597697")
-		// const event = bot.BOTS.Events.get('autorolenewguildmember')
-		// new event(bot).handleEvent(member)
-
-		//! TEST =====================================================================
-		await schedule(bot.modules.ChannelManager.cronSchedule, async () => {
-			autoChannel(bot, guild);
-		});
+		try {
+			const guildId = bot.home;
+			const guild = bot.guilds.cache.get(guildId);
+			await guild.channels.fetch();
+			await guild.members.fetch().catch(console.warn);
+			//! TEST =====================================================================
+			// bot.modules.ChannelManager.cronSchedule = '*/1 * * * *';
+			// const duration = 12//0.5
+			// bot.modules.ChannelManager.maximumNumberOfHoursToRetrieveFutureMatches = duration;
+			// bot.modules.ChannelManager.maximumMatchDuration = duration;
+			
+			// let member = guild.members.cache.get("306395745693597697")
+			// const event = bot.BOTS.Events.get('autorolenewguildmember')
+			// new event(bot).handleEvent(member)
+			
+			//! TEST =====================================================================
+			await schedule(bot.modules.ChannelManager.cronSchedule, async () => {
+				autoChannel(bot, guild);
+			});
+		} catch (error) {
+			console.error('Error occurred while scheduling auto channel task:', error);
+		}
 	});
 
 	return {
