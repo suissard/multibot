@@ -5,7 +5,7 @@ layout: default
 
 # `serverinfo`
 
-Donne des infos sur le serveur
+> **Description :** Donne des infos sur le serveur
 
 ## Narrative
 
@@ -29,21 +29,21 @@ Donne des infos sur le serveur
 
 Exécute la commande serverinfo. Génère et retourne un embed contenant les informations du serveur actuel.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande (non utilisés ici). |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande (non utilisés ici). |
 
-**Returns:** `Promise<Discord.EmbedBuilder>` - avec les informations du serveur.
+**Retour :** <span class="badge badge-type">Promise<Discord.EmbedBuilder></span> - avec les informations du serveur.
 
 Crée et retourne un `EmbedBuilder` avec les informations d'un serveur.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `guild` | `Discord.Guild` | - L'objet Guild du serveur dont il faut extraire les informations. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `guild` | <span class="badge badge-type">Discord.Guild</span> | - L'objet Guild du serveur dont il faut extraire les informations. |
 
-**Returns:** `Promise<Discord.EmbedBuilder>` - EmbedBuilder contenant les informations formatées du serveur.
+**Retour :** <span class="badge badge-type">Promise<Discord.EmbedBuilder></span> - EmbedBuilder contenant les informations formatées du serveur.
 

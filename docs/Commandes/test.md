@@ -5,7 +5,7 @@ layout: default
 
 # `test`
 
-Test une commande ou serie de commandes
+> **Description :** Test une commande ou serie de commandes
 
 ## Narrative
 
@@ -22,24 +22,24 @@ Test une commande ou serie de commandes
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `string` | `STRING` | un texte | No |
-| `integer` | `INTEGER` | un chiffre | No |
-| `boolean` | `BOOLEAN` | un boolean | No |
-| `user` | `USER` | un utilisateur | No |
-| `channel` | `CHANNEL` | un channel | No |
-| `role` | `ROLE` | un role | No |
-| `mentionable` | `MENTIONABLE` | une mention | No |
-| `attachement` | `ATTACHMENT` | une piece jointe | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `string` | <span class="badge badge-type">STRING</span> | un texte | <span class="badge badge-optional">Optionnel</span> |
+| `integer` | <span class="badge badge-type">INTEGER</span> | un chiffre | <span class="badge badge-optional">Optionnel</span> |
+| `boolean` | <span class="badge badge-type">BOOLEAN</span> | un boolean | <span class="badge badge-optional">Optionnel</span> |
+| `user` | <span class="badge badge-type">USER</span> | un utilisateur | <span class="badge badge-optional">Optionnel</span> |
+| `channel` | <span class="badge badge-type">CHANNEL</span> | un channel | <span class="badge badge-optional">Optionnel</span> |
+| `role` | <span class="badge badge-type">ROLE</span> | un role | <span class="badge badge-optional">Optionnel</span> |
+| `mentionable` | <span class="badge badge-type">MENTIONABLE</span> | une mention | <span class="badge badge-optional">Optionnel</span> |
+| `attachement` | <span class="badge badge-type">ATTACHMENT</span> | une piece jointe | <span class="badge badge-optional">Optionnel</span> |
 
 Exécute la commande de test. Cette commande est conçue pour tester la réception de différents types d'arguments. Elle retourne les arguments reçus sous forme de chaîne JSON.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
 
-**Returns:** `Promise<string>` - chaîne de caractères contenant "test OK" et les arguments en format JSON.
+**Retour :** <span class="badge badge-type">Promise<string></span> - chaîne de caractères contenant "test OK" et les arguments en format JSON.
 

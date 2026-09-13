@@ -7,44 +7,44 @@ layout: default
 
 Crée une nouvelle instance de WebHook.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `postURL` | `string` | - L'URL du webhook Discord. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `postURL` | <span class="badge badge-type">string</span> | - L'URL du webhook Discord. |
 
 Récupère les informations sur le webhook.
 
-**Returns:** `Promise<object>` - objet contenant les informations du webhook.
+**Retour :** <span class="badge badge-type">Promise<object></span> - objet contenant les informations du webhook.
 
 Envoie des données brutes au webhook.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `data` | `object` | - Le payload à envoyer au webhook. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `data` | <span class="badge badge-type">object</span> | - Le payload à envoyer au webhook. |
 
-**Returns:** `Promise<Response>` - réponse de l'API Discord.
+**Retour :** <span class="badge badge-type">Promise<Response></span> - réponse de l'API Discord.
 
 Envoie un message simple au webhook.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `content` | `string` | - Le contenu du message à envoyer. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `content` | <span class="badge badge-type">string</span> | - Le contenu du message à envoyer. |
 
-**Returns:** `Promise<Response>` - réponse de l'API Discord.
+**Retour :** <span class="badge badge-type">Promise<Response></span> - réponse de l'API Discord.
 
 Envoie un message "embed" simple au webhook.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `title` | `string` | - Le titre de l'embed. |
-| `description` | `string` | - La description de l'embed. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `title` | <span class="badge badge-type">string</span> | - Le titre de l'embed. |
+| `description` | <span class="badge badge-type">string</span> | - La description de l'embed. |
 
-**Returns:** `Promise<Response>` - réponse de l'API Discord.
+**Retour :** <span class="badge badge-type">Promise<Response></span> - réponse de l'API Discord.
 

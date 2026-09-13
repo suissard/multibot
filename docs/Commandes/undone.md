@@ -5,7 +5,7 @@ layout: default
 
 # `undone`
 
-Rouvre un ticket
+> **Description :** Rouvre un ticket
 
 ## Narrative
 
@@ -22,11 +22,11 @@ Rouvre un ticket
 
 Exécute la commande pour marquer un ticket comme "non terminé" ou le rouvrir. Renomme le salon actuel en ajoutant un préfixe "❌" pour indiquer qu'il est en cours.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande (non utilisés ici). |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande (non utilisés ici). |
 
-**Returns:** `string` - message de confirmation ou d'échec.
+**Retour :** <span class="badge badge-type">string</span> - message de confirmation ou d'échec.
 

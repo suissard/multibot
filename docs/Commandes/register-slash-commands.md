@@ -5,7 +5,7 @@ layout: default
 
 # `register-slash-commands`
 
-Registers slash commands with Discord.
+> **Description :** Registers slash commands with Discord.
 
 ## Narrative
 
@@ -24,18 +24,18 @@ Registers slash commands with Discord.
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `command_name` | `STRING` | The name of the command to register. If not provided, all commands will be registered. | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `command_name` | <span class="badge badge-type">STRING</span> | The name of the command to register. If not provided, all commands will be registered. | <span class="badge badge-optional">Optionnel</span> |
 
 Executes the command to manually (re)create one or all slash commands. Searches for a command by its name in the CommandManager and calls its \`createSlashCommand\` method to register or update it with the Discord API. If no command name is specified, it registers all commands.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - The arguments for the command. |
-| `args.command_name` | `string` | - The name of the slash command to create. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - The arguments for the command. |
+| `args.command_name` | <span class="badge badge-type">string</span> | - The name of the slash command to create. |
 
-**Returns:** `Promise<string>` - confirmation or error message.
+**Retour :** <span class="badge badge-type">Promise<string></span> - confirmation or error message.
 

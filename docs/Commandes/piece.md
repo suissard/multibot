@@ -5,7 +5,7 @@ layout: default
 
 # `piece`
 
-Lance une piece pour récolter pile ou face
+> **Description :** Lance une piece pour récolter pile ou face
 
 ## Narrative
 
@@ -18,11 +18,11 @@ Lance une piece pour récolter pile ou face
 
 Exécute la commande pour simuler un lancer de pièce.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande (non utilisés ici). |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande (non utilisés ici). |
 
-**Returns:** `string` - résultat du lancer : 'Pile' ou 'Face'.
+**Retour :** <span class="badge badge-type">string</span> - résultat du lancer : 'Pile' ou 'Face'.
 

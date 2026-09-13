@@ -5,7 +5,7 @@ layout: default
 
 # `autoChannelCommand`
 
-Lance la fonction autochannel : creation, permission et nettoyage des channels de match
+> **Description :** Lance la fonction autochannel : creation, permission et nettoyage des channels de match
 
 ## Narrative
 
@@ -25,11 +25,11 @@ Lance la fonction autochannel : creation, permission et nettoyage des channels d
 
 Exécute la commande pour déclencher manuellement le processus de gestion automatique des salons.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande (non utilisés ici). |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande (non utilisés ici). |
 
-**Returns:** `Promise<string>` - message indiquant que le processus est en cours.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message indiquant que le processus est en cours.
 

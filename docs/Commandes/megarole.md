@@ -5,6 +5,8 @@ layout: default
 
 # `megarole`
 
+> **Description :** Ajoute ou supprime en masse un ou plusieurs rôles à tous les membres du serveur.
+
 ## Narrative
 
 
@@ -29,44 +31,44 @@ layout: default
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `del` | `BOOLEAN` | True = Supprimer les rôles / False = Ajouter les rôles | Yes |
-| `role` | `ROLE` | Role à supprimer | No |
-| `multipleroles` | `STRING` | Mettre plusieurs roles à supprimer | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `del` | <span class="badge badge-type">BOOLEAN</span> | True = Supprimer les rôles / False = Ajouter les rôles | <span class="badge badge-required">Requis</span> |
+| `role` | <span class="badge badge-type">ROLE</span> | Role à supprimer | <span class="badge badge-optional">Optionnel</span> |
+| `multipleroles` | <span class="badge badge-type">STRING</span> | Mettre plusieurs roles à supprimer | <span class="badge badge-optional">Optionnel</span> |
 
 Exécute la commande "megarole". Prépare la liste des rôles et des utilisateurs, puis lance l'opération d'ajout ou de suppression de masse.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.del` | `boolean` | - `true` pour supprimer les rôles, `false` pour les ajouter. |
-| `args.role` | `string` | - L'ID d'un rôle unique à traiter. |
-| `args.multipleroles` | `string` | - Une chaîne contenant les mentions de plusieurs rôles. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.del` | <span class="badge badge-type">boolean</span> | - `true` pour supprimer les rôles, `false` pour les ajouter. |
+| `args.role` | <span class="badge badge-type">string</span> | - L'ID d'un rôle unique à traiter. |
+| `args.multipleroles` | <span class="badge badge-type">string</span> | - Une chaîne contenant les mentions de plusieurs rôles. |
 
-**Returns:** `Promise<string>` - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
 
 Extrait les ID de rôle à partir d'une chaîne de mentions de rôles.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `string` | `string` | - La chaîne contenant les mentions de rôles. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `string` | <span class="badge badge-type">string</span> | - La chaîne contenant les mentions de rôles. |
 
-**Returns:** `Promise<Array<string>>` - tableau d'IDs de rôles.
+**Retour :** <span class="badge badge-type">Promise<Array<string>></span> - tableau d'IDs de rôles.
 
 Ajoute ou supprime en masse une liste de rôles pour une liste d'utilisateurs. Le nom de la fonction est trompeur, car elle gère à la fois l'ajout et la suppression.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `user` | `import('discord.js').Collection<string, import('discord.js').GuildMember>` | - La collection des membres du serveur. |
-| `role` | `Array<string>` | - Un tableau d'IDs de rôles à ajouter ou supprimer. |
-| `args` | `object` | - Les arguments de la commande, principalement `args.del` pour déterminer l'action. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `user` | <span class="badge badge-type">import('discord.js').Collection<string, import('discord.js').GuildMember></span> | - La collection des membres du serveur. |
+| `role` | <span class="badge badge-type">Array<string></span> | - Un tableau d'IDs de rôles à ajouter ou supprimer. |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande, principalement `args.del` pour déterminer l'action. |
 
-**Returns:** `Promise<string>` - message de résumé de l'opération.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message de résumé de l'opération.
 

@@ -5,7 +5,7 @@ layout: default
 
 # `AutoroleConfigClass`
 
-## Class: 
+## Classe : ``
 
 Represents an authentication object.
 
@@ -15,14 +15,14 @@ The validity period of the token.
 
 Creates an instance of Auth.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `token` | `string` | - The authentication token. |
-| `validity` | `number` | - The validity period of the token. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `token` | <span class="badge badge-type">string</span> | - The authentication token. |
+| `validity` | <span class="badge badge-type">number</span> | - The validity period of the token. |
 
-## Class: 
+## Classe : ``
 
 Represents a Guild ID with an associated challenge ID.
 
@@ -32,14 +32,14 @@ The challenge ID associated with the guild.
 
 Creates an instance of GuildIdChallenge.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `id` | `string` | - The ID of the guild. |
-| `challengeID` | `string` | - The challenge ID. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `id` | <span class="badge badge-type">string</span> | - The ID of the guild. |
+| `challengeID` | <span class="badge badge-type">string</span> | - The challenge ID. |
 
-## Class: 
+## Classe : ``
 
 Represents a parameter for the AutoRole configuration.
 
@@ -55,18 +55,18 @@ The organization.
 
 Creates an instance of Param.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `paramData` | `object` | - The raw parameter data from JSON. |
-| `paramData.guildIds` | `Array<{id: string, challengeID: string}>` | - Guild ID and challenge ID pairs. |
-| `paramData.auth` | `{token: string, validity: number}` | - Authentication data. |
-| `paramData.cronSchedule` | `string` | - Cron schedule. |
-| `paramData.domain` | `string` | - Domain. |
-| `paramData.organization` | `string` | - Organization. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `paramData` | <span class="badge badge-type">object</span> | - The raw parameter data from JSON. |
+| `paramData.guildIds` | <span class="badge badge-type">Array<{id: string, challengeID: string}></span> | - Guild ID and challenge ID pairs. |
+| `paramData.auth` | <span class="badge badge-type">{token: string, validity: number}</span> | - Authentication data. |
+| `paramData.cronSchedule` | <span class="badge badge-type">string</span> | - Cron schedule. |
+| `paramData.domain` | <span class="badge badge-type">string</span> | - Domain. |
+| `paramData.organization` | <span class="badge badge-type">string</span> | - Organization. |
 
-## Class: 
+## Classe : ``
 
 Represents details of a special role.
 
@@ -80,16 +80,16 @@ Whether renaming has priority.
 
 Creates an instance of SpecialRoleDetail.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `name` | `string` | - The name of the role. |
-| `id` | `string` | - The ID of the role. |
-| `rename` | `boolean` | - Allows renaming. |
-| `priorityRename` | `boolean` | - Renaming has priority. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `name` | <span class="badge badge-type">string</span> | - The name of the role. |
+| `id` | <span class="badge badge-type">string</span> | - The ID of the role. |
+| `rename` | <span class="badge badge-type">boolean</span> | - Allows renaming. |
+| `priorityRename` | <span class="badge badge-type">boolean</span> | - Renaming has priority. |
 
-## Class: 
+## Classe : ``
 
 Represents information about a role.
 
@@ -99,14 +99,14 @@ The ID of the role, can be null.
 
 Creates an instance of RoleInfo.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `name` | `string` | - The name of the role. |
-| `id` | `?string` | - The ID of the role. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `name` | <span class="badge badge-type">string</span> | - The name of the role. |
+| `id` | <span class="badge badge-type">?string</span> | - The ID of the role. |
 
-## Class: 
+## Classe : ``
 
 Represents a mapping between a list of source roles and a target RoleInfo. This is a tuple-like structure [string[], RoleInfo].
 
@@ -116,14 +116,14 @@ The target role information.
 
 Creates an instance of RoleMapping.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `sourceRoles` | `string[]` | - Array of source role names. |
-| `targetRole` | `RoleInfo` | - Target role information. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `sourceRoles` | <span class="badge badge-type">string[]</span> | - Array of source role names. |
+| `targetRole` | <span class="badge badge-type">RoleInfo</span> | - Target role information. |
 
-## Class: 
+## Classe : ``
 
 Represents a division.
 
@@ -133,14 +133,14 @@ The ID of the division, can be null.
 
 Creates an instance of Division.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `name` | `string` | - The name of the division. |
-| `id` | `?string` | - The ID of the division. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `name` | <span class="badge badge-type">string</span> | - The name of the division. |
+| `id` | <span class="badge badge-type">?string</span> | - The ID of the division. |
 
-## Class: 
+## Classe : ``
 
 Represents tags including game roles.
 
@@ -148,15 +148,15 @@ Mappings for game roles.
 
 Creates an instance of Tags.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `tagsData` | `object` | - The raw tags data from JSON. |
-| `tagsData.gameRoles` | `Array<[string[], {name: string, id: ?string}]>` | - Game roles mappings. |
-| `tagsData.divisions` | `Array<{name: string, id: ?string}>` | - Divisions. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `tagsData` | <span class="badge badge-type">object</span> | - The raw tags data from JSON. |
+| `tagsData.gameRoles` | <span class="badge badge-type">Array<[string[], {name: string, id: ?string}]></span> | - Game roles mappings. |
+| `tagsData.divisions` | <span class="badge badge-type">Array<{name: string, id: ?string}></span> | - Divisions. |
 
-## Class: 
+## Classe : ``
 
 Represents divisions.
 
@@ -164,15 +164,15 @@ An array of divisions.
 
 Creates an instance of Tags.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `tagsData` | `object` | - The raw tags data from JSON. |
-| `tagsData.gameRoles` | `Array<[string[], {name: string, id: ?string}]>` | - Game roles mappings. |
-| `tagsData.divisions` | `Array<{name: string, id: ?string}>` | - Divisions. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `tagsData` | <span class="badge badge-type">object</span> | - The raw tags data from JSON. |
+| `tagsData.gameRoles` | <span class="badge badge-type">Array<[string[], {name: string, id: ?string}]></span> | - Game roles mappings. |
+| `tagsData.divisions` | <span class="badge badge-type">Array<{name: string, id: ?string}></span> | - Divisions. |
 
-## Class: 
+## Classe : ``
 
 Represents details for a specific guild.
 
@@ -184,16 +184,16 @@ Tags for the guild.
 
 Creates an instance of GuildDetail.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `guildData` | `object` | - The raw guild data from JSON. |
-| `guildData.specialRoles` | `Record<string, {name: string, id: string, rename: boolean, priorityRename: boolean}>` | - Special roles. |
-| `guildData.roles` | `Array<[string[], {name: string, id: ?string}]>` | - Role mappings. |
-| `guildData.tags` | `object` | - Tags data. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `guildData` | <span class="badge badge-type">object</span> | - The raw guild data from JSON. |
+| `guildData.specialRoles` | <span class="badge badge-type">Record<string, {name: string, id: string, rename: boolean, priorityRename: boolean}></span> | - Special roles. |
+| `guildData.roles` | <span class="badge badge-type">Array<[string[], {name: string, id: ?string}]></span> | - Role mappings. |
+| `guildData.tags` | <span class="badge badge-type">object</span> | - Tags data. |
 
-## Class: 
+## Classe : ``
 
 Represents roles for a specific competition.
 
@@ -207,17 +207,17 @@ Role IDs for 'manager' category, keyed by division name.
 
 Creates an instance of CompetitionRoles.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `competitionData` | `object` | - The raw competition roles data from JSON. |
-| `competitionData.club` | `Record<string, string>` | - Club roles. |
-| `competitionData.coach` | `Record<string, string>` | - Coach roles. |
-| `competitionData.player` | `Record<string, string>` | - Player roles. |
-| `competitionData.manager` | `Record<string, string>` | - Manager roles. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `competitionData` | <span class="badge badge-type">object</span> | - The raw competition roles data from JSON. |
+| `competitionData.club` | <span class="badge badge-type">Record<string, string></span> | - Club roles. |
+| `competitionData.coach` | <span class="badge badge-type">Record<string, string></span> | - Coach roles. |
+| `competitionData.player` | <span class="badge badge-type">Record<string, string></span> | - Player roles. |
+| `competitionData.manager` | <span class="badge badge-type">Record<string, string></span> | - Manager roles. |
 
-## Class: 
+## Classe : ``
 
 Represents the structure for role IDs, including general and competition-specific roles.
 
@@ -229,16 +229,16 @@ A record of competition-specific roles, keyed by competition ID.
 
 Creates an instance of RoleIds.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `roleIdsData` | `object` | - The raw role IDs data from JSON. |
-| `roleIdsData.ALL` | `string` | - 'ALL' role ID. |
-| `roleIdsData.captain` | `string` | - 'captain' role ID. |
-| `roleIdsData.competitions` | `Record<string, object>` | - Competition roles data. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `roleIdsData` | <span class="badge badge-type">object</span> | - The raw role IDs data from JSON. |
+| `roleIdsData.ALL` | <span class="badge badge-type">string</span> | - 'ALL' role ID. |
+| `roleIdsData.captain` | <span class="badge badge-type">string</span> | - 'captain' role ID. |
+| `roleIdsData.competitions` | <span class="badge badge-type">Record<string, object></span> | - Competition roles data. |
 
-## Class: 
+## Classe : ``
 
 Represents Olympe authentication details.
 
@@ -246,13 +246,13 @@ The authentication value.
 
 Creates an instance of OlympeAuth.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `value` | `string` | - The authentication value. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `value` | <span class="badge badge-type">string</span> | - The authentication value. |
 
-## Class: 
+## Classe : ``
 
 Main class for the AutoRole configuration. 🤖
 
@@ -276,49 +276,49 @@ The organization identifier.
 
 Creates an instance of AutoRoleConfig.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `jsonData` | `object` | - The raw JSON data for AutoRole configuration. |
-| `jsonData.params` | `Array<object>` | - Parameters data. |
-| `jsonData.guilds` | `Record<string, object>` | - Guilds data. |
-| `jsonData.orgaRoleIds` | `string[]` | - Organization role IDs. |
-| `jsonData.roleIds` | `object` | - Role IDs data. |
-| `jsonData.olympeAuth` | `{value: string}` | - Olympe authentication data. |
-| `jsonData.everyXhours` | `number` | - Interval in hours. |
-| `jsonData.olympeDomain` | `string` | - Olympe domain. |
-| `jsonData.organization` | `string` | - Organization identifier. |
-| `bot` | `Bot` | - bot discord |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `jsonData` | <span class="badge badge-type">object</span> | - The raw JSON data for AutoRole configuration. |
+| `jsonData.params` | <span class="badge badge-type">Array<object></span> | - Parameters data. |
+| `jsonData.guilds` | <span class="badge badge-type">Record<string, object></span> | - Guilds data. |
+| `jsonData.orgaRoleIds` | <span class="badge badge-type">string[]</span> | - Organization role IDs. |
+| `jsonData.roleIds` | <span class="badge badge-type">object</span> | - Role IDs data. |
+| `jsonData.olympeAuth` | <span class="badge badge-type">{value: string}</span> | - Olympe authentication data. |
+| `jsonData.everyXhours` | <span class="badge badge-type">number</span> | - Interval in hours. |
+| `jsonData.olympeDomain` | <span class="badge badge-type">string</span> | - Olympe domain. |
+| `jsonData.organization` | <span class="badge badge-type">string</span> | - Organization identifier. |
+| `bot` | <span class="badge badge-type">Bot</span> | - bot discord |
 
 Retrieves all unique role identifiers (ID or name) from the configuration. C'est comme une chasse au trésor pour les identifiants de rôles (ID ou nom) ! 🗺️💎🏷️
 
-**Returns:** `Array<({id: string} | {name: string})>` - array of unique role identifier objects.
+**Retour :** <span class="badge badge-type">Array<({id: string} | {name: string})></span> - array of unique role identifier objects.
 
 Supprime les paramètres de configuration liés à un ID de guilde spécifique.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `guildId` | `string` | - L'ID de la guilde à supprimer de la configuration. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `guildId` | <span class="badge badge-type">string</span> | - L'ID de la guilde à supprimer de la configuration. |
 
 Vérifie l'accessibilité de toutes les guildes configurées. Si une guilde n'est pas accessible, elle est retirée de la configuration.
 
-**Returns:** `Array<import('discord.js').Guild>` - liste des objets Guild accessibles.
+**Retour :** <span class="badge badge-type">Array<import('discord.js').Guild></span> - liste des objets Guild accessibles.
 
 Itère sur toutes les guildes configurées et lance le processus de récupération ou de création des rôles pour chacune d'entre elles.
 
 Fetches or creates Discord roles based on the provided identifiers. C'est notre majordome Discord, il trouve ou crée les rôles pour nous ! 🤵‍♂️✨
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `identifiers` | `Array<({id: string} | {name: string})>` | - An array of role identifiers from getAllRoleIdentifiers(). |
-| `guild` | `import('discord.js').Guild` | - The discord.js Guild object. |
-| `options` | `object` | - Options for role creation. |
-| `options.creationReason` | `string` | - Reason for role creation. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `identifiers` | <span class="badge badge-type">Array<({id: string} | {name: string})></span> | - An array of role identifiers from getAllRoleIdentifiers(). |
+| `guild` | <span class="badge badge-type">import('discord.js').Guild</span> | - The discord.js Guild object. |
+| `options` | <span class="badge badge-type">object</span> | - Options for role creation. |
+| `options.creationReason` | <span class="badge badge-type">string</span> | - Reason for role creation. |
 
-**Returns:** `Promise<Array<import('discord.js').Role|null>>` - promise that resolves to an array of Role objects or null if a role couldn't be fetched/created.
+**Retour :** <span class="badge badge-type">Promise<Array<import('discord.js').Role|null>></span> - promise that resolves to an array of Role objects or null if a role couldn't be fetched/created.
 

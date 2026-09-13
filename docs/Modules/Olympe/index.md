@@ -7,9 +7,9 @@ layout: default
 
 Le module Olympe gère la connexion à l'API Olympe et le cache des données.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `bot` | `import('../../Class/Bot')` | - L'instance du bot. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `bot` | <span class="badge badge-type">import('../../Class/Bot')</span> | - L'instance du bot. |
 

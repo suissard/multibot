@@ -5,4 +5,5 @@ layout: default
 
 # `SecretaryManager`
 
-*No JSDoc comments found in this file.*
+*Documentation générée automatiquement à partir du code source.*
+

@@ -7,275 +7,275 @@ layout: default
 
 Class permettant de gerer l'API du bot
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `configs` | `Object` |  |
-| `discord` | `Object` |  |
-| `BOTS` | `BotManager` | Instance de gestionnaire de bot |
-| `saltRounds` | `Number` |  |
-| `libs` | `Object` | Dépendances injectées (express, bcrypt, fetch) |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `configs` | <span class="badge badge-type">Object</span> |  |
+| `discord` | <span class="badge badge-type">Object</span> |  |
+| `BOTS` | <span class="badge badge-type">BotManager</span> | Instance de gestionnaire de bot |
+| `saltRounds` | <span class="badge badge-type">Number</span> |  |
+| `libs` | <span class="badge badge-type">Object</span> | Dépendances injectées (express, bcrypt, fetch) |
 
 Récupère l'instance du bot à partir de la requête.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `req` | `import('express').Request` | - L'objet de la requête Express. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `req` | <span class="badge badge-type">import('express').Request</span> | - L'objet de la requête Express. |
 
-**Returns:** `import('../Class/Bot.js')` - du bot.
+**Retour :** <span class="badge badge-type">import('../Class/Bot.js')</span> - du bot.
 
 Convertit le corps de la requête API en objets Discord.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `req` | `import('express').Request` | - L'objet de la requête Express. |
-| `command` | `import('../Class/Command.js')` | - La commande à exécuter. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `req` | <span class="badge badge-type">import('express').Request</span> | - L'objet de la requête Express. |
+| `command` | <span class="badge badge-type">import('../Class/Command.js')</span> | - La commande à exécuter. |
 
-**Returns:** `Promise<object>` - arguments transposés.
+**Retour :** <span class="badge badge-type">Promise<object></span> - arguments transposés.
 
 Ajoute plusieurs utilisateurs à partir d'un tableau de configuration.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `users` | `Array<{token: string, discordId: string}>` | - Un tableau d'objets utilisateur. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `users` | <span class="badge badge-type">Array<{token: string, discordId: string}></span> | - Un tableau d'objets utilisateur. |
 
 Ajoute un utilisateur et son token d'API au cache d'authentification. Le token est hashé avant d'être stocké.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `token` | `string` | - Le token d'API brut de l'utilisateur. |
-| `userData` | `object` | - Les données de l'utilisateur Discord. |
-| `accessToken` | `string` | - Le token d'accès Discord. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `token` | <span class="badge badge-type">string</span> | - Le token d'API brut de l'utilisateur. |
+| `userData` | <span class="badge badge-type">object</span> | - Les données de l'utilisateur Discord. |
+| `accessToken` | <span class="badge badge-type">string</span> | - Le token d'accès Discord. |
 
 Extrait le token Bearer d'une requête et retourne son hash.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `req` | `import('express').Request` | - L'objet de la requête Express. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `req` | <span class="badge badge-type">import('express').Request</span> | - L'objet de la requête Express. |
 
-**Returns:** `Promise<string|false>` - hash du token, ou `false` si aucun token n'est trouvé.
+**Retour :** <span class="badge badge-type">Promise<string|false></span> - hash du token, ou `false` si aucun token n'est trouvé.
 
 Extrait le code d'autorisation Discord des paramètres de la requête.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `req` | `import('express').Request` | - L'objet de la requête Express. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `req` | <span class="badge badge-type">import('express').Request</span> | - L'objet de la requête Express. |
 
-**Returns:** `string` - code d'autorisation.
+**Retour :** <span class="badge badge-type">string</span> - code d'autorisation.
 
 Génère un token signé contenant les données de l'utilisateur.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `userData` | `object` | - Les données de l'utilisateur. |
-| `accessToken` | `string` | - Le token d'accès Discord. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `userData` | <span class="badge badge-type">object</span> | - Les données de l'utilisateur. |
+| `accessToken` | <span class="badge badge-type">string</span> | - Le token d'accès Discord. |
 
-**Returns:** `string` - token signé (base64.signature).
+**Retour :** <span class="badge badge-type">string</span> - token signé (base64.signature).
 
 Vérifie un token signé et retourne son payload si valide.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `token` | `string` | - Le token signé. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `token` | <span class="badge badge-type">string</span> | - Le token signé. |
 
-**Returns:** `object|null` - payload décodé ou null si invalide.
+**Retour :** <span class="badge badge-type">object|null</span> - payload décodé ou null si invalide.
 
 Échange un code d'autorisation Discord contre un jeton d'accès.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `code` | `string` | - Le code d'autorisation obtenu via OAuth2. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `code` | <span class="badge badge-type">string</span> | - Le code d'autorisation obtenu via OAuth2. |
 
-**Returns:** `Promise<string>` - jeton d'accès de l'utilisateur.
+**Retour :** <span class="badge badge-type">Promise<string></span> - jeton d'accès de l'utilisateur.
 
 Récupère les données de l'utilisateur Discord en utilisant son jeton d'accès.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `token` | `string` | - Le jeton d'accès OAuth2 de l'utilisateur. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `token` | <span class="badge badge-type">string</span> | - Le jeton d'accès OAuth2 de l'utilisateur. |
 
-**Returns:** `Promise<object>` - utilisateur Discord.
+**Retour :** <span class="badge badge-type">Promise<object></span> - utilisateur Discord.
 
 Créer un nouvel utilisateur dans le cache après validation OAuth2. 1. Vérifie si la requête contient déjà un token valide. 2. Échange le code OAuth2 contre un access token Discord. 3. Récupère l'ID Discord l'utilisateur. 4. Génère un nouveau token API unique et l'enregistre le cache.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `req` | `import('express').Request` | - La requête contenant le code d'autorisation. |
-| `res` | `import('express').Response` | - La réponse pour renvoyer le nouveau token. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `req` | <span class="badge badge-type">import('express').Request</span> | - La requête contenant le code d'autorisation. |
+| `res` | <span class="badge badge-type">import('express').Response</span> | - La réponse pour renvoyer le nouveau token. |
 
-**Returns:** `Promise<{token: string, discordId: string}>` - informations de l'utilisateur créé.
+**Retour :** <span class="badge badge-type">Promise<{token: string, discordId: string}></span> - informations de l'utilisateur créé.
 
 Middleware d'authentification centralisé pour les requêtes API. Identifie l'utilisateur via son token (Header Authorization) et le bot concerné via le paramètre URL/Body. - Si l'URL est publique (auth, discord/authurl), l'authentification est sautée. - Un bot DOIT être spécifié (bot_id). - Un token utilisateur valide est requis sauf pour certaines routes (ex: /commands).
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `req` | `import('express').Request` | - L'objet de la requête Express. |
-| `res` | `import('express').Response` | - L'objet de la réponse Express. |
-| `options` | `object` | - Options de la route (ex: { auth: false }). |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `req` | <span class="badge badge-type">import('express').Request</span> | - L'objet de la requête Express. |
+| `res` | <span class="badge badge-type">import('express').Response</span> | - L'objet de la réponse Express. |
+| `options` | <span class="badge badge-type">object</span> | - Options de la route (ex: { auth: false }). |
 
-**Returns:** `Promise<{bot: import('../Class/Bot.js'), user: import('discord.js').User}>` - du bot et de l'utilisateur authentifié.
+**Retour :** <span class="badge badge-type">Promise<{bot: import('../Class/Bot.js'), user: import('discord.js').User}></span> - du bot et de l'utilisateur authentifié.
 
 Extrait l'ID du bot des paramètres de la requête.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `req` | `import('express').Request` | - L'objet de la requête Express. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `req` | <span class="badge badge-type">import('express').Request</span> | - L'objet de la requête Express. |
 
-**Returns:** `string` - du bot.
+**Retour :** <span class="badge badge-type">string</span> - du bot.
 
 Hashe une chaîne de caractères en utilisant le sel de l'instance.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `password` | `string` | - La chaîne à hasher. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `password` | <span class="badge badge-type">string</span> | - La chaîne à hasher. |
 
-**Returns:** `Promise<string>` - hash résultant.
+**Retour :** <span class="badge badge-type">Promise<string></span> - hash résultant.
 
 Construit et retourne l'URL d'autorisation OAuth2 de Discord.
 
-**Returns:** `string` - d'autorisation.
+**Retour :** <span class="badge badge-type">string</span> - d'autorisation.
 
 Retourne les sockets connectés pour un utilisateur donné.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `userId` | `string` | - L'ID de l'utilisateur Discord. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `userId` | <span class="badge badge-type">string</span> | - L'ID de l'utilisateur Discord. |
 
-**Returns:** `Set<string>|null` - Set d'IDs de sockets ou null si aucun.
+**Retour :** <span class="badge badge-type">Set<string>|null</span> - Set d'IDs de sockets ou null si aucun.
 
 Remonte une donnée depuis un objet, en se basant sur une url
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `object` | `Object` |  |
-| `url` | `String` |  |
-| `delStr` | `String` |  |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `object` | <span class="badge badge-type">Object</span> |  |
+| `url` | <span class="badge badge-type">String</span> |  |
+| `delStr` | <span class="badge badge-type">String</span> |  |
 
 Renvoie la documentation des route dipsonible de l'api
 
-**Returns:** `` - 
+**Retour :** <span class="badge badge-type">void</span> - 
 
 Définit la route racine qui retourne la documentation
 
-**Returns:** `Route` - 
+**Retour :** <span class="badge badge-type">Route</span> - 
 
 Définit la route `/auth` pour la création d'utilisateur via le flux OAuth2.
 
 Paramétrer plusieur routes dans l'api
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `routes` | `Array` |  |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `routes` | <span class="badge badge-type">Array</span> |  |
 
 Enregistre une nouvelle route dans le routeur Express. Ajoute un wrapper pour gérer l'authentification et les erreurs de manière centralisée.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `path` | `string` | - Le chemin de la route (ex: '/commands'). |
-| `method` | `'get'|'post'|'put'|'delete'` | - La méthode HTTP. |
-| `handler` | `function` | - La fonction de gestion de la route. |
-| `options` | `object` | - Options de la route (ex: { auth: false }). |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `path` | <span class="badge badge-type">string</span> | - Le chemin de la route (ex: '/commands'). |
+| `method` | <span class="badge badge-type">'get'|'post'|'put'|'delete'</span> | - La méthode HTTP. |
+| `handler` | <span class="badge badge-type">function</span> | - La fonction de gestion de la route. |
+| `options` | <span class="badge badge-type">object</span> | - Options de la route (ex: { auth: false }). |
 
 Initialise toutes les routes définies dans le répertoire `routes`.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `routesArg` | `object` | - Arguments supplémentaires à passer au créateur de routes. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `routesArg` | <span class="badge badge-type">object</span> | - Arguments supplémentaires à passer au créateur de routes. |
 
 Formate un message de log avec une référence et une couleur spécifique.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `content` | `string` | - Le message à logger. |
-| `reference` | `string` | - La référence du log (ex: NOM_DE_ROUTE). |
-| `` | `string` |  |
-| `prefix` | `string` | - Préfixe du log. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `content` | <span class="badge badge-type">string</span> | - Le message à logger. |
+| `reference` | <span class="badge badge-type">string</span> | - La référence du log (ex: NOM_DE_ROUTE). |
+| `` | <span class="badge badge-type">string</span> |  |
+| `prefix` | <span class="badge badge-type">string</span> | - Préfixe du log. |
 
-**Returns:** `string` - message formaté.
+**Retour :** <span class="badge badge-type">string</span> - message formaté.
 
 Log un message d'information.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `content` | `string` | - Le message à logger. |
-| `reference` | `string` | - La référence du log. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `content` | <span class="badge badge-type">string</span> | - Le message à logger. |
+| `reference` | <span class="badge badge-type">string</span> | - La référence du log. |
 
 Log un message de stuccès.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `content` | `string` | - Le message à logger. |
-| `reference` | `string` | - La référence du log. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `content` | <span class="badge badge-type">string</span> | - Le message à logger. |
+| `reference` | <span class="badge badge-type">string</span> | - La référence du log. |
 
 Log une erreur.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `content` | `string|Error` | - L'erreur à logger. |
-| `reference` | `string` | - La référence du log. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `content` | <span class="badge badge-type">string|Error</span> | - L'erreur à logger. |
+| `reference` | <span class="badge badge-type">string</span> | - La référence du log. |
 
 Log un avertissement.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `content` | `string` | - L'avertissement à logger. |
-| `reference` | `string` | - La référence du log. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `content` | <span class="badge badge-type">string</span> | - L'avertissement à logger. |
+| `reference` | <span class="badge badge-type">string</span> | - La référence du log. |
 
 Log un message de debug.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `content` | `string` | - Le message de debug. |
-| `reference` | `string` | - La référence du log. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `content` | <span class="badge badge-type">string</span> | - Le message de debug. |
+| `reference` | <span class="badge badge-type">string</span> | - La référence du log. |
 

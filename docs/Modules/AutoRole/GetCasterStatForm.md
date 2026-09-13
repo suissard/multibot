@@ -5,6 +5,8 @@ layout: default
 
 # `GetCasterStatForm`
 
+> **Description :** Renvoit un url personnalisé pour déclarer les statistiques d'un match
+
 ## Narrative
 
 
@@ -24,33 +26,33 @@ layout: default
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `matchid` | `STRING` | Identifiant de match de la compétition | Yes |
-| `user` | `USER` | Utilisateur a qui faire parvenir le formulaire | No |
-| `castnbr` | `STRING` | Caster était en position 1 ou 2 | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `matchid` | <span class="badge badge-type">STRING</span> | Identifiant de match de la compétition | <span class="badge badge-required">Requis</span> |
+| `user` | <span class="badge badge-type">USER</span> | Utilisateur a qui faire parvenir le formulaire | <span class="badge badge-optional">Optionnel</span> |
+| `castnbr` | <span class="badge badge-type">STRING</span> | Caster était en position 1 ou 2 | <span class="badge badge-optional">Optionnel</span> |
 
 Génère une URL pré-remplie pour le formulaire de statistiques de caster.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `match` | `object` | - L'objet contenant les données du match, provenant de l'API Olympe. |
-| `castNbr` | `number` | - Le numéro du caster (1 ou 2) pour lequel générer le formulaire. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `match` | <span class="badge badge-type">object</span> | - L'objet contenant les données du match, provenant de l'API Olympe. |
+| `castNbr` | <span class="badge badge-type">number</span> | - Le numéro du caster (1 ou 2) pour lequel générer le formulaire. |
 
-**Returns:** `string` - personnalisée et pré-remplie du formulaire.
+**Retour :** <span class="badge badge-type">string</span> - personnalisée et pré-remplie du formulaire.
 
 Exécute la commande pour envoyer un formulaire de statistiques de caster. Récupère les données du match, génère une URL de formulaire pré-remplie et l'envoie en message privé à l'utilisateur concerné.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.matchid` | `string` | - L'ID du match pour lequel déclarer les statistiques. |
-| `args.user` | `string` | - L'ID de l'utilisateur à qui envoyer le formulaire. |
-| `args.castnbr` | `string` | - Le numéro du caster (1 ou 2). |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.matchid` | <span class="badge badge-type">string</span> | - L'ID du match pour lequel déclarer les statistiques. |
+| `args.user` | <span class="badge badge-type">string</span> | - L'ID de l'utilisateur à qui envoyer le formulaire. |
+| `args.castnbr` | <span class="badge badge-type">string</span> | - Le numéro du caster (1 ou 2). |
 
-**Returns:** `Promise<string>` - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
 

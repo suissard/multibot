@@ -5,7 +5,7 @@ layout: default
 
 # `valid`
 
-Permet de valider une commande
+> **Description :** Permet de valider une commande
 
 ## Narrative
 

@@ -7,35 +7,55 @@ layout: default
 
 Le module TeamManager gère la création et la mise à jour automatique des salons vocaux d'équipe. Il se base sur les données fournies par le module AutoRole (API Olympe).
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `bot` | `import('../../Class/Bot')` | - L'instance du bot. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `bot` | <span class="badge badge-type">import('../../Class/Bot')</span> | - L'instance du bot. |
 
 Internal helper to sync teams for a specific segment object.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `guild` | `import('discord.js').Guild` |  |
-| `targetSegment` | `object` |  |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `guild` | <span class="badge badge-type">import('discord.js').Guild</span> |  |
+| `targetSegment` | <span class="badge badge-type">object</span> |  |
 
-**Returns:** `Promise<object>` - object { found, success, pruned, errors }
+**Retour :** <span class="badge badge-type">Promise<object></span> - object { found, success, pruned, errors }
 
 Synchronise toutes les équipes présentes dans le cache Olympe pour un segment donné ou tous les segments.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `guild` | `import('discord.js').Guild` |  |
-| `segmentFilter` | `string` | - Filtre optionnel pour le segment. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `guild` | <span class="badge badge-type">import('discord.js').Guild</span> |  |
+| `segmentFilter` | <span class="badge badge-type">string</span> | - Filtre optionnel pour le segment. |
 
 ## Commandes du Module
 
-* [CreateAllTeamChannelsCommand](./commands/CreateAllTeamChannelsCommand.html)
-* [DeleteAllTeamChannelsCommand](./commands/DeleteAllTeamChannelsCommand.html)
-* [UpdateTeamChannelPermissionsCommand](./commands/UpdateTeamChannelPermissionsCommand.html)
+<div class="explore-grid">
+  <a href="./commands/CreateAllTeamChannelsCommand.html" class="explore-card">
+    <div class="explore-header">
+      <span class="explore-title">CreateAllTeamChannelsCommand</span>
+      <span class="explore-arrow">→</span>
+    </div>
+    <p class="explore-desc">Détails et paramètres de la commande.</p>
+  </a>
+  <a href="./commands/DeleteAllTeamChannelsCommand.html" class="explore-card">
+    <div class="explore-header">
+      <span class="explore-title">DeleteAllTeamChannelsCommand</span>
+      <span class="explore-arrow">→</span>
+    </div>
+    <p class="explore-desc">Détails et paramètres de la commande.</p>
+  </a>
+  <a href="./commands/UpdateTeamChannelPermissionsCommand.html" class="explore-card">
+    <div class="explore-header">
+      <span class="explore-title">UpdateTeamChannelPermissionsCommand</span>
+      <span class="explore-arrow">→</span>
+    </div>
+    <p class="explore-desc">Détails et paramètres de la commande.</p>
+  </a>
+</div>
 

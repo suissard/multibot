@@ -17,160 +17,160 @@ Gestionnaire des messages d'émotes, permettant de configurer les réponses d'é
 
 Initialise et démarre tous les bots. Cette fonction crée toutes les instances de bot, configure les commandes et les événements, puis charge les modules associés à chaque bot.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `botsData` | `Map<string, object>` | - Une map contenant les données de configuration de chaque bot. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `botsData` | <span class="badge badge-type">Map<string, object></span> | - Une map contenant les données de configuration de chaque bot. |
 
 Détermine le bot "maître" pour une ressource Discord donnée, en priorité celui dont le "home" correspond au serveur.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `guildId` | `string` | - L'ID du serveur. |
-| `channelId` | `string` | - L'ID du salon. |
-| `messageId` | `string` | - L'ID du message. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `guildId` | <span class="badge badge-type">string</span> | - L'ID du serveur. |
+| `channelId` | <span class="badge badge-type">string</span> | - L'ID du salon. |
+| `messageId` | <span class="badge badge-type">string</span> | - L'ID du message. |
 
-**Returns:** `Promise<{bot: Bot, guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}|undefined>` - de données d'accès du bot maître, ou undefined si aucun bot n'a accès.
+**Retour :** <span class="badge badge-type">Promise<{bot: Bot, guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}|undefined></span> - de données d'accès du bot maître, ou undefined si aucun bot n'a accès.
 
 Charge les modules pour tout les bots
 
-**Returns:** `` - 
+**Retour :** <span class="badge badge-type">void</span> - 
 
 Charge un module pour un bot définit
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `bot` | `Bot` |  |
-| `module` | `Object || Boolean` |  |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `bot` | <span class="badge badge-type">Bot</span> |  |
+| `module` | <span class="badge badge-type">Object || Boolean</span> |  |
 
 Crée et enregistre une nouvelle instance de bot.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `data` | `object` | - Données de configuration pour le bot. |
-| `BOTS` | `BotManager` | - L'instance du gestionnaire de bots. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `data` | <span class="badge badge-type">object</span> | - Données de configuration pour le bot. |
+| `BOTS` | <span class="badge badge-type">BotManager</span> | - L'instance du gestionnaire de bots. |
 
-**Returns:** `Bot` - du bot créé.
+**Retour :** <span class="badge badge-type">Bot</span> - du bot créé.
 
 Crée toutes les instances de bot à partir de leurs données de configuration. Seuls les bots marqués comme "actifs" sont créés.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `botsData` | `Map<string, object>` | - Une map contenant les données de configuration de chaque bot. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `botsData` | <span class="badge badge-type">Map<string, object></span> | - Une map contenant les données de configuration de chaque bot. |
 
 Arrete le bot indiqué par l'identifiant
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `id` | `String` | Identifiant de bot |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `id` | <span class="badge badge-type">String</span> | Identifiant de bot |
 
 Redemarre le bot indiqué par l'identifiant
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `id` | `String` | Identifiant de bot |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `id` | <span class="badge badge-type">String</span> | Identifiant de bot |
 
 Permettre l'usage a l'intégralité des bots, d'un evenement ou d'une commande
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `data` | `Command || Event` | une class heritant des commands ou des events |
-| `bot` | `Bot` | instance de bot auquel rattaché l'evenement (si undefined, tout les bots ) |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `data` | <span class="badge badge-type">Command || Event</span> | une class heritant des commands ou des events |
+| `bot` | <span class="badge badge-type">Bot</span> | instance de bot auquel rattaché l'evenement (si undefined, tout les bots ) |
 
 Vérifie quels bots ont accès à une ressource Discord spécifique.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `guildId` | `string` | - L'ID du serveur. |
-| `channelId` | `string` | - L'ID du salon. |
-| `messageId` | `string` | - L'ID du message. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `guildId` | <span class="badge badge-type">string</span> | - L'ID du serveur. |
+| `channelId` | <span class="badge badge-type">string</span> | - L'ID du salon. |
+| `messageId` | <span class="badge badge-type">string</span> | - L'ID du message. |
 
-**Returns:** `Promise<Array<{bot: Bot, guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}>>` - tableau d'objets contenant le bot et les ressources accessibles.
+**Retour :** <span class="badge badge-type">Promise<Array<{bot: Bot, guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}>></span> - tableau d'objets contenant le bot et les ressources accessibles.
 
 Démarre l'API (serveur HTTP) pour interagir avec les bots. Instancie la classe SelfApi avec les configurations fournies.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `configs` | `Object` | - Configuration globale de l'API (port, host, etc.). |
-| `discord` | `Object` | - Configuration Discord (clientId, clientSecret, etc.) pour l'OAuth2. |
-| `saltRounds` | `Number` | - Nombre de rounds pour le hachage des tokens (bcrypt). |
-
-Met la référence et le contenu au bon format
-
-**Parameters:**
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `content` | `String || Error` |  |
-| `reference` | `String` |  |
-| `isError` | `Boolean` |  |
-
-**Returns:** `` - 
-
-Diffuse un log
-
-**Parameters:**
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `content` | `String` |  |
-| `reference` | `String` |  |
-
-Diffuse une erreur
-
-**Parameters:**
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `content` | `String || Error` |  |
-| `reference` | `String` |  |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `configs` | <span class="badge badge-type">Object</span> | - Configuration globale de l'API (port, host, etc.). |
+| `discord` | <span class="badge badge-type">Object</span> | - Configuration Discord (clientId, clientSecret, etc.) pour l'OAuth2. |
+| `saltRounds` | <span class="badge badge-type">Number</span> | - Nombre de rounds pour le hachage des tokens (bcrypt). |
 
 Met la référence et le contenu au bon format
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `content` | `String || Error` |  |
-| `reference` | `String` |  |
-| `isError` | `Boolean` |  |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `content` | <span class="badge badge-type">String || Error</span> |  |
+| `reference` | <span class="badge badge-type">String</span> |  |
+| `isError` | <span class="badge badge-type">Boolean</span> |  |
 
-**Returns:** `` - 
+**Retour :** <span class="badge badge-type">void</span> - 
 
 Diffuse un log
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `content` | `String` |  |
-| `reference` | `String` |  |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `content` | <span class="badge badge-type">String</span> |  |
+| `reference` | <span class="badge badge-type">String</span> |  |
 
 Diffuse une erreur
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `content` | `String || Error` |  |
-| `reference` | `String` |  |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `content` | <span class="badge badge-type">String || Error</span> |  |
+| `reference` | <span class="badge badge-type">String</span> |  |
+
+Met la référence et le contenu au bon format
+
+**Paramètres :**
+
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `content` | <span class="badge badge-type">String || Error</span> |  |
+| `reference` | <span class="badge badge-type">String</span> |  |
+| `isError` | <span class="badge badge-type">Boolean</span> |  |
+
+**Retour :** <span class="badge badge-type">void</span> - 
+
+Diffuse un log
+
+**Paramètres :**
+
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `content` | <span class="badge badge-type">String</span> |  |
+| `reference` | <span class="badge badge-type">String</span> |  |
+
+Diffuse une erreur
+
+**Paramètres :**
+
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `content` | <span class="badge badge-type">String || Error</span> |  |
+| `reference` | <span class="badge badge-type">String</span> |  |
 

@@ -5,7 +5,7 @@ layout: default
 
 # `ShareStopCommand`
 
-Retirer un salon du systeme de partage
+> **Description :** Retirer un salon du systeme de partage
 
 ## Narrative
 
@@ -27,15 +27,15 @@ Commande de gestion des shareChannel
 
 Exécute la commande pour retirer le salon actuel de son groupe de partage.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande (non utilisés ici). |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande (non utilisés ici). |
 
-**Returns:** `string` - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">string</span> - message de confirmation ou d'erreur.
 
 Retire le salon actuel de son groupe de partage.
 
-**Returns:** `string` - message de confirmation.
+**Retour :** <span class="badge badge-type">string</span> - message de confirmation.
 

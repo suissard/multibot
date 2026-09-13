@@ -5,6 +5,8 @@ layout: default
 
 # `unmute`
 
+> **Description :** Annule le statut muet d'un utilisateur, restaurant son accès aux salons.
+
 ## Narrative
 
 
@@ -24,18 +26,18 @@ layout: default
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `user` | `USER` | User à unmute | Yes |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `user` | <span class="badge badge-type">USER</span> | User à unmute | <span class="badge badge-required">Requis</span> |
 
 Exécute la commande pour enlever le statut muet d'un utilisateur. Supprime le rôle "mute" de l'utilisateur et restaure ses permissions sur tous les salons.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.user` | `string` | - L'ID de l'utilisateur à démuter. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.user` | <span class="badge badge-type">string</span> | - L'ID de l'utilisateur à démuter. |
 
-**Returns:** `Promise<string>` - message de confirmation ou un message indiquant que l'utilisateur n'était pas muet.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou un message indiquant que l'utilisateur n'était pas muet.
 

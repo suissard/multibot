@@ -7,17 +7,15 @@ layout: default
 
 Class to create a text progress bar with throttling
 
+**Paramètres :**
 
-
-**Parameters:**
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `total` | `number` |  |
-| `size` | `number` |  |
-| `refreshRate` | `number` | - Refresh rate in ms |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `total` | <span class="badge badge-type">number</span> |  |
+| `size` | <span class="badge badge-type">number</span> |  |
+| `refreshRate` | <span class="badge badge-type">number</span> | - Refresh rate in ms |
 
 Updates the progress and returns the bar string if it should be displayed
 
-**Returns:** `string|null` - 
+**Retour :** <span class="badge badge-type">string|null</span> - 
 

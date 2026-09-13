@@ -5,7 +5,7 @@ layout: default
 
 # `updateteam`
 
-Met à jour une équipe
+> **Description :** Met à jour une équipe
 
 ## Narrative
 
@@ -33,26 +33,26 @@ Met à jour une équipe
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `teamname` | `STRING` | Nom de la team à modifier | Yes |
-| `newteamname` | `STRING` | Nouveau nom de la team | No |
-| `newcap` | `USER` | Nouveau capitaine de la team | No |
-| `newbtag` | `STRING` | Nouveau battleTag du capitaine de la team | No |
-| `newrank` | `INTEGER` | Nouveau rank de la team | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `teamname` | <span class="badge badge-type">STRING</span> | Nom de la team à modifier | <span class="badge badge-required">Requis</span> |
+| `newteamname` | <span class="badge badge-type">STRING</span> | Nouveau nom de la team | <span class="badge badge-optional">Optionnel</span> |
+| `newcap` | <span class="badge badge-type">USER</span> | Nouveau capitaine de la team | <span class="badge badge-optional">Optionnel</span> |
+| `newbtag` | <span class="badge badge-type">STRING</span> | Nouveau battleTag du capitaine de la team | <span class="badge badge-optional">Optionnel</span> |
+| `newrank` | <span class="badge badge-type">INTEGER</span> | Nouveau rank de la team | <span class="badge badge-optional">Optionnel</span> |
 
 Exécute la commande pour mettre à jour les informations d'une équipe. Permet de changer le nom de l'équipe, le capitaine, le BattleTag et le classement (elo).
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.teamname` | `string` | - Le nom actuel de l'équipe à modifier. |
-| `args.newteamname` | `string` | - Le nouveau nom pour l'équipe. |
-| `args.newcap` | `string` | - L'ID du nouveau capitaine. |
-| `args.newbtag` | `string` | - Le nouveau BattleTag du capitaine. |
-| `args.newrank` | `number` | - Le nouveau classement (elo) de l'équipe. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.teamname` | <span class="badge badge-type">string</span> | - Le nom actuel de l'équipe à modifier. |
+| `args.newteamname` | <span class="badge badge-type">string</span> | - Le nouveau nom pour l'équipe. |
+| `args.newcap` | <span class="badge badge-type">string</span> | - L'ID du nouveau capitaine. |
+| `args.newbtag` | <span class="badge badge-type">string</span> | - Le nouveau BattleTag du capitaine. |
+| `args.newrank` | <span class="badge badge-type">number</span> | - Le nouveau classement (elo) de l'équipe. |
 
-**Returns:** `Promise<string>` - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
 

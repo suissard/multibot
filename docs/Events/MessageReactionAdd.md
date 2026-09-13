@@ -5,14 +5,14 @@ layout: default
 
 # `MessageReactionAdd`
 
-Gère l\'ajout de réactions pour les rôles par réaction.
+> **Description :** Gère l'ajout de réactions pour les rôles par réaction.
 
 Gère l'événement `messageReactionAdd`. Transmet l'événement au `EmoteMessageManager` pour qu'il le traite, ce qui permet de gérer les systèmes de rôles par réaction.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `reaction` | `import('discord.js').MessageReaction` | - La réaction qui a été ajoutée. |
-| `user` | `import('discord.js').User` | - L'utilisateur qui a ajouté la réaction. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `reaction` | <span class="badge badge-type">import('discord.js').MessageReaction</span> | - La réaction qui a été ajoutée. |
+| `user` | <span class="badge badge-type">import('discord.js').User</span> | - L'utilisateur qui a ajouté la réaction. |
 

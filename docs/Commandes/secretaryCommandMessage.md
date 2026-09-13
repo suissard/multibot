@@ -5,7 +5,7 @@ layout: default
 
 # `secretaryCommandMessage`
 
-Répond au message du secretary
+> **Description :** Répond au message du secretary
 
 ## Narrative
 
@@ -28,20 +28,20 @@ Répond au message du secretary
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `texte` | `STRING` | Texte à envoyer | No |
-| `fichier` | `ATTACHMENT` | Fichier à envoyer | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `texte` | <span class="badge badge-type">STRING</span> | Texte à envoyer | <span class="badge badge-optional">Optionnel</span> |
+| `fichier` | <span class="badge badge-type">ATTACHMENT</span> | Fichier à envoyer | <span class="badge badge-optional">Optionnel</span> |
 
 Exécute la commande pour répondre à un utilisateur via un salon de secrétariat. Extrait l'ID de l'utilisateur depuis le nom du salon, puis envoie la réponse à la fois en message privé à l'utilisateur et dans le salon actuel.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.interaction` | `import('discord.js').CommandInteraction` | - L'objet d'interaction original, pour récupérer les pièces jointes. |
-| `args.texte` | `string` | - Le texte de la réponse. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.interaction` | <span class="badge badge-type">import('discord.js').CommandInteraction</span> | - L'objet d'interaction original, pour récupérer les pièces jointes. |
+| `args.texte` | <span class="badge badge-type">string</span> | - Le texte de la réponse. |
 
-**Returns:** `Promise<string>` - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
 

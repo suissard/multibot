@@ -5,7 +5,7 @@ layout: default
 
 # `setactivity`
 
-change le status du bot
+> **Description :** change le status du bot
 
 ## Narrative
 
@@ -22,20 +22,20 @@ change le status du bot
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `status` | `STRING` | Status a mettre | Yes |
-| `type` | `STRING` | Type de status a mettre | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `status` | <span class="badge badge-type">STRING</span> | Status a mettre | <span class="badge badge-required">Requis</span> |
+| `type` | <span class="badge badge-type">STRING</span> | Type de status a mettre | <span class="badge badge-optional">Optionnel</span> |
 
 Exécute la commande pour changer l'activité du bot.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.status` | `string` | - Le texte de l'activité à afficher. |
-| `args.type` | `string` | - Le type d'activité (non implémenté actuellement). |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.status` | <span class="badge badge-type">string</span> | - Le texte de l'activité à afficher. |
+| `args.type` | <span class="badge badge-type">string</span> | - Le type d'activité (non implémenté actuellement). |
 
-**Returns:** `Promise<string>` - message de confirmation.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation.
 

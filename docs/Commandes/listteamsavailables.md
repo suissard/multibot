@@ -5,7 +5,7 @@ layout: default
 
 # `listteamsavailables`
 
-Renvoie la liste des teams disponibles pour un challenge donné
+> **Description :** Renvoie la liste des teams disponibles pour un challenge donné
 
 ## Narrative
 
@@ -27,8 +27,7 @@ Renvoie la liste des teams disponibles pour un challenge donné
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `challengeid` | `INTEGER` | ID du challenge pour lequel lister les équipes | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `challengeid` | <span class="badge badge-type">INTEGER</span> | ID du challenge pour lequel lister les équipes | <span class="badge badge-optional">Optionnel</span> |
 
-*No JSDoc comments found in this file.*

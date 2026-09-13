@@ -5,7 +5,7 @@ layout: default
 
 # `washMatchCommand`
 
-Supprime les channels de matchs
+> **Description :** Supprime les channels de matchs
 
 ## Narrative
 
@@ -24,11 +24,11 @@ Supprime les channels de matchs
 
 Exécute la commande pour déclencher manuellement le nettoyage des anciens salons de match.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande (non utilisés ici). |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande (non utilisés ici). |
 
-**Returns:** `Promise<string>` - message indiquant que le processus est en cours.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message indiquant que le processus est en cours.
 

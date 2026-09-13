@@ -25,32 +25,32 @@ layout: default
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `user` | `USER` | Utilisateur a qui faire parvenir le formulaire d'incident | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `user` | <span class="badge badge-type">USER</span> | Utilisateur a qui faire parvenir le formulaire d'incident | <span class="badge badge-optional">Optionnel</span> |
 
 Génère une URL personnalisée pour le formulaire de déclaration d'incident.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `olympeUserInfo` | `object` | - Les informations de l'utilisateur provenant de l'API Olympe. |
-| `olympeUserInfo.nationality` | `string` | - La nationalité de l'utilisateur. |
-| `olympeUserInfo.battlenetBtag` | `string` | - Le BattleTag de l'utilisateur. |
-| `olympeUserInfo.teams` | `Array<{name: string}>` | - Les équipes de l'utilisateur. |
-| `discordUser` | `import('discord.js').User` | - L'objet utilisateur Discord. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `olympeUserInfo` | <span class="badge badge-type">object</span> | - Les informations de l'utilisateur provenant de l'API Olympe. |
+| `olympeUserInfo.nationality` | <span class="badge badge-type">string</span> | - La nationalité de l'utilisateur. |
+| `olympeUserInfo.battlenetBtag` | <span class="badge badge-type">string</span> | - Le BattleTag de l'utilisateur. |
+| `olympeUserInfo.teams` | <span class="badge badge-type">Array<{name: string}></span> | - Les équipes de l'utilisateur. |
+| `discordUser` | <span class="badge badge-type">import('discord.js').User</span> | - L'objet utilisateur Discord. |
 
-**Returns:** `string` - personnalisée et pré-remplie du formulaire Google.
+**Retour :** <span class="badge badge-type">string</span> - personnalisée et pré-remplie du formulaire Google.
 
 Exécute la commande pour envoyer un formulaire de déclaration d'incident. Récupère les informations Olympe de l'utilisateur, génère une URL de formulaire personnalisée et l'envoie en message privé.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.user` | `string` | - L'ID de l'utilisateur à qui envoyer le formulaire. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.user` | <span class="badge badge-type">string</span> | - L'ID de l'utilisateur à qui envoyer le formulaire. |
 
-**Returns:** `Promise<string>` - message de confirmation.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation.
 

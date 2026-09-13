@@ -5,13 +5,13 @@ layout: default
 
 # `MessageCommand`
 
-Gère les commandes textuelles basées sur un préfixe.
+> **Description :** Gère les commandes textuelles basées sur un préfixe.
 
 Gère l'événement `messageCreate` pour les commandes textuelles (basées sur un préfixe). Si le message commence par le préfixe du bot, il est transmis au CommandManager pour être traité.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `message` | `import('discord.js').Message` | - Le message créé. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `message` | <span class="badge badge-type">import('discord.js').Message</span> | - Le message créé. |
 

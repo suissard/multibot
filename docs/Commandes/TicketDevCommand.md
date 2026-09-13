@@ -5,12 +5,11 @@ layout: default
 
 # `TicketDevCommand`
 
-Envoie une demande de ticket au développeur.
+> **Description :** Envoie une demande de ticket au développeur.
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `message` | `STRING` | Le contenu du ticket | Yes |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `message` | <span class="badge badge-type">STRING</span> | Le contenu du ticket | <span class="badge badge-required">Requis</span> |
 
-*No JSDoc comments found in this file.*

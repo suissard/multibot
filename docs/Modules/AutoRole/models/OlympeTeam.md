@@ -5,17 +5,15 @@ layout: default
 
 # `OlympeTeam`
 
-## Class: 
+## Classe : ``
 
 Représente une équipe dans le contexte de l'API Olympe.
 
+**Paramètres :**
 
-
-**Parameters:**
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `name` | `string` | - Le nom de l'équipe. |
-| `members` | `Array<OlympeMember>` | - Une liste des membres de l'équipe. |
-| `segments` | `Array<object>` | - Une liste des segments (divisions, compétitions) auxquels l'équipe participe. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `name` | <span class="badge badge-type">string</span> | - Le nom de l'équipe. |
+| `members` | <span class="badge badge-type">Array<OlympeMember></span> | - Une liste des membres de l'équipe. |
+| `segments` | <span class="badge badge-type">Array<object></span> | - Une liste des segments (divisions, compétitions) auxquels l'équipe participe. |
 

@@ -7,13 +7,13 @@ layout: default
 
 Ce module gère l'attribution automatique des rôles pour les membres du serveur. Une fois le bot prêt, le module s'initialise en se connectant à une source de données externe, l'API Olympe, pour récupérer les informations sur les utilisateurs et leurs attributions. Il s'assure que les données du serveur (rôles, membres) sont bien chargées, puis lance une première synchronisation des rôles. Par la suite, le processus est répété à intervalles réguliers, définis dans la configuration, pour garantir que les rôles des membres sont toujours à jour par rapport aux données de l'API.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `bot` | `import('../../Class/Bot')` | - L'instance du bot pour laquelle initialiser le module. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `bot` | <span class="badge badge-type">import('../../Class/Bot')</span> | - L'instance du bot pour laquelle initialiser le module. |
 
-**Returns:** `object` - objet contenant les classes de commandes exportées par ce module.
+**Retour :** <span class="badge badge-type">object</span> - objet contenant les classes de commandes exportées par ce module.
 
 AutoRole : { "everyXhours": 8, "olympeAuth": { "value": "token", }, olympeDomain: "playallforone.com", }
 
@@ -21,17 +21,53 @@ Une fois le bot prêt, ce gestionnaire configure et lance le processus d'attribu
 
 ## Commandes du Module
 
-* [AutoRoleCommand](./AutoRoleCommand.html)
-* [GiveCasterRoleCommand](./GiveCasterRoleCommand.html)
+<div class="explore-grid">
+  <a href="./AutoRoleCommand.html" class="explore-card">
+    <div class="explore-header">
+      <span class="explore-title">AutoRoleCommand</span>
+      <span class="explore-arrow">→</span>
+    </div>
+    <p class="explore-desc">Détails et paramètres de la commande.</p>
+  </a>
+  <a href="./GiveCasterRoleCommand.html" class="explore-card">
+    <div class="explore-header">
+      <span class="explore-title">GiveCasterRoleCommand</span>
+      <span class="explore-arrow">→</span>
+    </div>
+    <p class="explore-desc">Détails et paramètres de la commande.</p>
+  </a>
+</div>
 
-## Configuration
+## Configuration Spécifique
 
-Ce module contient des fichiers de configuration spécifiques. Cliquez ci-dessous pour voir les détails des classes et options.
+Ce module expose des classes de configuration dédiées :
 
-* [AutoroleConfigClass](./AutoroleConfigClass.html)
+<div class="explore-grid">
+  <a href="./AutoroleConfigClass.html" class="explore-card">
+    <div class="explore-header">
+      <span class="explore-title">AutoroleConfigClass</span>
+      <span class="explore-arrow">→</span>
+    </div>
+    <p class="explore-desc">Structure de configuration du module.</p>
+  </a>
+</div>
 
 ## Événements du Module
 
-* [addOlympeDataEvent](./events/addOlympeDataEvent.html)
-* [processAllUsersEvent](./events/processAllUsersEvent.html)
+<div class="explore-grid">
+  <a href="./events/addOlympeDataEvent.html" class="explore-card">
+    <div class="explore-header">
+      <span class="explore-title">addOlympeDataEvent</span>
+      <span class="explore-arrow">→</span>
+    </div>
+    <p class="explore-desc">Écouteur d'événement lié au module.</p>
+  </a>
+  <a href="./events/processAllUsersEvent.html" class="explore-card">
+    <div class="explore-header">
+      <span class="explore-title">processAllUsersEvent</span>
+      <span class="explore-arrow">→</span>
+    </div>
+    <p class="explore-desc">Écouteur d'événement lié au module.</p>
+  </a>
+</div>
 

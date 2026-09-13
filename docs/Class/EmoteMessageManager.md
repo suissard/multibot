@@ -7,77 +7,77 @@ layout: default
 
 Gère les messages à réaction pour l'ensemble des bots.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `bots` | `import('./BotManager')` | - Le gestionnaire de bots. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `bots` | <span class="badge badge-type">import('./BotManager')</span> | - Le gestionnaire de bots. |
 
 Gère un événement d'ajout de réaction pour tous les messages à réaction.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `reaction` | `import('discord.js').MessageReaction` | - La réaction ajoutée. |
-| `user` | `import('discord.js').User` | - L'utilisateur qui a réagi. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `reaction` | <span class="badge badge-type">import('discord.js').MessageReaction</span> | - La réaction ajoutée. |
+| `user` | <span class="badge badge-type">import('discord.js').User</span> | - L'utilisateur qui a réagi. |
 
 Gère un événement de suppression de réaction pour tous les messages à réaction.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `reaction` | `import('discord.js').MessageReaction` | - La réaction retirée. |
-| `user` | `import('discord.js').User` | - L'utilisateur dont la réaction a été retirée. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `reaction` | <span class="badge badge-type">import('discord.js').MessageReaction</span> | - La réaction retirée. |
+| `user` | <span class="badge badge-type">import('discord.js').User</span> | - L'utilisateur dont la réaction a été retirée. |
 
 Charge et initialise tous les messages à réaction depuis la base de données.
 
 Initialise un message à réaction spécifique et l'ajoute au gestionnaire.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `emoteMessage` | `EmoteMessage` | - L'objet EmoteMessage brut de la base de données. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `emoteMessage` | <span class="badge badge-type">EmoteMessage</span> | - L'objet EmoteMessage brut de la base de données. |
 
 Crée un nouveau message à réaction dans la base de données et l'initialise.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `body` | `object` | - Les données pour la création du message à réaction. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `body` | <span class="badge badge-type">object</span> | - Les données pour la création du message à réaction. |
 
 Ajoute un message à réaction au gestionnaire.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `id` | `string` | - L'identifiant unique du message (`channelId-messageId`). |
-| `value` | `EmoteMessage` | - L'instance de EmoteMessage à ajouter. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `id` | <span class="badge badge-type">string</span> | - L'identifiant unique du message (`channelId-messageId`). |
+| `value` | <span class="badge badge-type">EmoteMessage</span> | - L'instance de EmoteMessage à ajouter. |
 
 Met à jour un message à réaction existant.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `id` | `string` | - L'identifiant du message à mettre à jour. |
-| `value` | `object` | - Les nouvelles données pour le message. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `id` | <span class="badge badge-type">string</span> | - L'identifiant du message à mettre à jour. |
+| `value` | <span class="badge badge-type">object</span> | - Les nouvelles données pour le message. |
 
 Récupère un message à réaction par son ID.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `id` | `string` | - L'identifiant du message (`channelId-messageId`). |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `id` | <span class="badge badge-type">string</span> | - L'identifiant du message (`channelId-messageId`). |
 
-**Returns:** `EmoteMessage` - de EmoteMessage.
+**Retour :** <span class="badge badge-type">EmoteMessage</span> - de EmoteMessage.
 
 Récupère tous les messages à réaction gérés.
 
-**Returns:** `Map<string, EmoteMessage>` - map de tous les messages à réaction.
+**Retour :** <span class="badge badge-type">Map<string, EmoteMessage></span> - map de tous les messages à réaction.
 

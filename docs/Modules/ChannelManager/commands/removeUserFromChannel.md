@@ -5,7 +5,7 @@ layout: default
 
 # `removeUserFromChannel`
 
-Remove a user from a channel
+> **Description :** Remove a user from a channel
 
 ## Narrative
 
@@ -24,24 +24,24 @@ Remove a user from a channel
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `channel` | `CHANNEL` | The channel to remove the users from | Yes |
-| `user1` | `USER` | The user to remove | Yes |
-| `user2` | `USER` | The user to remove | No |
-| `user3` | `USER` | The user to remove | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `channel` | <span class="badge badge-type">CHANNEL</span> | The channel to remove the users from | <span class="badge badge-required">Requis</span> |
+| `user1` | <span class="badge badge-type">USER</span> | The user to remove | <span class="badge badge-required">Requis</span> |
+| `user2` | <span class="badge badge-type">USER</span> | The user to remove | <span class="badge badge-optional">Optionnel</span> |
+| `user3` | <span class="badge badge-type">USER</span> | The user to remove | <span class="badge badge-optional">Optionnel</span> |
 
 Exécute la commande pour retirer un ou plusieurs utilisateurs d'un salon.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.channel` | `string` | - Le nom du salon. |
-| `args.user1` | `string` | - L'ID du premier utilisateur à retirer. |
-| `args.user2` | `string` | - L'ID du deuxième utilisateur à retirer. |
-| `args.user3` | `string` | - L'ID du troisième utilisateur à retirer. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.channel` | <span class="badge badge-type">string</span> | - Le nom du salon. |
+| `args.user1` | <span class="badge badge-type">string</span> | - L'ID du premier utilisateur à retirer. |
+| `args.user2` | <span class="badge badge-type">string</span> | - L'ID du deuxième utilisateur à retirer. |
+| `args.user3` | <span class="badge badge-type">string</span> | - L'ID du troisième utilisateur à retirer. |
 
-**Returns:** `string` - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">string</span> - message de confirmation ou d'erreur.
 

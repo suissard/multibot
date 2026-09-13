@@ -5,7 +5,7 @@ layout: default
 
 # `GetCastRewardForm`
 
-Renvoit un url personnalisé pour réclamer une récompense de cast OAFO
+> **Description :** Renvoit un url personnalisé pour réclamer une récompense de cast OAFO
 
 ## Narrative
 
@@ -23,28 +23,28 @@ Renvoit un url personnalisé pour réclamer une récompense de cast OAFO
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `user` | `USER` | Utilisateur a qui faire parvenir le formulaire de récompense | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `user` | <span class="badge badge-type">USER</span> | Utilisateur a qui faire parvenir le formulaire de récompense | <span class="badge badge-optional">Optionnel</span> |
 
 Génère une URL personnalisée pour le formulaire de récompense de cast.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `discordUser` | `import('discord.js').User` | - L'utilisateur Discord pour lequel générer l'URL. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `discordUser` | <span class="badge badge-type">import('discord.js').User</span> | - L'utilisateur Discord pour lequel générer l'URL. |
 
-**Returns:** `string` - personnalisée du formulaire Google.
+**Retour :** <span class="badge badge-type">string</span> - personnalisée du formulaire Google.
 
 Exécute la commande pour envoyer un formulaire de récompense de cast. Cible l'utilisateur mentionné ou l'auteur de la commande, génère une URL de formulaire personnalisée et l'envoie en message privé.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.user` | `string` | - L'ID de l'utilisateur à qui envoyer le formulaire. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.user` | <span class="badge badge-type">string</span> | - L'ID de l'utilisateur à qui envoyer le formulaire. |
 
-**Returns:** `Promise<string>` - message de confirmation.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation.
 

@@ -5,7 +5,7 @@ layout: default
 
 # `addUserToChannel`
 
-Add a user to a channel
+> **Description :** Add a user to a channel
 
 ## Narrative
 
@@ -24,24 +24,24 @@ Add a user to a channel
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `channel` | `CHANNEL` | The channel to add the users to | Yes |
-| `user1` | `USER` | The user to add | Yes |
-| `user2` | `USER` | The user to add | No |
-| `user3` | `USER` | The user to add | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `channel` | <span class="badge badge-type">CHANNEL</span> | The channel to add the users to | <span class="badge badge-required">Requis</span> |
+| `user1` | <span class="badge badge-type">USER</span> | The user to add | <span class="badge badge-required">Requis</span> |
+| `user2` | <span class="badge badge-type">USER</span> | The user to add | <span class="badge badge-optional">Optionnel</span> |
+| `user3` | <span class="badge badge-type">USER</span> | The user to add | <span class="badge badge-optional">Optionnel</span> |
 
 Exécute la commande pour ajouter un ou plusieurs utilisateurs à un salon.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.channel` | `string` | - L'ID du salon. |
-| `args.user1` | `string` | - L'ID du premier utilisateur à ajouter. |
-| `args.user2` | `string` | - L'ID du deuxième utilisateur à ajouter. |
-| `args.user3` | `string` | - L'ID du troisième utilisateur à ajouter. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.channel` | <span class="badge badge-type">string</span> | - L'ID du salon. |
+| `args.user1` | <span class="badge badge-type">string</span> | - L'ID du premier utilisateur à ajouter. |
+| `args.user2` | <span class="badge badge-type">string</span> | - L'ID du deuxième utilisateur à ajouter. |
+| `args.user3` | <span class="badge badge-type">string</span> | - L'ID du troisième utilisateur à ajouter. |
 
-**Returns:** `string` - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">string</span> - message de confirmation ou d'erreur.
 

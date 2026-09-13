@@ -5,7 +5,7 @@ layout: default
 
 # `dev`
 
-Execute le code javascript indiqué dans le message
+> **Description :** Execute le code javascript indiqué dans le message
 
 ## Narrative
 

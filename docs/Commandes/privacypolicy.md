@@ -5,7 +5,7 @@ layout: default
 
 # `privacypolicy`
 
-Fournit la politique de confidentialité du bot
+> **Description :** Fournit la politique de confidentialité du bot
 
 ## Narrative
 
@@ -17,11 +17,11 @@ Fournit la politique de confidentialité du bot
 
 Exécute la commande pour afficher la politique de confidentialité. Lit le fichier PRIVACY.md et retourne son contenu.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande (non utilisés ici). |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande (non utilisés ici). |
 
-**Returns:** `string` - contenu du fichier de politique de confidentialité.
+**Retour :** <span class="badge badge-type">string</span> - contenu du fichier de politique de confidentialité.
 

@@ -5,7 +5,7 @@ layout: default
 
 # `say`
 
-Fait parler le bot.
+> **Description :** Fait parler le bot.
 
 ## Narrative
 
@@ -18,22 +18,22 @@ Fait parler le bot.
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `texte` | `STRING` | Message à envoyer | Yes |
-| `channel` | `CHANNEL` | Channel où envoyer le message | No |
-| `piecejointe` | `ATTACHMENT` | Pièce jointe à envoyer | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `texte` | <span class="badge badge-type">STRING</span> | Message à envoyer | <span class="badge badge-required">Requis</span> |
+| `channel` | <span class="badge badge-type">CHANNEL</span> | Channel où envoyer le message | <span class="badge badge-optional">Optionnel</span> |
+| `piecejointe` | <span class="badge badge-type">ATTACHMENT</span> | Pièce jointe à envoyer | <span class="badge badge-optional">Optionnel</span> |
 
 Exécute la commande pour faire parler le bot.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.texte` | `string` | - Le contenu du message à envoyer. |
-| `args.channel` | `string` | - L'ID du channel où envoyer le message. |
-| `args.piecejointe` | `string` | - L'URL de la pièce jointe à envoyer. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.texte` | <span class="badge badge-type">string</span> | - Le contenu du message à envoyer. |
+| `args.channel` | <span class="badge badge-type">string</span> | - L'ID du channel où envoyer le message. |
+| `args.piecejointe` | <span class="badge badge-type">string</span> | - L'URL de la pièce jointe à envoyer. |
 
-**Returns:** `Promise<string>` - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
 

@@ -5,7 +5,7 @@ layout: default
 
 # `done`
 
-Clos un ticket
+> **Description :** Clos un ticket
 
 ## Narrative
 
@@ -21,11 +21,11 @@ Clos un ticket
 
 Exécute la commande pour marquer un ticket comme "terminé". Renomme le salon actuel en ajoutant un préfixe "✅" pour indiquer qu'il est clos.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande (non utilisés ici). |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande (non utilisés ici). |
 
-**Returns:** `string` - message de confirmation ou d'échec.
+**Retour :** <span class="badge badge-type">string</span> - message de confirmation ou d'échec.
 

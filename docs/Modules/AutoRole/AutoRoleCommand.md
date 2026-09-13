@@ -29,20 +29,20 @@ layout: default
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `user` | `USER` | Utilisateur a mettre a jour | No |
-| `teamid` | `STRING` | Identifiant de team a mettre a jour | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `user` | <span class="badge badge-type">USER</span> | Utilisateur a mettre a jour | <span class="badge badge-optional">Optionnel</span> |
+| `teamid` | <span class="badge badge-type">STRING</span> | Identifiant de team a mettre a jour | <span class="badge badge-optional">Optionnel</span> |
 
 Exécute la commande d'attribution manuelle des rôles. Peut être déclenchée pour tous les utilisateurs, un utilisateur spécifique ou une équipe spécifique.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.user` | `string` | - L'ID de l'utilisateur Discord à mettre à jour. |
-| `args.teamid` | `string` | - L'ID de l'équipe Olympe à mettre à jour. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.user` | <span class="badge badge-type">string</span> | - L'ID de l'utilisateur Discord à mettre à jour. |
+| `args.teamid` | <span class="badge badge-type">string</span> | - L'ID de l'équipe Olympe à mettre à jour. |
 
-**Returns:** `Promise<string>` - message indiquant que le processus est en cours.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message indiquant que le processus est en cours.
 

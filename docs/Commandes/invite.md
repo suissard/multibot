@@ -17,11 +17,11 @@ layout: default
 
 Exécute la commande d'invitation. Génère un lien d'invitation pour le bot, accompagné d'un message amusant aléatoire.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande (non utilisés ici). |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande (non utilisés ici). |
 
-**Returns:** `string` - chaîne contenant un message et le lien d'invitation du bot.
+**Retour :** <span class="badge badge-type">string</span> - chaîne contenant un message et le lien d'invitation du bot.
 

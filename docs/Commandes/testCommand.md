@@ -24,40 +24,40 @@ layout: default
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `nom_de_commande` | `STRING` | Nom de la commande a tester | No |
-| `noms_des_commandes` | `STRING` | Noms des commandes a tester, séparées par un espace | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `nom_de_commande` | <span class="badge badge-type">STRING</span> | Nom de la commande a tester | <span class="badge badge-optional">Optionnel</span> |
+| `noms_des_commandes` | <span class="badge badge-type">STRING</span> | Noms des commandes a tester, séparées par un espace | <span class="badge badge-optional">Optionnel</span> |
 
 Exécute la commande de test pour d'autres commandes. Peut tester une seule commande ou une liste de commandes.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.nom_de_commande` | `string` | - Le nom de la commande unique à tester. |
-| `args.noms_des_commandes` | `string` | - Une chaîne contenant les noms de plusieurs commandes à tester, séparés par des espaces. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.nom_de_commande` | <span class="badge badge-type">string</span> | - Le nom de la commande unique à tester. |
+| `args.noms_des_commandes` | <span class="badge badge-type">string</span> | - Une chaîne contenant les noms de plusieurs commandes à tester, séparés par des espaces. |
 
-**Returns:** `Promise<string>` - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
 
 Vérifie si une commande existe et si elle a un protocole de test défini.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `commandName` | `string` | - Le nom de la commande à vérifier. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `commandName` | <span class="badge badge-type">string</span> | - Le nom de la commande à vérifier. |
 
-**Returns:** `boolean` - si la commande est testable, sinon `false`.
+**Retour :** <span class="badge badge-type">boolean</span> - si la commande est testable, sinon `false`.
 
 Lance le processus de test pour une commande spécifiée.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `commandName` | `string` | - Le nom de la commande à tester. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `commandName` | <span class="badge badge-type">string</span> | - Le nom de la commande à tester. |
 
-**Returns:** `Promise<any>` - résultat du processus de test de la commande.
+**Retour :** <span class="badge badge-type">Promise<any></span> - résultat du processus de test de la commande.
 

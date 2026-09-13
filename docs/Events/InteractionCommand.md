@@ -5,7 +5,7 @@ layout: default
 
 # `InteractionCommand`
 
-Gère les interactions de commande slash.
+> **Description :** Gère les interactions de commande slash.
 
 ## Narrative
 
@@ -13,9 +13,9 @@ Cet événement est le point d'entrée pour la gestion des commandes slash (inte
 
 Gère l'événement `interactionCreate` pour les commandes slash. Si l'interaction est une commande, elle est transmise au CommandManager pour être traitée.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `interaction` | `import('discord.js').Interaction` | - L'interaction reçue. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `interaction` | <span class="badge badge-type">import('discord.js').Interaction</span> | - L'interaction reçue. |
 

@@ -5,7 +5,7 @@ layout: default
 
 # `ShareGetiCommand`
 
-Définit ce salon pour partager les annonces Geti
+> **Description :** Définit ce salon pour partager les annonces Geti
 
 ## Narrative
 
@@ -22,11 +22,11 @@ Définit ce salon pour partager les annonces Geti
 
 Exécute la commande pour définir le salon actuel comme un salon de partage pour les annonces "Geti". Ajoute le salon au groupe de partage "overwatch-geti".
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande (non utilisés ici). |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande (non utilisés ici). |
 
-**Returns:** `Promise<string>` - message de confirmation.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation.
 

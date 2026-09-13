@@ -5,12 +5,11 @@ layout: default
 
 # `UpdateTeamChannelPermissionsCommand`
 
-Met à jour les permissions d\'un salon d\'équipe spécifique
+> **Description :** Met à jour les permissions d'un salon d'équipe spécifique
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `channel` | `CHANNEL` | Le salon vocal d'équipe à mettre à jour | Yes |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `channel` | <span class="badge badge-type">CHANNEL</span> | Le salon vocal d'équipe à mettre à jour | <span class="badge badge-required">Requis</span> |
 
-*No JSDoc comments found in this file.*

@@ -1,1 +1,15 @@
-theme: jekyll-theme-minimal
+title: "MultiBot | Documentation"
+description: "Framework modulaire et scalable pour la gestion de multiples bots Discord."
+baseurl: "/multibot"
+url: "https://suissard.github.io"
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - generate_docs.js

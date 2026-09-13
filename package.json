@@ -29,6 +29,8 @@
 		"start": "node main.js",
 		"coverage": "vitest run --coverage",
 		"docs:serve": "bash serve_docs.sh",
+		"docs:preview": "node docs/preview_server.js",
+		"docs:dev": "node docs/preview_server.js",
 		"start:prod": "cd Front/app && npm install && npm run build && cd ../.. && BOT_MODE=PROD node main.js",
 		"start:dev": "concurrently \"BOT_MODE=DEV node main.js\" \"cd Front/app && npm run serve\"",
 		"docker:up": "docker-compose up",
@@ -51,6 +53,7 @@
 		"comment-parser": "^1.4.1",
 		"concurrently": "^9.2.1",
 		"eslint-config-prettier": "^9.1.0",
+		"marked": "^18.0.13",
 		"vitest": "^2.1.4"
 	}
 }

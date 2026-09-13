@@ -5,6 +5,8 @@ layout: default
 
 # `mute`
 
+> **Description :** Rend un utilisateur muet, restreignant son accès aux salons.
+
 ## Narrative
 
 
@@ -27,20 +29,20 @@ layout: default
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `user` | `USER` | User à mute | Yes |
-| `raison` | `STRING` | Raison du mute | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `user` | <span class="badge badge-type">USER</span> | User à mute | <span class="badge badge-required">Requis</span> |
+| `raison` | <span class="badge badge-type">STRING</span> | Raison du mute | <span class="badge badge-optional">Optionnel</span> |
 
 Exécute la commande pour rendre un utilisateur muet sur le serveur. Applique un rôle "mute" à l'utilisateur, ce qui restreint son accès aux salons, et lui donne accès à un salon spécial pour communiquer avec les modérateurs. Crée le rôle et le salon s'ils n'existent pas.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.user` | `string` | - L'ID de l'utilisateur à rendre muet. |
-| `args.raison` | `string` | - La raison pour laquelle l'utilisateur est rendu muet. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.user` | <span class="badge badge-type">string</span> | - L'ID de l'utilisateur à rendre muet. |
+| `args.raison` | <span class="badge badge-type">string</span> | - La raison pour laquelle l'utilisateur est rendu muet. |
 
-**Returns:** `Promise<string>` - message de confirmation ou un message indiquant que l'utilisateur est déjà muet.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou un message indiquant que l'utilisateur est déjà muet.
 

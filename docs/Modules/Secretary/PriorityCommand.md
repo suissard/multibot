@@ -5,21 +5,21 @@ layout: default
 
 # `PriorityCommand`
 
-Passe un ticket en priorité haute 🔴
+> **Description :** Passe un ticket en priorité haute 🔴
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `channel` | `CHANNEL` | Le salon à passer en priorité (optionnel) | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `channel` | <span class="badge badge-type">CHANNEL</span> | Le salon à passer en priorité (optionnel) | <span class="badge badge-optional">Optionnel</span> |
 
 Exécute la commande pour passer un ticket en priorité.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Arguments de la commande. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Arguments de la commande. |
 
-**Returns:** `string` - de confirmation.
+**Retour :** <span class="badge badge-type">string</span> - de confirmation.
 

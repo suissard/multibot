@@ -34,38 +34,38 @@ layout: default
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `texte` | `STRING` | Message à envoyer | Yes |
-| `sendsecretary` | `BOOLEAN` | Est ce que les messages envoyé doivent être envoyé au secrétariat | Yes |
-| `usersandroles` | `STRING` | mention d'utilisateurs et de roles en masse | No |
-| `user` | `USER` | User à qui envoyer le message | No |
-| `imageurl` | `STRING` | Ajouter une URL d'image au message | No |
-| `role` | `ROLE` | Envoyer un message à un role | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `texte` | <span class="badge badge-type">STRING</span> | Message à envoyer | <span class="badge badge-required">Requis</span> |
+| `sendsecretary` | <span class="badge badge-type">BOOLEAN</span> | Est ce que les messages envoyé doivent être envoyé au secrétariat | <span class="badge badge-required">Requis</span> |
+| `usersandroles` | <span class="badge badge-type">STRING</span> | mention d'utilisateurs et de roles en masse | <span class="badge badge-optional">Optionnel</span> |
+| `user` | <span class="badge badge-type">USER</span> | User à qui envoyer le message | <span class="badge badge-optional">Optionnel</span> |
+| `imageurl` | <span class="badge badge-type">STRING</span> | Ajouter une URL d'image au message | <span class="badge badge-optional">Optionnel</span> |
+| `role` | <span class="badge badge-type">ROLE</span> | Envoyer un message à un role | <span class="badge badge-optional">Optionnel</span> |
 
 Exécute la commande pour envoyer un message privé à des utilisateurs. Cible les utilisateurs via une mention directe, un rôle, ou une chaîne de mentions multiples. Peut également transférer le message au "secrétariat" pour archivage.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.texte` | `string` | - Le contenu du message à envoyer. |
-| `args.sendsecretary` | `boolean` | - Si `true`, le message est aussi envoyé au secrétariat. |
-| `args.usersandroles` | `string` | - Une chaîne de mentions d'utilisateurs et de rôles. |
-| `args.user` | `string` | - L'ID d'un utilisateur unique à qui envoyer le message. |
-| `args.imageurl` | `string` | - L'URL d'une image à joindre au message. |
-| `args.role` | `string` | - L'ID d'un rôle dont les membres recevront le message. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.texte` | <span class="badge badge-type">string</span> | - Le contenu du message à envoyer. |
+| `args.sendsecretary` | <span class="badge badge-type">boolean</span> | - Si `true`, le message est aussi envoyé au secrétariat. |
+| `args.usersandroles` | <span class="badge badge-type">string</span> | - Une chaîne de mentions d'utilisateurs et de rôles. |
+| `args.user` | <span class="badge badge-type">string</span> | - L'ID d'un utilisateur unique à qui envoyer le message. |
+| `args.imageurl` | <span class="badge badge-type">string</span> | - L'URL d'une image à joindre au message. |
+| `args.role` | <span class="badge badge-type">string</span> | - L'ID d'un rôle dont les membres recevront le message. |
 
-**Returns:** `Promise<string>` - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
 
 Extrait et retourne une liste d'objets User à partir d'une chaîne contenant des mentions d'utilisateurs et de rôles.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `string` | `string` | - La chaîne de caractères à analyser. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `string` | <span class="badge badge-type">string</span> | - La chaîne de caractères à analyser. |
 
-**Returns:** `Promise<Array<import('discord.js').User>>` - liste d'objets User uniques.
+**Retour :** <span class="badge badge-type">Promise<Array<import('discord.js').User>></span> - liste d'objets User uniques.
 

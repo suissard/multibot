@@ -5,7 +5,7 @@ layout: default
 
 # `SecretarySortCommand`
 
-Trie les tickets du secrétariat (❌ Priority)
+> **Description :** Trie les tickets du secrétariat (❌ Priority)
 
 ## Narrative
 
@@ -22,17 +22,17 @@ Trie les tickets du secrétariat (❌ Priority)
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `type` | `STRING` | Type de tri (date par défaut) | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `type` | <span class="badge badge-type">STRING</span> | Type de tri (date par défaut) | <span class="badge badge-optional">Optionnel</span> |
 
 Sorts the secretary channels.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `guild` | `Discord.Guild` | - The guild to sort. |
-| `interaction` | `Discord.CommandInteraction` | - Optional interaction for replies. |
-| `sortType` | `string` | - Sort type: 'alpha' or 'date'. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `guild` | <span class="badge badge-type">Discord.Guild</span> | - The guild to sort. |
+| `interaction` | <span class="badge badge-type">Discord.CommandInteraction</span> | - Optional interaction for replies. |
+| `sortType` | <span class="badge badge-type">string</span> | - Sort type: 'alpha' or 'date'. |
 

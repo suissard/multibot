@@ -5,6 +5,8 @@ layout: default
 
 # `setteam`
 
+> **Description :** Crée une nouvelle équipe avec un rôle et un salon dédiés.
+
 ## Narrative
 
 
@@ -29,44 +31,44 @@ layout: default
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `teamname` | `STRING` | Nom de la team | Yes |
-| `btag` | `STRING` | Btag Du capitaine | Yes |
-| `capitaine` | `USER` | Capitaine de la team | Yes |
-| `elo` | `STRING` | Rank de la team | Yes |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `teamname` | <span class="badge badge-type">STRING</span> | Nom de la team | <span class="badge badge-required">Requis</span> |
+| `btag` | <span class="badge badge-type">STRING</span> | Btag Du capitaine | <span class="badge badge-required">Requis</span> |
+| `capitaine` | <span class="badge badge-type">USER</span> | Capitaine de la team | <span class="badge badge-required">Requis</span> |
+| `elo` | <span class="badge badge-type">STRING</span> | Rank de la team | <span class="badge badge-required">Requis</span> |
 
 Exécute la commande de création d'équipe. Lance le processus de création de rôle et de salon, puis envoie un message de confirmation.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.teamname` | `string` | - Le nom de l'équipe. |
-| `args.capitaine` | `string` | - L'ID de l'utilisateur capitaine. |
-| `args.elo` | `string` | - L'elo de l'équipe. |
-| `args.btag` | `string` | - Le BattleTag du capitaine. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.teamname` | <span class="badge badge-type">string</span> | - Le nom de l'équipe. |
+| `args.capitaine` | <span class="badge badge-type">string</span> | - L'ID de l'utilisateur capitaine. |
+| `args.elo` | <span class="badge badge-type">string</span> | - L'elo de l'équipe. |
+| `args.btag` | <span class="badge badge-type">string</span> | - Le BattleTag du capitaine. |
 
-**Returns:** `string` - message indiquant que la création est en cours.
+**Retour :** <span class="badge badge-type">string</span> - message indiquant que la création est en cours.
 
 Récupère ou crée les rôles nécessaires pour l'équipe. Crée un rôle spécifique pour l'équipe et trouve le rôle de "Capitaine".
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande, principalement `args.teamname`. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande, principalement `args.teamname`. |
 
-**Returns:** `Promise<{roleteam: import('discord.js').Role, rolecap: import('discord.js').Role}>` - objet contenant le rôle de l'équipe et le rôle de capitaine.
+**Retour :** <span class="badge badge-type">Promise<{roleteam: import('discord.js').Role, rolecap: import('discord.js').Role}></span> - objet contenant le rôle de l'équipe et le rôle de capitaine.
 
 Crée le salon de l'équipe, assigne les rôles au capitaine et enregistre les données de l'équipe.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `roleteam` | `import('discord.js').Role` | - Le rôle de l'équipe. |
-| `rolecap` | `import('discord.js').Role` | - Le rôle de capitaine. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `roleteam` | <span class="badge badge-type">import('discord.js').Role</span> | - Le rôle de l'équipe. |
+| `rolecap` | <span class="badge badge-type">import('discord.js').Role</span> | - Le rôle de capitaine. |
 

@@ -5,7 +5,7 @@ layout: default
 
 # `createMatchCommand`
 
-Create match channels
+> **Description :** Create match channels
 
 ## Narrative
 
@@ -27,18 +27,18 @@ Create match channels
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `matchid` | `STRING` | The id of the match | Yes |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `matchid` | <span class="badge badge-type">STRING</span> | The id of the match | <span class="badge badge-required">Requis</span> |
 
 Exécute la commande pour créer manuellement les salons pour un match spécifique.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.matchid` | `string` | - L'ID du match pour lequel créer les salons. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.matchid` | <span class="badge badge-type">string</span> | - L'ID du match pour lequel créer les salons. |
 
-**Returns:** `Promise<string>` - message indiquant que le processus est en cours ou qu'une erreur s'est produite.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message indiquant que le processus est en cours ou qu'une erreur s'est produite.
 

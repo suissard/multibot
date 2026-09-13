@@ -5,7 +5,7 @@ layout: default
 
 # `refresh`
 
-Rafraichit les configurations depuis la base de données et redémarre les bots
+> **Description :** Rafraichit les configurations depuis la base de données et redémarre les bots
 
 ## Narrative
 
@@ -18,11 +18,11 @@ Rafraichit les configurations depuis la base de données et redémarre les bots
 
 Exécute la commande pour rafraichir les données et redémarrer les bots.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
 
-**Returns:** `string` - car les bots sont redémarrés.
+**Retour :** <span class="badge badge-type">string</span> - car les bots sont redémarrés.
 

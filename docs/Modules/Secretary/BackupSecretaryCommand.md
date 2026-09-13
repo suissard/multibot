@@ -5,7 +5,7 @@ layout: default
 
 # `BackupSecretaryCommand`
 
-Sauvegarde les discussions du secrétariat en JSON
+> **Description :** Sauvegarde les discussions du secrétariat en JSON
 
 ## Narrative
 
@@ -22,8 +22,7 @@ Sauvegarde les discussions du secrétariat en JSON
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `category` | `CHANNEL` | La catégorie principale du secrétariat (Optionnel) | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `category` | <span class="badge badge-type">CHANNEL</span> | La catégorie principale du secrétariat (Optionnel) | <span class="badge badge-optional">Optionnel</span> |
 
-*No JSDoc comments found in this file.*

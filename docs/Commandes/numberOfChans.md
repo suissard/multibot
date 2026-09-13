@@ -5,7 +5,7 @@ layout: default
 
 # `numberOfChans`
 
-Donne le nombre de channel du serveur
+> **Description :** Donne le nombre de channel du serveur
 
 ## Narrative
 
@@ -17,11 +17,11 @@ Donne le nombre de channel du serveur
 
 Exécute la commande pour obtenir le nombre de salons sur le serveur.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande (non utilisés ici). |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande (non utilisés ici). |
 
-**Returns:** `string` - message indiquant le nombre de salons.
+**Retour :** <span class="badge badge-type">string</span> - message indiquant le nombre de salons.
 

@@ -5,7 +5,7 @@ layout: default
 
 # `SalonCommand`
 
-Définit un salon partagée de recherche de joueur ou le supprime
+> **Description :** Définit un salon partagée de recherche de joueur ou le supprime
 
 ## Narrative
 
@@ -28,33 +28,33 @@ Définit un salon partagée de recherche de joueur ou le supprime
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `game` | `STRING` | A quel jeu est dédié ce channel : overwatch, tekken, lol ou valorant | Yes |
-| `catégorie` | `STRING` | A quel catégorie est dédié ce channel : scrim, team, player ou staff | Yes |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `game` | <span class="badge badge-type">STRING</span> | A quel jeu est dédié ce channel : overwatch, tekken, lol ou valorant | <span class="badge badge-required">Requis</span> |
+| `catégorie` | <span class="badge badge-type">STRING</span> | A quel catégorie est dédié ce channel : scrim, team, player ou staff | <span class="badge badge-required">Requis</span> |
 
 Commande de gestion des shareChannel
 
 Exécute la commande pour ajouter le salon actuel à un groupe de partage. Valide les arguments de jeu et de catégorie avant de procéder à l'ajout.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.game` | `string` | - Le nom du jeu pour ce groupe de partage. |
-| `args.catégorie` | `string` | - Le nom de la catégorie pour ce groupe. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.game` | <span class="badge badge-type">string</span> | - Le nom du jeu pour ce groupe de partage. |
+| `args.catégorie` | <span class="badge badge-type">string</span> | - Le nom de la catégorie pour ce groupe. |
 
-**Returns:** `Promise<string>` - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
 
 Ajoute le salon actuel au groupe de partage spécifié.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `categorie` | `string` | - La catégorie du groupe de partage. |
-| `game` | `string` | - Le jeu du groupe de partage. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `categorie` | <span class="badge badge-type">string</span> | - La catégorie du groupe de partage. |
+| `game` | <span class="badge badge-type">string</span> | - Le jeu du groupe de partage. |
 
-**Returns:** `Promise<string>` - message de confirmation.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation.
 

@@ -1,59 +1,315 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>{{ page.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}Documentation officielle du framework MultiBot pour Discord.{% endif %}">
+    <title>{% if page.title %}{{ page.title }} | MultiBot{% else %}MultiBot - Documentation{% endif %}</title>
 
-    <!-- Add to homescreen for Chrome on Android -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Add to homescreen for Safari on iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
-    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+    <!-- Favicon (Discord Bot themed SVG) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235865F2'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5zm4 4h-2v-2h2v2zm0-4h-2V7h2v5z'/></svg>">
 
-    <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
-    <meta name="msapplication-TileColor" content="#3372DF">
-
-    <link rel="shortcut icon" href="images/favicon.png">
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <!-- Custom Modern Stylesheet -->
     <link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
-    <style>
-    </style>
   </head>
   <body>
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-      <header class="mdl-layout__header">
-        <div class="mdl-layout__header-row">
-          <!-- Title -->
-          <span class="mdl-layout-title">{{ page.title }}</span>
-          <!-- Add spacer, to align navigation to the right -->
-          <div class="mdl-layout-spacer"></div>
-          <!-- Navigation -->
-          <nav class="mdl-navigation mdl-layout--large-screen-only">
-            <a class="mdl-navigation__link" href="{{ '/' | relative_url }}">Accueil</a>
-            <a class="mdl-navigation__link" href="{{ '/sitemap.html' | relative_url }}">Plan du site</a>
-            <a class="mdl-navigation__link" href="https://github.com/suissard/multibot" target="_blank">GitHub</a>
-          </nav>
+    <!-- Top Header -->
+    <header class="site-header">
+      <div class="header-inner">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <!-- Mobile Menu Button -->
+          <button id="mobileMenuBtn" class="mobile-menu-toggle" aria-label="Menu de navigation">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+
+          <!-- Brand Logo & Title -->
+          <a class="brand-wrapper" href="{{ '/' | relative_url }}">
+            <div class="brand-logo">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09c-.01-.02-.04-.03-.07-.03c-1.5.26-2.93.71-4.27 1.33c-.01 0-.02.01-.03.02c-2.72 4.07-3.47 8.03-3.1 11.95c0 .02.01.04.03.05c1.8 1.32 3.53 2.12 5.24 2.65c.03.01.06 0 .07-.02c.4-.55.76-1.13 1.07-1.74c.02-.04 0-.08-.04-.09c-.57-.22-1.11-.48-1.64-.78c-.04-.02-.04-.08-.01-.11c.11-.08.22-.17.33-.25c.02-.02.05-.02.07-.01c3.44 1.57 7.15 1.57 10.55 0c.02-.01.05-.01.07.01c.11.09.22.17.33.26c.04.03.04.08-.01.11c-.52.31-1.07.56-1.64.78c-.04.01-.05.06-.04.09c.32.61.68 1.19 1.07 1.74c.03.01.06.02.09.01c1.72-.53 3.45-1.33 5.25-2.65c.02-.01.03-.03.03-.05c.44-4.53-.73-8.46-3.1-11.95c-.01-.01-.02-.02-.04-.02zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.84 2.12-1.89 2.12zm6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.83 2.12-1.89 2.12z"/>
+              </svg>
+            </div>
+            <span class="brand-title">MultiBot <span class="brand-badge">v1.0</span></span>
+          </a>
         </div>
-      </header>
-      <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Navigation</span>
-        {% include navigation.html %}
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <!-- Quick Search Button -->
+          <button id="searchTriggerBtn" class="search-trigger-btn" aria-label="Rechercher">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Rechercher...</span>
+            <kbd class="search-shortcut">⌘K</kbd>
+          </button>
+
+          <!-- Navigation Links -->
+          <ul class="nav-links">
+            <li class="nav-item"><a href="{{ '/' | relative_url }}">Accueil</a></li>
+            <li class="nav-item"><a href="{{ '/configuration.html' | relative_url }}">Configuration</a></li>
+            <li class="nav-item"><a href="{{ '/architecture.html' | relative_url }}">Architecture</a></li>
+            <li class="nav-item"><a href="{{ '/modules-list.html' | relative_url }}">Modules</a></li>
+            <li class="nav-item"><a href="{{ '/commands-list.html' | relative_url }}">Commandes</a></li>
+          </ul>
+
+          <!-- GitHub Repo Button -->
+          <a class="github-btn" href="https://github.com/suissard/multibot" target="_blank" rel="noopener noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+            <span>GitHub</span>
+          </a>
+        </div>
       </div>
-      <main class="mdl-layout__content">
-        <div class="page-content">{{ content }}</div>
+    </header>
+
+    <!-- Mobile Drawer Backdrop -->
+    <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
+
+    <!-- Main Container -->
+    <div class="site-layout">
+      <!-- Sidebar Navigation -->
+      <aside id="siteSidebar" class="site-sidebar">
+        {% include navigation.html %}
+      </aside>
+
+      <!-- Main Content -->
+      <main class="site-content">
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumbs" aria-label="Fil d'Ariane">
+          <a href="{{ '/' | relative_url }}">Accueil</a>
+          {% if page.url != '/' and page.url != '/index.html' %}
+            <span class="breadcrumbs-separator">/</span>
+            <span style="color: var(--text-primary); font-weight: 500;">{{ page.title }}</span>
+          {% endif %}
+        </nav>
+
+        <!-- Markdown Page Content -->
+        <div class="markdown-body">
+          {{ content }}
+        </div>
       </main>
     </div>
-    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+    <!-- Search Modal -->
+    <div id="searchModal" class="search-modal-backdrop">
+      <div class="search-modal">
+        <div class="search-input-wrapper">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="Rechercher une commande, un module, une classe..." autocomplete="off">
+          <kbd class="search-shortcut">ESC</kbd>
+        </div>
+        <ul id="searchResults" class="search-results-list">
+          <!-- Dynamically populated -->
+        </ul>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div>
+          <strong style="color: #fff; font-family: var(--font-display);">MultiBot Framework</strong>
+          <p style="margin-top: 0.25rem;">Documentation officielle hébergée sur GitHub Pages.</p>
+        </div>
+        <ul class="footer-links">
+          <li><a href="{{ '/' | relative_url }}">Accueil</a></li>
+          <li><a href="{{ '/configuration.html' | relative_url }}">Configuration</a></li>
+          <li><a href="{{ '/architecture.html' | relative_url }}">Architecture</a></li>
+          <li><a href="{{ '/sitemap.html' | relative_url }}">Plan du site</a></li>
+          <li><a href="https://github.com/suissard/multibot" target="_blank" rel="noopener noreferrer">Dépôt GitHub</a></li>
+        </ul>
+      </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+      (function() {
+        // --- 1. Mobile Sidebar Toggle ---
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('siteSidebar');
+        const backdrop = document.getElementById('sidebarBackdrop');
+
+        function toggleSidebar() {
+          sidebar.classList.toggle('open');
+          backdrop.classList.toggle('open');
+        }
+
+        if (mobileBtn) mobileBtn.addEventListener('click', toggleSidebar);
+        if (backdrop) backdrop.addEventListener('click', toggleSidebar);
+
+        // --- 2. Active Sidebar Link Detection ---
+        const currentPath = window.location.pathname;
+        const navLinks = document.querySelectorAll('.sidebar-menu a, .nav-item a');
+        navLinks.forEach(link => {
+          const href = link.getAttribute('href');
+          if (href && (currentPath.endsWith(href) || currentPath === href || (href !== '/' && currentPath.includes(href)))) {
+            link.classList.add('active');
+          }
+        });
+
+        // --- 3. Code Block Copy Buttons & Styling ---
+        const preElements = document.querySelectorAll('pre');
+        preElements.forEach(pre => {
+          // Check if already wrapped
+          if (pre.parentElement.classList.contains('code-block-wrapper')) return;
+
+          const wrapper = document.createElement('div');
+          wrapper.className = 'code-block-wrapper';
+
+          const header = document.createElement('div');
+          header.className = 'code-header';
+
+          const dots = document.createElement('div');
+          dots.className = 'window-dots';
+          dots.innerHTML = '<span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>';
+
+          const codeEl = pre.querySelector('code');
+          let langName = 'code';
+          if (codeEl) {
+            const match = codeEl.className.match(/language-([a-zA-Z0-9_-]+)/);
+            if (match) langName = match[1];
+          }
+
+          const langLabel = document.createElement('span');
+          langLabel.className = 'code-lang-label';
+          langLabel.textContent = langName;
+
+          const copyBtn = document.createElement('button');
+          copyBtn.className = 'copy-btn';
+          copyBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copier';
+
+          copyBtn.addEventListener('click', () => {
+            const textToCopy = pre.textContent.trim();
+            navigator.clipboard.writeText(textToCopy).then(() => {
+              copyBtn.classList.add('copied');
+              copyBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copié !';
+              setTimeout(() => {
+                copyBtn.classList.remove('copied');
+                copyBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copier';
+              }, 2000);
+            });
+          });
+
+          header.appendChild(dots);
+          header.appendChild(langLabel);
+          header.appendChild(copyBtn);
+
+          pre.parentNode.insertBefore(wrapper, pre);
+          wrapper.appendChild(header);
+          wrapper.appendChild(pre);
+        });
+
+        // --- 4. Instant Search Modal ---
+        const searchModal = document.getElementById('searchModal');
+        const searchTrigger = document.getElementById('searchTriggerBtn');
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+
+        const searchIndex = [
+          { title: "Accueil", cat: "Guide", url: "{{ '/' | relative_url }}" },
+          { title: "Configuration (botMode & configs.json)", cat: "Guide", url: "{{ '/configuration.html' | relative_url }}" },
+          { title: "Architecture du Projet", cat: "Guide", url: "{{ '/architecture.html' | relative_url }}" },
+          { title: "Liste des Modules", cat: "Modules", url: "{{ '/modules-list.html' | relative_url }}" },
+          { title: "Module AutoRole", cat: "Modules", url: "{{ '/Modules/AutoRole/index.html' | relative_url }}" },
+          { title: "Module ChannelManager", cat: "Modules", url: "{{ '/Modules/ChannelManager/index.html' | relative_url }}" },
+          { title: "Module Secretary (Support & Tickets)", cat: "Modules", url: "{{ '/Modules/Secretary/index.html' | relative_url }}" },
+          { title: "Module ShareChannel", cat: "Modules", url: "{{ '/Modules/ShareChannel/index.html' | relative_url }}" },
+          { title: "Module TeamManager", cat: "Modules", url: "{{ '/Modules/TeamManager/index.html' | relative_url }}" },
+          { title: "Module VocalDuplicate", cat: "Modules", url: "{{ '/Modules/VocalDuplicate/index.html' | relative_url }}" },
+          { title: "Liste des Commandes", cat: "Commandes", url: "{{ '/commands-list.html' | relative_url }}" },
+          { title: "Commande Ping", cat: "Commandes", url: "{{ '/Commandes/ping.html' | relative_url }}" },
+          { title: "Commande Help", cat: "Commandes", url: "{{ '/Commandes/help.html' | relative_url }}" },
+          { title: "Commande ServerInfo", cat: "Commandes", url: "{{ '/Commandes/serverinfo.html' | relative_url }}" },
+          { title: "Commande SetTeam", cat: "Commandes", url: "{{ '/Commandes/setteam.html' | relative_url }}" },
+          { title: "Liste des Classes", cat: "Classes", url: "{{ '/classes-list.html' | relative_url }}" },
+          { title: "Classe Bot", cat: "Classes", url: "{{ '/Class/Bot.html' | relative_url }}" },
+          { title: "Classe BotManager", cat: "Classes", url: "{{ '/Class/BotManager.html' | relative_url }}" },
+          { title: "Classe CommandManager", cat: "Classes", url: "{{ '/Class/CommandManager.html' | relative_url }}" },
+          { title: "Classe EventManager", cat: "Classes", url: "{{ '/Class/EventManager.html' | relative_url }}" },
+          { title: "Liste des Événements", cat: "Events", url: "{{ '/events-list.html' | relative_url }}" },
+          { title: "Plan du site complet", cat: "Navigation", url: "{{ '/sitemap.html' | relative_url }}" }
+        ];
+
+        function openSearch() {
+          if (!searchModal) return;
+          searchModal.classList.add('open');
+          searchInput.value = '';
+          searchInput.focus();
+          renderResults(searchIndex);
+        }
+
+        function closeSearch() {
+          if (!searchModal) return;
+          searchModal.classList.remove('open');
+        }
+
+        function renderResults(items) {
+          if (!searchResults) return;
+          searchResults.innerHTML = '';
+          if (items.length === 0) {
+            searchResults.innerHTML = '<li style="padding: 1.5rem; text-align: center; color: var(--text-muted);">Aucun résultat trouvé</li>';
+            return;
+          }
+          items.slice(0, 10).forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'search-result-item';
+            li.innerHTML = `<a href="${item.url}">
+              <span>${item.title}</span>
+              <span class="search-result-category">${item.cat}</span>
+            </a>`;
+            searchResults.appendChild(li);
+          });
+        }
+
+        if (searchTrigger) searchTrigger.addEventListener('click', openSearch);
+
+        window.addEventListener('keydown', (e) => {
+          if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            searchModal.classList.contains('open') ? closeSearch() : openSearch();
+          }
+          if (e.key === 'Escape' && searchModal && searchModal.classList.contains('open')) {
+            closeSearch();
+          }
+        });
+
+        if (searchModal) {
+          searchModal.addEventListener('click', (e) => {
+            if (e.target === searchModal) closeSearch();
+          });
+        }
+
+        if (searchInput) {
+          searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            if (!query) {
+              renderResults(searchIndex);
+              return;
+            }
+            const filtered = searchIndex.filter(item => 
+              item.title.toLowerCase().includes(query) || 
+              item.cat.toLowerCase().includes(query)
+            );
+            renderResults(filtered);
+          });
+        }
+      })();
+    </script>
   </body>
 </html>

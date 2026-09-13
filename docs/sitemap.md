@@ -5,6 +5,8 @@ layout: default
 
 # Plan du site
 
+Retrouvez ci-dessous l'arborescence complète de l'ensemble des modules, commandes, classes et composants documentés pour MultiBot.
+
 * **Class**
   * [ApiCallQueue.js](./Class/ApiCallQueue.html)
   * [Bot.js](./Class/Bot.html)

@@ -5,7 +5,7 @@ layout: default
 
 # `priority`
 
-Déplace le ticket en priorité
+> **Description :** Déplace le ticket en priorité
 
 ## Narrative
 
@@ -17,11 +17,11 @@ Déplace le ticket en priorité
 
 Exécute la commande pour déplacer le ticket en priorité.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
 
-**Returns:** `string` - message de confirmation ou d'échec.
+**Retour :** <span class="badge badge-type">string</span> - message de confirmation ou d'échec.
 

@@ -5,13 +5,13 @@ layout: default
 
 # `SecretarySent`
 
-Gère l\'envoi de messages depuis le secrétariat.
+> **Description :** Gère l'envoi de messages depuis le secrétariat.
 
 Envoie la réponse à l'utilisateur
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `message` | `import('discord.js').Message` |  |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `message` | <span class="badge badge-type">import('discord.js').Message</span> |  |
 

@@ -5,7 +5,7 @@ layout: default
 
 # `SharePromoCommand`
 
-Partager un message format embed sur ce salon partagé
+> **Description :** Partager un message format embed sur ce salon partagé
 
 ## Narrative
 
@@ -28,22 +28,22 @@ Partager un message format embed sur ce salon partagé
 
 ## Arguments
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| `texte` | `STRING` | Message à envoyer | Yes |
-| `imageurl` | `STRING` | Ajouter une URL d'image au message | No |
+| Paramètre | Type | Description | Obligatoire |
+| :-------- | :--- | :---------- | :---------- |
+| `texte` | <span class="badge badge-type">STRING</span> | Message à envoyer | <span class="badge badge-required">Requis</span> |
+| `imageurl` | <span class="badge badge-type">STRING</span> | Ajouter une URL d'image au message | <span class="badge badge-optional">Optionnel</span> |
 
 Commande de gestion des shareChannel
 
 Exécute la commande pour envoyer un message promotionnel à un groupe de partage. Le message est envoyé sous forme d'embed et peut contenir une image.
 
-**Parameters:**
+**Paramètres :**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `args` | `object` | - Les arguments de la commande. |
-| `args.texte` | `string` | - Le texte du message promotionnel. |
-| `args.imageurl` | `string` | - L'URL d'une image à inclure dans l'embed. |
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
+| `args.texte` | <span class="badge badge-type">string</span> | - Le texte du message promotionnel. |
+| `args.imageurl` | <span class="badge badge-type">string</span> | - L'URL d'une image à inclure dans l'embed. |
 
-**Returns:** `Promise<string>` - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
 
