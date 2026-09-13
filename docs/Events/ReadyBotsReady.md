@@ -5,6 +5,10 @@ layout: default
 
 # `ReadyBotsReady`
 
+> **Classe :** `BotsReady` (hérite de `Event`)
+
+> **Identifiant :** `botsReady`
+
 > **Description :** Détermine quand tous les bots sont prêts et émet un événement global.
 
 ### Méthode `handleEvent()`

@@ -5,7 +5,15 @@ layout: default
 
 # `setteam`
 
+> **Classe :** `SetTeam` (hérite de `Commande`)
+
+> **Identifiant :** `setteam`
+
 > **Description :** Crée une nouvelle équipe avec un rôle et un salon dédiés.
+
+> **Utilisation :** `PREFIXCMD`
+
+> **Permissions utilisateur :** `ManageRoles`
 
 ## Narrative
 

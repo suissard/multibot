@@ -5,7 +5,13 @@ layout: default
 
 # `valid`
 
+> **Classe :** `Valid` (hérite de `Command`)
+
+> **Identifiant :** `valid`
+
 > **Description :** Permet de valider une commande
+
+> **Utilisation :** `PREFIXCMD`
 
 ## Narrative
 

@@ -5,7 +5,13 @@ layout: default
 
 # `serverinfo`
 
+> **Classe :** `Serverinfo` (hérite de `Commande`)
+
+> **Identifiant :** `serverinfo`
+
 > **Description :** Donne des infos sur le serveur
+
+> **Utilisation :** ``
 
 ## Narrative
 

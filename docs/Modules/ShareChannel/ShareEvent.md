@@ -5,6 +5,10 @@ layout: default
 
 # `ShareEvent`
 
+> **Classe :** `ShareEvent` (hérite de `Event`)
+
+> **Identifiant :** `shareEvent`
+
 > **Description :** Gère les messages envoyés dans les salons partagés.
 
 ## Classe : `ShareEvent`

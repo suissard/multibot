@@ -5,7 +5,13 @@ layout: default
 
 # `GetCasterStatForm`
 
+> **Classe :** `GetCasterStatFormCommand` (hérite de `Command`)
+
+> **Identifiant :** `casterstat`
+
 > **Description :** Renvoit un url personnalisé pour déclarer les statistiques d'un match
+
+> **Utilisation :** ```PREFIXCMD```
 
 ## Narrative
 

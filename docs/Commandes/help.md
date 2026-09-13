@@ -5,7 +5,13 @@ layout: default
 
 # `help`
 
+> **Classe :** `Help` (hérite de `Commande`)
+
+> **Identifiant :** `help`
+
 > **Description :** Permet d'obtenir le détail des commandes
+
+> **Utilisation :** `Va renvoyer la liste des commandes avec leur définition. Cette liste peut etre filtré avec des mot clef :\n▫ invisible : pour voir les commandes n\'apparaissant pas traditionnellement\n▫ devboss : pour voir les commandes réservés aux developpeurs`
 
 ## Narrative
 

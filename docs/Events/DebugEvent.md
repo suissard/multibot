@@ -5,6 +5,10 @@ layout: default
 
 # `DebugEvent`
 
+> **Classe :** `DebugEvent` (hérite de `Event`)
+
+> **Identifiant :** `debug`
+
 > **Description :** Affiche les informations de débogage de discord.js.
 
 ### Méthode `handleEvent(debug)`

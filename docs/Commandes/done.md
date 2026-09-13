@@ -5,7 +5,13 @@ layout: default
 
 # `done`
 
+> **Classe :** `Done` (hérite de `Command`)
+
+> **Identifiant :** `done`
+
 > **Description :** Clos un ticket
+
+> **Utilisation :** `PREFIXCMD`
 
 ## Narrative
 

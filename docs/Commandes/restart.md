@@ -5,7 +5,15 @@ layout: default
 
 # `restart`
 
+> **Classe :** `Restart` (hérite de `Commande`)
+
+> **Identifiant :** `restart`
+
 > **Description :** redemarre le bot
+
+> **Utilisation :** `PREFIXCMD`
+
+> **Permissions utilisateur :** `Administrator`
 
 ## Narrative
 

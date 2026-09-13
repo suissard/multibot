@@ -5,6 +5,8 @@ layout: default
 
 # `Event`
 
+> **Classe :** `Event`
+
 > **Description :** N/A
 
 ### Constructeur `new Event(bot)`

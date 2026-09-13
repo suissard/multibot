@@ -5,6 +5,10 @@ layout: default
 
 # `ReadyStartingLog`
 
+> **Classe :** `StartingLog` (hérite de `Event`)
+
+> **Identifiant :** `startingLog`
+
 > **Description :** Affiche un message de démarrage dans la console.
 
 ### Méthode `handleEvent()`

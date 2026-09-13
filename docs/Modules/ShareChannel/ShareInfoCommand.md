@@ -5,7 +5,15 @@ layout: default
 
 # `ShareInfoCommand`
 
+> **Classe :** `SalonCommand` (hérite de `Command`)
+
+> **Identifiant :** `shareinfo`
+
 > **Description :** Récuperer les infos sur ce salon partagé
+
+> **Utilisation :** ``
+
+> **Permissions utilisateur :** `MANAGE_CHANNELS`
 
 ## Narrative
 

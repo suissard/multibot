@@ -5,6 +5,8 @@ layout: default
 
 # `EmoteMessage`
 
+> **Classe :** `EmoteMessage` (hérite de `StrapiObject`)
+
 ## Classe : `EmoteMessage`
 
 Représente un message sur Discord qui attribue des rôles en fonction des réactions des utilisateurs. Étend StrapiObject pour interagir avec une base de données Strapi.

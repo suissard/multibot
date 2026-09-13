@@ -5,6 +5,8 @@ layout: default
 
 # `AutoroleConfigClass`
 
+> **Classe :** `Auth`
+
 ## Classe : `Auth`
 
 Represents an authentication object.

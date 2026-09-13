@@ -5,6 +5,8 @@ layout: default
 
 # `Api`
 
+> **Classe :** `SelfApi`
+
 ### Constructeur `new SelfApi(configs, discord, BOTS, saltRounds = 12, libs = {})`
 
 Class permettant de gerer l'API du bot

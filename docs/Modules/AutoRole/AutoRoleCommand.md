@@ -5,6 +5,12 @@ layout: default
 
 # `AutoRoleCommand`
 
+> **Classe :** `AutoRoleCommand` (hérite de `Command`)
+
+> **Identifiant :** `autorole`
+
+> **Utilisation :** `PREFIXCMD`
+
 ## Narrative
 
 

@@ -5,7 +5,15 @@ layout: default
 
 # `removeUserFromChannel`
 
+> **Classe :** `RemoveUserFromChannel` (hérite de `Commande`)
+
+> **Identifiant :** `removeuserfromchannel`
+
 > **Description :** Remove a user from a channel
+
+> **Utilisation :** `PREFIXCMD`
+
+> **Permissions utilisateur :** `ManageChannels`
 
 ## Narrative
 

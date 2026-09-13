@@ -5,6 +5,10 @@ layout: default
 
 # `invite`
 
+> **Classe :** `Message` (hérite de `Commande`)
+
+> **Identifiant :** `invite`
+
 ## Narrative
 
 

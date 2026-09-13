@@ -5,6 +5,8 @@ layout: default
 
 # `CommandManager`
 
+> **Classe :** `CommandeManager`
+
 ### Constructeur `new CommandeManager()`
 
 Gère l'enregistrement et l'accès aux commandes du bot.

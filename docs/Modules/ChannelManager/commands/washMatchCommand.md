@@ -5,7 +5,15 @@ layout: default
 
 # `washMatchCommand`
 
+> **Classe :** `WashMatchCommand` (hérite de `Commande`)
+
+> **Identifiant :** `washmatchs`
+
 > **Description :** Supprime les channels de matchs
+
+> **Utilisation :** `PREFIXCMD`
+
+> **Permissions utilisateur :** `ManageChannels`
 
 ## Narrative
 

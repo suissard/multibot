@@ -5,6 +5,10 @@ layout: default
 
 # `TicketDevCommand`
 
+> **Classe :** `TicketDev` (hérite de `Command`)
+
+> **Identifiant :** `ticketdev`
+
 > **Description :** Envoie une demande de ticket au développeur.
 
 ## Arguments

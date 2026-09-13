@@ -5,6 +5,8 @@ layout: default
 
 # `ApiCallQueue`
 
+> **Classe :** `ApiCallQueue`
+
 ## Classe : `ApiCallQueue`
 
 ApiCallQueue Singleton qui gère une file d'attente pour les appels API. Permet de limiter le nombre d'appels simultanés et d'ajouter un délai entre les appels.

@@ -5,6 +5,10 @@ layout: default
 
 # `ShareEventDelete`
 
+> **Classe :** `ShareEventDelete` (hérite de `Event`)
+
+> **Identifiant :** `shareEventDelete`
+
 > **Description :** Gère la suppression de messages dans les salons partagés.
 
 ## Classe : `ShareEventDelete`

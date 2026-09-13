@@ -5,7 +5,15 @@ layout: default
 
 # `refresh`
 
+> **Classe :** `Refresh` (hérite de `Commande`)
+
+> **Identifiant :** `refresh`
+
 > **Description :** Rafraichit les configurations depuis la base de données et redémarre les bots
+
+> **Utilisation :** `PREFIXCMD`
+
+> **Permissions utilisateur :** `Administrator`
 
 ## Narrative
 

@@ -5,7 +5,17 @@ layout: default
 
 # `priority`
 
+> **Classe :** `Priority` (hérite de `Command`)
+
+> **Identifiant :** `priority`
+
 > **Description :** Déplace le ticket en priorité
+
+> **Utilisation :** `PREFIXCMD`
+
+> **Permissions utilisateur :** `ManageMessages`
+
+> **Permissions bot :** `ManageChannels`
 
 ## Narrative
 

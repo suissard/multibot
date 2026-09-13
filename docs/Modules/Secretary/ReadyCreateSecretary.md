@@ -5,6 +5,10 @@ layout: default
 
 # `ReadyCreateSecretary`
 
+> **Classe :** `CreateSecretary` (hérite de `Event`)
+
+> **Identifiant :** `createSecretary`
+
 > **Description :** Initialise la configuration du secrétariat au démarrage.
 
 ### Méthode `handleEvent()`

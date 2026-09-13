@@ -5,6 +5,10 @@ layout: default
 
 # `addOlympeDataEvent`
 
+> **Classe :** `OlympeMemberEvent` (hérite de `Event`)
+
+> **Identifiant :** `addOlympeDataEvent`
+
 > **Description :** Gère l'événement olympeMember pour enrichir le cache du bot.
 
 ## Narrative

@@ -5,7 +5,17 @@ layout: default
 
 # `SecretarySortCommand`
 
+> **Classe :** `SecretarySort` (hérite de `Command`)
+
+> **Identifiant :** `secretarysort`
+
 > **Description :** Trie les tickets du secrétariat (❌ Priority)
+
+> **Utilisation :** `PREFIXCMD`
+
+> **Permissions utilisateur :** `ManageChannels`
+
+> **Permissions bot :** `ManageChannels`
 
 ## Narrative
 

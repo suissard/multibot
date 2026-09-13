@@ -5,7 +5,13 @@ layout: default
 
 # `undone`
 
+> **Classe :** `Undone` (hérite de `Command`)
+
+> **Identifiant :** `undone`
+
 > **Description :** Rouvre un ticket
+
+> **Utilisation :** `PREFIXCMD`
 
 ## Narrative
 

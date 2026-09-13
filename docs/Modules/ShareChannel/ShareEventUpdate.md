@@ -5,6 +5,10 @@ layout: default
 
 # `ShareEventUpdate`
 
+> **Classe :** `ShareEventUpdate` (hérite de `Event`)
+
+> **Identifiant :** `shareEventUpdate`
+
 > **Description :** Gère la mise à jour de messages dans les salons partagés.
 
 ## Classe : `ShareEventUpdate`

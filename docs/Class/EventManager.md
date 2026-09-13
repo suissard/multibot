@@ -5,6 +5,8 @@ layout: default
 
 # `EventManager`
 
+> **Classe :** `EventManager`
+
 ### Constructeur `new EventManager(bots)`
 
 Gère l'enregistrement et l'attachement des événements pour les bots.

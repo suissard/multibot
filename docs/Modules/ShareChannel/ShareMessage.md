@@ -5,6 +5,8 @@ layout: default
 
 # `ShareMessage`
 
+> **Classe :** `ShareMessage`
+
 ## Classe : `ShareMessage`
 
 Représente un message qui a été partagé dans un groupe de salons. Contient le message original, des informations extraites, et une liste des messages "cibles" (les copies envoyées dans les autres salons).

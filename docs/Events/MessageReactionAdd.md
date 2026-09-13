@@ -5,6 +5,10 @@ layout: default
 
 # `MessageReactionAdd`
 
+> **Classe :** `CheckCommand` (hérite de `Event`)
+
+> **Identifiant :** `MessageReactionAdd`
+
 > **Description :** Gère l'ajout de réactions pour les rôles par réaction.
 
 ### Méthode `handleEvent(reaction, user)`

@@ -5,6 +5,10 @@ layout: default
 
 # `ReadySetInteractionCommands`
 
+> **Classe :** `ReadySetInteractionCommands` (hérite de `Event`)
+
+> **Identifiant :** `setInteractionCommands`
+
 > **Description :** Enregistre les commandes slash en développement au démarrage du bot.
 
 ### Méthode `handleEvent()`

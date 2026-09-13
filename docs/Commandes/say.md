@@ -5,7 +5,15 @@ layout: default
 
 # `say`
 
+> **Classe :** `Say` (hérite de `Commande`)
+
+> **Identifiant :** `say`
+
 > **Description :** Fait parler le bot.
+
+> **Utilisation :** `La commande prend en argument un texte et un argument optionnel pourrai être un channel et un autre pourrait une piece jointe`
+
+> **Permissions utilisateur :** `Administrator`
 
 ## Narrative
 

@@ -5,6 +5,8 @@ layout: default
 
 # `OlympeUser`
 
+> **Classe :** `OlympeUser`
+
 ## Classe : `OlympeUser`
 
 Représente un utilisateur dans le contexte de l'API Olympe.

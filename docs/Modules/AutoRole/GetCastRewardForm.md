@@ -5,7 +5,13 @@ layout: default
 
 # `GetCastRewardForm`
 
+> **Classe :** `GetCastRewardFormCommand` (hérite de `Command`)
+
+> **Identifiant :** `castreward`
+
 > **Description :** Renvoit un url personnalisé pour réclamer une récompense de cast OAFO
+
+> **Utilisation :** ```PREFIXCMD```
 
 ## Narrative
 

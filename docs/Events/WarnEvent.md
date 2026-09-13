@@ -5,6 +5,10 @@ layout: default
 
 # `WarnEvent`
 
+> **Classe :** `WarnEvent` (hérite de `Event`)
+
+> **Identifiant :** `warn`
+
 > **Description :** Affiche les avertissements de discord.js.
 
 ### Méthode `handleEvent(warn)`

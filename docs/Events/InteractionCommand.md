@@ -5,6 +5,10 @@ layout: default
 
 # `InteractionCommand`
 
+> **Classe :** `InteractionCommand` (hérite de `Event`)
+
+> **Identifiant :** `InteractionCommand`
+
 > **Description :** Gère les interactions de commande slash.
 
 ## Narrative

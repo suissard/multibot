@@ -5,7 +5,13 @@ layout: default
 
 # `SalonCommand`
 
+> **Classe :** `SalonCommand` (hérite de `Command`)
+
+> **Identifiant :** `sharechannel`
+
 > **Description :** Définit un salon partagée de recherche de joueur ou le supprime
+
+> **Permissions utilisateur :** `MANAGE_CHANNELS`
 
 ## Narrative
 

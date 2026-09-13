@@ -5,6 +5,10 @@ layout: default
 
 # `LoadShareChannelsBotsReady`
 
+> **Classe :** `LoadShareChannels` (hérite de `Event`)
+
+> **Identifiant :** `loadShareChannels`
+
 > **Description :** Charge et initialise la configuration des salons partagés au démarrage.
 
 ### Méthode `handleEvent()`

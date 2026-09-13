@@ -5,7 +5,13 @@ layout: default
 
 # `ShareGetiCommand`
 
+> **Classe :** `Done` (hérite de `Command`)
+
+> **Identifiant :** `sharegeti`
+
 > **Description :** Définit ce salon pour partager les annonces Geti
+
+> **Utilisation :** `PREFIXCMD`
 
 ## Narrative
 

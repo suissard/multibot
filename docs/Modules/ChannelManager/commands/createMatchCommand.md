@@ -5,7 +5,13 @@ layout: default
 
 # `createMatchCommand`
 
+> **Classe :** `CreateMatchCommand` (hérite de `Commande`)
+
+> **Identifiant :** `creatematch`
+
 > **Description :** Create match channels
+
+> **Utilisation :** `PREFIXCMD`
 
 ## Narrative
 

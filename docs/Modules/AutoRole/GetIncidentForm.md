@@ -5,6 +5,12 @@ layout: default
 
 # `GetIncidentForm`
 
+> **Classe :** `GetIncidentFormCommand` (hérite de `Command`)
+
+> **Identifiant :** `incident`
+
+> **Utilisation :** ```PREFIXCMD```
+
 ## Narrative
 
 

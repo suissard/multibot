@@ -5,6 +5,8 @@ layout: default
 
 # `ShareChannels`
 
+> **Classe :** `ShareChannels`
+
 ## Classe : `ShareChannels`
 
 Représente un groupe de salons partagés. Gère la configuration (jeu, catégorie, pattern), la liste des salons, et la logique de partage des messages entre eux.

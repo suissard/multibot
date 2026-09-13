@@ -5,7 +5,13 @@ layout: default
 
 # `UpdateTeamChannelPermissionsCommand`
 
+> **Classe :** `UpdateTeamChannelPermissionsCommand` (hérite de `Command`)
+
+> **Identifiant :** `updateteamchannelpermissions`
+
 > **Description :** Met à jour les permissions d'un salon d'équipe spécifique
+
+> **Permissions utilisateur :** `Administrator`
 
 ## Arguments
 

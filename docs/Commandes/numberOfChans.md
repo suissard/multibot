@@ -5,7 +5,13 @@ layout: default
 
 # `numberOfChans`
 
+> **Classe :** `Done` (hérite de `Command`)
+
+> **Identifiant :** `numberofchans`
+
 > **Description :** Donne le nombre de channel du serveur
+
+> **Utilisation :** `PREFIXCMD`
 
 ## Narrative
 

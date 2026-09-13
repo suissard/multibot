@@ -5,7 +5,15 @@ layout: default
 
 # `autoChannelCommand`
 
+> **Classe :** `AutoChannelCommand` (hérite de `Commande`)
+
+> **Identifiant :** `autochannel`
+
 > **Description :** Lance la fonction autochannel : creation, permission et nettoyage des channels de match
+
+> **Utilisation :** `PREFIXCMD`
+
+> **Permissions utilisateur :** `ManageChannels`
 
 ## Narrative
 

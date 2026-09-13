@@ -5,6 +5,8 @@ layout: default
 
 # `BotManager`
 
+> **Classe :** `BotManager` (hérite de `Map`)
+
 ## Classe : `BotManager`
 
 Configure les gestionnaires de commandes, événements, et messages d'émote.

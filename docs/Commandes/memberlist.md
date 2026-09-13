@@ -5,7 +5,15 @@ layout: default
 
 # `memberlist`
 
+> **Classe :** `MemberList` (hérite de `Command`)
+
+> **Identifiant :** `memberlist`
+
 > **Description :** Renvoie la liste des utilisateurs qui ont le rôle mentiionné
+
+> **Utilisation :** `PREFIXCMD`
+
+> **Permissions utilisateur :** `ManageRoles`
 
 ## Narrative
 

@@ -5,6 +5,8 @@ layout: default
 
 # `EmoteMessageManager`
 
+> **Classe :** `EmoteMessageManager`
+
 ### Constructeur `new EmoteMessageManager(bots)`
 
 Gère les messages à réaction pour l'ensemble des bots.

@@ -5,6 +5,8 @@ layout: default
 
 # `geminiService`
 
+> **Classe :** `GeminiService`
+
 ## Classe : `GeminiService`
 
 Service pour interagir avec l'API Google Gemini

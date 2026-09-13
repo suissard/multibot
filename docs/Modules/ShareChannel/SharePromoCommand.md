@@ -5,7 +5,15 @@ layout: default
 
 # `SharePromoCommand`
 
+> **Classe :** `SalonCommand` (hérite de `Command`)
+
+> **Identifiant :** `sharepromo`
+
 > **Description :** Partager un message format embed sur ce salon partagé
+
+> **Utilisation :** ``
+
+> **Permissions utilisateur :** `ADMINISTRATOR`
 
 ## Narrative
 

@@ -5,7 +5,15 @@ layout: default
 
 # `megarole`
 
+> **Classe :** `Ping` (hérite de `Command`)
+
+> **Identifiant :** `megarole`
+
 > **Description :** Ajoute ou supprime en masse un ou plusieurs rôles à tous les membres du serveur.
+
+> **Utilisation :** `PREFIXCMD`
+
+> **Permissions utilisateur :** `ManageRoles`
 
 ## Narrative
 

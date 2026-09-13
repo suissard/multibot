@@ -5,7 +5,13 @@ layout: default
 
 # `piece`
 
+> **Classe :** `Piece` (hérite de `Command`)
+
+> **Identifiant :** `piece`
+
 > **Description :** Lance une piece pour récolter pile ou face
+
+> **Utilisation :** `PREFIXCMD`
 
 ## Narrative
 

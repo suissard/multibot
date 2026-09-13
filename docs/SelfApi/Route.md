@@ -5,6 +5,8 @@ layout: default
 
 # `Route`
 
+> **Classe :** `Route`
+
 ## Classe : `Route`
 
 Représente une route de l'API. L'instanciation de cette classe enregistre automatiquement la route auprès de l'API.

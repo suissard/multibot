@@ -5,7 +5,13 @@ layout: default
 
 # `register-slash-commands`
 
+> **Classe :** `RegisterSlashCommands` (hérite de `Command`)
+
+> **Identifiant :** `register-slash-commands`
+
 > **Description :** Registers slash commands with Discord.
+
+> **Utilisation :** `PREFIXCMD [command_name]`
 
 ## Narrative
 

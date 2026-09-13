@@ -5,7 +5,13 @@ layout: default
 
 # `BackupSecretaryCommand`
 
+> **Classe :** `BackupSecretary` (hérite de `Command`)
+
+> **Identifiant :** `backupsecretary`
+
 > **Description :** Sauvegarde les discussions du secrétariat en JSON
+
+> **Utilisation :** `PREFIXCMD`
 
 ## Narrative
 

@@ -94,10 +94,47 @@ layout: default
 
 `;
 
+    const classDeclMatch = fileContent.match(/class\s+([A-Za-z0-9_$]+)(?:\s+extends\s+([A-Za-z0-9_$]+))?/);
+    if (classDeclMatch) {
+        const clsName = classDeclMatch[1];
+        const superClass = classDeclMatch[2];
+        content += `> **Classe :** \`${clsName}\`${superClass ? ` (hérite de \`${superClass}\`)` : ''}\n\n`;
+    }
+
+    const idMatch = fileContent.match(/static id = (['"`])((?:\\.|(?!\1).)*)\1/);
+    if (idMatch) {
+        content += `> **Identifiant :** \`${idMatch[2]}\`\n\n`;
+    }
+
     const descriptionMatch = fileContent.match(/static description = (['"`])((?:\\.|(?!\1).)*)\1/);
     if (descriptionMatch) {
         const cleanDesc = descriptionMatch[2].replace(/\\'/g, "'").replace(/\\"/g, '"');
         content += `> **Description :** ${cleanDesc}\n\n`;
+    }
+
+    const howToMatch = fileContent.match(/static howTo = (['"`])((?:\\.|(?!\1).)*)\1/);
+    if (howToMatch) {
+        content += `> **Utilisation :** \`${howToMatch[2]}\`\n\n`;
+    }
+
+    const userPermsMatch = fileContent.match(/static userPermissions = (\[[\s\S]*?\]);/);
+    if (userPermsMatch) {
+        try {
+            const perms = eval(userPermsMatch[1]);
+            if (perms && perms.length > 0) {
+                content += `> **Permissions utilisateur :** ${perms.map(p => `\`${p}\``).join(', ')}\n\n`;
+            }
+        } catch (_) {}
+    }
+
+    const botPermsMatch = fileContent.match(/static botPermissions = (\[[\s\S]*?\]);/);
+    if (botPermsMatch) {
+        try {
+            const perms = eval(botPermsMatch[1]);
+            if (perms && perms.length > 0) {
+                content += `> **Permissions bot :** ${perms.map(p => `\`${p}\``).join(', ')}\n\n`;
+            }
+        } catch (_) {}
     }
 
     const narrativeMatch = fileContent.match(/static narrative = \`([\s\S]*?)\`;/);

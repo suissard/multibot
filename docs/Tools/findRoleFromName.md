@@ -5,6 +5,8 @@ layout: default
 
 # `findRoleFromName`
 
+> **Classe :** `findRoleFromName`
+
 ## Classe : `findRoleFromName`
 
 Une classe utilitaire pour trouver ou créer des rôles dans une guilde.

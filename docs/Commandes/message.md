@@ -5,6 +5,12 @@ layout: default
 
 # `message`
 
+> **Classe :** `Message` (hérite de `Commande`)
+
+> **Identifiant :** `message`
+
+> **Permissions utilisateur :** `BanMembers`
+
 ## Narrative
 
 

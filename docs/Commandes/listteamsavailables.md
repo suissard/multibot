@@ -5,7 +5,13 @@ layout: default
 
 # `listteamsavailables`
 
+> **Classe :** `ListTeamsAvailables` (hérite de `Command`)
+
+> **Identifiant :** `listteamsavailables`
+
 > **Description :** Renvoie la liste des teams disponibles pour un challenge donné
+
+> **Permissions bot :** `SEND_MESSAGES`
 
 ## Narrative
 

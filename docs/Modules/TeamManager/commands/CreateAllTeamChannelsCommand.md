@@ -5,7 +5,13 @@ layout: default
 
 # `CreateAllTeamChannelsCommand`
 
+> **Classe :** `CreateAllTeamChannelsCommand` (hérite de `Command`)
+
+> **Identifiant :** `createallteamchannels`
+
 > **Description :** Lance la création/synchronisation de tous les salons d'équipe pour un segment donné.
+
+> **Permissions utilisateur :** `Administrator`
 
 ## Arguments
 

@@ -5,6 +5,10 @@ layout: default
 
 # `NewGuildMember`
 
+> **Classe :** `GuildMemberAddAutorole` (hérite de `Event`)
+
+> **Identifiant :** `autorolenewguildmember`
+
 > **Description :** Déclenche l'attribution de rôles automatique pour un nouveau membre.
 
 ## Narrative

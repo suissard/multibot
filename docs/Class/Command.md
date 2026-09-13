@@ -5,6 +5,8 @@ layout: default
 
 # `Command`
 
+> **Classe :** `Commande`
+
 #### Propriété `bot`
 
 <span class="badge badge-type">Bot</span> Instance du bot Discord qui initie la commande.

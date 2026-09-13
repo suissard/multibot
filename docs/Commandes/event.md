@@ -5,7 +5,13 @@ layout: default
 
 # `event`
 
+> **Classe :** `Event` (hérite de `Command`)
+
+> **Identifiant :** `event`
+
 > **Description :** Gère les événements, incluant l'affichage d'infos, la gestion des équipes et le nettoyage.
+
+> **Utilisation :** `PREFIXCMD`
 
 ## Narrative
 

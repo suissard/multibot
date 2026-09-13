@@ -5,6 +5,10 @@ layout: default
 
 # `MessageCommand`
 
+> **Classe :** `CheckCommand` (hérite de `Event`)
+
+> **Identifiant :** `checkCommand`
+
 > **Description :** Gère les commandes textuelles basées sur un préfixe.
 
 ### Méthode `handleEvent(message)`

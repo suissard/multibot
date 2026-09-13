@@ -5,6 +5,10 @@ layout: default
 
 # `SecretarySent`
 
+> **Classe :** `SecretarySent` (hérite de `Event`)
+
+> **Identifiant :** `secretarySent`
+
 > **Description :** Gère l'envoi de messages depuis le secrétariat.
 
 ### Méthode `answer(message)`

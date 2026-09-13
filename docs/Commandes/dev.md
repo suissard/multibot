@@ -5,7 +5,13 @@ layout: default
 
 # `dev`
 
+> **Classe :** `Dev` (hérite de `Commande`)
+
+> **Identifiant :** `dev`
+
 > **Description :** Execute le code javascript indiqué dans le message
+
+> **Utilisation :** `PREFIXCMD`
 
 ## Narrative
 

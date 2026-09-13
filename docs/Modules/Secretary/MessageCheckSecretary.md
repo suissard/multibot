@@ -5,6 +5,10 @@ layout: default
 
 # `MessageCheckSecretary`
 
+> **Classe :** `CheckSecretary` (hérite de `Event`)
+
+> **Identifiant :** `checkSecretary`
+
 > **Description :** Détecte et route les messages liés au secrétariat.
 
 ### Méthode `handleEvent(message)`

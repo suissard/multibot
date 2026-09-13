@@ -5,7 +5,15 @@ layout: default
 
 # `ShareStopCommand`
 
+> **Classe :** `SalonCommand` (hérite de `Command`)
+
+> **Identifiant :** `sharestop`
+
 > **Description :** Retirer un salon du systeme de partage
+
+> **Utilisation :** ``
+
+> **Permissions utilisateur :** `MANAGE_CHANNELS`
 
 ## Narrative
 

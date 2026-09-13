@@ -5,6 +5,8 @@ layout: default
 
 # `TeamChannel`
 
+> **Classe :** `TeamChannel`
+
 ### Constructeur `new TeamChannel(bot, team, targetSegment)`
 
 **Paramètres :**

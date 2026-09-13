@@ -5,7 +5,15 @@ layout: default
 
 # `addUserToChannel`
 
+> **Classe :** `AddUserToChannel` (hérite de `Commande`)
+
+> **Identifiant :** `addusertochannel`
+
 > **Description :** Add a user to a channel
+
+> **Utilisation :** `PREFIXCMD`
+
+> **Permissions utilisateur :** `ManageChannels`
 
 ## Narrative
 

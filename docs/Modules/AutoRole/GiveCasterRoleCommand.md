@@ -5,7 +5,15 @@ layout: default
 
 # `GiveCasterRoleCommand`
 
+> **Classe :** `GiveCasterRole` (hérite de `Command`)
+
+> **Identifiant :** `givecasterrole`
+
 > **Description :** Lance la procédure pour donner les roles aux casters
+
+> **Utilisation :** `PREFIXCMD`
+
+> **Permissions utilisateur :** `MANAGE_ROLES`
 
 ## Narrative
 

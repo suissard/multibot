@@ -5,6 +5,8 @@ layout: default
 
 # `Bot`
 
+> **Classe :** `Bot` (hérite de `Discord`)
+
 ### Constructeur `new Bot(data, BOTS)`
 
 Initialise un nouveau bot avec les données spécifiées. Gère les options de connexion, les intentions d'accès, et divers paramètres de configuration du bot.

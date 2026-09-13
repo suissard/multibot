@@ -5,6 +5,10 @@ layout: default
 
 # `processAllUsersEvent`
 
+> **Classe :** `OlympeUserCacheReadyEvent` (hérite de `Event`)
+
+> **Identifiant :** `processAllUsersEvent`
+
 > **Description :** Déclenche le traitement des utilisateurs une fois le cache Olympe prêt.
 
 ## Narrative

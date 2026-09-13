@@ -5,7 +5,15 @@ layout: default
 
 # `unmute`
 
+> **Classe :** `Dev` (hérite de `Commande`)
+
+> **Identifiant :** `unmute`
+
 > **Description :** Annule le statut muet d'un utilisateur, restaurant son accès aux salons.
+
+> **Utilisation :** `PREFIXCMD`
+
+> **Permissions utilisateur :** `BanMembers`
 
 ## Narrative
 

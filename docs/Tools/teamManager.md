@@ -5,6 +5,8 @@ layout: default
 
 # `teamManager`
 
+> **Classe :** `TeamManager`
+
 ### Constructeur `new TeamManager(collection)`
 
 **Paramètres :**

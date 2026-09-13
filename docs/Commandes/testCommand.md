@@ -5,6 +5,12 @@ layout: default
 
 # `testCommand`
 
+> **Classe :** `Message` (hérite de `Commande`)
+
+> **Identifiant :** `test-command`
+
+> **Permissions utilisateur :** `BanMembers`
+
 ## Narrative
 
 

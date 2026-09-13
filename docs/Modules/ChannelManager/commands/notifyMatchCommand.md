@@ -5,7 +5,15 @@ layout: default
 
 # `notifyMatchCommand`
 
+> **Classe :** `NotifyMatchCommand` (hérite de `Commande`)
+
+> **Identifiant :** `notifymatch`
+
 > **Description :** Envoie une notification de match à partir d'un ID de match.
+
+> **Utilisation :** `PREFIXCMD <matchId> [role]`
+
+> **Permissions utilisateur :** `ManageChannels`
 
 ## Narrative
 

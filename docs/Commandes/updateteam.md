@@ -5,7 +5,15 @@ layout: default
 
 # `updateteam`
 
+> **Classe :** `UpdateTeam` (hérite de `Command`)
+
+> **Identifiant :** `updateteam`
+
 > **Description :** Met à jour une équipe
+
+> **Utilisation :** `PREFIXCMD`
+
+> **Permissions utilisateur :** `ManageRoles`
 
 ## Narrative
 

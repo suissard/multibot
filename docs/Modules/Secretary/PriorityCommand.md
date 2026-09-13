@@ -5,7 +5,15 @@ layout: default
 
 # `PriorityCommand`
 
+> **Classe :** `PriorityCommand` (hérite de `Command`)
+
+> **Identifiant :** `priority`
+
 > **Description :** Passe un ticket en priorité haute 🔴
+
+> **Permissions utilisateur :** `ManageChannels`
+
+> **Permissions bot :** `ManageChannels`
 
 ## Arguments
 

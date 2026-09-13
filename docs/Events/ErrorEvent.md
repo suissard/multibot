@@ -5,6 +5,10 @@ layout: default
 
 # `ErrorEvent`
 
+> **Classe :** `ErrorEvent` (hérite de `Event`)
+
+> **Identifiant :** `error`
+
 > **Description :** Affiche les erreurs de discord.js.
 
 ### Méthode `handleEvent(error)`

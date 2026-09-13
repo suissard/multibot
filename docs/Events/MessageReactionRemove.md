@@ -5,6 +5,10 @@ layout: default
 
 # `MessageReactionRemove`
 
+> **Classe :** `CheckCommand` (hérite de `Event`)
+
+> **Identifiant :** `MessageReactionRemove`
+
 > **Description :** Gère le retrait de réactions pour les rôles par réaction.
 
 ### Méthode `handleEvent(reaction, user)`

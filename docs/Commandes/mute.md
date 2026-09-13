@@ -5,7 +5,15 @@ layout: default
 
 # `mute`
 
+> **Classe :** `Mute` (hérite de `Commande`)
+
+> **Identifiant :** `mute`
+
 > **Description :** Rend un utilisateur muet, restreignant son accès aux salons.
+
+> **Utilisation :** `PREFIXCMD`
+
+> **Permissions utilisateur :** `BanMembers`
 
 ## Narrative
 

@@ -5,6 +5,8 @@ layout: default
 
 # `WebHook`
 
+> **Classe :** `WebHook`
+
 ### Constructeur `new WebHook(postURL)`
 
 Crée une nouvelle instance de WebHook.

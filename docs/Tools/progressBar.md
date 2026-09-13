@@ -5,6 +5,8 @@ layout: default
 
 # `progressBar`
 
+> **Classe :** `ProgressBar`
+
 ## Classe : `ProgressBar`
 
 Class to create a text progress bar with throttling

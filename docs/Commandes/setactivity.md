@@ -5,6 +5,10 @@ layout: default
 
 # `setactivity`
 
+> **Classe :** `Message` (hérite de `Commande`)
+
+> **Identifiant :** `setactivity`
+
 > **Description :** change le status du bot
 
 ## Narrative

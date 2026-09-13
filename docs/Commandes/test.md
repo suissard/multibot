@@ -5,6 +5,10 @@ layout: default
 
 # `test`
 
+> **Classe :** `Message` (hérite de `Commande`)
+
+> **Identifiant :** `test`
+
 > **Description :** Test une commande ou serie de commandes
 
 ## Narrative

@@ -5,7 +5,13 @@ layout: default
 
 # `secretaryCommandMessage`
 
+> **Classe :** `SecretaryCommandMessage` (hérite de `Command`)
+
+> **Identifiant :** `respond`
+
 > **Description :** Répond au message du secretary
+
+> **Utilisation :** `PREFIXCMD`
 
 ## Narrative
 

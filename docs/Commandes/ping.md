@@ -5,7 +5,13 @@ layout: default
 
 # `ping`
 
+> **Classe :** `Ping` (hérite de `Command`)
+
+> **Identifiant :** `ping`
+
 > **Description :** Répond pong
+
+> **Utilisation :** `PREFIXCMD`
 
 ## Narrative
 

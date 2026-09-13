@@ -5,7 +5,13 @@ layout: default
 
 # `privacypolicy`
 
+> **Classe :** `Ping` (hérite de `Command`)
+
+> **Identifiant :** `privacypolicy`
+
 > **Description :** Fournit la politique de confidentialité du bot
+
+> **Utilisation :** `PREFIXCMD`
 
 ## Narrative
 
