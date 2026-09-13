@@ -11,3 +11,7 @@ dataGetibot/
 auto_pull.sh
 .idea
 .env
+_site/
+docs/_site/
+.jekyll-cache/
+.sass-cache/

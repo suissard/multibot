@@ -13,3 +13,5 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - generate_docs.js
+  - preview_server.js
+  - _site
