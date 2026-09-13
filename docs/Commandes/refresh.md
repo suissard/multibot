@@ -16,6 +16,8 @@ layout: default
 - **Sécurité :** Réservé au développeur/propriétaire.
 
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour rafraichir les données et redémarrer les bots.
 
 **Paramètres :**

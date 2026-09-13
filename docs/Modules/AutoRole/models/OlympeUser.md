@@ -5,9 +5,11 @@ layout: default
 
 # `OlympeUser`
 
-## Classe : ``
+## Classe : `OlympeUser`
 
 Représente un utilisateur dans le contexte de l'API Olympe.
+
+### Constructeur `new OlympeUser(username, id, thirdparties)`
 
 **Paramètres :**
 

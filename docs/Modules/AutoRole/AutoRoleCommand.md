@@ -34,6 +34,8 @@ layout: default
 | `user` | <span class="badge badge-type">USER</span> | Utilisateur a mettre a jour | <span class="badge badge-optional">Optionnel</span> |
 | `teamid` | <span class="badge badge-type">STRING</span> | Identifiant de team a mettre a jour | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande d'attribution manuelle des rôles. Peut être déclenchée pour tous les utilisateurs, un utilisateur spécifique ou une équipe spécifique.
 
 **Paramètres :**

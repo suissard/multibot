@@ -38,6 +38,8 @@ layout: default
 | `capitaine` | <span class="badge badge-type">USER</span> | Capitaine de la team | <span class="badge badge-required">Requis</span> |
 | `elo` | <span class="badge badge-type">STRING</span> | Rank de la team | <span class="badge badge-required">Requis</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande de création d'équipe. Lance le processus de création de rôle et de salon, puis envoie un message de confirmation.
 
 **Paramètres :**
@@ -52,6 +54,8 @@ Exécute la commande de création d'équipe. Lance le processus de création de 
 
 **Retour :** <span class="badge badge-type">string</span> - message indiquant que la création est en cours.
 
+### Méthode `getEventRole(args)`
+
 Récupère ou crée les rôles nécessaires pour l'équipe. Crée un rôle spécifique pour l'équipe et trouve le rôle de "Capitaine".
 
 **Paramètres :**
@@ -61,6 +65,8 @@ Récupère ou crée les rôles nécessaires pour l'équipe. Crée un rôle spéc
 | `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande, principalement `args.teamname`. |
 
 **Retour :** <span class="badge badge-type">Promise<{roleteam: import('discord.js').Role, rolecap: import('discord.js').Role}></span> - objet contenant le rôle de l'équipe et le rôle de capitaine.
+
+### Méthode `createRoleAnChannel(args, roleteam, rolecap)`
 
 Crée le salon de l'équipe, assigne les rôles au capitaine et enregistre les données de l'équipe.
 

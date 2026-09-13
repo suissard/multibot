@@ -29,6 +29,8 @@ layout: default
 | `nom_de_commande` | <span class="badge badge-type">STRING</span> | Nom de la commande a tester | <span class="badge badge-optional">Optionnel</span> |
 | `noms_des_commandes` | <span class="badge badge-type">STRING</span> | Noms des commandes a tester, séparées par un espace | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande de test pour d'autres commandes. Peut tester une seule commande ou une liste de commandes.
 
 **Paramètres :**
@@ -41,6 +43,8 @@ Exécute la commande de test pour d'autres commandes. Peut tester une seule comm
 
 **Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
 
+### Méthode `checkCommand(commandName)`
+
 Vérifie si une commande existe et si elle a un protocole de test défini.
 
 **Paramètres :**
@@ -50,6 +54,8 @@ Vérifie si une commande existe et si elle a un protocole de test défini.
 | `commandName` | <span class="badge badge-type">string</span> | - Le nom de la commande à vérifier. |
 
 **Retour :** <span class="badge badge-type">boolean</span> - si la commande est testable, sinon `false`.
+
+### Méthode `launchTestProcess(commandName)`
 
 Lance le processus de test pour une commande spécifiée.
 

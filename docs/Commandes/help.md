@@ -28,9 +28,13 @@ layout: default
         - Des instructions sur comment l'utiliser (\`howTo\`), en remplaçant les placeholders comme 'PREFIX' par la configuration actuelle du bot.
 
 
+### Méthode `helpArray()`
+
 Construit et retourne une liste de noms de commandes à afficher. Filtre les commandes qui ne sont pas censées être affichées dans l'aide, sauf pour les développeurs.
 
 **Retour :** <span class="badge badge-type">Array<string></span> - tableau trié des noms de commandes.
+
+### Méthode `helpEmbed(arrayHelp)`
 
 Crée un ou plusieurs `EmbedBuilder` à partir d'une liste de noms de commandes. Sépare les commandes en plusieurs embeds si la liste dépasse 20 champs.
 
@@ -42,6 +46,8 @@ Crée un ou plusieurs `EmbedBuilder` à partir d'une liste de noms de commandes.
 
 **Retour :** <span class="badge badge-type">Array<Discord.EmbedBuilder></span> - tableau d'objets EmbedBuilder prêts à être envoyés.
 
+### Méthode `detailHelpEmbed(command)`
+
 Crée un `EmbedBuilder` pour afficher l'aide détaillée d'une commande spécifique.
 
 **Paramètres :**
@@ -51,6 +57,8 @@ Crée un `EmbedBuilder` pour afficher l'aide détaillée d'une commande spécifi
 | `command` | <span class="badge badge-type">string</span> | - Le nom de la commande pour laquelle afficher les détails. |
 
 **Retour :** <span class="badge badge-type">Discord.EmbedBuilder</span> - objet EmbedBuilder avec les détails de la commande.
+
+### Méthode `methode(options)`
 
 Exécute la commande d'aide. Affiche l'aide détaillée si un nom de commande est fourni, sinon affiche la liste de toutes les commandes.
 

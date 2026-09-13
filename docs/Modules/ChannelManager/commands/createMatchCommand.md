@@ -31,6 +31,8 @@ layout: default
 | :-------- | :--- | :---------- | :---------- |
 | `matchid` | <span class="badge badge-type">STRING</span> | The id of the match | <span class="badge badge-required">Requis</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour créer manuellement les salons pour un match spécifique.
 
 **Paramètres :**

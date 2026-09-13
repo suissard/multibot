@@ -37,6 +37,8 @@ layout: default
 | `role` | <span class="badge badge-type">ROLE</span> | Role à supprimer | <span class="badge badge-optional">Optionnel</span> |
 | `multipleroles` | <span class="badge badge-type">STRING</span> | Mettre plusieurs roles à supprimer | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande "megarole". Prépare la liste des rôles et des utilisateurs, puis lance l'opération d'ajout ou de suppression de masse.
 
 **Paramètres :**
@@ -50,6 +52,8 @@ Exécute la commande "megarole". Prépare la liste des rôles et des utilisateur
 
 **Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
 
+### Méthode `getRoleFromMultipleRoles(string)`
+
 Extrait les ID de rôle à partir d'une chaîne de mentions de rôles.
 
 **Paramètres :**
@@ -59,6 +63,8 @@ Extrait les ID de rôle à partir d'une chaîne de mentions de rôles.
 | `string` | <span class="badge badge-type">string</span> | - La chaîne contenant les mentions de rôles. |
 
 **Retour :** <span class="badge badge-type">Promise<Array<string>></span> - tableau d'IDs de rôles.
+
+### Méthode `removeRolesToUser(user, role, args)`
 
 Ajoute ou supprime en masse une liste de rôles pour une liste d'utilisateurs. Le nom de la fonction est trompeur, car elle gère à la fois l'ajout et la suppression.
 

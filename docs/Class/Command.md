@@ -5,43 +5,81 @@ layout: default
 
 # `Command`
 
-Instance du bot Discord qui initie la commande.
+#### Propriété `bot`
 
-Serveur (guild) où la commande est exécutée. Défini lors de l'exécution, peut être `undefined` si la commande est utilisée en message privé.
+<span class="badge badge-type">Bot</span> Instance du bot Discord qui initie la commande.
 
-Canal où la commande est exécutée. Défini lors de l'exécution, contient le canal texte de la commande.
+#### Propriété `guild`
 
-Utilisateur discord qui a exécuté la commande. Défini lors de l'exécution, contient les informations de l'utilisateur émetteur.
+<span class="badge badge-type">Discord.Guild</span> Serveur (guild) où la commande est exécutée. Défini lors de l'exécution, peut être `undefined` si la commande est utilisée en message privé.
 
-Utilisateur au format GuildMember, en fonction du serveur ayant exécuté la commande. Défini si la commande est utilisée dans un serveur, peut être `undefined` en message privé.
+#### Propriété `channel`
 
-Indique si la commande est en phase de test. Utilisé pour activer certaines conditions spécifiques de test.
+<span class="badge badge-type">Discord.TextChannel</span> Canal où la commande est exécutée. Défini lors de l'exécution, contient le canal texte de la commande.
 
-Identifiant unique de la commande.
+#### Propriété `user`
 
-Indique si la commande est réservée à l'administrateur principal (devBoss).
+<span class="badge badge-type">Discord.User</span> Utilisateur discord qui a exécuté la commande. Défini lors de l'exécution, contient les informations de l'utilisateur émetteur.
 
-Identifiant du serveur de base (home) pour la commande. Utilisé pour limiter l'exécution de la commande à un serveur spécifique.
+#### Propriété `member`
 
-Permissions nécessaires pour que l'utilisateur puisse exécuter la commande. Tableau des permissions Discord requises.
+<span class="badge badge-type">Discord.GuildMember</span> Utilisateur au format GuildMember, en fonction du serveur ayant exécuté la commande. Défini si la commande est utilisée dans un serveur, peut être `undefined` en message privé.
 
-Permissions nécessaires pour que le bot puisse exécuter la commande. Tableau des permissions Discord requises.
+#### Propriété `isAtest`
 
-Description de la commande, utilisée pour afficher des informations aux utilisateurs.
+<span class="badge badge-type">boolean</span> Indique si la commande est en phase de test. Utilisé pour activer certaines conditions spécifiques de test.
 
-! Variable deprécié avec l'instauration des interactions Est ce qeu la commande apparait dans la commande help. Contient des instructions ou des conseils.
+#### Propriété `id`
 
-Instructions sur la façon d'utiliser la commande. Donne des exemples d'utilisation ou des arguments acceptés.
+<span class="badge badge-type">string</span> Identifiant unique de la commande.
 
-Quel element pour tester cette commande via la fonction "testProcess"
+#### Propriété `devBoss`
 
-Liste des arguments pour exécuter la commande.
+<span class="badge badge-type">boolean</span> Indique si la commande est réservée à l'administrateur principal (devBoss).
 
-Categorie de la commande
+#### Propriété `home`
+
+<span class="badge badge-type">string</span> Identifiant du serveur de base (home) pour la commande. Utilisé pour limiter l'exécution de la commande à un serveur spécifique.
+
+#### Propriété `userPermissions`
+
+<span class="badge badge-type">Array<String></span> Permissions nécessaires pour que l'utilisateur puisse exécuter la commande. Tableau des permissions Discord requises.
+
+#### Propriété `botPermissions`
+
+<span class="badge badge-type">Array<String></span> Permissions nécessaires pour que le bot puisse exécuter la commande. Tableau des permissions Discord requises.
+
+#### Propriété `description`
+
+<span class="badge badge-type">String</span> Description de la commande, utilisée pour afficher des informations aux utilisateurs.
+
+#### Propriété `help`
+
+<span class="badge badge-type">Boolean</span> ! Variable deprécié avec l'instauration des interactions Est ce qeu la commande apparait dans la commande help. Contient des instructions ou des conseils.
+
+#### Propriété `howTo`
+
+<span class="badge badge-type">string</span> Instructions sur la façon d'utiliser la commande. Donne des exemples d'utilisation ou des arguments acceptés.
+
+#### Propriété `test`
+
+<span class="badge badge-type">Array<Object></span> Quel element pour tester cette commande via la fonction "testProcess"
+
+#### Propriété `arguments`
+
+<span class="badge badge-type">Array<Object></span> Liste des arguments pour exécuter la commande.
+
+#### Propriété `category`
+
+<span class="badge badge-type">string</span> Categorie de la commande
+
+### Méthode `static databasify()`
 
 Renvoie un object compactible avec la base de donnée strapi
 
 **Retour :** <span class="badge badge-type">Object</span> - 
+
+### Méthode `handleMessage(message)`
 
 Methode de lancement de la commande via un message
 
@@ -51,6 +89,8 @@ Methode de lancement de la commande via un message
 | :-------- | :--- | :---------- |
 | `message` | <span class="badge badge-type">Discord.Message</span> |  |
 
+### Méthode `handleInteraction(interaction)`
+
 Methode de lancement de la commande via une interaction
 
 **Paramètres :**
@@ -58,6 +98,8 @@ Methode de lancement de la commande via une interaction
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `interaction` | <span class="badge badge-type">Discord.Interaction</span> |  |
+
+### Méthode `handleApiRequest(req, res, user, app)`
 
 Methode de lancement de la commande via l'api
 
@@ -71,6 +113,8 @@ Methode de lancement de la commande via l'api
 
 **Retour :** <span class="badge badge-type">void</span> - 
 
+### Méthode `methode(args)`
+
 Function lancé par handleMessage, handleApiRequest et handleInteraction
 
 **Paramètres :**
@@ -78,6 +122,8 @@ Function lancé par handleMessage, handleApiRequest et handleInteraction
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `args` | <span class="badge badge-type">Object</span> | Argument de la méthode au format objet {name:value} |
+
+### Méthode `setCommunicationData(guild, channel, user, member, interaction = null, app = null)`
 
 Définit les elements pour communiquer avec l'utilisateur
 
@@ -90,6 +136,8 @@ Définit les elements pour communiquer avec l'utilisateur
 | `user` | <span class="badge badge-type">Discord.User</span> |  |
 | `member` | <span class="badge badge-type">Discord.GuildMember</span> |  |
 
+### Méthode `checkPermission(member, guild)`
+
 Verification des permissions pour l'usage de la commande
 
 **Paramètres :**
@@ -101,6 +149,8 @@ Verification des permissions pour l'usage de la commande
 
 **Retour :** <span class="badge badge-type">void</span> - 
 
+### Méthode `log(message)`
+
 Enregistre les données de log TODO adapter pour une provenance depuis l'api
 
 **Paramètres :**
@@ -110,6 +160,8 @@ Enregistre les données de log TODO adapter pour une provenance depuis l'api
 | `message` | <span class="badge badge-type">Discord.Message</span> |  |
 
 **Retour :** <span class="badge badge-type">void</span> - 
+
+### Méthode `answerToUser(data)`
 
 Fonction de retour à l'utilisateur ayant instancié la commande
 
@@ -121,6 +173,8 @@ Fonction de retour à l'utilisateur ayant instancié la commande
 
 **Retour :** <span class="badge badge-type">Discord.Message</span> - la promesse d'un message discord
 
+### Méthode `loading(liste, mapFunction, errorFunc = console.error)`
+
 Affiche un message se mettant a jour en fonction de l'avancée de la commande
 
 **Paramètres :**
@@ -131,6 +185,8 @@ Affiche un message se mettant a jour en fonction de l'avancée de la commande
 | `mapFunction` | <span class="badge badge-type">function</span> | Fonction a utiliser sur chaque entrée du Array fournit |
 | `errorFunc` | <span class="badge badge-type">function</span> | Fonction a utiliser sur les erreurs |
 
+### Méthode `sendFeedback(data)`
+
 Envoie un feedback à l'utilisateur (Discord ou Web)
 
 **Paramètres :**
@@ -138,6 +194,8 @@ Envoie un feedback à l'utilisateur (Discord ou Web)
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `data` | <span class="badge badge-type">string|object</span> | - Le contenu du feedback |
+
+### Méthode `handleError(error, noSend = false)`
 
 receptionne les erreurs issue de la commande
 
@@ -148,6 +206,8 @@ receptionne les erreurs issue de la commande
 | `error` | <span class="badge badge-type">Error</span> |  |
 | `noSend` | <span class="badge badge-type">boolean</span> | Envoie ou pas l'erreur a l'utilisateur |
 
+### Méthode `askConfirm(texte = '')`
+
 Demande confirmation par une emote, de continuer la commande TODO ! Possibilité d'uiliser le systeme de bouton discord
 
 **Paramètres :**
@@ -156,6 +216,8 @@ Demande confirmation par une emote, de continuer la commande TODO ! Possibilité
 | :-------- | :--- | :---------- |
 | `message` | <span class="badge badge-type">Discord.Message</span> |  |
 | `texte` | <span class="badge badge-type">String</span> |  |
+
+### Méthode `testProcess(botID, userID, channelID)`
 
 Protocole de test de la commande afin de s'assurer de son bon fonctionnement
 
@@ -169,13 +231,19 @@ Protocole de test de la commande afin de s'assurer de son bon fonctionnement
 
 **Retour :** <span class="badge badge-type">void</span> - 
 
+### Méthode `getSlashCommandBuilder()`
+
 Creates a SlashCommandBuilder instance for this command.
 
 **Retour :** <span class="badge badge-type">SlashCommandBuilder</span> - 
 
+### Méthode `createSlashCommand()`
+
 Permet l'integration d'une commande au format interaction (aide a l'utilisateur , definition, arguments, préremplissage et...)
 
 **Retour :** <span class="badge badge-type">Discord.SlashCommandBuilder</span> - 
+
+### Méthode `setOption(slashCommand, optionData)`
 
 Enrichi une slash command avec les options de la commande
 
@@ -195,6 +263,8 @@ Enrichi une slash command avec les options de la commande
 | `option.minValue:` | <span class="badge badge-type">Number</span> | Valeur minimum autorisée pour l'option |
 | `option.maxValue:` | <span class="badge badge-type">Number</span> | Valeur maximum autorisée pour l'option |
 
+### Méthode `setOptionData(option, optionData)`
+
 Ajout les données d'une option
 
 **Paramètres :**
@@ -205,6 +275,8 @@ Ajout les données d'une option
 | `optionData` | <span class="badge badge-type">*</span> |  |
 
 **Retour :** <span class="badge badge-type">void</span> - 
+
+### Méthode `editSlashCommand()`
 
 Permet l'enregistrement d'une commande slash (création ou mise à jour). Cette méthode vérifie si la commande existe déjà. Si c'est le cas, elle la met à jour. Sinon, elle la crée.
 

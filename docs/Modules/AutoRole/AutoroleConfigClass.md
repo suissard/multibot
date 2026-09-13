@@ -5,13 +5,19 @@ layout: default
 
 # `AutoroleConfigClass`
 
-## Classe : ``
+## Classe : `Auth`
 
 Represents an authentication object.
 
-The authentication token.
+#### Propriété `token`
 
-The validity period of the token.
+<span class="badge badge-type">string</span> The authentication token.
+
+#### Propriété `validity`
+
+<span class="badge badge-type">number</span> The validity period of the token.
+
+### Constructeur `new Auth(token, validity)`
 
 Creates an instance of Auth.
 
@@ -22,13 +28,19 @@ Creates an instance of Auth.
 | `token` | <span class="badge badge-type">string</span> | - The authentication token. |
 | `validity` | <span class="badge badge-type">number</span> | - The validity period of the token. |
 
-## Classe : ``
+## Classe : `GuildIdChallenge`
 
 Represents a Guild ID with an associated challenge ID.
 
-The ID of the guild.
+#### Propriété `id`
 
-The challenge ID associated with the guild.
+<span class="badge badge-type">string</span> The ID of the guild.
+
+#### Propriété `challengeID`
+
+<span class="badge badge-type">string</span> The challenge ID associated with the guild.
+
+### Constructeur `new GuildIdChallenge(id, challengeID)`
 
 Creates an instance of GuildIdChallenge.
 
@@ -39,19 +51,31 @@ Creates an instance of GuildIdChallenge.
 | `id` | <span class="badge badge-type">string</span> | - The ID of the guild. |
 | `challengeID` | <span class="badge badge-type">string</span> | - The challenge ID. |
 
-## Classe : ``
+## Classe : `Param`
 
 Represents a parameter for the AutoRole configuration.
 
-An array of guild IDs and their challenge IDs.
+#### Propriété `guildIds`
 
-The authentication details.
+<span class="badge badge-type">GuildIdChallenge[]</span> An array of guild IDs and their challenge IDs.
 
-The cron schedule string.
+#### Propriété `auth`
 
-The domain.
+<span class="badge badge-type">Auth</span> The authentication details.
 
-The organization.
+#### Propriété `cronSchedule`
+
+<span class="badge badge-type">string</span> The cron schedule string.
+
+#### Propriété `domain`
+
+<span class="badge badge-type">string</span> The domain.
+
+#### Propriété `organization`
+
+<span class="badge badge-type">string</span> The organization.
+
+### Constructeur `new Param({ guildIds, auth, cronSchedule, domain, organization })`
 
 Creates an instance of Param.
 
@@ -66,17 +90,27 @@ Creates an instance of Param.
 | `paramData.domain` | <span class="badge badge-type">string</span> | - Domain. |
 | `paramData.organization` | <span class="badge badge-type">string</span> | - Organization. |
 
-## Classe : ``
+## Classe : `SpecialRoleDetail`
 
 Represents details of a special role.
 
-The name of the special role.
+#### Propriété `name`
 
-The ID of the special role.
+<span class="badge badge-type">string</span> The name of the special role.
 
-Whether the role allows renaming.
+#### Propriété `id`
 
-Whether renaming has priority.
+<span class="badge badge-type">string</span> The ID of the special role.
+
+#### Propriété `rename`
+
+<span class="badge badge-type">boolean</span> Whether the role allows renaming.
+
+#### Propriété `priorityRename`
+
+<span class="badge badge-type">boolean</span> Whether renaming has priority.
+
+### Constructeur `new SpecialRoleDetail(name, id, rename, priorityRename)`
 
 Creates an instance of SpecialRoleDetail.
 
@@ -89,13 +123,19 @@ Creates an instance of SpecialRoleDetail.
 | `rename` | <span class="badge badge-type">boolean</span> | - Allows renaming. |
 | `priorityRename` | <span class="badge badge-type">boolean</span> | - Renaming has priority. |
 
-## Classe : ``
+## Classe : `RoleInfo`
 
 Represents information about a role.
 
-The name of the role.
+#### Propriété `name`
 
-The ID of the role, can be null.
+<span class="badge badge-type">string</span> The name of the role.
+
+#### Propriété `id`
+
+<span class="badge badge-type">?string</span> The ID of the role, can be null.
+
+### Constructeur `new RoleInfo(name, id)`
 
 Creates an instance of RoleInfo.
 
@@ -106,13 +146,19 @@ Creates an instance of RoleInfo.
 | `name` | <span class="badge badge-type">string</span> | - The name of the role. |
 | `id` | <span class="badge badge-type">?string</span> | - The ID of the role. |
 
-## Classe : ``
+## Classe : `RoleMapping`
 
 Represents a mapping between a list of source roles and a target RoleInfo. This is a tuple-like structure [string[], RoleInfo].
 
-An array of source role names.
+#### Propriété `sourceRoles`
 
-The target role information.
+<span class="badge badge-type">string[]</span> An array of source role names.
+
+#### Propriété `targetRole`
+
+<span class="badge badge-type">RoleInfo</span> The target role information.
+
+### Constructeur `new RoleMapping(sourceRoles, targetRole)`
 
 Creates an instance of RoleMapping.
 
@@ -123,13 +169,19 @@ Creates an instance of RoleMapping.
 | `sourceRoles` | <span class="badge badge-type">string[]</span> | - Array of source role names. |
 | `targetRole` | <span class="badge badge-type">RoleInfo</span> | - Target role information. |
 
-## Classe : ``
+## Classe : `Division`
 
 Represents a division.
 
-The name of the division.
+#### Propriété `name`
 
-The ID of the division, can be null.
+<span class="badge badge-type">string</span> The name of the division.
+
+#### Propriété `id`
+
+<span class="badge badge-type">?string</span> The ID of the division, can be null.
+
+### Constructeur `new Division({ name, id })`
 
 Creates an instance of Division.
 
@@ -140,11 +192,15 @@ Creates an instance of Division.
 | `name` | <span class="badge badge-type">string</span> | - The name of the division. |
 | `id` | <span class="badge badge-type">?string</span> | - The ID of the division. |
 
-## Classe : ``
+## Classe : `Tags`
 
 Represents tags including game roles.
 
-Mappings for game roles.
+#### Propriété `gameRoles`
+
+<span class="badge badge-type">RoleMapping[]</span> Mappings for game roles.
+
+### Constructeur `new Tags({ gameRoles })`
 
 Creates an instance of Tags.
 
@@ -156,11 +212,15 @@ Creates an instance of Tags.
 | `tagsData.gameRoles` | <span class="badge badge-type">Array<[string[], {name: string, id: ?string}]></span> | - Game roles mappings. |
 | `tagsData.divisions` | <span class="badge badge-type">Array<{name: string, id: ?string}></span> | - Divisions. |
 
-## Classe : ``
+## Classe : `Divisions`
 
 Represents divisions.
 
-An array of divisions.
+#### Propriété `divisions`
+
+<span class="badge badge-type">Division[]</span> An array of divisions.
+
+### Constructeur `new Divisions(divisions)`
 
 Creates an instance of Tags.
 
@@ -172,15 +232,23 @@ Creates an instance of Tags.
 | `tagsData.gameRoles` | <span class="badge badge-type">Array<[string[], {name: string, id: ?string}]></span> | - Game roles mappings. |
 | `tagsData.divisions` | <span class="badge badge-type">Array<{name: string, id: ?string}></span> | - Divisions. |
 
-## Classe : ``
+## Classe : `GuildDetail`
 
 Represents details for a specific guild.
 
-A record of special roles.
+#### Propriété `specialRoles`
 
-An array of role mappings.
+<span class="badge badge-type">Record<string, SpecialRoleDetail></span> A record of special roles.
 
-Tags for the guild.
+#### Propriété `roles`
+
+<span class="badge badge-type">RoleMapping[]</span> An array of role mappings.
+
+#### Propriété `tags`
+
+<span class="badge badge-type">Tags</span> Tags for the guild.
+
+### Constructeur `new GuildDetail({ specialRoles, roles, tags, divisions })`
 
 Creates an instance of GuildDetail.
 
@@ -193,17 +261,27 @@ Creates an instance of GuildDetail.
 | `guildData.roles` | <span class="badge badge-type">Array<[string[], {name: string, id: ?string}]></span> | - Role mappings. |
 | `guildData.tags` | <span class="badge badge-type">object</span> | - Tags data. |
 
-## Classe : ``
+## Classe : `CompetitionRoles`
 
 Represents roles for a specific competition.
 
-Role IDs for 'club' category, keyed by division name or 'ALL'.
+#### Propriété `club`
 
-Role IDs for 'coach' category, keyed by division name.
+<span class="badge badge-type">Record<string, string></span> Role IDs for 'club' category, keyed by division name or 'ALL'.
 
-Role IDs for 'player' category, keyed by division name.
+#### Propriété `coach`
 
-Role IDs for 'manager' category, keyed by division name.
+<span class="badge badge-type">Record<string, string></span> Role IDs for 'coach' category, keyed by division name.
+
+#### Propriété `player`
+
+<span class="badge badge-type">Record<string, string></span> Role IDs for 'player' category, keyed by division name.
+
+#### Propriété `manager`
+
+<span class="badge badge-type">Record<string, string></span> Role IDs for 'manager' category, keyed by division name.
+
+### Constructeur `new CompetitionRoles({ club, coach, player, manager })`
 
 Creates an instance of CompetitionRoles.
 
@@ -217,15 +295,23 @@ Creates an instance of CompetitionRoles.
 | `competitionData.player` | <span class="badge badge-type">Record<string, string></span> | - Player roles. |
 | `competitionData.manager` | <span class="badge badge-type">Record<string, string></span> | - Manager roles. |
 
-## Classe : ``
+## Classe : `RoleIds`
 
 Represents the structure for role IDs, including general and competition-specific roles.
 
-Default role ID for 'ALL'.
+#### Propriété `ALL`
 
-Role ID for 'captain'.
+<span class="badge badge-type">string</span> Default role ID for 'ALL'.
 
-A record of competition-specific roles, keyed by competition ID.
+#### Propriété `captain`
+
+<span class="badge badge-type">string</span> Role ID for 'captain'.
+
+#### Propriété `competitions`
+
+<span class="badge badge-type">Record<string, CompetitionRoles></span> A record of competition-specific roles, keyed by competition ID.
+
+### Constructeur `new RoleIds({ ALL, captain, competitions })`
 
 Creates an instance of RoleIds.
 
@@ -238,41 +324,57 @@ Creates an instance of RoleIds.
 | `roleIdsData.captain` | <span class="badge badge-type">string</span> | - 'captain' role ID. |
 | `roleIdsData.competitions` | <span class="badge badge-type">Record<string, object></span> | - Competition roles data. |
 
-## Classe : ``
+## Classe : `OlympeAuth`
 
 Represents Olympe authentication details.
 
+### Constructeur `new OlympeAuth(value)`
+
 The authentication value.
+
+## Classe : `for`
 
 Creates an instance of OlympeAuth.
 
-**Paramètres :**
-
-| Paramètre | Type | Description |
-| :-------- | :--- | :---------- |
-| `value` | <span class="badge badge-type">string</span> | - The authentication value. |
-
-## Classe : ``
+## Classe : `AutoRoleConfig`
 
 Main class for the AutoRole configuration. 🤖
 
-An array of parameters.
+#### Propriété `params`
 
-A record of guild details, keyed by guild ID.
+<span class="badge badge-type">Param[]</span> An array of parameters.
 
-An array of organization role IDs.
+#### Propriété `guilds`
 
-The structure for role IDs.
+<span class="badge badge-type">Record<string, GuildDetail></span> A record of guild details, keyed by guild ID.
 
-Olympe authentication details.
+#### Propriété `orgaRoleIds`
 
-Interval in hours for a recurring task.
+<span class="badge badge-type">string[]</span> An array of organization role IDs.
 
-The Olympe domain.
+#### Propriété `roleIds`
 
-The organization identifier.
+<span class="badge badge-type">RoleIds</span> The structure for role IDs.
 
-The organization identifier.
+#### Propriété `olympeAuth`
+
+<span class="badge badge-type">OlympeAuth</span> Olympe authentication details.
+
+#### Propriété `everyXhours`
+
+<span class="badge badge-type">number</span> Interval in hours for a recurring task.
+
+#### Propriété `olympeDomain`
+
+<span class="badge badge-type">string</span> The Olympe domain.
+
+#### Propriété `organization`
+
+<span class="badge badge-type">string</span> The organization identifier.
+
+#### Propriété `bot`
+
+<span class="badge badge-type">Bot</span> The organization identifier.
 
 Creates an instance of AutoRoleConfig.
 
@@ -291,9 +393,13 @@ Creates an instance of AutoRoleConfig.
 | `jsonData.organization` | <span class="badge badge-type">string</span> | - Organization identifier. |
 | `bot` | <span class="badge badge-type">Bot</span> | - bot discord |
 
+### Méthode `getAllRoleIdentifiersFromGuildId(guildId)`
+
 Retrieves all unique role identifiers (ID or name) from the configuration. C'est comme une chasse au trésor pour les identifiants de rôles (ID ou nom) ! 🗺️💎🏷️
 
 **Retour :** <span class="badge badge-type">Array<({id: string} | {name: string})></span> - array of unique role identifier objects.
+
+### Méthode `deleteGuildParam(guildId)`
 
 Supprime les paramètres de configuration liés à un ID de guilde spécifique.
 
@@ -303,11 +409,17 @@ Supprime les paramètres de configuration liés à un ID de guilde spécifique.
 | :-------- | :--- | :---------- |
 | `guildId` | <span class="badge badge-type">string</span> | - L'ID de la guilde à supprimer de la configuration. |
 
+### Méthode `checkAllGuild()`
+
 Vérifie l'accessibilité de toutes les guildes configurées. Si une guilde n'est pas accessible, elle est retirée de la configuration.
 
 **Retour :** <span class="badge badge-type">Array<import('discord.js').Guild></span> - liste des objets Guild accessibles.
 
+### Méthode `fetchOrCreateRolesFromIdentifiersForAllGuild()`
+
 Itère sur toutes les guildes configurées et lance le processus de récupération ou de création des rôles pour chacune d'entre elles.
+
+### Méthode `fetchOrCreateRolesFromIdentifiers(identifiers, guild, options = {})`
 
 Fetches or creates Discord roles based on the provided identifiers. C'est notre majordome Discord, il trouve ou crée les rôles pour nous ! 🤵‍♂️✨
 

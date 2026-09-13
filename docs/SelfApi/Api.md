@@ -5,6 +5,8 @@ layout: default
 
 # `Api`
 
+### Constructeur `new SelfApi(configs, discord, BOTS, saltRounds = 12, libs = {})`
+
 Class permettant de gerer l'API du bot
 
 **Paramètres :**
@@ -17,6 +19,8 @@ Class permettant de gerer l'API du bot
 | `saltRounds` | <span class="badge badge-type">Number</span> |  |
 | `libs` | <span class="badge badge-type">Object</span> | Dépendances injectées (express, bcrypt, fetch) |
 
+### Méthode `getBot(req)`
+
 Récupère l'instance du bot à partir de la requête.
 
 **Paramètres :**
@@ -26,6 +30,8 @@ Récupère l'instance du bot à partir de la requête.
 | `req` | <span class="badge badge-type">import('express').Request</span> | - L'objet de la requête Express. |
 
 **Retour :** <span class="badge badge-type">import('../Class/Bot.js')</span> - du bot.
+
+### Méthode `convertApiBadyToDiscordObject(req, command)`
 
 Convertit le corps de la requête API en objets Discord.
 
@@ -38,6 +44,8 @@ Convertit le corps de la requête API en objets Discord.
 
 **Retour :** <span class="badge badge-type">Promise<object></span> - arguments transposés.
 
+### Méthode `addConfigUsers(users)`
+
 Ajoute plusieurs utilisateurs à partir d'un tableau de configuration.
 
 **Paramètres :**
@@ -45,6 +53,8 @@ Ajoute plusieurs utilisateurs à partir d'un tableau de configuration.
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `users` | <span class="badge badge-type">Array<{token: string, discordId: string}></span> | - Un tableau d'objets utilisateur. |
+
+### Méthode `addUser(token, userData, accessToken)`
 
 Ajoute un utilisateur et son token d'API au cache d'authentification. Le token est hashé avant d'être stocké.
 
@@ -56,6 +66,8 @@ Ajoute un utilisateur et son token d'API au cache d'authentification. Le token e
 | `userData` | <span class="badge badge-type">object</span> | - Les données de l'utilisateur Discord. |
 | `accessToken` | <span class="badge badge-type">string</span> | - Le token d'accès Discord. |
 
+### Méthode `getHashFromTokenRequest(req)`
+
 Extrait le token Bearer d'une requête et retourne son hash.
 
 **Paramètres :**
@@ -66,6 +78,8 @@ Extrait le token Bearer d'une requête et retourne son hash.
 
 **Retour :** <span class="badge badge-type">Promise<string|false></span> - hash du token, ou `false` si aucun token n'est trouvé.
 
+### Méthode `getDiscordCodeFromRequest(req)`
+
 Extrait le code d'autorisation Discord des paramètres de la requête.
 
 **Paramètres :**
@@ -75,6 +89,8 @@ Extrait le code d'autorisation Discord des paramètres de la requête.
 | `req` | <span class="badge badge-type">import('express').Request</span> | - L'objet de la requête Express. |
 
 **Retour :** <span class="badge badge-type">string</span> - code d'autorisation.
+
+### Méthode `signToken(userData, accessToken)`
 
 Génère un token signé contenant les données de l'utilisateur.
 
@@ -87,6 +103,8 @@ Génère un token signé contenant les données de l'utilisateur.
 
 **Retour :** <span class="badge badge-type">string</span> - token signé (base64.signature).
 
+### Méthode `verifyToken(token)`
+
 Vérifie un token signé et retourne son payload si valide.
 
 **Paramètres :**
@@ -96,6 +114,8 @@ Vérifie un token signé et retourne son payload si valide.
 | `token` | <span class="badge badge-type">string</span> | - Le token signé. |
 
 **Retour :** <span class="badge badge-type">object|null</span> - payload décodé ou null si invalide.
+
+### Méthode `getDiscordAccessTokenFromCode(code)`
 
 Échange un code d'autorisation Discord contre un jeton d'accès.
 
@@ -107,6 +127,8 @@ Vérifie un token signé et retourne son payload si valide.
 
 **Retour :** <span class="badge badge-type">Promise<string></span> - jeton d'accès de l'utilisateur.
 
+### Méthode `getDiscordUserFromToken(token)`
+
 Récupère les données de l'utilisateur Discord en utilisant son jeton d'accès.
 
 **Paramètres :**
@@ -116,6 +138,8 @@ Récupère les données de l'utilisateur Discord en utilisant son jeton d'accès
 | `token` | <span class="badge badge-type">string</span> | - Le jeton d'accès OAuth2 de l'utilisateur. |
 
 **Retour :** <span class="badge badge-type">Promise<object></span> - utilisateur Discord.
+
+### Méthode `createUser(req, res)`
 
 Créer un nouvel utilisateur dans le cache après validation OAuth2. 1. Vérifie si la requête contient déjà un token valide. 2. Échange le code OAuth2 contre un access token Discord. 3. Récupère l'ID Discord l'utilisateur. 4. Génère un nouveau token API unique et l'enregistre le cache.
 
@@ -127,6 +151,8 @@ Créer un nouvel utilisateur dans le cache après validation OAuth2. 1. Vérifie
 | `res` | <span class="badge badge-type">import('express').Response</span> | - La réponse pour renvoyer le nouveau token. |
 
 **Retour :** <span class="badge badge-type">Promise<{token: string, discordId: string}></span> - informations de l'utilisateur créé.
+
+### Méthode `authentication(req, res, options = {})`
 
 Middleware d'authentification centralisé pour les requêtes API. Identifie l'utilisateur via son token (Header Authorization) et le bot concerné via le paramètre URL/Body. - Si l'URL est publique (auth, discord/authurl), l'authentification est sautée. - Un bot DOIT être spécifié (bot_id). - Un token utilisateur valide est requis sauf pour certaines routes (ex: /commands).
 
@@ -140,6 +166,8 @@ Middleware d'authentification centralisé pour les requêtes API. Identifie l'ut
 
 **Retour :** <span class="badge badge-type">Promise<{bot: import('../Class/Bot.js'), user: import('discord.js').User}></span> - du bot et de l'utilisateur authentifié.
 
+### Méthode `getBotIdFromRequest(req)`
+
 Extrait l'ID du bot des paramètres de la requête.
 
 **Paramètres :**
@@ -149,6 +177,8 @@ Extrait l'ID du bot des paramètres de la requête.
 | `req` | <span class="badge badge-type">import('express').Request</span> | - L'objet de la requête Express. |
 
 **Retour :** <span class="badge badge-type">string</span> - du bot.
+
+### Méthode `hashPassword(password)`
 
 Hashe une chaîne de caractères en utilisant le sel de l'instance.
 
@@ -160,9 +190,13 @@ Hashe une chaîne de caractères en utilisant le sel de l'instance.
 
 **Retour :** <span class="badge badge-type">Promise<string></span> - hash résultant.
 
+### Méthode `getDiscordAuthUrl()`
+
 Construit et retourne l'URL d'autorisation OAuth2 de Discord.
 
 **Retour :** <span class="badge badge-type">string</span> - d'autorisation.
+
+### Méthode `getUserSockets(userId)`
 
 Retourne les sockets connectés pour un utilisateur donné.
 
@@ -174,6 +208,8 @@ Retourne les sockets connectés pour un utilisateur donné.
 
 **Retour :** <span class="badge badge-type">Set<string>|null</span> - Set d'IDs de sockets ou null si aucun.
 
+### Méthode `getDataFromUrl(object, url)`
+
 Remonte une donnée depuis un objet, en se basant sur une url
 
 **Paramètres :**
@@ -184,15 +220,23 @@ Remonte une donnée depuis un objet, en se basant sur une url
 | `url` | <span class="badge badge-type">String</span> |  |
 | `delStr` | <span class="badge badge-type">String</span> |  |
 
+### Méthode `construcDoc()`
+
 Renvoie la documentation des route dipsonible de l'api
 
 **Retour :** <span class="badge badge-type">void</span> - 
+
+### Méthode `setHomeRoute()`
 
 Définit la route racine qui retourne la documentation
 
 **Retour :** <span class="badge badge-type">Route</span> - 
 
+### Méthode `setAuthRoute()`
+
 Définit la route `/auth` pour la création d'utilisateur via le flux OAuth2.
+
+### Méthode `setRoutes(routes)`
 
 Paramétrer plusieur routes dans l'api
 
@@ -201,6 +245,8 @@ Paramétrer plusieur routes dans l'api
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `routes` | <span class="badge badge-type">Array</span> |  |
+
+### Méthode `setRoute(path, method, handler, options = {})`
 
 Enregistre une nouvelle route dans le routeur Express. Ajoute un wrapper pour gérer l'authentification et les erreurs de manière centralisée.
 
@@ -213,6 +259,8 @@ Enregistre une nouvelle route dans le routeur Express. Ajoute un wrapper pour g�
 | `handler` | <span class="badge badge-type">function</span> | - La fonction de gestion de la route. |
 | `options` | <span class="badge badge-type">object</span> | - Options de la route (ex: { auth: false }). |
 
+### Méthode `listenAllRoutes(routesArg)`
+
 Initialise toutes les routes définies dans le répertoire `routes`.
 
 **Paramètres :**
@@ -220,6 +268,8 @@ Initialise toutes les routes définies dans le répertoire `routes`.
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `routesArg` | <span class="badge badge-type">object</span> | - Arguments supplémentaires à passer au créateur de routes. |
+
+### Méthode `formatLog(content, reference, color = '\x1b[36m', prefix = 'API')`
 
 Formate un message de log avec une référence et une couleur spécifique.
 
@@ -234,6 +284,8 @@ Formate un message de log avec une référence et une couleur spécifique.
 
 **Retour :** <span class="badge badge-type">string</span> - message formaté.
 
+### Méthode `log(content, reference = '')`
+
 Log un message d'information.
 
 **Paramètres :**
@@ -242,6 +294,8 @@ Log un message d'information.
 | :-------- | :--- | :---------- |
 | `content` | <span class="badge badge-type">string</span> | - Le message à logger. |
 | `reference` | <span class="badge badge-type">string</span> | - La référence du log. |
+
+### Méthode `success(content, reference = '')`
 
 Log un message de stuccès.
 
@@ -252,6 +306,8 @@ Log un message de stuccès.
 | `content` | <span class="badge badge-type">string</span> | - Le message à logger. |
 | `reference` | <span class="badge badge-type">string</span> | - La référence du log. |
 
+### Méthode `error(content, reference = '')`
+
 Log une erreur.
 
 **Paramètres :**
@@ -261,6 +317,8 @@ Log une erreur.
 | `content` | <span class="badge badge-type">string|Error</span> | - L'erreur à logger. |
 | `reference` | <span class="badge badge-type">string</span> | - La référence du log. |
 
+### Méthode `warn(content, reference = '')`
+
 Log un avertissement.
 
 **Paramètres :**
@@ -269,6 +327,8 @@ Log un avertissement.
 | :-------- | :--- | :---------- |
 | `content` | <span class="badge badge-type">string</span> | - L'avertissement à logger. |
 | `reference` | <span class="badge badge-type">string</span> | - La référence du log. |
+
+### Méthode `debug(content, reference = '')`
 
 Log un message de debug.
 

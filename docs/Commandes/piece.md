@@ -16,6 +16,8 @@ layout: default
 - Sinon (si le nombre est supérieur ou égal à 0.5), elle retourne "Face".
 
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour simuler un lancer de pièce.
 
 **Paramètres :**

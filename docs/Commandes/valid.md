@@ -17,5 +17,7 @@ layout: default
 - Cependant, le code actuel ne fait rien avec la commande une fois qu'elle est récupérée. La logique de validation elle-même n'est pas implémentée.
 
 
+### Méthode `methode()`
+
 Exécute la commande pour valider une autre commande en attente.
 

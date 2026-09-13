@@ -31,6 +31,8 @@ layout: default
 | :-------- | :--- | :---------- | :---------- |
 | `role` | <span class="badge badge-type">ROLE</span> | Role dont on doit renvoyer les membres | <span class="badge badge-required">Requis</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour lister les membres ayant un rôle spécifique. Récupère les membres, formate la liste et la renvoie dans un embed.
 
 **Paramètres :**

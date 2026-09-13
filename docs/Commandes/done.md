@@ -19,6 +19,8 @@ layout: default
 - Si le salon est déjà marqué comme clos (commence par "✅"), elle ne fait rien et retourne un message d'échec.
 
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour marquer un ticket comme "terminé". Renomme le salon actuel en ajoutant un préfixe "✅" pour indiquer qu'il est clos.
 
 **Paramètres :**

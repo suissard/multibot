@@ -5,7 +5,11 @@ layout: default
 
 # `EmoteMessage`
 
+## Classe : `EmoteMessage`
+
 Représente un message sur Discord qui attribue des rôles en fonction des réactions des utilisateurs. Étend StrapiObject pour interagir avec une base de données Strapi.
+
+### Constructeur `new EmoteMessage(id, type, data, collection, bots)`
 
 **Paramètres :**
 
@@ -17,9 +21,13 @@ Représente un message sur Discord qui attribue des rôles en fonction des réac
 | `collection` | <span class="badge badge-type">import('suissard-strapi-client').StrapiCollection</span> | - La collection Strapi à laquelle cet objet appartient. |
 | `bots` | <span class="badge badge-type">import('./BotManager')</span> | - Le gestionnaire de bots pour accéder aux instances de bot. |
 
+### Méthode `set()`
+
 Initialise le message à réaction. Vérifie que le bot a accès au serveur, au salon et au message, et que les rôles sont accessibles. Ajoute les réactions initiales au message.
 
 **Retour :** <span class="badge badge-type">Promise<boolean></span> - si l'initialisation réussit, sinon `false`.
+
+### Méthode `checkRolesAccess(bot, message)`
 
 Vérifie que les rôles configurés pour les réactions sont accessibles par le bot sur le serveur.
 
@@ -30,6 +38,8 @@ Vérifie que les rôles configurés pour les réactions sont accessibles par le 
 | `bot` | <span class="badge badge-type">import('./Bot')</span> | - L'instance du bot qui gère ce message. |
 | `message` | <span class="badge badge-type">Discord.Message</span> | - Le message Discord concerné. |
 
+### Méthode `putAllReactions(message)`
+
 Reagit avec toutes les emotes sur le message fournit
 
 **Paramètres :**
@@ -37,6 +47,8 @@ Reagit avec toutes les emotes sur le message fournit
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `message` | <span class="badge badge-type">Discord.Message</span> |  |
+
+### Méthode `check(message)`
 
 Vérifie si un message donné correspond à ce message à réaction (même salon et même serveur).
 
@@ -47,6 +59,8 @@ Vérifie si un message donné correspond à ce message à réaction (même salon
 | `message` | <span class="badge badge-type">Discord.Message</span> | - Le message à vérifier. |
 
 **Retour :** <span class="badge badge-type">this|false</span> - de EmoteMessage si elle correspond, sinon `false`.
+
+### Méthode `handleMessageReactionAdd(reaction, user)`
 
 Gère l'ajout d'une réaction sur le message. Attribue le rôle correspondant à l'utilisateur si configuré.
 
@@ -59,6 +73,8 @@ Gère l'ajout d'une réaction sur le message. Attribue le rôle correspondant à
 
 **Retour :** <span class="badge badge-type">Promise<boolean></span> - si le rôle a été géré, `false` sinon.
 
+### Méthode `handleMessageReactionRemove(reaction, user)`
+
 Gère la suppression d'une réaction sur le message. Retire le rôle correspondant à l'utilisateur si configuré.
 
 **Paramètres :**
@@ -70,6 +86,8 @@ Gère la suppression d'une réaction sur le message. Retire le rôle corresponda
 
 **Retour :** <span class="badge badge-type">Promise<boolean></span> - si le rôle a été géré, `false` sinon.
 
+### Méthode `changeFromDB(value)`
+
 Décode les URI des clés et des valeurs d'un objet provenant de la base de données. Utile pour les données qui ont été encodées pour le stockage.
 
 **Paramètres :**
@@ -79,6 +97,8 @@ Décode les URI des clés et des valeurs d'un objet provenant de la base de donn
 | `value` | <span class="badge badge-type">object</span> | - L'objet à décoder. |
 
 **Retour :** <span class="badge badge-type">object</span> - avec les clés et valeurs décodées.
+
+### Méthode `changeToDB(value)`
 
 Encode les URI des clés et des valeurs d'un objet pour le stockage en base de données.
 

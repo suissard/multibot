@@ -22,6 +22,8 @@ layout: default
 | `texte` | <span class="badge badge-type">STRING</span> | Texte à envoyer | <span class="badge badge-optional">Optionnel</span> |
 | `user` | <span class="badge badge-type">USER</span> | Mentionner un user à ping | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande ping. Répond "Pong" et peut inclure un texte ou mentionner un utilisateur si fourni en argument.
 
 **Paramètres :**

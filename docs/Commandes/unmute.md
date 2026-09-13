@@ -30,6 +30,8 @@ layout: default
 | :-------- | :--- | :---------- | :---------- |
 | `user` | <span class="badge badge-type">USER</span> | User à unmute | <span class="badge badge-required">Requis</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour enlever le statut muet d'un utilisateur. Supprime le rôle "mute" de l'utilisateur et restaure ses permissions sur tous les salons.
 
 **Paramètres :**

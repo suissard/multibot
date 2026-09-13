@@ -41,6 +41,8 @@ layout: default
 | `newbtag` | <span class="badge badge-type">STRING</span> | Nouveau battleTag du capitaine de la team | <span class="badge badge-optional">Optionnel</span> |
 | `newrank` | <span class="badge badge-type">INTEGER</span> | Nouveau rank de la team | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour mettre à jour les informations d'une équipe. Permet de changer le nom de l'équipe, le capitaine, le BattleTag et le classement (elo).
 
 **Paramètres :**

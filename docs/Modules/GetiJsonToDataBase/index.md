@@ -28,11 +28,7 @@ Transforme un objet de données "Geti" brut en un format adapté à la base de d
 
 **Retour :** <span class="badge badge-type">object</span> - de données formaté pour la base de données.
 
-Convertit les anciennes données de ShareChannel vers le nouveau format de base de données.
+#### Propriété `oldData`
 
-**Paramètres :**
-
-| Paramètre | Type | Description |
-| :-------- | :--- | :---------- |
-| `oldData` | <span class="badge badge-type">Array<object></span> | - Un tableau d'anciens objets ShareChannel. |
+<span class="badge badge-type">any</span> Convertit les anciennes données de ShareChannel vers le nouveau format de base de données.
 

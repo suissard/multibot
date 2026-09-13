@@ -26,6 +26,8 @@ layout: default
 | :-------- | :--- | :---------- | :---------- |
 | `type` | <span class="badge badge-type">STRING</span> | Type de tri (date par défaut) | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `static sort(guild, interaction = null, sortType = 'date')`
+
 Sorts the secretary channels.
 
 **Paramètres :**

@@ -20,6 +20,8 @@ layout: default
 - Si le salon est déjà marqué comme non résolu (commence par "❌"), elle ne fait rien et retourne un message d'échec.
 
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour marquer un ticket comme "non terminé" ou le rouvrir. Renomme le salon actuel en ajoutant un préfixe "❌" pour indiquer qu'il est en cours.
 
 **Paramètres :**

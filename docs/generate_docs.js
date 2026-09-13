@@ -124,18 +124,56 @@ layout: default
         }
     }
 
+    const lines = fileContent.split('\n');
+    const mainClassMatch = fileContent.match(/class\s+([A-Za-z0-9_$]+)/);
+    const defaultClassName = mainClassMatch ? mainClassMatch[1] : fileName;
+    let currentClassName = defaultClassName;
+    const jsKeywords = ['if', 'while', 'for', 'switch', 'catch', 'return', 'super', 'function', 'class', 'const', 'let', 'var'];
+
     if (parsed.length > 0) {
         parsed.forEach(block => {
-            if (block.tags.some(tag => tag.tag === 'class')) {
-                const classTag = block.tags.find(tag => tag.tag === 'class');
-                content += `## Classe : \`${classTag.name}\`\n\n`;
+            const lastLine = (block.source && block.source.length > 0) ? block.source[block.source.length - 1].number : -1;
+            const nextCode = (lastLine >= 0 && lines.length > lastLine + 1) ? lines.slice(lastLine + 1, lastLine + 8).join('\n') : '';
+
+            // 1. Détection de classe
+            const classTag = block.tags.find(tag => tag.tag === 'class');
+            const classMatch = nextCode.match(/class\s+([A-Za-z0-9_$]+)/);
+            if (classTag || classMatch) {
+                const className = (classTag && classTag.name && classTag.name.trim()) 
+                    || (classMatch && classMatch[1]) 
+                    || defaultClassName;
+                currentClassName = className;
+                content += `## Classe : \`${className}\`\n\n`;
                 if (block.description) {
                     content += `${block.description}\n\n`;
                 }
+                return;
+            }
+
+            // 2. Détection de méthode ou constructeur
+            const methodTag = block.tags.find(tag => tag.tag === 'method' || tag.tag === 'function');
+            let methodInfo = null;
+            if (methodTag && methodTag.name) {
+                methodInfo = { name: methodTag.name, isStatic: false, params: '' };
             } else {
-                const method = block.tags.find(tag => tag.tag === 'method' || tag.tag === 'function');
-                if (method) {
-                    content += `### Méthode \`${method.name}()\`\n\n`;
+                const methodMatch = nextCode.match(/^(?:\s*)(?:(static)\s+)?(?:(async)\s+)?(?:get\s+|set\s+)?([A-Za-z0-9_$]+)\s*\(([^)]*)\)/m);
+                if (methodMatch && !jsKeywords.includes(methodMatch[3])) {
+                    methodInfo = {
+                        isStatic: !!methodMatch[1],
+                        name: methodMatch[3],
+                        params: methodMatch[4].replace(/\s+/g, ' ').trim()
+                    };
+                }
+            }
+
+            if (methodInfo) {
+                if (methodInfo.name === 'constructor') {
+                    const ctorParams = methodInfo.params ? `(${methodInfo.params})` : '()';
+                    content += `### Constructeur \`new ${currentClassName}${ctorParams}\`\n\n`;
+                } else {
+                    const prefix = methodInfo.isStatic ? 'static ' : '';
+                    const mParams = methodInfo.params ? `(${methodInfo.params})` : '()';
+                    content += `### Méthode \`${prefix}${methodInfo.name}${mParams}\`\n\n`;
                 }
                 if (block.description) {
                     content += `${block.description}\n\n`;
@@ -152,10 +190,48 @@ layout: default
                     content += `\n`;
                 }
 
-                const returns = block.tags.find(tag => tag.tag === 'returns');
+                const returns = block.tags.find(tag => tag.tag === 'returns' || tag.tag === 'return');
                 if (returns) {
                     content += `**Retour :** <span class="badge badge-type">${returns.type || 'void'}</span> - ${returns.description}\n\n`;
                 }
+
+                const throws = block.tags.find(tag => tag.tag === 'throws' || tag.tag === 'throw');
+                if (throws) {
+                    content += `**Erreur :** <span class="badge badge-required">${throws.type || 'Error'}</span> - ${throws.description}\n\n`;
+                }
+                return;
+            }
+
+            // 3. Détection de propriété
+            const typeTag = block.tags.find(tag => tag.tag === 'type');
+            const propTag = block.tags.find(tag => tag.tag === 'property' || tag.tag === 'prop');
+            const propMatch = nextCode.match(/^(?:\s*)(?:this\.)?([A-Za-z0-9_$]+)\s*(?:=|;)/m);
+
+            if (propMatch && (typeTag || propTag || block.description) && !jsKeywords.includes(propMatch[1])) {
+                const propName = propMatch[1];
+                const propType = typeTag ? typeTag.type : (propTag ? propTag.type : 'any');
+                content += `#### Propriété \`${propName}\`\n\n`;
+                content += `<span class="badge badge-type">${propType}</span> ${block.description || ''}\n\n`;
+                return;
+            }
+
+            // 4. Bloc générique
+            if (block.description) {
+                content += `${block.description}\n\n`;
+            }
+            const params = block.tags.filter(tag => tag.tag === 'param');
+            if (params.length > 0) {
+                content += `**Paramètres :**\n\n`;
+                content += `| Paramètre | Type | Description |\n`;
+                content += `| :-------- | :--- | :---------- |\n`;
+                params.forEach(param => {
+                    content += `| \`${param.name}\` | <span class="badge badge-type">${param.type || 'any'}</span> | ${param.description} |\n`;
+                });
+                content += `\n`;
+            }
+            const returns = block.tags.find(tag => tag.tag === 'returns' || tag.tag === 'return');
+            if (returns) {
+                content += `**Retour :** <span class="badge badge-type">${returns.type || 'void'}</span> - ${returns.description}\n\n`;
             }
         });
     } else if (!descriptionMatch && !narrativeMatch) {

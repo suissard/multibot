@@ -72,5 +72,7 @@ Récupère l'ID du salon de notification pour une compétition spécifique.
 
 **Retour :** <span class="badge badge-type">string</span> - du salon de notification.
 
+### Méthode `instanciateMatchNotifier(bot)`
+
 Une fois le bot prêt, ce gestionnaire configure et lance la tâche planifiée pour l'envoi des notifications de match.
 

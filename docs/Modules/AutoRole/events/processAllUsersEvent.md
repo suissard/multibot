@@ -11,5 +11,7 @@ layout: default
 
 Cet événement écoute l'événement \`olympeUserCacheReady\` émis lorsque les données des équipes sont chargées. Il déclenche ensuite \`processAllUsers\` pour mettre à jour les utilisateurs.
 
+### Méthode `handleEvent()`
+
 Gère l'événement olympeUserCacheReady.
 

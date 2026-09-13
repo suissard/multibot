@@ -27,6 +27,8 @@ layout: default
 | `status` | <span class="badge badge-type">STRING</span> | Status a mettre | <span class="badge badge-required">Requis</span> |
 | `type` | <span class="badge badge-type">STRING</span> | Type de status a mettre | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour changer l'activité du bot.
 
 **Paramètres :**

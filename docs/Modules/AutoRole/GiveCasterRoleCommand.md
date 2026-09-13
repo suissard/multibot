@@ -13,6 +13,8 @@ layout: default
 - La commande lance la procédure pour donner les roles aux casters.
 
 
+### Méthode `methode(args = {})`
+
 Exécute la commande caster.
 
 **Paramètres :**

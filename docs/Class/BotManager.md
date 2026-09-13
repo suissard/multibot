@@ -5,15 +5,27 @@ layout: default
 
 # `BotManager`
 
+## Classe : `BotManager`
+
 Configure les gestionnaires de commandes, événements, et messages d'émote.
 
-Émetteur d'événements pour gérer les événements globaux du BotManager.
+#### Propriété `event`
 
-Gestionnaire de commandes pour l'ensemble des bots, gère les commandes et leur exécution.
+<span class="badge badge-type">EventEmitter</span> Émetteur d'événements pour gérer les événements globaux du BotManager.
 
-Gestionnaire d'événements, initialisé avec une référence au BotManager. Configure les événements pour chaque bot.
+#### Propriété `Commands`
 
-Gestionnaire des messages d'émotes, permettant de configurer les réponses d'émote pour chaque bot. Initialisé avec une référence au BotManager.
+<span class="badge badge-type">CommandManager</span> Gestionnaire de commandes pour l'ensemble des bots, gère les commandes et leur exécution.
+
+#### Propriété `Events`
+
+<span class="badge badge-type">EventManager</span> Gestionnaire d'événements, initialisé avec une référence au BotManager. Configure les événements pour chaque bot.
+
+#### Propriété `EmoteMessages`
+
+<span class="badge badge-type">EmoteMessageManager</span> Gestionnaire des messages d'émotes, permettant de configurer les réponses d'émote pour chaque bot. Initialisé avec une référence au BotManager.
+
+### Méthode `start(botsData)`
 
 Initialise et démarre tous les bots. Cette fonction crée toutes les instances de bot, configure les commandes et les événements, puis charge les modules associés à chaque bot.
 
@@ -22,6 +34,8 @@ Initialise et démarre tous les bots. Cette fonction crée toutes les instances 
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `botsData` | <span class="badge badge-type">Map<string, object></span> | - Une map contenant les données de configuration de chaque bot. |
+
+### Méthode `getMasterBot(guildId, channelId, messageId)`
 
 Détermine le bot "maître" pour une ressource Discord donnée, en priorité celui dont le "home" correspond au serveur.
 
@@ -35,9 +49,13 @@ Détermine le bot "maître" pour une ressource Discord donnée, en priorité cel
 
 **Retour :** <span class="badge badge-type">Promise<{bot: Bot, guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}|undefined></span> - de données d'accès du bot maître, ou undefined si aucun bot n'a accès.
 
+### Méthode `loadModules()`
+
 Charge les modules pour tout les bots
 
 **Retour :** <span class="badge badge-type">void</span> - 
+
+### Méthode `loadModule(bot, moduleName)`
 
 Charge un module pour un bot définit
 
@@ -47,6 +65,8 @@ Charge un module pour un bot définit
 | :-------- | :--- | :---------- |
 | `bot` | <span class="badge badge-type">Bot</span> |  |
 | `module` | <span class="badge badge-type">Object || Boolean</span> |  |
+
+### Méthode `createBot(data, BOTS)`
 
 Crée et enregistre une nouvelle instance de bot.
 
@@ -59,6 +79,8 @@ Crée et enregistre une nouvelle instance de bot.
 
 **Retour :** <span class="badge badge-type">Bot</span> - du bot créé.
 
+### Méthode `createAllBot(botsData)`
+
 Crée toutes les instances de bot à partir de leurs données de configuration. Seuls les bots marqués comme "actifs" sont créés.
 
 **Paramètres :**
@@ -66,6 +88,8 @@ Crée toutes les instances de bot à partir de leurs données de configuration. 
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `botsData` | <span class="badge badge-type">Map<string, object></span> | - Une map contenant les données de configuration de chaque bot. |
+
+### Méthode `stop(id)`
 
 Arrete le bot indiqué par l'identifiant
 
@@ -75,6 +99,8 @@ Arrete le bot indiqué par l'identifiant
 | :-------- | :--- | :---------- |
 | `id` | <span class="badge badge-type">String</span> | Identifiant de bot |
 
+### Méthode `restart(id)`
+
 Redemarre le bot indiqué par l'identifiant
 
 **Paramètres :**
@@ -82,6 +108,8 @@ Redemarre le bot indiqué par l'identifiant
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `id` | <span class="badge badge-type">String</span> | Identifiant de bot |
+
+### Méthode `use(data, bot)`
 
 Permettre l'usage a l'intégralité des bots, d'un evenement ou d'une commande
 
@@ -91,6 +119,8 @@ Permettre l'usage a l'intégralité des bots, d'un evenement ou d'une commande
 | :-------- | :--- | :---------- |
 | `data` | <span class="badge badge-type">Command || Event</span> | une class heritant des commands ou des events |
 | `bot` | <span class="badge badge-type">Bot</span> | instance de bot auquel rattaché l'evenement (si undefined, tout les bots ) |
+
+### Méthode `checkBotsAccess(guildId, channelId, messageId)`
 
 Vérifie quels bots ont accès à une ressource Discord spécifique.
 
@@ -104,6 +134,8 @@ Vérifie quels bots ont accès à une ressource Discord spécifique.
 
 **Retour :** <span class="badge badge-type">Promise<Array<{bot: Bot, guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}>></span> - tableau d'objets contenant le bot et les ressources accessibles.
 
+### Méthode `startApi(configs, discord, saltRounds = 10)`
+
 Démarre l'API (serveur HTTP) pour interagir avec les bots. Instancie la classe SelfApi avec les configurations fournies.
 
 **Paramètres :**
@@ -114,6 +146,8 @@ Démarre l'API (serveur HTTP) pour interagir avec les bots. Instancie la classe 
 | `discord` | <span class="badge badge-type">Object</span> | - Configuration Discord (clientId, clientSecret, etc.) pour l'OAuth2. |
 | `saltRounds` | <span class="badge badge-type">Number</span> | - Nombre de rounds pour le hachage des tokens (bcrypt). |
 
+### Méthode `static formatLog(content, reference, isError = false)`
+
 Met la référence et le contenu au bon format
 
 **Paramètres :**
@@ -126,6 +160,8 @@ Met la référence et le contenu au bon format
 
 **Retour :** <span class="badge badge-type">void</span> - 
 
+### Méthode `static log(content, reference)`
+
 Diffuse un log
 
 **Paramètres :**
@@ -134,6 +170,8 @@ Diffuse un log
 | :-------- | :--- | :---------- |
 | `content` | <span class="badge badge-type">String</span> |  |
 | `reference` | <span class="badge badge-type">String</span> |  |
+
+### Méthode `static error(content, reference)`
 
 Diffuse une erreur
 
@@ -144,6 +182,8 @@ Diffuse une erreur
 | `content` | <span class="badge badge-type">String || Error</span> |  |
 | `reference` | <span class="badge badge-type">String</span> |  |
 
+### Méthode `formatLog(content, reference, isError = false)`
+
 Met la référence et le contenu au bon format
 
 **Paramètres :**
@@ -156,6 +196,8 @@ Met la référence et le contenu au bon format
 
 **Retour :** <span class="badge badge-type">void</span> - 
 
+### Méthode `log(content, reference)`
+
 Diffuse un log
 
 **Paramètres :**
@@ -164,6 +206,8 @@ Diffuse un log
 | :-------- | :--- | :---------- |
 | `content` | <span class="badge badge-type">String</span> |  |
 | `reference` | <span class="badge badge-type">String</span> |  |
+
+### Méthode `error(content, reference)`
 
 Diffuse une erreur
 

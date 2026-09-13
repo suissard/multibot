@@ -29,6 +29,8 @@ layout: default
 | :-------- | :--- | :---------- | :---------- |
 | `user` | <span class="badge badge-type">USER</span> | Utilisateur a qui faire parvenir le formulaire d'incident | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `getIncidentUrlForm(olympeUserInfo = { nationality: 'FR', battlenetBtag: '', teams: [] }, discordUser)`
+
 Génère une URL personnalisée pour le formulaire de déclaration d'incident.
 
 **Paramètres :**
@@ -42,6 +44,8 @@ Génère une URL personnalisée pour le formulaire de déclaration d'incident.
 | `discordUser` | <span class="badge badge-type">import('discord.js').User</span> | - L'objet utilisateur Discord. |
 
 **Retour :** <span class="badge badge-type">string</span> - personnalisée et pré-remplie du formulaire Google.
+
+### Méthode `methode(args = {})`
 
 Exécute la commande pour envoyer un formulaire de déclaration d'incident. Récupère les informations Olympe de l'utilisateur, génère une URL de formulaire personnalisée et l'envoie en message privé.
 

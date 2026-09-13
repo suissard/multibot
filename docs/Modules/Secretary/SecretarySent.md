@@ -7,6 +7,8 @@ layout: default
 
 > **Description :** Gère l'envoi de messages depuis le secrétariat.
 
+### Méthode `answer(message)`
+
 Envoie la réponse à l'utilisateur
 
 **Paramètres :**

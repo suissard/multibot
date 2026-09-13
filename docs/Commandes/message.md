@@ -43,6 +43,8 @@ layout: default
 | `imageurl` | <span class="badge badge-type">STRING</span> | Ajouter une URL d'image au message | <span class="badge badge-optional">Optionnel</span> |
 | `role` | <span class="badge badge-type">ROLE</span> | Envoyer un message à un role | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour envoyer un message privé à des utilisateurs. Cible les utilisateurs via une mention directe, un rôle, ou une chaîne de mentions multiples. Peut également transférer le message au "secrétariat" pour archivage.
 
 **Paramètres :**
@@ -58,6 +60,8 @@ Exécute la commande pour envoyer un message privé à des utilisateurs. Cible l
 | `args.role` | <span class="badge badge-type">string</span> | - L'ID d'un rôle dont les membres recevront le message. |
 
 **Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
+
+### Méthode `getUsersFromUsersAndRolesString(string)`
 
 Extrait et retourne une liste d'objets User à partir d'une chaîne contenant des mentions d'utilisateurs et de rôles.
 

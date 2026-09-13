@@ -27,6 +27,8 @@ layout: default
 | :-------- | :--- | :---------- | :---------- |
 | `user` | <span class="badge badge-type">USER</span> | Utilisateur a qui faire parvenir le formulaire de récompense | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `getCastRewardUrlForm(discordUser)`
+
 Génère une URL personnalisée pour le formulaire de récompense de cast.
 
 **Paramètres :**
@@ -36,6 +38,8 @@ Génère une URL personnalisée pour le formulaire de récompense de cast.
 | `discordUser` | <span class="badge badge-type">import('discord.js').User</span> | - L'utilisateur Discord pour lequel générer l'URL. |
 
 **Retour :** <span class="badge badge-type">string</span> - personnalisée du formulaire Google.
+
+### Méthode `methode(args = {})`
 
 Exécute la commande pour envoyer un formulaire de récompense de cast. Cible l'utilisateur mentionné ou l'auteur de la commande, génère une URL de formulaire personnalisée et l'envoie en message privé.
 

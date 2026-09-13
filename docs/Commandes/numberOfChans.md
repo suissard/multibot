@@ -15,6 +15,8 @@ layout: default
 - Elle retourne une simple chaîne de caractères indiquant ce nombre, avec un rappel de la limite de 500 salons par serveur sur Discord.
 
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour obtenir le nombre de salons sur le serveur.
 
 **Paramètres :**

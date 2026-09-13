@@ -7,6 +7,8 @@ layout: default
 
 > **Description :** Gère les commandes textuelles basées sur un préfixe.
 
+### Méthode `handleEvent(message)`
+
 Gère l'événement `messageCreate` pour les commandes textuelles (basées sur un préfixe). Si le message commence par le préfixe du bot, il est transmis au CommandManager pour être traité.
 
 **Paramètres :**

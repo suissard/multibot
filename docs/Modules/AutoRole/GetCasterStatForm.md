@@ -32,6 +32,8 @@ layout: default
 | `user` | <span class="badge badge-type">USER</span> | Utilisateur a qui faire parvenir le formulaire | <span class="badge badge-optional">Optionnel</span> |
 | `castnbr` | <span class="badge badge-type">STRING</span> | Caster était en position 1 ou 2 | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `getCasterStatUrlForm(match, castNbr = 1)`
+
 Génère une URL pré-remplie pour le formulaire de statistiques de caster.
 
 **Paramètres :**
@@ -42,6 +44,8 @@ Génère une URL pré-remplie pour le formulaire de statistiques de caster.
 | `castNbr` | <span class="badge badge-type">number</span> | - Le numéro du caster (1 ou 2) pour lequel générer le formulaire. |
 
 **Retour :** <span class="badge badge-type">string</span> - personnalisée et pré-remplie du formulaire.
+
+### Méthode `methode(args = {})`
 
 Exécute la commande pour envoyer un formulaire de statistiques de caster. Récupère les données du match, génère une URL de formulaire pré-remplie et l'envoie en message privé à l'utilisateur concerné.
 

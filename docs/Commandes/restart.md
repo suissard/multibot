@@ -24,6 +24,8 @@ layout: default
 | :-------- | :--- | :---------- | :---------- |
 | `raison` | <span class="badge badge-type">STRING</span> | Raison du restart | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour redémarrer le bot. La commande ne peut être exécutée que par le propriétaire du bot.
 
 **Paramètres :**

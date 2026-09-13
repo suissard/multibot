@@ -5,6 +5,8 @@ layout: default
 
 # `Bot`
 
+### Constructeur `new Bot(data, BOTS)`
+
 Initialise un nouveau bot avec les données spécifiées. Gère les options de connexion, les intentions d'accès, et divers paramètres de configuration du bot.
 
 **Paramètres :**
@@ -27,33 +29,57 @@ Initialise un nouveau bot avec les données spécifiées. Gère les options de c
 | `data.token` | <span class="badge badge-type">string</span> | - Jeton d'authentification du bot pour se connecter à l'API Discord. |
 | `BOTS` | <span class="badge badge-type">BotManager</span> | - gestionnaire de bots. |
 
-Identifiant unique du bot
+#### Propriété `BOTS`
 
-Nom usuel du bot
+<span class="badge badge-type">BotManager</span> 
 
-ID du propriétaire du bot
+#### Propriété `id`
 
-Serveur principal ("maison") du bot
+<span class="badge badge-type">string</span> Identifiant unique du bot
 
-Indicateur du mode développement
+#### Propriété `name`
+
+<span class="badge badge-type">string</span> Nom usuel du bot
+
+#### Propriété `ownerId`
+
+<span class="badge badge-type">string</span> ID du propriétaire du bot
+
+#### Propriété `home`
+
+<span class="badge badge-type">string</span> Serveur principal ("maison") du bot
+
+#### Propriété `devMode`
+
+<span class="badge badge-type">boolean</span> Indicateur du mode développement
 
 Préfixe des commandes, par défaut "!!"
 
 Liste des administrateurs du bot, inclut le propriétaire
 
-Activité affichée du bot, vide par défaut
+#### Propriété `modules`
 
-Modules additionnels du bot
+<span class="badge badge-type">string</span> Activité affichée du bot, vide par défaut
+
+#### Propriété `modules`
+
+<span class="badge badge-type">Object</span> Modules additionnels du bot
 
 Liste d'événements non autorisés
 
 Liste des commandes non autorisées
 
-Couleur de log du bot
+#### Propriété `color`
+
+<span class="badge badge-type">string</span> Couleur de log du bot
 
 Connexion du bot à l'API Discord avec le token fourni
 
+### Méthode `restart()`
+
 Redémarrrer le bot
+
+### Méthode `checkAccess(guildId, channelId, messageId)`
 
 Vérifie l'accès à des éléments Discord (serveur, salon, message) et les retourne si trouvés. Au moins un `guildId` ou `channelId` doit être fourni.
 
@@ -67,6 +93,10 @@ Vérifie l'accès à des éléments Discord (serveur, salon, message) et les ret
 
 **Retour :** <span class="badge badge-type">Promise<false|{guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}></span> - objet contenant les éléments trouvés, ou `false` si un élément requis n'est pas accessible.
 
+**Erreur :** <span class="badge badge-required">Error</span> - ni `guildId` ni `channelId` ne sont fournis.
+
+### Méthode `formatLog(content, reference, isError = false)`
+
 Génère une couleur ANSI basée sur le nom du bot
 
 **Paramètres :**
@@ -77,6 +107,8 @@ Génère une couleur ANSI basée sur le nom du bot
 
 **Retour :** <span class="badge badge-type">string</span> - couleur ANSI
 
+### Méthode `log(content, reference)`
+
 Diffuse un log
 
 **Paramètres :**
@@ -86,6 +118,8 @@ Diffuse un log
 | `content` | <span class="badge badge-type">String</span> |  |
 | `reference` | <span class="badge badge-type">String</span> |  |
 
+### Méthode `log(content, reference)`
+
 Diffuse un log
 
 **Paramètres :**
@@ -94,6 +128,8 @@ Diffuse un log
 | :-------- | :--- | :---------- |
 | `content` | <span class="badge badge-type">string</span> |  |
 | `reference` | <span class="badge badge-type">string</span> |  |
+
+### Méthode `error(content, reference)`
 
 Diffuse une erreur
 

@@ -7,6 +7,8 @@ layout: default
 
 > **Description :** Affiche les erreurs de discord.js.
 
+### Méthode `handleEvent(error)`
+
 Gère l'événement 'error' de discord.js. Affiche l'erreur dans la console.
 
 **Paramètres :**

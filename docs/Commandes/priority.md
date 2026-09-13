@@ -15,6 +15,8 @@ layout: default
 - Si la catégorie "PRIORITY" n'existe pas, elle est créée en haut de la liste des salons.
 
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour déplacer le ticket en priorité.
 
 **Paramètres :**

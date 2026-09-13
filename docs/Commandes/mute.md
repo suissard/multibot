@@ -34,6 +34,8 @@ layout: default
 | `user` | <span class="badge badge-type">USER</span> | User à mute | <span class="badge badge-required">Requis</span> |
 | `raison` | <span class="badge badge-type">STRING</span> | Raison du mute | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour rendre un utilisateur muet sur le serveur. Applique un rôle "mute" à l'utilisateur, ce qui restreint son accès aux salons, et lui donne accès à un salon spécial pour communiquer avec les modérateurs. Crée le rôle et le salon s'ils n'existent pas.
 
 **Paramètres :**

@@ -15,6 +15,8 @@ layout: default
 - Finalement, elle renvoie une chaîne de caractères combinant la réponse amusante choisie et le lien d'invitation généré.
 
 
+### Méthode `methode(args = {})`
+
 Exécute la commande d'invitation. Génère un lien d'invitation pour le bot, accompagné d'un message amusant aléatoire.
 
 **Paramètres :**

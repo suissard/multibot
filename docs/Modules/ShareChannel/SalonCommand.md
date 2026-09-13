@@ -33,7 +33,11 @@ layout: default
 | `game` | <span class="badge badge-type">STRING</span> | A quel jeu est dédié ce channel : overwatch, tekken, lol ou valorant | <span class="badge badge-required">Requis</span> |
 | `catégorie` | <span class="badge badge-type">STRING</span> | A quel catégorie est dédié ce channel : scrim, team, player ou staff | <span class="badge badge-required">Requis</span> |
 
+## Classe : `SalonCommand`
+
 Commande de gestion des shareChannel
+
+### Méthode `methode(args = {})`
 
 Exécute la commande pour ajouter le salon actuel à un groupe de partage. Valide les arguments de jeu et de catégorie avant de procéder à l'ajout.
 
@@ -47,6 +51,8 @@ Exécute la commande pour ajouter le salon actuel à un groupe de partage. Valid
 
 **Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
 
+### Méthode `add(categorie, game)`
+
 Ajoute le salon actuel au groupe de partage spécifié.
 
 **Paramètres :**
@@ -57,4 +63,6 @@ Ajoute le salon actuel au groupe de partage spécifié.
 | `game` | <span class="badge badge-type">string</span> | - Le jeu du groupe de partage. |
 
 **Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation.
+
+**Erreur :** <span class="badge badge-required">Error</span> - le groupe de partage n'existe pas.
 

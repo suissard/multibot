@@ -5,6 +5,8 @@ layout: default
 
 # `WebHook`
 
+### Constructeur `new WebHook(postURL)`
+
 Crée une nouvelle instance de WebHook.
 
 **Paramètres :**
@@ -13,9 +15,13 @@ Crée une nouvelle instance de WebHook.
 | :-------- | :--- | :---------- |
 | `postURL` | <span class="badge badge-type">string</span> | - L'URL du webhook Discord. |
 
+### Méthode `getInfo()`
+
 Récupère les informations sur le webhook.
 
 **Retour :** <span class="badge badge-type">Promise<object></span> - objet contenant les informations du webhook.
+
+### Méthode `send(data)`
 
 Envoie des données brutes au webhook.
 
@@ -27,6 +33,8 @@ Envoie des données brutes au webhook.
 
 **Retour :** <span class="badge badge-type">Promise<Response></span> - réponse de l'API Discord.
 
+### Méthode `sendMessage(content)`
+
 Envoie un message simple au webhook.
 
 **Paramètres :**
@@ -36,6 +44,8 @@ Envoie un message simple au webhook.
 | `content` | <span class="badge badge-type">string</span> | - Le contenu du message à envoyer. |
 
 **Retour :** <span class="badge badge-type">Promise<Response></span> - réponse de l'API Discord.
+
+### Méthode `sendEmbed(title, description)`
 
 Envoie un message "embed" simple au webhook.
 

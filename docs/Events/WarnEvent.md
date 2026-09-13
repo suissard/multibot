@@ -7,6 +7,8 @@ layout: default
 
 > **Description :** Affiche les avertissements de discord.js.
 
+### Méthode `handleEvent(warn)`
+
 Gère l'événement 'warn' de discord.js. Affiche l'avertissement dans la console.
 
 **Paramètres :**

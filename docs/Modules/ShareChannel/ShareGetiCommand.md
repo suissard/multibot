@@ -20,6 +20,8 @@ layout: default
     3.  Elle renvoie ensuite un message confirmant que les annonces GeekingTime seront désormais publiées dans ce salon.
 
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour définir le salon actuel comme un salon de partage pour les annonces "Geti". Ajoute le salon au groupe de partage "overwatch-geti".
 
 **Paramètres :**

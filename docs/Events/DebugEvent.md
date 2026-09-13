@@ -7,6 +7,8 @@ layout: default
 
 > **Description :** Affiche les informations de débogage de discord.js.
 
+### Méthode `handleEvent(debug)`
+
 Gère l'événement 'debug' de discord.js. Affiche les informations de débogage dans la console.
 
 **Paramètres :**

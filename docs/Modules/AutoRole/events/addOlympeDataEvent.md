@@ -11,6 +11,8 @@ layout: default
 
 Cet événement est déclenché lorsqu'un utilisateur Discord est associé à un membre Olympe. Il met à jour le cache local du bot avec les informations de l'utilisateur et de son équipe.
 
+### Méthode `handleEvent({ discordUser, olympeMember, team })`
+
 Gère l'événement olympeMember.
 
 **Paramètres :**

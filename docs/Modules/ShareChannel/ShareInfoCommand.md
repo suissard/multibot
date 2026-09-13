@@ -21,7 +21,11 @@ layout: default
     4.  Si l'ID du salon n'est trouvé dans aucun groupe de partage, elle renvoie un message indiquant que le salon n'est pas partagé.
 
 
+## Classe : `SalonCommand`
+
 Commande de gestion des shareChannel
+
+### Méthode `methode(args = {})`
 
 Exécute la commande pour obtenir des informations sur le groupe de partage du salon actuel.
 

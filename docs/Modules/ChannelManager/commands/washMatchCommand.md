@@ -22,6 +22,8 @@ layout: default
     6.  Une fois le nettoyage terminé, un second message "Channels supprimé avec succés !" est envoyé.
 
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour déclencher manuellement le nettoyage des anciens salons de match.
 
 **Paramètres :**

@@ -27,6 +27,8 @@ layout: default
     4.  Elle retourne cet embed pour qu'il soit affiché dans le salon.
 
 
+### Méthode `methode(args = {})`
+
 Exécute la commande serverinfo. Génère et retourne un embed contenant les informations du serveur actuel.
 
 **Paramètres :**
@@ -36,6 +38,8 @@ Exécute la commande serverinfo. Génère et retourne un embed contenant les inf
 | `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande (non utilisés ici). |
 
 **Retour :** <span class="badge badge-type">Promise<Discord.EmbedBuilder></span> - avec les informations du serveur.
+
+### Méthode `serverInfoEmbed(guild)`
 
 Crée et retourne un `EmbedBuilder` avec les informations d'un serveur.
 

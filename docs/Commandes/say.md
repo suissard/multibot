@@ -24,6 +24,8 @@ layout: default
 | `channel` | <span class="badge badge-type">CHANNEL</span> | Channel où envoyer le message | <span class="badge badge-optional">Optionnel</span> |
 | `piecejointe` | <span class="badge badge-type">ATTACHMENT</span> | Pièce jointe à envoyer | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour faire parler le bot.
 
 **Paramètres :**

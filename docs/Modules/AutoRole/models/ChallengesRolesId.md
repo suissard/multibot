@@ -5,9 +5,11 @@ layout: default
 
 # `ChallengesRolesId`
 
-## Classe : ``
+## Classe : `ChallengesRolesId`
 
 Structure les IDs de rôles pour les différentes compétitions. Contient les rôles globaux (pour tous, capitaine, caster) et les rôles spécifiques à chaque compétition, organisés par segment.
+
+### Constructeur `new ChallengesRolesId(ALL, captain, caster, competitions)`
 
 **Paramètres :**
 
@@ -17,6 +19,8 @@ Structure les IDs de rôles pour les différentes compétitions. Contient les r�
 | `captain` | <span class="badge badge-type">string</span> | - L'ID du rôle Discord donné à tous les capitaines. |
 | `caster` | <span class="badge badge-type">string</span> | - L'ID du rôle Discord donné à tous les casters. |
 | `competitions` | <span class="badge badge-type">object</span> | - Un objet où les clés sont les ID de challenge et les valeurs sont les configurations de rôles pour ce challenge. |
+
+### Méthode `getAllIds(object = this, target = [])`
 
 Récupère de manière récursive tous les ID de rôle contenus dans l'objet.
 

@@ -5,11 +5,15 @@ layout: default
 
 # `teamManager`
 
+### Constructeur `new TeamManager(collection)`
+
 **Paramètres :**
 
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `collection` | <span class="badge badge-type">import('suissard-strapi-client').StrapiCollection</span> | - La collection Strapi pour les équipes. |
+
+### Méthode `saveTeamData(name, userID, elo, battleTag)`
 
 Sauvegarde ou met à jour les données d'une équipe dans la base de données Strapi.
 
@@ -24,6 +28,8 @@ Sauvegarde ou met à jour les données d'une équipe dans la base de données St
 
 **Retour :** <span class="badge badge-type">Promise<import('suissard-strapi-client').StrapiObject></span> - équipe sauvegardé ou mis à jour.
 
+### Méthode `getTeamByName(name)`
+
 Retrouve une équipe dans le cache par son nom.
 
 **Paramètres :**
@@ -33,6 +39,8 @@ Retrouve une équipe dans le cache par son nom.
 | `name` | <span class="badge badge-type">string</span> | - Le nom de l'équipe. |
 
 **Retour :** <span class="badge badge-type">import('suissard-strapi-client').StrapiObject|undefined</span> - équipe trouvé, ou undefined.
+
+### Méthode `createRoleTeam(teamname, guild)`
 
 Crée le rôle spécifique pour une équipe, s'il n'existe pas déjà.
 
@@ -45,6 +53,8 @@ Crée le rôle spécifique pour une équipe, s'il n'existe pas déjà.
 
 **Retour :** <span class="badge badge-type">Promise<import('discord.js').Role></span> - rôle de l'équipe.
 
+### Méthode `createCatEvent(guild)`
+
 Crée la catégorie de salons pour les événements.
 
 **Paramètres :**
@@ -54,6 +64,8 @@ Crée la catégorie de salons pour les événements.
 | `guild` | <span class="badge badge-type">import('discord.js').Guild</span> | - La guilde. |
 
 **Retour :** <span class="badge badge-type">Promise<import('discord.js').CategoryChannel></span> - catégorie créée.
+
+### Méthode `createChannelTeam(teamname, guild)`
 
 Crée le salon vocal pour une équipe, s'il n'existe pas déjà. Configure les permissions pour le staff, le capitaine et les membres de l'équipe.
 
@@ -65,6 +77,8 @@ Crée le salon vocal pour une équipe, s'il n'existe pas déjà. Configure les p
 | `guild` | <span class="badge badge-type">import('discord.js').Guild</span> | - La guilde. |
 
 **Retour :** <span class="badge badge-type">Promise<import('discord.js').VoiceChannel></span> - salon vocal de l'équipe.
+
+### Méthode `addRoleTeam(member, rolecap, roleteam)`
 
 Ajoute les rôles d'équipe et de capitaine à un membre.
 
@@ -78,6 +92,8 @@ Ajoute les rôles d'équipe et de capitaine à un membre.
 
 **Retour :** <span class="badge badge-type">Promise<import('discord.js').GuildMember></span> - membre mis à jour.
 
+### Méthode `checkRole(member, rolecap, roleteam)`
+
 Vérifie si un membre a les rôles d'équipe et de capitaine, et les ajoute si nécessaire.
 
 **Paramètres :**
@@ -90,6 +106,8 @@ Vérifie si un membre a les rôles d'équipe et de capitaine, et les ajoute si n
 
 **Retour :** <span class="badge badge-type">Promise<import('discord.js').GuildMember></span> - membre vérifié.
 
+### Méthode `updateRoleTeam(role, newTeamName)`
+
 Met à jour le nom d'un rôle d'équipe.
 
 **Paramètres :**
@@ -101,6 +119,8 @@ Met à jour le nom d'un rôle d'équipe.
 
 **Retour :** <span class="badge badge-type">Promise<import('discord.js').Role></span> - rôle mis à jour.
 
+### Méthode `updateChannelTeam(channel, newTeamName)`
+
 Met à jour le nom d'un salon d'équipe.
 
 **Paramètres :**
@@ -111,6 +131,8 @@ Met à jour le nom d'un salon d'équipe.
 | `newTeamName` | <span class="badge badge-type">string</span> | - Le nouveau nom de l'équipe. |
 
 **Retour :** <span class="badge badge-type">Promise<import('discord.js').VoiceChannel></span> - salon mis à jour.
+
+### Méthode `updateTeamCap(cap, newCap, capRole, teamRole)`
 
 Transfère les rôles de capitaine et d'équipe d'un ancien capitaine à un nouveau.
 
@@ -125,6 +147,8 @@ Transfère les rôles de capitaine et d'équipe d'un ancien capitaine à un nouv
 
 **Retour :** <span class="badge badge-type">Promise<import('discord.js').GuildMember></span> - nouveau capitaine mis à jour.
 
+### Méthode `updateCapBtag(teamInfo, newBtag)`
+
 Met à jour le BattleTag du capitaine.
 
 **Paramètres :**
@@ -133,6 +157,8 @@ Met à jour le BattleTag du capitaine.
 | :-------- | :--- | :---------- |
 | `teamInfo` | <span class="badge badge-type">object</span> | - Les informations de l'équipe. |
 | `newBtag` | <span class="badge badge-type">string</span> | - Le nouveau BattleTag. |
+
+### Méthode `updateTeamRank(teamInfo, newRank)`
 
 Met à jour le classement (elo) de l'équipe.
 

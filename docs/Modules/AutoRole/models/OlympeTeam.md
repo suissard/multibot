@@ -5,9 +5,11 @@ layout: default
 
 # `OlympeTeam`
 
-## Classe : ``
+## Classe : `OlympeTeam`
 
 Représente une équipe dans le contexte de l'API Olympe.
+
+### Constructeur `new OlympeTeam(name, members, segments)`
 
 **Paramètres :**
 

@@ -33,6 +33,8 @@ layout: default
 | `mentionable` | <span class="badge badge-type">MENTIONABLE</span> | une mention | <span class="badge badge-optional">Optionnel</span> |
 | `attachement` | <span class="badge badge-type">ATTACHMENT</span> | une piece jointe | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande de test. Cette commande est conçue pour tester la réception de différents types d'arguments. Elle retourne les arguments reçus sous forme de chaîne JSON.
 
 **Paramètres :**

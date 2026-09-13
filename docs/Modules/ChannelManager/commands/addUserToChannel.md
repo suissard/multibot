@@ -31,6 +31,8 @@ layout: default
 | `user2` | <span class="badge badge-type">USER</span> | The user to add | <span class="badge badge-optional">Optionnel</span> |
 | `user3` | <span class="badge badge-type">USER</span> | The user to add | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour ajouter un ou plusieurs utilisateurs à un salon.
 
 **Paramètres :**

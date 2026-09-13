@@ -15,6 +15,8 @@ layout: default
 - Cela permet d'afficher la politique de confidentialité du bot directement dans Discord.
 
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour afficher la politique de confidentialité. Lit le fichier PRIVACY.md et retourne son contenu.
 
 **Paramètres :**

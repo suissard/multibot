@@ -5,6 +5,8 @@ layout: default
 
 # `TeamChannel`
 
+### Constructeur `new TeamChannel(bot, team, targetSegment)`
+
 **Paramètres :**
 
 | Paramètre | Type | Description |
@@ -13,17 +15,23 @@ layout: default
 | `team` | <span class="badge badge-type">object</span> | - Olympe team object |
 | `targetSegment` | <span class="badge badge-type">object</span> | - The specific segment we are creating this channel for |
 
-**Paramètres :**
-
-| Paramètre | Type | Description |
-| :-------- | :--- | :---------- |
-| `guild` | <span class="badge badge-type">import('discord.js').Guild</span> |  |
+### Méthode `findOrCreateCategory(guild)`
 
 **Paramètres :**
 
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `guild` | <span class="badge badge-type">import('discord.js').Guild</span> |  |
+
+### Méthode `ensureChannel(guild)`
+
+**Paramètres :**
+
+| Paramètre | Type | Description |
+| :-------- | :--- | :---------- |
+| `guild` | <span class="badge badge-type">import('discord.js').Guild</span> |  |
+
+### Méthode `updatePermissions(channel, guild)`
 
 **Paramètres :**
 

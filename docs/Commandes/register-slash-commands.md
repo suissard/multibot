@@ -28,6 +28,8 @@ layout: default
 | :-------- | :--- | :---------- | :---------- |
 | `command_name` | <span class="badge badge-type">STRING</span> | The name of the command to register. If not provided, all commands will be registered. | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `methode(args = {})`
+
 Executes the command to manually (re)create one or all slash commands. Searches for a command by its name in the CommandManager and calls its \`createSlashCommand\` method to register or update it with the Discord API. If no command name is specified, it registers all commands.
 
 **Paramètres :**

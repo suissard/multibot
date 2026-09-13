@@ -7,6 +7,8 @@ layout: default
 
 > **Description :** Gère l'ajout de réactions pour les rôles par réaction.
 
+### Méthode `handleEvent(reaction, user)`
+
 Gère l'événement `messageReactionAdd`. Transmet l'événement au `EmoteMessageManager` pour qu'il le traite, ce qui permet de gérer les systèmes de rôles par réaction.
 
 **Paramètres :**

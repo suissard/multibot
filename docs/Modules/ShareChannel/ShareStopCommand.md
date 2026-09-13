@@ -23,7 +23,11 @@ layout: default
     6.  Si le salon n'était pas dans le système de partage au départ, la commande renvoie un message d'erreur.
 
 
+## Classe : `SalonCommand`
+
 Commande de gestion des shareChannel
+
+### Méthode `methode(args = {})`
 
 Exécute la commande pour retirer le salon actuel de son groupe de partage.
 
@@ -35,7 +39,11 @@ Exécute la commande pour retirer le salon actuel de son groupe de partage.
 
 **Retour :** <span class="badge badge-type">string</span> - message de confirmation ou d'erreur.
 
+### Méthode `del()`
+
 Retire le salon actuel de son groupe de partage.
 
 **Retour :** <span class="badge badge-type">string</span> - message de confirmation.
+
+**Erreur :** <span class="badge badge-required">Error</span> - le salon n'était pas dans le système de partage.
 

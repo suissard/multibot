@@ -7,5 +7,7 @@ layout: default
 
 > **Description :** Affiche un message de démarrage dans la console.
 
+### Méthode `handleEvent()`
+
 Gère l'événement 'clientReady' pour afficher un message de démarrage dans la console. Indique que le bot est prêt et affiche le nombre de serveurs et d'utilisateurs qu'il dessert.
 

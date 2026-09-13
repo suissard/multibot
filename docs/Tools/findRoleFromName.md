@@ -5,9 +5,11 @@ layout: default
 
 # `findRoleFromName`
 
-## Classe : ``
+## Classe : `findRoleFromName`
 
 Une classe utilitaire pour trouver ou créer des rôles dans une guilde.
+
+### Méthode `findRole(roleName, guild)`
 
 Trouve un rôle par son nom dans une guilde. S'il n'existe pas, le crée.
 
@@ -20,6 +22,8 @@ Trouve un rôle par son nom dans une guilde. S'il n'existe pas, le crée.
 
 **Retour :** <span class="badge badge-type">Promise<import('discord.js').Role></span> - rôle trouvé ou nouvellement créé.
 
+### Méthode `createRole(name, guild)`
+
 Crée un nouveau rôle dans une guilde.
 
 **Paramètres :**
@@ -30,4 +34,6 @@ Crée un nouveau rôle dans une guilde.
 | `guild` | <span class="badge badge-type">import('discord.js').Guild</span> | - La guilde où créer le rôle. |
 
 **Retour :** <span class="badge badge-type">Promise<import('discord.js').Role></span> - rôle qui a été créé.
+
+**Erreur :** <span class="badge badge-required">Error</span> - la création du rôle échoue.
 

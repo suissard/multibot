@@ -27,6 +27,8 @@ layout: default
 | `matchid` | <span class="badge badge-type">STRING</span> | ID du match Olympe | <span class="badge badge-required">Requis</span> |
 | `role` | <span class="badge badge-type">ROLE</span> | Rôle à mentionner | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour envoyer une notification de match à partir d'un ID.
 
 **Paramètres :**

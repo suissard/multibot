@@ -5,7 +5,11 @@ layout: default
 
 # `geminiService`
 
+## Classe : `GeminiService`
+
 Service pour interagir avec l'API Google Gemini
+
+### Méthode `formatMessage(message)`
 
 Formate un message individuel pour l'historique
 
@@ -17,6 +21,8 @@ Formate un message individuel pour l'historique
 
 **Retour :** <span class="badge badge-type">string</span> - formaté (ex: "Utilisateur: [il y a 2h] Bonjour")
 
+### Méthode `formatMessage(message)`
+
 Formate un message individuel pour l'historique
 
 **Paramètres :**
@@ -26,6 +32,8 @@ Formate un message individuel pour l'historique
 | `message` | <span class="badge badge-type">{role: string, content: string, timeAgo: string}</span> |  |
 
 **Retour :** <span class="badge badge-type">string</span> - formaté (ex: "Utilisateur [il y a 2h]: Bonjour")
+
+### Méthode `formatHistory(history)`
 
 Formate l'historique complet pour le prompt
 
@@ -37,6 +45,8 @@ Formate l'historique complet pour le prompt
 
 **Retour :** <span class="badge badge-type">string</span> - formaté en chaîne de caractères
 
+### Méthode `constructPrompt(history)`
+
 Construit le prompt pour l'API Gemini
 
 **Paramètres :**
@@ -46,6 +56,8 @@ Construit le prompt pour l'API Gemini
 | `history` | <span class="badge badge-type">Array<{role: string, content: string}></span> |  |
 
 **Retour :** <span class="badge badge-type">string</span> - prompt formaté
+
+### Méthode `generateResponse(history, options = {})`
 
 Génère une suggestion de réponse pour le secrétariat
 

@@ -33,6 +33,8 @@ layout: default
 | `texte` | <span class="badge badge-type">STRING</span> | Texte à envoyer | <span class="badge badge-optional">Optionnel</span> |
 | `fichier` | <span class="badge badge-type">ATTACHMENT</span> | Fichier à envoyer | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour répondre à un utilisateur via un salon de secrétariat. Extrait l'ID de l'utilisateur depuis le nom du salon, puis envoie la réponse à la fois en message privé à l'utilisateur et dans le salon actuel.
 
 **Paramètres :**

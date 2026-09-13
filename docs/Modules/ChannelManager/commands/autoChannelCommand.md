@@ -23,6 +23,8 @@ layout: default
     4.  Une fois que la fonction \`autoChannel()\` a terminé son exécution, un second message "AutoChannel terminé !" est envoyé pour notifier l'utilisateur.
 
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour déclencher manuellement le processus de gestion automatique des salons.
 
 **Paramètres :**

@@ -33,7 +33,11 @@ layout: default
 | `texte` | <span class="badge badge-type">STRING</span> | Message à envoyer | <span class="badge badge-required">Requis</span> |
 | `imageurl` | <span class="badge badge-type">STRING</span> | Ajouter une URL d'image au message | <span class="badge badge-optional">Optionnel</span> |
 
+## Classe : `SalonCommand`
+
 Commande de gestion des shareChannel
+
+### Méthode `methode(args = {})`
 
 Exécute la commande pour envoyer un message promotionnel à un groupe de partage. Le message est envoyé sous forme d'embed et peut contenir une image.
 

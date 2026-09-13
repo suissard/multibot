@@ -18,5 +18,7 @@ layout: default
 - En cas d'erreur lors de l'exécution, la commande renvoie le message d'erreur et la pile d'appels (stack trace) à l'utilisateur.
 
 
+### Méthode `methode()`
+
 Exécute du code JavaScript fourni en argument. Commande réservée au développeur du bot.
 

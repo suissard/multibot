@@ -13,6 +13,8 @@ layout: default
 | :-------- | :--- | :---------- | :---------- |
 | `channel` | <span class="badge badge-type">CHANNEL</span> | Le salon à passer en priorité (optionnel) | <span class="badge badge-optional">Optionnel</span> |
 
+### Méthode `methode(args = {})`
+
 Exécute la commande pour passer un ticket en priorité.
 
 **Paramètres :**

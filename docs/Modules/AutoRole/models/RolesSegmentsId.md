@@ -5,9 +5,11 @@ layout: default
 
 # `RolesSegmentsId`
 
-## Classe : ``
+## Classe : `RolesSegmentsId`
 
 Structure les IDs de rôles pour une compétition, triés par catégorie de rôle (club, coach, manager, player) puis par segment/division.
+
+### Constructeur `new RolesSegmentsId(club, coach, manager, player)`
 
 **Paramètres :**
 

@@ -7,7 +7,11 @@ layout: default
 
 > **Description :** Gère la mise à jour de messages dans les salons partagés.
 
+## Classe : `ShareEventUpdate`
+
 Evenement permettant de gerer les messages mis a jour dans un shareChannel
+
+### Méthode `handleEvent(oldMessage, newMessage)`
 
 Gère l'événement `messageUpdate` pour les salons partagés. Si un message partagé est mis à jour, cette fonction propage la mise à jour à toutes les copies du message dans les autres salons.
 
