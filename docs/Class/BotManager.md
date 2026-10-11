@@ -35,7 +35,7 @@ Initialise et démarre tous les bots. Cette fonction crée toutes les instances 
 
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
-| `botsData` | <span class="badge badge-type">Map<string, object></span> | - Une map contenant les données de configuration de chaque bot. |
+| `botsData` | <span class="badge badge-type">Map&lt;string, object&gt;</span> | - Une map contenant les données de configuration de chaque bot. |
 
 ### Méthode `getMasterBot(guildId, channelId, messageId)`
 
@@ -49,7 +49,7 @@ Détermine le bot "maître" pour une ressource Discord donnée, en priorité cel
 | `channelId` | <span class="badge badge-type">string</span> | - L'ID du salon. |
 | `messageId` | <span class="badge badge-type">string</span> | - L'ID du message. |
 
-**Retour :** <span class="badge badge-type">Promise<{bot: Bot, guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}|undefined></span> - de données d'accès du bot maître, ou undefined si aucun bot n'a accès.
+**Retour :** <span class="badge badge-type">Promise&lt;{bot: Bot, guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}|undefined&gt;</span> - de données d'accès du bot maître, ou undefined si aucun bot n'a accès.
 
 ### Méthode `loadModules()`
 
@@ -66,7 +66,7 @@ Charge un module pour un bot définit
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `bot` | <span class="badge badge-type">Bot</span> |  |
-| `module` | <span class="badge badge-type">Object || Boolean</span> |  |
+| `module` | <span class="badge badge-type">Object \|\| Boolean</span> |  |
 
 ### Méthode `createBot(data, BOTS)`
 
@@ -89,7 +89,7 @@ Crée toutes les instances de bot à partir de leurs données de configuration. 
 
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
-| `botsData` | <span class="badge badge-type">Map<string, object></span> | - Une map contenant les données de configuration de chaque bot. |
+| `botsData` | <span class="badge badge-type">Map&lt;string, object&gt;</span> | - Une map contenant les données de configuration de chaque bot. |
 
 ### Méthode `stop(id)`
 
@@ -119,7 +119,7 @@ Permettre l'usage a l'intégralité des bots, d'un evenement ou d'une commande
 
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
-| `data` | <span class="badge badge-type">Command || Event</span> | une class heritant des commands ou des events |
+| `data` | <span class="badge badge-type">Command \|\| Event</span> | une class heritant des commands ou des events |
 | `bot` | <span class="badge badge-type">Bot</span> | instance de bot auquel rattaché l'evenement (si undefined, tout les bots ) |
 
 ### Méthode `checkBotsAccess(guildId, channelId, messageId)`
@@ -134,7 +134,7 @@ Vérifie quels bots ont accès à une ressource Discord spécifique.
 | `channelId` | <span class="badge badge-type">string</span> | - L'ID du salon. |
 | `messageId` | <span class="badge badge-type">string</span> | - L'ID du message. |
 
-**Retour :** <span class="badge badge-type">Promise<Array<{bot: Bot, guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}>></span> - tableau d'objets contenant le bot et les ressources accessibles.
+**Retour :** <span class="badge badge-type">Promise&lt;Array&lt;{bot: Bot, guild?: import('discord.js').Guild, channel?: import('discord.js').TextChannel, message?: import('discord.js').Message}&gt;&gt;</span> - tableau d'objets contenant le bot et les ressources accessibles.
 
 ### Méthode `startApi(configs, discord, saltRounds = 10)`
 
@@ -156,7 +156,7 @@ Met la référence et le contenu au bon format
 
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
-| `content` | <span class="badge badge-type">String || Error</span> |  |
+| `content` | <span class="badge badge-type">String \|\| Error</span> |  |
 | `reference` | <span class="badge badge-type">String</span> |  |
 | `isError` | <span class="badge badge-type">Boolean</span> |  |
 
@@ -181,7 +181,7 @@ Diffuse une erreur
 
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
-| `content` | <span class="badge badge-type">String || Error</span> |  |
+| `content` | <span class="badge badge-type">String \|\| Error</span> |  |
 | `reference` | <span class="badge badge-type">String</span> |  |
 
 ### Méthode `formatLog(content, reference, isError = false)`
@@ -192,7 +192,7 @@ Met la référence et le contenu au bon format
 
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
-| `content` | <span class="badge badge-type">String || Error</span> |  |
+| `content` | <span class="badge badge-type">String \|\| Error</span> |  |
 | `reference` | <span class="badge badge-type">String</span> |  |
 | `isError` | <span class="badge badge-type">Boolean</span> |  |
 
@@ -217,6 +217,6 @@ Diffuse une erreur
 
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
-| `content` | <span class="badge badge-type">String || Error</span> |  |
+| `content` | <span class="badge badge-type">String \|\| Error</span> |  |
 | `reference` | <span class="badge badge-type">String</span> |  |
 

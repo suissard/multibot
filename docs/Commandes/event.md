@@ -60,13 +60,13 @@ Exécute la sous-commande appropriée en fonction des arguments.
 | `args.texte` | <span class="badge badge-type">string</span> | - La sous-commande à exécuter ('info', 'team', 'wash'). |
 | `args.users` | <span class="badge badge-type">string</span> | - Les utilisateurs pour la sous-commande 'team'. |
 
-**Retour :** <span class="badge badge-type">Promise<string|EmbedBuilder></span> - réponse de la sous-commande.
+**Retour :** <span class="badge badge-type">Promise&lt;string|EmbedBuilder&gt;</span> - réponse de la sous-commande.
 
 ### Méthode `info()`
 
 Affiche les informations sur toutes les équipes inscrites sur le serveur.
 
-**Retour :** <span class="badge badge-type">Promise<EmbedBuilder></span> - embed contenant la liste des équipes et leurs informations.
+**Retour :** <span class="badge badge-type">Promise&lt;EmbedBuilder&gt;</span> - embed contenant la liste des équipes et leurs informations.
 
 ### Méthode `addTeamRole(mention)`
 
@@ -78,7 +78,7 @@ Ajoute le rôle de l'équipe de l'auteur de la commande aux utilisateurs mention
 | :-------- | :--- | :---------- |
 | `mention` | <span class="badge badge-type">string</span> | - Une chaîne contenant les mentions des utilisateurs. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation ou d'erreur.
 
 ### Méthode `checkRole(member, roleteam)`
 
@@ -91,11 +91,11 @@ Vérifie si un membre a bien le rôle de l'équipe. Tente de rajouter le rôle s
 | `member` | <span class="badge badge-type">import('discord.js').GuildMember</span> | - Le membre à vérifier. |
 | `roleteam` | <span class="badge badge-type">import('discord.js').Role</span> | - Le rôle de l'équipe à vérifier. |
 
-**Retour :** <span class="badge badge-type">Promise<import('discord.js').GuildMember></span> - membre vérifié.
+**Retour :** <span class="badge badge-type">Promise&lt;import('discord.js').GuildMember&gt;</span> - membre vérifié.
 
 ### Méthode `eventWash()`
 
 Nettoie tous les salons, rôles et grades de capitaine liés aux équipes sur le serveur. Commande réservée aux administrateurs.
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation.
 

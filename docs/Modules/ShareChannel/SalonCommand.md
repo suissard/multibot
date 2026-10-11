@@ -55,7 +55,7 @@ Exécute la commande pour ajouter le salon actuel à un groupe de partage. Valid
 | `args.game` | <span class="badge badge-type">string</span> | - Le nom du jeu pour ce groupe de partage. |
 | `args.catégorie` | <span class="badge badge-type">string</span> | - Le nom de la catégorie pour ce groupe. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation ou d'erreur.
 
 ### Méthode `add(categorie, game)`
 
@@ -68,7 +68,7 @@ Ajoute le salon actuel au groupe de partage spécifié.
 | `categorie` | <span class="badge badge-type">string</span> | - La catégorie du groupe de partage. |
 | `game` | <span class="badge badge-type">string</span> | - Le jeu du groupe de partage. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation.
 
 **Erreur :** <span class="badge badge-required">Error</span> - le groupe de partage n'existe pas.
 

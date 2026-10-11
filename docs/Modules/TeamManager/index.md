@@ -22,7 +22,7 @@ Internal helper to sync teams for a specific segment object.
 | `guild` | <span class="badge badge-type">import('discord.js').Guild</span> |  |
 | `targetSegment` | <span class="badge badge-type">object</span> |  |
 
-**Retour :** <span class="badge badge-type">Promise<object></span> - object { found, success, pruned, errors }
+**Retour :** <span class="badge badge-type">Promise&lt;object&gt;</span> - object { found, success, pruned, errors }
 
 Synchronise toutes les équipes présentes dans le cache Olympe pour un segment donné ou tous les segments.
 

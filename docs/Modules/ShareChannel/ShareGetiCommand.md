@@ -36,5 +36,5 @@ Exécute la commande pour définir le salon actuel comme un salon de partage pou
 | :-------- | :--- | :---------- |
 | `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande (non utilisés ici). |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation.
 

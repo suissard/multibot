@@ -15,7 +15,7 @@ Le module "VocalDuplicate" offre une fonctionnalité de salons vocaux temporaire
 
 Récupère l'ensemble des IDs des salons vocaux qui ont été dupliqués par ce module.
 
-**Retour :** <span class="badge badge-type">Promise<Set<string>></span> - Set contenant les IDs des salons dupliqués.
+**Retour :** <span class="badge badge-type">Promise&lt;Set&lt;string&gt;&gt;</span> - Set contenant les IDs des salons dupliqués.
 
 Vérifie tous les salons dupliqués et supprime ceux qui sont inactifs (vides).
 

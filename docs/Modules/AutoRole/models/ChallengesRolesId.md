@@ -31,7 +31,7 @@ Récupère de manière récursive tous les ID de rôle contenus dans l'objet.
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `object` | <span class="badge badge-type">object</span> | - L'objet à parcourir. |
-| `target` | <span class="badge badge-type">Array<string></span> | - Le tableau pour accumuler les IDs. |
+| `target` | <span class="badge badge-type">Array&lt;string&gt;</span> | - Le tableau pour accumuler les IDs. |
 
-**Retour :** <span class="badge badge-type">Array<string></span> - tableau plat de tous les ID de rôle.
+**Retour :** <span class="badge badge-type">Array&lt;string&gt;</span> - tableau plat de tous les ID de rôle.
 

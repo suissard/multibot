@@ -18,6 +18,6 @@ Représente une équipe dans le contexte de l'API Olympe.
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `name` | <span class="badge badge-type">string</span> | - Le nom de l'équipe. |
-| `members` | <span class="badge badge-type">Array<OlympeMember></span> | - Une liste des membres de l'équipe. |
-| `segments` | <span class="badge badge-type">Array<object></span> | - Une liste des segments (divisions, compétitions) auxquels l'équipe participe. |
+| `members` | <span class="badge badge-type">Array&lt;OlympeMember&gt;</span> | - Une liste des membres de l'équipe. |
+| `segments` | <span class="badge badge-type">Array&lt;object&gt;</span> | - Une liste des segments (divisions, compétitions) auxquels l'équipe participe. |
 

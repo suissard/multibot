@@ -56,7 +56,7 @@ Charge une classe d'événement depuis un fichier et l'ajoute au gestionnaire.
 
 Récupère tous les événements enregistrés.
 
-**Retour :** <span class="badge badge-type">Map<string, Event></span> - map de tous les événements.
+**Retour :** <span class="badge badge-type">Map&lt;string, Event&gt;</span> - map de tous les événements.
 
 ### Méthode `setAllEvents()`
 

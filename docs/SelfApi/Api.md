@@ -44,7 +44,7 @@ Convertit le corps de la requête API en objets Discord.
 | `req` | <span class="badge badge-type">import('express').Request</span> | - L'objet de la requête Express. |
 | `command` | <span class="badge badge-type">import('../Class/Command.js')</span> | - La commande à exécuter. |
 
-**Retour :** <span class="badge badge-type">Promise<object></span> - arguments transposés.
+**Retour :** <span class="badge badge-type">Promise&lt;object&gt;</span> - arguments transposés.
 
 ### Méthode `addConfigUsers(users)`
 
@@ -54,7 +54,7 @@ Ajoute plusieurs utilisateurs à partir d'un tableau de configuration.
 
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
-| `users` | <span class="badge badge-type">Array<{token: string, discordId: string}></span> | - Un tableau d'objets utilisateur. |
+| `users` | <span class="badge badge-type">Array&lt;{token: string, discordId: string}&gt;</span> | - Un tableau d'objets utilisateur. |
 
 ### Méthode `addUser(token, userData, accessToken)`
 
@@ -78,7 +78,7 @@ Extrait le token Bearer d'une requête et retourne son hash.
 | :-------- | :--- | :---------- |
 | `req` | <span class="badge badge-type">import('express').Request</span> | - L'objet de la requête Express. |
 
-**Retour :** <span class="badge badge-type">Promise<string|false></span> - hash du token, ou `false` si aucun token n'est trouvé.
+**Retour :** <span class="badge badge-type">Promise&lt;string|false&gt;</span> - hash du token, ou `false` si aucun token n'est trouvé.
 
 ### Méthode `getDiscordCodeFromRequest(req)`
 
@@ -127,7 +127,7 @@ Vérifie un token signé et retourne son payload si valide.
 | :-------- | :--- | :---------- |
 | `code` | <span class="badge badge-type">string</span> | - Le code d'autorisation obtenu via OAuth2. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - jeton d'accès de l'utilisateur.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - jeton d'accès de l'utilisateur.
 
 ### Méthode `getDiscordUserFromToken(token)`
 
@@ -139,7 +139,7 @@ Récupère les données de l'utilisateur Discord en utilisant son jeton d'accès
 | :-------- | :--- | :---------- |
 | `token` | <span class="badge badge-type">string</span> | - Le jeton d'accès OAuth2 de l'utilisateur. |
 
-**Retour :** <span class="badge badge-type">Promise<object></span> - utilisateur Discord.
+**Retour :** <span class="badge badge-type">Promise&lt;object&gt;</span> - utilisateur Discord.
 
 ### Méthode `createUser(req, res)`
 
@@ -152,7 +152,7 @@ Créer un nouvel utilisateur dans le cache après validation OAuth2. 1. Vérifie
 | `req` | <span class="badge badge-type">import('express').Request</span> | - La requête contenant le code d'autorisation. |
 | `res` | <span class="badge badge-type">import('express').Response</span> | - La réponse pour renvoyer le nouveau token. |
 
-**Retour :** <span class="badge badge-type">Promise<{token: string, discordId: string}></span> - informations de l'utilisateur créé.
+**Retour :** <span class="badge badge-type">Promise&lt;{token: string, discordId: string}&gt;</span> - informations de l'utilisateur créé.
 
 ### Méthode `authentication(req, res, options = {})`
 
@@ -166,7 +166,7 @@ Middleware d'authentification centralisé pour les requêtes API. Identifie l'ut
 | `res` | <span class="badge badge-type">import('express').Response</span> | - L'objet de la réponse Express. |
 | `options` | <span class="badge badge-type">object</span> | - Options de la route (ex: { auth: false }). |
 
-**Retour :** <span class="badge badge-type">Promise<{bot: import('../Class/Bot.js'), user: import('discord.js').User}></span> - du bot et de l'utilisateur authentifié.
+**Retour :** <span class="badge badge-type">Promise&lt;{bot: import('../Class/Bot.js'), user: import('discord.js').User}&gt;</span> - du bot et de l'utilisateur authentifié.
 
 ### Méthode `getBotIdFromRequest(req)`
 
@@ -190,7 +190,7 @@ Hashe une chaîne de caractères en utilisant le sel de l'instance.
 | :-------- | :--- | :---------- |
 | `password` | <span class="badge badge-type">string</span> | - La chaîne à hasher. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - hash résultant.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - hash résultant.
 
 ### Méthode `getDiscordAuthUrl()`
 
@@ -208,7 +208,7 @@ Retourne les sockets connectés pour un utilisateur donné.
 | :-------- | :--- | :---------- |
 | `userId` | <span class="badge badge-type">string</span> | - L'ID de l'utilisateur Discord. |
 
-**Retour :** <span class="badge badge-type">Set<string>|null</span> - Set d'IDs de sockets ou null si aucun.
+**Retour :** <span class="badge badge-type">Set&lt;string&gt;|null</span> - Set d'IDs de sockets ou null si aucun.
 
 ### Méthode `getDataFromUrl(object, url)`
 
@@ -257,7 +257,7 @@ Enregistre une nouvelle route dans le routeur Express. Ajoute un wrapper pour g�
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `path` | <span class="badge badge-type">string</span> | - Le chemin de la route (ex: '/commands'). |
-| `method` | <span class="badge badge-type">'get'|'post'|'put'|'delete'</span> | - La méthode HTTP. |
+| `method` | <span class="badge badge-type">'get'\|'post'\|'put'\|'delete'</span> | - La méthode HTTP. |
 | `handler` | <span class="badge badge-type">function</span> | - La fonction de gestion de la route. |
 | `options` | <span class="badge badge-type">object</span> | - Options de la route (ex: { auth: false }). |
 
@@ -316,7 +316,7 @@ Log une erreur.
 
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
-| `content` | <span class="badge badge-type">string|Error</span> | - L'erreur à logger. |
+| `content` | <span class="badge badge-type">string\|Error</span> | - L'erreur à logger. |
 | `reference` | <span class="badge badge-type">string</span> | - La référence du log. |
 
 ### Méthode `warn(content, reference = '')`

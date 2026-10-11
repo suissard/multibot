@@ -47,7 +47,7 @@ Exécute la commande de test pour d'autres commandes. Peut tester une seule comm
 | `args.nom_de_commande` | <span class="badge badge-type">string</span> | - Le nom de la commande unique à tester. |
 | `args.noms_des_commandes` | <span class="badge badge-type">string</span> | - Une chaîne contenant les noms de plusieurs commandes à tester, séparés par des espaces. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation ou d'erreur.
 
 ### Méthode `checkCommand(commandName)`
 
@@ -71,5 +71,5 @@ Lance le processus de test pour une commande spécifiée.
 | :-------- | :--- | :---------- |
 | `commandName` | <span class="badge badge-type">string</span> | - Le nom de la commande à tester. |
 
-**Retour :** <span class="badge badge-type">Promise<any></span> - résultat du processus de test de la commande.
+**Retour :** <span class="badge badge-type">Promise&lt;any&gt;</span> - résultat du processus de test de la commande.
 

@@ -46,7 +46,7 @@ Génère une URL personnalisée pour le formulaire de déclaration d'incident.
 | `olympeUserInfo` | <span class="badge badge-type">object</span> | - Les informations de l'utilisateur provenant de l'API Olympe. |
 | `olympeUserInfo.nationality` | <span class="badge badge-type">string</span> | - La nationalité de l'utilisateur. |
 | `olympeUserInfo.battlenetBtag` | <span class="badge badge-type">string</span> | - Le BattleTag de l'utilisateur. |
-| `olympeUserInfo.teams` | <span class="badge badge-type">Array<{name: string}></span> | - Les équipes de l'utilisateur. |
+| `olympeUserInfo.teams` | <span class="badge badge-type">Array&lt;{name: string}&gt;</span> | - Les équipes de l'utilisateur. |
 | `discordUser` | <span class="badge badge-type">import('discord.js').User</span> | - L'objet utilisateur Discord. |
 
 **Retour :** <span class="badge badge-type">string</span> - personnalisée et pré-remplie du formulaire Google.
@@ -62,5 +62,5 @@ Exécute la commande pour envoyer un formulaire de déclaration d'incident. Réc
 | `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
 | `args.user` | <span class="badge badge-type">string</span> | - L'ID de l'utilisateur à qui envoyer le formulaire. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation.
 

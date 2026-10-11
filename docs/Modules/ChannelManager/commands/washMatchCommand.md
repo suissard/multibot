@@ -40,5 +40,5 @@ Exécute la commande pour déclencher manuellement le nettoyage des anciens salo
 | :-------- | :--- | :---------- |
 | `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande (non utilisés ici). |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message indiquant que le processus est en cours.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message indiquant que le processus est en cours.
 

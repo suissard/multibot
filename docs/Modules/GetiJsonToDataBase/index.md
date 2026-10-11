@@ -15,7 +15,7 @@ Lit les fichiers d'un répertoire et les insère dans une base de données.
 | :-------- | :--- | :---------- |
 | `dbname` | <span class="badge badge-type">string</span> | - Le nom de la collection dans la base de données. |
 | `dirPath` | <span class="badge badge-type">string</span> | - Le chemin vers le répertoire contenant les données. |
-| `exclusions` | <span class="badge badge-type">Array<string></span> | - Une liste de fichiers à exclure. |
+| `exclusions` | <span class="badge badge-type">Array&lt;string&gt;</span> | - Une liste de fichiers à exclure. |
 | `databasify` | <span class="badge badge-type">function</span> | - Une fonction pour transformer les données avant l'insertion. |
 
 Transforme un objet de données "Geti" brut en un format adapté à la base de données. Renomme `key` en `_id` et supprime plusieurs propriétés inutiles.

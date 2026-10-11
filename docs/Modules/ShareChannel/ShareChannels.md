@@ -18,11 +18,11 @@ Représente un groupe de salons partagés. Gère la configuration (jeu, catégor
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `data` | <span class="badge badge-type">object</span> | - Les données de configuration pour le groupe de salons partagés. |
-| `data.id` | <span class="badge badge-type">string</span> | - L'identifiant unique du groupe (ex: "overwatch-scrim"). |
+| `data.id` | <span class="badge badge-type">string</span> | - L'identifiant unique du groupe (ex: &quot;overwatch-scrim&quot;). |
 | `data.game` | <span class="badge badge-type">string</span> | - Le jeu associé. |
 | `data.categorie` | <span class="badge badge-type">string</span> | - La catégorie du partage. |
 | `data.pattern` | <span class="badge badge-type">string</span> | - L'expression régulière pour valider les messages à partager. |
-| `data.channels` | <span class="badge badge-type">Array<string></span> | - Une liste d'IDs de salons à inclure initialement. |
+| `data.channels` | <span class="badge badge-type">Array&lt;string&gt;</span> | - Une liste d'IDs de salons à inclure initialement. |
 
 ### Méthode `addMessage(message)`
 
@@ -64,7 +64,7 @@ Supprimer une message de la collection
 
 Initialise la collection de messages partagés. (Note: Cette fonction semble boguée ou inachevée, elle itère sur `this._messages` qui est déjà une Map et tente de la reconstruire).
 
-**Retour :** <span class="badge badge-type">Promise<Map<string, ShareMessage>></span> - collection de messages initialisée.
+**Retour :** <span class="badge badge-type">Promise&lt;Map&lt;string, ShareMessage&gt;&gt;</span> - collection de messages initialisée.
 
 ### Méthode `addChannel(channel, game, categorie)`
 
@@ -106,9 +106,9 @@ Initialise la liste des salons pour ce groupe de partage.
 
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
-| `channels` | <span class="badge badge-type">Array<string></span> | - Une liste d'IDs de salons. |
+| `channels` | <span class="badge badge-type">Array&lt;string&gt;</span> | - Une liste d'IDs de salons. |
 
-**Retour :** <span class="badge badge-type">Promise<Array<import('discord.js').TextChannel>></span> - liste des objets Channel initialisés.
+**Retour :** <span class="badge badge-type">Promise&lt;Array&lt;import('discord.js').TextChannel&gt;&gt;</span> - liste des objets Channel initialisés.
 
 ### Méthode `handleMessage(message)`
 
@@ -148,7 +148,7 @@ Verification des message précedent de l'auteur et qu'il respecte les usages du 
 | :-------- | :--- | :---------- |
 | `message` | <span class="badge badge-type">Discord.Message</span> |  |
 
-**Retour :** <span class="badge badge-type">Boolean</span> - si l'utilisateur respect les usage ou "false" si ce n'est pas le cas
+**Retour :** <span class="badge badge-type">Boolean</span> - si l'utilisateur respect les usage ou &quot;false&quot; si ce n'est pas le cas
 
 ### Méthode `sendEmbed(message)`
 

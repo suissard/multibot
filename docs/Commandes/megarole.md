@@ -58,7 +58,7 @@ Exécute la commande "megarole". Prépare la liste des rôles et des utilisateur
 | `args.role` | <span class="badge badge-type">string</span> | - L'ID d'un rôle unique à traiter. |
 | `args.multipleroles` | <span class="badge badge-type">string</span> | - Une chaîne contenant les mentions de plusieurs rôles. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation ou d'erreur.
 
 ### Méthode `getRoleFromMultipleRoles(string)`
 
@@ -70,7 +70,7 @@ Extrait les ID de rôle à partir d'une chaîne de mentions de rôles.
 | :-------- | :--- | :---------- |
 | `string` | <span class="badge badge-type">string</span> | - La chaîne contenant les mentions de rôles. |
 
-**Retour :** <span class="badge badge-type">Promise<Array<string>></span> - tableau d'IDs de rôles.
+**Retour :** <span class="badge badge-type">Promise&lt;Array&lt;string&gt;&gt;</span> - tableau d'IDs de rôles.
 
 ### Méthode `removeRolesToUser(user, role, args)`
 
@@ -80,9 +80,9 @@ Ajoute ou supprime en masse une liste de rôles pour une liste d'utilisateurs. L
 
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
-| `user` | <span class="badge badge-type">import('discord.js').Collection<string, import('discord.js').GuildMember></span> | - La collection des membres du serveur. |
-| `role` | <span class="badge badge-type">Array<string></span> | - Un tableau d'IDs de rôles à ajouter ou supprimer. |
+| `user` | <span class="badge badge-type">import('discord.js').Collection&lt;string, import('discord.js').GuildMember&gt;</span> | - La collection des membres du serveur. |
+| `role` | <span class="badge badge-type">Array&lt;string&gt;</span> | - Un tableau d'IDs de rôles à ajouter ou supprimer. |
 | `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande, principalement `args.del` pour déterminer l'action. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de résumé de l'opération.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de résumé de l'opération.
 

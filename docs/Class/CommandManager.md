@@ -51,7 +51,7 @@ Récupère une commande par son ID.
 
 Récupère toutes les commandes enregistrées.
 
-**Retour :** <span class="badge badge-type">Map<string, Command></span> - map de toutes les commandes.
+**Retour :** <span class="badge badge-type">Map&lt;string, Command&gt;</span> - map de toutes les commandes.
 
 ### Méthode `has(id)`
 

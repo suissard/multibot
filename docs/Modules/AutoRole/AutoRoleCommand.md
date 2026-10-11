@@ -52,5 +52,5 @@ Exécute la commande d'attribution manuelle des rôles. Peut être déclenchée 
 | `args.user` | <span class="badge badge-type">string</span> | - L'ID de l'utilisateur Discord à mettre à jour. |
 | `args.teamid` | <span class="badge badge-type">string</span> | - L'ID de l'équipe Olympe à mettre à jour. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message indiquant que le processus est en cours.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message indiquant que le processus est en cours.
 

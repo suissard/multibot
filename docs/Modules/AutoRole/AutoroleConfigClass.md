@@ -86,7 +86,7 @@ Creates an instance of Param.
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `paramData` | <span class="badge badge-type">object</span> | - The raw parameter data from JSON. |
-| `paramData.guildIds` | <span class="badge badge-type">Array<{id: string, challengeID: string}></span> | - Guild ID and challenge ID pairs. |
+| `paramData.guildIds` | <span class="badge badge-type">Array&lt;{id: string, challengeID: string}&gt;</span> | - Guild ID and challenge ID pairs. |
 | `paramData.auth` | <span class="badge badge-type">{token: string, validity: number}</span> | - Authentication data. |
 | `paramData.cronSchedule` | <span class="badge badge-type">string</span> | - Cron schedule. |
 | `paramData.domain` | <span class="badge badge-type">string</span> | - Domain. |
@@ -211,8 +211,8 @@ Creates an instance of Tags.
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `tagsData` | <span class="badge badge-type">object</span> | - The raw tags data from JSON. |
-| `tagsData.gameRoles` | <span class="badge badge-type">Array<[string[], {name: string, id: ?string}]></span> | - Game roles mappings. |
-| `tagsData.divisions` | <span class="badge badge-type">Array<{name: string, id: ?string}></span> | - Divisions. |
+| `tagsData.gameRoles` | <span class="badge badge-type">Array&lt;[string[], {name: string, id: ?string}]&gt;</span> | - Game roles mappings. |
+| `tagsData.divisions` | <span class="badge badge-type">Array&lt;{name: string, id: ?string}&gt;</span> | - Divisions. |
 
 ## Classe : `Divisions`
 
@@ -231,8 +231,8 @@ Creates an instance of Tags.
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `tagsData` | <span class="badge badge-type">object</span> | - The raw tags data from JSON. |
-| `tagsData.gameRoles` | <span class="badge badge-type">Array<[string[], {name: string, id: ?string}]></span> | - Game roles mappings. |
-| `tagsData.divisions` | <span class="badge badge-type">Array<{name: string, id: ?string}></span> | - Divisions. |
+| `tagsData.gameRoles` | <span class="badge badge-type">Array&lt;[string[], {name: string, id: ?string}]&gt;</span> | - Game roles mappings. |
+| `tagsData.divisions` | <span class="badge badge-type">Array&lt;{name: string, id: ?string}&gt;</span> | - Divisions. |
 
 ## Classe : `GuildDetail`
 
@@ -240,7 +240,7 @@ Represents details for a specific guild.
 
 #### Propriété `specialRoles`
 
-<span class="badge badge-type">Record<string, SpecialRoleDetail></span> A record of special roles.
+<span class="badge badge-type">Record&lt;string, SpecialRoleDetail&gt;</span> A record of special roles.
 
 #### Propriété `roles`
 
@@ -259,8 +259,8 @@ Creates an instance of GuildDetail.
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `guildData` | <span class="badge badge-type">object</span> | - The raw guild data from JSON. |
-| `guildData.specialRoles` | <span class="badge badge-type">Record<string, {name: string, id: string, rename: boolean, priorityRename: boolean}></span> | - Special roles. |
-| `guildData.roles` | <span class="badge badge-type">Array<[string[], {name: string, id: ?string}]></span> | - Role mappings. |
+| `guildData.specialRoles` | <span class="badge badge-type">Record&lt;string, {name: string, id: string, rename: boolean, priorityRename: boolean}&gt;</span> | - Special roles. |
+| `guildData.roles` | <span class="badge badge-type">Array&lt;[string[], {name: string, id: ?string}]&gt;</span> | - Role mappings. |
 | `guildData.tags` | <span class="badge badge-type">object</span> | - Tags data. |
 
 ## Classe : `CompetitionRoles`
@@ -269,19 +269,19 @@ Represents roles for a specific competition.
 
 #### Propriété `club`
 
-<span class="badge badge-type">Record<string, string></span> Role IDs for 'club' category, keyed by division name or 'ALL'.
+<span class="badge badge-type">Record&lt;string, string&gt;</span> Role IDs for 'club' category, keyed by division name or 'ALL'.
 
 #### Propriété `coach`
 
-<span class="badge badge-type">Record<string, string></span> Role IDs for 'coach' category, keyed by division name.
+<span class="badge badge-type">Record&lt;string, string&gt;</span> Role IDs for 'coach' category, keyed by division name.
 
 #### Propriété `player`
 
-<span class="badge badge-type">Record<string, string></span> Role IDs for 'player' category, keyed by division name.
+<span class="badge badge-type">Record&lt;string, string&gt;</span> Role IDs for 'player' category, keyed by division name.
 
 #### Propriété `manager`
 
-<span class="badge badge-type">Record<string, string></span> Role IDs for 'manager' category, keyed by division name.
+<span class="badge badge-type">Record&lt;string, string&gt;</span> Role IDs for 'manager' category, keyed by division name.
 
 ### Constructeur `new CompetitionRoles({ club, coach, player, manager })`
 
@@ -292,10 +292,10 @@ Creates an instance of CompetitionRoles.
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `competitionData` | <span class="badge badge-type">object</span> | - The raw competition roles data from JSON. |
-| `competitionData.club` | <span class="badge badge-type">Record<string, string></span> | - Club roles. |
-| `competitionData.coach` | <span class="badge badge-type">Record<string, string></span> | - Coach roles. |
-| `competitionData.player` | <span class="badge badge-type">Record<string, string></span> | - Player roles. |
-| `competitionData.manager` | <span class="badge badge-type">Record<string, string></span> | - Manager roles. |
+| `competitionData.club` | <span class="badge badge-type">Record&lt;string, string&gt;</span> | - Club roles. |
+| `competitionData.coach` | <span class="badge badge-type">Record&lt;string, string&gt;</span> | - Coach roles. |
+| `competitionData.player` | <span class="badge badge-type">Record&lt;string, string&gt;</span> | - Player roles. |
+| `competitionData.manager` | <span class="badge badge-type">Record&lt;string, string&gt;</span> | - Manager roles. |
 
 ## Classe : `RoleIds`
 
@@ -311,7 +311,7 @@ Represents the structure for role IDs, including general and competition-specifi
 
 #### Propriété `competitions`
 
-<span class="badge badge-type">Record<string, CompetitionRoles></span> A record of competition-specific roles, keyed by competition ID.
+<span class="badge badge-type">Record&lt;string, CompetitionRoles&gt;</span> A record of competition-specific roles, keyed by competition ID.
 
 ### Constructeur `new RoleIds({ ALL, captain, competitions })`
 
@@ -324,7 +324,7 @@ Creates an instance of RoleIds.
 | `roleIdsData` | <span class="badge badge-type">object</span> | - The raw role IDs data from JSON. |
 | `roleIdsData.ALL` | <span class="badge badge-type">string</span> | - 'ALL' role ID. |
 | `roleIdsData.captain` | <span class="badge badge-type">string</span> | - 'captain' role ID. |
-| `roleIdsData.competitions` | <span class="badge badge-type">Record<string, object></span> | - Competition roles data. |
+| `roleIdsData.competitions` | <span class="badge badge-type">Record&lt;string, object&gt;</span> | - Competition roles data. |
 
 ## Classe : `OlympeAuth`
 
@@ -348,7 +348,7 @@ Main class for the AutoRole configuration. 🤖
 
 #### Propriété `guilds`
 
-<span class="badge badge-type">Record<string, GuildDetail></span> A record of guild details, keyed by guild ID.
+<span class="badge badge-type">Record&lt;string, GuildDetail&gt;</span> A record of guild details, keyed by guild ID.
 
 #### Propriété `orgaRoleIds`
 
@@ -385,8 +385,8 @@ Creates an instance of AutoRoleConfig.
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `jsonData` | <span class="badge badge-type">object</span> | - The raw JSON data for AutoRole configuration. |
-| `jsonData.params` | <span class="badge badge-type">Array<object></span> | - Parameters data. |
-| `jsonData.guilds` | <span class="badge badge-type">Record<string, object></span> | - Guilds data. |
+| `jsonData.params` | <span class="badge badge-type">Array&lt;object&gt;</span> | - Parameters data. |
+| `jsonData.guilds` | <span class="badge badge-type">Record&lt;string, object&gt;</span> | - Guilds data. |
 | `jsonData.orgaRoleIds` | <span class="badge badge-type">string[]</span> | - Organization role IDs. |
 | `jsonData.roleIds` | <span class="badge badge-type">object</span> | - Role IDs data. |
 | `jsonData.olympeAuth` | <span class="badge badge-type">{value: string}</span> | - Olympe authentication data. |
@@ -399,7 +399,7 @@ Creates an instance of AutoRoleConfig.
 
 Retrieves all unique role identifiers (ID or name) from the configuration. C'est comme une chasse au trésor pour les identifiants de rôles (ID ou nom) ! 🗺️💎🏷️
 
-**Retour :** <span class="badge badge-type">Array<({id: string} | {name: string})></span> - array of unique role identifier objects.
+**Retour :** <span class="badge badge-type">Array&lt;({id: string} | {name: string})&gt;</span> - array of unique role identifier objects.
 
 ### Méthode `deleteGuildParam(guildId)`
 
@@ -415,7 +415,7 @@ Supprime les paramètres de configuration liés à un ID de guilde spécifique.
 
 Vérifie l'accessibilité de toutes les guildes configurées. Si une guilde n'est pas accessible, elle est retirée de la configuration.
 
-**Retour :** <span class="badge badge-type">Array<import('discord.js').Guild></span> - liste des objets Guild accessibles.
+**Retour :** <span class="badge badge-type">Array&lt;import('discord.js').Guild&gt;</span> - liste des objets Guild accessibles.
 
 ### Méthode `fetchOrCreateRolesFromIdentifiersForAllGuild()`
 
@@ -429,10 +429,10 @@ Fetches or creates Discord roles based on the provided identifiers. C'est notre 
 
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
-| `identifiers` | <span class="badge badge-type">Array<({id: string} | {name: string})></span> | - An array of role identifiers from getAllRoleIdentifiers(). |
+| `identifiers` | <span class="badge badge-type">Array&lt;({id: string} \| {name: string})&gt;</span> | - An array of role identifiers from getAllRoleIdentifiers(). |
 | `guild` | <span class="badge badge-type">import('discord.js').Guild</span> | - The discord.js Guild object. |
 | `options` | <span class="badge badge-type">object</span> | - Options for role creation. |
 | `options.creationReason` | <span class="badge badge-type">string</span> | - Reason for role creation. |
 
-**Retour :** <span class="badge badge-type">Promise<Array<import('discord.js').Role|null>></span> - promise that resolves to an array of Role objects or null if a role couldn't be fetched/created.
+**Retour :** <span class="badge badge-type">Promise&lt;Array&lt;import('discord.js').Role|null&gt;&gt;</span> - promise that resolves to an array of Role objects or null if a role couldn't be fetched/created.
 

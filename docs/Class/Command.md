@@ -45,11 +45,11 @@ layout: default
 
 #### Propriété `userPermissions`
 
-<span class="badge badge-type">Array<String></span> Permissions nécessaires pour que l'utilisateur puisse exécuter la commande. Tableau des permissions Discord requises.
+<span class="badge badge-type">Array&lt;String&gt;</span> Permissions nécessaires pour que l'utilisateur puisse exécuter la commande. Tableau des permissions Discord requises.
 
 #### Propriété `botPermissions`
 
-<span class="badge badge-type">Array<String></span> Permissions nécessaires pour que le bot puisse exécuter la commande. Tableau des permissions Discord requises.
+<span class="badge badge-type">Array&lt;String&gt;</span> Permissions nécessaires pour que le bot puisse exécuter la commande. Tableau des permissions Discord requises.
 
 #### Propriété `description`
 
@@ -65,11 +65,11 @@ layout: default
 
 #### Propriété `test`
 
-<span class="badge badge-type">Array<Object></span> Quel element pour tester cette commande via la fonction "testProcess"
+<span class="badge badge-type">Array&lt;Object&gt;</span> Quel element pour tester cette commande via la fonction "testProcess"
 
 #### Propriété `arguments`
 
-<span class="badge badge-type">Array<Object></span> Liste des arguments pour exécuter la commande.
+<span class="badge badge-type">Array&lt;Object&gt;</span> Liste des arguments pour exécuter la commande.
 
 #### Propriété `category`
 
@@ -195,7 +195,7 @@ Envoie un feedback à l'utilisateur (Discord ou Web)
 
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
-| `data` | <span class="badge badge-type">string|object</span> | - Le contenu du feedback |
+| `data` | <span class="badge badge-type">string\|object</span> | - Le contenu du feedback |
 
 ### Méthode `handleError(error, noSend = false)`
 
@@ -259,7 +259,7 @@ Enrichi une slash command avec les options de la commande
 | `option.name:` | <span class="badge badge-type">String</span> | Nom de l'option |
 | `option.description:` | <span class="badge badge-type">String</span> | Description de l'option |
 | `option.required:` | <span class="badge badge-type">Boolean</span> | Si l'option est requise ou non |
-| `option.choices:` | <span class="badge badge-type">Array</span> | Choix possible pour l'option => {name: "", value: ""} |
+| `option.choices:` | <span class="badge badge-type">Array</span> | Choix possible pour l'option =&gt; {name: &quot;&quot;, value: &quot;&quot;} |
 | `option.autocomplete:` | <span class="badge badge-type">Boolean</span> | Si l'option peut être complétée automatiquement |
 | `option.channelTypes:` | <span class="badge badge-type">Array</span> | Types de channel autorisés pour l'option * GUILD_TEXT - a guild text channel * DM - a DM channel * GUILD_VOICE - a guild voice channel * GROUP_DM - a group DM channel * GUILD_CATEGORY - a guild category channel * GUILD_NEWS - a guild news channel * GUILD_STORE - a guild store channel * Store channels are deprecated and will be removed from Discord in March 2022. See Self-serve Game Selling Deprecation  for more information. * GUILD_NEWS_THREAD - a guild news channel's public thread channel * GUILD_PUBLIC_THREAD - a guild text channel's public thread channel * GUILD_PRIVATE_THREAD - a guild text channel's private thread channel * GUILD_STAGE_VOICE - a guild stage voice channel * UNKNOWN - a generic channel of unknown type, could be Channel or GuildChannel |
 | `option.minValue:` | <span class="badge badge-type">Number</span> | Valeur minimum autorisée pour l'option |
@@ -282,5 +282,5 @@ Ajout les données d'une option
 
 Permet l'enregistrement d'une commande slash (création ou mise à jour). Cette méthode vérifie si la commande existe déjà. Si c'est le cas, elle la met à jour. Sinon, elle la crée.
 
-**Retour :** <span class="badge badge-type">Promise<Discord.ApplicationCommand></span> - commande créée ou mise à jour.
+**Retour :** <span class="badge badge-type">Promise&lt;Discord.ApplicationCommand&gt;</span> - commande créée ou mise à jour.
 

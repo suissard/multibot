@@ -36,7 +36,7 @@ Gère les erreurs survenant dans l'événement.
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
 | `err` | <span class="badge badge-type">Error</span> | - L'erreur qui s'est produite. |
-| `target` | <span class="badge badge-type">import('discord.js').User | import('discord.js').Channel</span> | - La cible à qui envoyer un message d'erreur (optionnel). |
+| `target` | <span class="badge badge-type">import('discord.js').User \| import('discord.js').Channel</span> | - La cible à qui envoyer un message d'erreur (optionnel). |
 
 ### Méthode `createListener()`
 

@@ -64,5 +64,5 @@ Exécute la commande pour mettre à jour les informations d'une équipe. Permet 
 | `args.newbtag` | <span class="badge badge-type">string</span> | - Le nouveau BattleTag du capitaine. |
 | `args.newrank` | <span class="badge badge-type">number</span> | - Le nouveau classement (elo) de l'équipe. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation ou d'erreur.
 

@@ -103,5 +103,5 @@ Récupère un message à réaction par son ID.
 
 Récupère tous les messages à réaction gérés.
 
-**Retour :** <span class="badge badge-type">Map<string, EmoteMessage></span> - map de tous les messages à réaction.
+**Retour :** <span class="badge badge-type">Map&lt;string, EmoteMessage&gt;</span> - map de tous les messages à réaction.
 

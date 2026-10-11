@@ -49,5 +49,5 @@ Exécute la commande pour enlever le statut muet d'un utilisateur. Supprime le r
 | `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
 | `args.user` | <span class="badge badge-type">string</span> | - L'ID de l'utilisateur à démuter. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou un message indiquant que l'utilisateur n'était pas muet.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation ou un message indiquant que l'utilisateur n'était pas muet.
 

@@ -54,5 +54,5 @@ Exécute la commande pour rendre un utilisateur muet sur le serveur. Applique un
 | `args.user` | <span class="badge badge-type">string</span> | - L'ID de l'utilisateur à rendre muet. |
 | `args.raison` | <span class="badge badge-type">string</span> | - La raison pour laquelle l'utilisateur est rendu muet. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou un message indiquant que l'utilisateur est déjà muet.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation ou un message indiquant que l'utilisateur est déjà muet.
 

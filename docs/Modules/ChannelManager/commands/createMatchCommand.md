@@ -48,5 +48,5 @@ Exécute la commande pour créer manuellement les salons pour un match spécifiq
 | `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
 | `args.matchid` | <span class="badge badge-type">string</span> | - L'ID du match pour lequel créer les salons. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message indiquant que le processus est en cours ou qu'une erreur s'est produite.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message indiquant que le processus est en cours ou qu'une erreur s'est produite.
 

@@ -56,5 +56,5 @@ Exécute la commande pour envoyer un formulaire de récompense de cast. Cible l'
 | `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
 | `args.user` | <span class="badge badge-type">string</span> | - L'ID de l'utilisateur à qui envoyer le formulaire. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation.
 

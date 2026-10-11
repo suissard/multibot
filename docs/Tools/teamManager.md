@@ -28,7 +28,7 @@ Sauvegarde ou met à jour les données d'une équipe dans la base de données St
 | `elo` | <span class="badge badge-type">string</span> | - Le classement de l'équipe. |
 | `battleTag` | <span class="badge badge-type">string</span> | - Le BattleTag du capitaine. |
 
-**Retour :** <span class="badge badge-type">Promise<import('suissard-strapi-client').StrapiObject></span> - équipe sauvegardé ou mis à jour.
+**Retour :** <span class="badge badge-type">Promise&lt;import('suissard-strapi-client').StrapiObject&gt;</span> - équipe sauvegardé ou mis à jour.
 
 ### Méthode `getTeamByName(name)`
 
@@ -53,7 +53,7 @@ Crée le rôle spécifique pour une équipe, s'il n'existe pas déjà.
 | `teamname` | <span class="badge badge-type">string</span> | - Le nom de l'équipe. |
 | `guild` | <span class="badge badge-type">import('discord.js').Guild</span> | - La guilde. |
 
-**Retour :** <span class="badge badge-type">Promise<import('discord.js').Role></span> - rôle de l'équipe.
+**Retour :** <span class="badge badge-type">Promise&lt;import('discord.js').Role&gt;</span> - rôle de l'équipe.
 
 ### Méthode `createCatEvent(guild)`
 
@@ -65,7 +65,7 @@ Crée la catégorie de salons pour les événements.
 | :-------- | :--- | :---------- |
 | `guild` | <span class="badge badge-type">import('discord.js').Guild</span> | - La guilde. |
 
-**Retour :** <span class="badge badge-type">Promise<import('discord.js').CategoryChannel></span> - catégorie créée.
+**Retour :** <span class="badge badge-type">Promise&lt;import('discord.js').CategoryChannel&gt;</span> - catégorie créée.
 
 ### Méthode `createChannelTeam(teamname, guild)`
 
@@ -78,7 +78,7 @@ Crée le salon vocal pour une équipe, s'il n'existe pas déjà. Configure les p
 | `teamname` | <span class="badge badge-type">string</span> | - Le nom de l'équipe. |
 | `guild` | <span class="badge badge-type">import('discord.js').Guild</span> | - La guilde. |
 
-**Retour :** <span class="badge badge-type">Promise<import('discord.js').VoiceChannel></span> - salon vocal de l'équipe.
+**Retour :** <span class="badge badge-type">Promise&lt;import('discord.js').VoiceChannel&gt;</span> - salon vocal de l'équipe.
 
 ### Méthode `addRoleTeam(member, rolecap, roleteam)`
 
@@ -92,7 +92,7 @@ Ajoute les rôles d'équipe et de capitaine à un membre.
 | `rolecap` | <span class="badge badge-type">import('discord.js').Role</span> | - Le rôle de capitaine. |
 | `roleteam` | <span class="badge badge-type">import('discord.js').Role</span> | - Le rôle de l'équipe. |
 
-**Retour :** <span class="badge badge-type">Promise<import('discord.js').GuildMember></span> - membre mis à jour.
+**Retour :** <span class="badge badge-type">Promise&lt;import('discord.js').GuildMember&gt;</span> - membre mis à jour.
 
 ### Méthode `checkRole(member, rolecap, roleteam)`
 
@@ -106,7 +106,7 @@ Vérifie si un membre a les rôles d'équipe et de capitaine, et les ajoute si n
 | `rolecap` | <span class="badge badge-type">import('discord.js').Role</span> | - Le rôle de capitaine. |
 | `roleteam` | <span class="badge badge-type">import('discord.js').Role</span> | - Le rôle de l'équipe. |
 
-**Retour :** <span class="badge badge-type">Promise<import('discord.js').GuildMember></span> - membre vérifié.
+**Retour :** <span class="badge badge-type">Promise&lt;import('discord.js').GuildMember&gt;</span> - membre vérifié.
 
 ### Méthode `updateRoleTeam(role, newTeamName)`
 
@@ -119,7 +119,7 @@ Met à jour le nom d'un rôle d'équipe.
 | `role` | <span class="badge badge-type">import('discord.js').Role</span> | - Le rôle à modifier. |
 | `newTeamName` | <span class="badge badge-type">string</span> | - Le nouveau nom de l'équipe. |
 
-**Retour :** <span class="badge badge-type">Promise<import('discord.js').Role></span> - rôle mis à jour.
+**Retour :** <span class="badge badge-type">Promise&lt;import('discord.js').Role&gt;</span> - rôle mis à jour.
 
 ### Méthode `updateChannelTeam(channel, newTeamName)`
 
@@ -132,7 +132,7 @@ Met à jour le nom d'un salon d'équipe.
 | `channel` | <span class="badge badge-type">import('discord.js').VoiceChannel</span> | - Le salon à modifier. |
 | `newTeamName` | <span class="badge badge-type">string</span> | - Le nouveau nom de l'équipe. |
 
-**Retour :** <span class="badge badge-type">Promise<import('discord.js').VoiceChannel></span> - salon mis à jour.
+**Retour :** <span class="badge badge-type">Promise&lt;import('discord.js').VoiceChannel&gt;</span> - salon mis à jour.
 
 ### Méthode `updateTeamCap(cap, newCap, capRole, teamRole)`
 
@@ -147,7 +147,7 @@ Transfère les rôles de capitaine et d'équipe d'un ancien capitaine à un nouv
 | `capRole` | <span class="badge badge-type">import('discord.js').Role</span> | - Le rôle de capitaine. |
 | `teamRole` | <span class="badge badge-type">import('discord.js').Role</span> | - Le rôle de l'équipe. |
 
-**Retour :** <span class="badge badge-type">Promise<import('discord.js').GuildMember></span> - nouveau capitaine mis à jour.
+**Retour :** <span class="badge badge-type">Promise&lt;import('discord.js').GuildMember&gt;</span> - nouveau capitaine mis à jour.
 
 ### Méthode `updateCapBtag(teamInfo, newBtag)`
 

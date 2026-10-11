@@ -64,5 +64,5 @@ Exécute la commande pour envoyer un formulaire de statistiques de caster. Récu
 | `args.user` | <span class="badge badge-type">string</span> | - L'ID de l'utilisateur à qui envoyer le formulaire. |
 | `args.castnbr` | <span class="badge badge-type">string</span> | - Le numéro du caster (1 ou 2). |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation ou d'erreur.
 

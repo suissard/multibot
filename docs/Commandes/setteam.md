@@ -72,7 +72,7 @@ Récupère ou crée les rôles nécessaires pour l'équipe. Crée un rôle spéc
 | :-------- | :--- | :---------- |
 | `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande, principalement `args.teamname`. |
 
-**Retour :** <span class="badge badge-type">Promise<{roleteam: import('discord.js').Role, rolecap: import('discord.js').Role}></span> - objet contenant le rôle de l'équipe et le rôle de capitaine.
+**Retour :** <span class="badge badge-type">Promise&lt;{roleteam: import('discord.js').Role, rolecap: import('discord.js').Role}&gt;</span> - objet contenant le rôle de l'équipe et le rôle de capitaine.
 
 ### Méthode `createRoleAnChannel(args, roleteam, rolecap)`
 

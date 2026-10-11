@@ -45,5 +45,5 @@ Executes the command to manually (re)create one or all slash commands. Searches 
 | `args` | <span class="badge badge-type">object</span> | - The arguments for the command. |
 | `args.command_name` | <span class="badge badge-type">string</span> | - The name of the slash command to create. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - confirmation or error message.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - confirmation or error message.
 

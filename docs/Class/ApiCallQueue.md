@@ -30,7 +30,7 @@ Ajoute un appel à la file d'attente.
 | :-------- | :--- | :---------- |
 | `callFn` | <span class="badge badge-type">Function</span> | - Une fonction qui retourne une Promesse (l'appel API). |
 
-**Retour :** <span class="badge badge-type">Promise<any></span> - promesse qui se résout avec le résultat de l'appel.
+**Retour :** <span class="badge badge-type">Promise&lt;any&gt;</span> - promesse qui se résout avec le résultat de l'appel.
 
 ### Méthode `process()`
 

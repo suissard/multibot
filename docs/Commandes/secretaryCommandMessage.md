@@ -51,5 +51,5 @@ Exécute la commande pour répondre à un utilisateur via un salon de secrétari
 | `args.interaction` | <span class="badge badge-type">import('discord.js').CommandInteraction</span> | - L'objet d'interaction original, pour récupérer les pièces jointes. |
 | `args.texte` | <span class="badge badge-type">string</span> | - Le texte de la réponse. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation ou d'erreur.
 

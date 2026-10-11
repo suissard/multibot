@@ -38,7 +38,7 @@ layout: default
 
 Construit et retourne une liste de noms de commandes à afficher. Filtre les commandes qui ne sont pas censées être affichées dans l'aide, sauf pour les développeurs.
 
-**Retour :** <span class="badge badge-type">Array<string></span> - tableau trié des noms de commandes.
+**Retour :** <span class="badge badge-type">Array&lt;string&gt;</span> - tableau trié des noms de commandes.
 
 ### Méthode `helpEmbed(arrayHelp)`
 
@@ -48,9 +48,9 @@ Crée un ou plusieurs `EmbedBuilder` à partir d'une liste de noms de commandes.
 
 | Paramètre | Type | Description |
 | :-------- | :--- | :---------- |
-| `arrayHelp` | <span class="badge badge-type">Array<string></span> | - Un tableau contenant les noms des commandes à afficher. |
+| `arrayHelp` | <span class="badge badge-type">Array&lt;string&gt;</span> | - Un tableau contenant les noms des commandes à afficher. |
 
-**Retour :** <span class="badge badge-type">Array<Discord.EmbedBuilder></span> - tableau d'objets EmbedBuilder prêts à être envoyés.
+**Retour :** <span class="badge badge-type">Array&lt;Discord.EmbedBuilder&gt;</span> - tableau d'objets EmbedBuilder prêts à être envoyés.
 
 ### Méthode `detailHelpEmbed(command)`
 

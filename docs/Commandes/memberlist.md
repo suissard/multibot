@@ -50,5 +50,5 @@ Exécute la commande pour lister les membres ayant un rôle spécifique. Récup�
 | `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
 | `args.role` | <span class="badge badge-type">string</span> | - L'ID du rôle dont les membres doivent être listés. |
 
-**Retour :** <span class="badge badge-type">Promise<import('discord.js').EmbedBuilder|string></span> - embed contenant la liste des membres, ou un message si personne n'a le rôle.
+**Retour :** <span class="badge badge-type">Promise&lt;import('discord.js').EmbedBuilder|string&gt;</span> - embed contenant la liste des membres, ou un message si personne n'a le rôle.
 

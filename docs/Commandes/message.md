@@ -65,7 +65,7 @@ Exécute la commande pour envoyer un message privé à des utilisateurs. Cible l
 | `args.imageurl` | <span class="badge badge-type">string</span> | - L'URL d'une image à joindre au message. |
 | `args.role` | <span class="badge badge-type">string</span> | - L'ID d'un rôle dont les membres recevront le message. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation ou d'erreur.
 
 ### Méthode `getUsersFromUsersAndRolesString(string)`
 
@@ -77,5 +77,5 @@ Extrait et retourne une liste d'objets User à partir d'une chaîne contenant de
 | :-------- | :--- | :---------- |
 | `string` | <span class="badge badge-type">string</span> | - La chaîne de caractères à analyser. |
 
-**Retour :** <span class="badge badge-type">Promise<Array<import('discord.js').User>></span> - liste d'objets User uniques.
+**Retour :** <span class="badge badge-type">Promise&lt;Array&lt;import('discord.js').User&gt;&gt;</span> - liste d'objets User uniques.
 

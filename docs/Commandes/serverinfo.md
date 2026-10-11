@@ -43,7 +43,7 @@ Exécute la commande serverinfo. Génère et retourne un embed contenant les inf
 | :-------- | :--- | :---------- |
 | `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande (non utilisés ici). |
 
-**Retour :** <span class="badge badge-type">Promise<Discord.EmbedBuilder></span> - avec les informations du serveur.
+**Retour :** <span class="badge badge-type">Promise&lt;Discord.EmbedBuilder&gt;</span> - avec les informations du serveur.
 
 ### Méthode `serverInfoEmbed(guild)`
 
@@ -55,5 +55,5 @@ Crée et retourne un `EmbedBuilder` avec les informations d'un serveur.
 | :-------- | :--- | :---------- |
 | `guild` | <span class="badge badge-type">Discord.Guild</span> | - L'objet Guild du serveur dont il faut extraire les informations. |
 
-**Retour :** <span class="badge badge-type">Promise<Discord.EmbedBuilder></span> - EmbedBuilder contenant les informations formatées du serveur.
+**Retour :** <span class="badge badge-type">Promise&lt;Discord.EmbedBuilder&gt;</span> - EmbedBuilder contenant les informations formatées du serveur.
 

@@ -45,5 +45,5 @@ Exécute la commande pour envoyer une notification de match à partir d'un ID.
 | :-------- | :--- | :---------- |
 | `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation ou d'erreur.
 

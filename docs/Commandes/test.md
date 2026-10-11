@@ -47,5 +47,5 @@ Exécute la commande de test. Cette commande est conçue pour tester la récepti
 | :-------- | :--- | :---------- |
 | `args` | <span class="badge badge-type">object</span> | - Les arguments de la commande. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - chaîne de caractères contenant "test OK" et les arguments en format JSON.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - chaîne de caractères contenant &quot;test OK&quot; et les arguments en format JSON.
 

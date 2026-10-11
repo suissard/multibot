@@ -45,5 +45,5 @@ Exécute la commande pour faire parler le bot.
 | `args.channel` | <span class="badge badge-type">string</span> | - L'ID du channel où envoyer le message. |
 | `args.piecejointe` | <span class="badge badge-type">string</span> | - L'URL de la pièce jointe à envoyer. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation ou d'erreur.
 

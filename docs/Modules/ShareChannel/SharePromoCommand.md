@@ -57,5 +57,5 @@ Exécute la commande pour envoyer un message promotionnel à un groupe de partag
 | `args.texte` | <span class="badge badge-type">string</span> | - Le texte du message promotionnel. |
 | `args.imageurl` | <span class="badge badge-type">string</span> | - L'URL d'une image à inclure dans l'embed. |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation ou d'erreur.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation ou d'erreur.
 

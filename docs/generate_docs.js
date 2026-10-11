@@ -6,6 +6,18 @@ const rootDir = path.join(__dirname, '..');
 const outputDir = __dirname;
 const includesDir = path.join(__dirname, '_includes');
 
+// --- Échappement (correctif bug d'affichage des fonctions) ---
+// Les types JSDoc comme "Array<Object>" étaient injectés bruts dans les badges :
+// <Object> était alors interprété comme la balise HTML <object> (jamais fermée),
+// ce qui avalait tout le contenu suivant (propriétés restantes ET toutes les méthodes).
+const escapeHtml = (s) => String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+// Échappe en plus le pipe (|) : un type comme "string|object" casse les tableaux Markdown.
+const mdCell = (s) => escapeHtml(s).replace(/\|/g, '\\|').replace(/\r?\n/g, ' ');
+
 const excludedDirs = [
     '.git',
     '.github',
@@ -152,7 +164,7 @@ layout: default
                 content += `| :-------- | :--- | :---------- | :---------- |\n`;
                 args.forEach(arg => {
                     const reqBadge = arg.required ? '<span class="badge badge-required">Requis</span>' : '<span class="badge badge-optional">Optionnel</span>';
-                    content += `| \`${arg.name}\` | <span class="badge badge-type">${arg.type || 'any'}</span> | ${arg.description} | ${reqBadge} |\n`;
+                    content += `| \`${arg.name}\` | <span class="badge badge-type">${mdCell(arg.type || 'any')}</span> | ${mdCell(arg.description)} | ${reqBadge} |\n`;
                 });
                 content += `\n`;
             }
@@ -222,19 +234,19 @@ layout: default
                     content += `| Paramètre | Type | Description |\n`;
                     content += `| :-------- | :--- | :---------- |\n`;
                     params.forEach(param => {
-                        content += `| \`${param.name}\` | <span class="badge badge-type">${param.type || 'any'}</span> | ${param.description} |\n`;
+                        content += `| \`${param.name}\` | <span class="badge badge-type">${mdCell(param.type || 'any')}</span> | ${mdCell(param.description)} |\n`;
                     });
                     content += `\n`;
                 }
 
                 const returns = block.tags.find(tag => tag.tag === 'returns' || tag.tag === 'return');
                 if (returns) {
-                    content += `**Retour :** <span class="badge badge-type">${returns.type || 'void'}</span> - ${returns.description}\n\n`;
+                    content += `**Retour :** <span class="badge badge-type">${escapeHtml(returns.type || 'void')}</span> - ${escapeHtml(returns.description)}\n\n`;
                 }
 
                 const throws = block.tags.find(tag => tag.tag === 'throws' || tag.tag === 'throw');
                 if (throws) {
-                    content += `**Erreur :** <span class="badge badge-required">${throws.type || 'Error'}</span> - ${throws.description}\n\n`;
+                    content += `**Erreur :** <span class="badge badge-required">${escapeHtml(throws.type || 'Error')}</span> - ${escapeHtml(throws.description)}\n\n`;
                 }
                 return;
             }
@@ -248,7 +260,7 @@ layout: default
                 const propName = propMatch[1];
                 const propType = typeTag ? typeTag.type : (propTag ? propTag.type : 'any');
                 content += `#### Propriété \`${propName}\`\n\n`;
-                content += `<span class="badge badge-type">${propType}</span> ${block.description || ''}\n\n`;
+                content += `<span class="badge badge-type">${escapeHtml(propType)}</span> ${block.description || ''}\n\n`;
                 return;
             }
 
@@ -262,13 +274,13 @@ layout: default
                 content += `| Paramètre | Type | Description |\n`;
                 content += `| :-------- | :--- | :---------- |\n`;
                 params.forEach(param => {
-                    content += `| \`${param.name}\` | <span class="badge badge-type">${param.type || 'any'}</span> | ${param.description} |\n`;
+                    content += `| \`${param.name}\` | <span class="badge badge-type">${mdCell(param.type || 'any')}</span> | ${mdCell(param.description)} |\n`;
                 });
                 content += `\n`;
             }
             const returns = block.tags.find(tag => tag.tag === 'returns' || tag.tag === 'return');
             if (returns) {
-                content += `**Retour :** <span class="badge badge-type">${returns.type || 'void'}</span> - ${returns.description}\n\n`;
+                content += `**Retour :** <span class="badge badge-type">${escapeHtml(returns.type || 'void')}</span> - ${escapeHtml(returns.description)}\n\n`;
             }
         });
     } else if (!descriptionMatch && !narrativeMatch) {

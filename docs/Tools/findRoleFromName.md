@@ -22,7 +22,7 @@ Trouve un rôle par son nom dans une guilde. S'il n'existe pas, le crée.
 | `roleName` | <span class="badge badge-type">string</span> | - Le nom du rôle à trouver ou à créer. |
 | `guild` | <span class="badge badge-type">import('discord.js').Guild</span> | - La guilde où chercher le rôle. |
 
-**Retour :** <span class="badge badge-type">Promise<import('discord.js').Role></span> - rôle trouvé ou nouvellement créé.
+**Retour :** <span class="badge badge-type">Promise&lt;import('discord.js').Role&gt;</span> - rôle trouvé ou nouvellement créé.
 
 ### Méthode `createRole(name, guild)`
 
@@ -35,7 +35,7 @@ Crée un nouveau rôle dans une guilde.
 | `name` | <span class="badge badge-type">string</span> | - Le nom du rôle à créer. |
 | `guild` | <span class="badge badge-type">import('discord.js').Guild</span> | - La guilde où créer le rôle. |
 
-**Retour :** <span class="badge badge-type">Promise<import('discord.js').Role></span> - rôle qui a été créé.
+**Retour :** <span class="badge badge-type">Promise&lt;import('discord.js').Role&gt;</span> - rôle qui a été créé.
 
 **Erreur :** <span class="badge badge-required">Error</span> - la création du rôle échoue.
 

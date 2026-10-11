@@ -43,5 +43,5 @@ Exécute la commande pour changer l'activité du bot.
 | `args.status` | <span class="badge badge-type">string</span> | - Le texte de l'activité à afficher. |
 | `args.type` | <span class="badge badge-type">string</span> | - Le type d'activité (non implémenté actuellement). |
 
-**Retour :** <span class="badge badge-type">Promise<string></span> - message de confirmation.
+**Retour :** <span class="badge badge-type">Promise&lt;string&gt;</span> - message de confirmation.
 
