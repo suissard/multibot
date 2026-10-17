@@ -64,6 +64,7 @@ module.exports = class Bot extends Discord.Client {
 		 * Identifiant unique du bot
 		 * @type {string}
 		 */
+		this.data = data;
 		this.id = data.getID();
 
 		/**
